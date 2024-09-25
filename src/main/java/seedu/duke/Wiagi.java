@@ -6,7 +6,7 @@ import type.Spending;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Wiagi {
 
     private static final ArrayList<Income> incomes = new ArrayList<Income>();
     private static final ArrayList<Spending> spendings = new ArrayList<Spending>();
@@ -17,6 +17,27 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
+
+        boolean isCompleted = false;
+        while (!isCompleted) {
+            String userInput = in.nextLine();
+            String command = userInput.split(" ")[0].toLowerCase();
+
+            switch (command) {
+            case "bye":
+                isCompleted = true;
+                break;
+            case "add":
+                System.out.println("add");
+                break;
+            case "delete":
+                System.out.println("delete");
+                break;
+            case "list":
+                System.out.println("list");
+                break;
+            }
+        }
 
         /* Test code to print input in array list
         Income testIncome = new Income(100);
