@@ -1,4 +1,6 @@
 Hello from Wiagi
 
-What is your name?
-Hello James Gosling
+add
+delete
+list
+bye
