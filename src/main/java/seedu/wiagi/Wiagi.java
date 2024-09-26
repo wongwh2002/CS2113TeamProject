@@ -14,10 +14,7 @@ public class Wiagi {
 
     public static void main(String[] args) {
         System.out.println("Hello from Wiagi\n");
-        System.out.println("What is your name?");
-
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
 
         boolean isCompleted = false;
         String userInput = "";
@@ -33,6 +30,7 @@ public class Wiagi {
             switch (command) {
             case "bye":
                 isCompleted = true;
+                System.out.println("bye");
                 in.close();
                 break;
             case "add":
