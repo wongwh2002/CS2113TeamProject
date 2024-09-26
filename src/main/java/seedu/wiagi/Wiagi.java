@@ -1,7 +1,7 @@
 package seedu.wiagi;
 
-import type.Income;
-import type.Spending;
+import seedu.type.Spending;
+import seedu.type.Income;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
