@@ -4,6 +4,7 @@ import type.Income;
 import type.Spending;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Wiagi {
@@ -19,13 +20,20 @@ public class Wiagi {
         System.out.println("Hello " + in.nextLine());
 
         boolean isCompleted = false;
+        String userInput = "";
         while (!isCompleted) {
-            String userInput = in.nextLine();
+            try {
+                userInput = in.nextLine();
+            } catch (NoSuchElementException e) {
+                in.close();
+                break;
+            }
             String command = userInput.split(" ")[0].toLowerCase();
 
             switch (command) {
             case "bye":
                 isCompleted = true;
+                in.close();
                 break;
             case "add":
                 System.out.println("add");
@@ -40,6 +48,7 @@ public class Wiagi {
                 System.out.println("Unknown command");
             }
         }
+
 
         /* Test code to print input in array list
         Income testIncome = new Income(100);
