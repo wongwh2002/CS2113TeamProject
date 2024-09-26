@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.wiagi;
 
 import type.Income;
 import type.Spending;
@@ -36,6 +36,8 @@ public class Wiagi {
             case "list":
                 System.out.println("list");
                 break;
+            default:
+                System.out.println("Unknown command");
             }
         }
 
