@@ -4,7 +4,6 @@ import seedu.type.Spending;
 import seedu.type.Income;
 
 import java.util.ArrayList;
-import java.util.MissingFormatArgumentException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 

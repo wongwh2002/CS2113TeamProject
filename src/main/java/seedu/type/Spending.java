@@ -6,14 +6,6 @@ public class Spending {
     private int spendingAmount;
     private String spendingDescription;
 
-    private String getSpendingDescription(int spendingAmount, String userInput) throws WiagiEmptyDescriptionException {
-        String[] spendingDescriptionWords = userInput.split(Integer.toString(spendingAmount));
-        if (spendingDescriptionWords.length == 1) {
-            throw new WiagiEmptyDescriptionException();
-        }
-        return spendingDescriptionWords[1].trim();
-    }
-
     public Spending(String[] userInputWords, String userInput) {
         try {
             int spendingAmount = Integer.parseInt(userInputWords[2]);
@@ -26,5 +18,13 @@ public class Spending {
         } catch (WiagiEmptyDescriptionException e) {
             System.out.println(e);
         }
+    }
+
+    private String getSpendingDescription(int spendingAmount, String userInput) throws WiagiEmptyDescriptionException {
+        String[] spendingDescriptionWords = userInput.split(Integer.toString(spendingAmount));
+        if (spendingDescriptionWords.length == 1) {
+            throw new WiagiEmptyDescriptionException();
+        }
+        return spendingDescriptionWords[1].trim();
     }
 }
