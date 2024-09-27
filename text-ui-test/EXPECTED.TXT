@@ -1,6 +1,8 @@
 Hello from Wiagi
 
-add
+seedu.exception.WiagiEmptyDescriptionException: No Description Input!
+Did not enter a valid spending amount!
+Entry successfully added!
 delete
 list
 bye
