@@ -11,6 +11,24 @@ public class Wiagi {
 
     private static final ArrayList<Income> incomes = new ArrayList<Income>();
     private static final ArrayList<Spending> spendings = new ArrayList<Spending>();
+    private static int spendingsCount = 0;
+    private static int incomesCount = 0;
+
+    private static void addEntry(String userInput) {
+        String[] userInputWords = userInput.split(" ");
+        if (userInputWords.length < 2) {
+            throw new IllegalArgumentException();
+        }
+        if (userInputWords[1].equals("spending")) {
+            spendings.add(new Spending(userInputWords, userInput));
+            spendingsCount++;
+        } else if (userInputWords[1].equals("income")) {
+            incomes.add(new Income(userInputWords, userInput));
+            incomesCount++;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("Hello from Wiagi\n");
@@ -33,8 +51,8 @@ public class Wiagi {
                 System.out.println("bye");
                 in.close();
                 break;
-            case "add":
-                System.out.println("add");
+            case "add": // user input should be in the form add [add type] [amount] [description]...
+                addEntry(userInput);
                 break;
             case "delete":
                 System.out.println("delete");
