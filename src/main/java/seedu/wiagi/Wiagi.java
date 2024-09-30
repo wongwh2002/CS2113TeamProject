@@ -2,6 +2,9 @@ package seedu.wiagi;
 
 import seedu.type.Spending;
 import seedu.type.Income;
+import seedu.Commands.Bye;
+import seedu.Commands.Welcome;
+import seedu.Classes.Ui;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -16,22 +19,28 @@ public class Wiagi {
 
     private static void addEntry(String userInput) {
         String[] userInputWords = userInput.split(" ");
-        if (userInputWords.length < 2) {
-            throw new IllegalArgumentException();
-        }
-        if (userInputWords[1].equals("spending")) {
-            spendings.add(new Spending(userInputWords, userInput));
-            spendingsCount++;
-        } else if (userInputWords[1].equals("income")) {
-            incomes.add(new Income(userInputWords, userInput));
-            incomesCount++;
-        } else {
-            throw new IllegalArgumentException();
+        try {
+            if (userInputWords.length < 2) {
+                throw new IllegalArgumentException();
+            }
+            if (userInputWords[1].equals("spending")) {
+                spendings.add(new Spending(userInputWords, userInput));
+                spendingsCount++;
+            } else if (userInputWords[1].equals("income")) {
+                incomes.add(new Income(userInputWords, userInput));
+                incomesCount++;
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
+            Ui.printWithTabNSeparator("Invalid input. Please enter in the form: add [spending/income] [amount] [description]...");
+        } catch (Exception e) {
+            Ui.printWithTabNSeparator("An error occurred. Please try again.");
         }
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello from Wiagi\n");
+        Welcome.welcome();
         Scanner in = new Scanner(System.in);
 
         boolean isCompleted = false;
@@ -48,20 +57,20 @@ public class Wiagi {
             switch (command) {
             case "bye":
                 isCompleted = true;
-                System.out.println("bye");
+                Bye.bye();
                 in.close();
                 break;
             case "add": // user input should be in the form add [add type] [amount] [description]...
                 addEntry(userInput);
                 break;
             case "delete":
-                System.out.println("delete");
+                Ui.printWithTabNSeparator("delete");
                 break;
             case "list":
-                System.out.println("list");
+                Ui.printWithTabNSeparator("list");
                 break;
             default:
-                System.out.println("Unknown command");
+                Ui.printWithTabNSeparator("Unknown command");
             }
         }
 
