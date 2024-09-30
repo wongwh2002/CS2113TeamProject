@@ -1,6 +1,6 @@
 package seedu.type;
 
-import seedu.Classes.Ui;
+import seedu.classes.Ui;
 import seedu.exception.WiagiEmptyDescriptionException;
 
 public class Spending {

@@ -2,9 +2,9 @@ package seedu.wiagi;
 
 import seedu.type.Spending;
 import seedu.type.Income;
-import seedu.Commands.Bye;
-import seedu.Commands.Welcome;
-import seedu.Classes.Ui;
+import seedu.commands.Bye;
+import seedu.commands.Welcome;
+import seedu.classes.Ui;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;

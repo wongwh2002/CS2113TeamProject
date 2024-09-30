@@ -1,4 +1,4 @@
-package seedu.Classes;
+package seedu.classes;
 
 public class Ui {
     public static void printSeparator() {

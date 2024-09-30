@@ -1,7 +1,7 @@
 package seedu.type;
 
 import seedu.exception.WiagiEmptyDescriptionException;
-import seedu.Classes.Ui;
+import seedu.classes.Ui;
 
 public class Income {
     private int incomeAmount;

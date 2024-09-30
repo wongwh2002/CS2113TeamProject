@@ -1,6 +1,6 @@
-package seedu.Commands;
+package seedu.commands;
 
-import seedu.Classes.Ui;
+import seedu.classes.Ui;
 
 public class Bye {
     public static void bye() {
