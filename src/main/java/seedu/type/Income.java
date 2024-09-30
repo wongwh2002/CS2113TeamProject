@@ -1,6 +1,7 @@
 package seedu.type;
 
 import seedu.exception.WiagiEmptyDescriptionException;
+import seedu.classes.Ui;
 
 public class Income {
     private int incomeAmount;
@@ -12,11 +13,11 @@ public class Income {
             String incomeDescription = getIncomeDescription(incomeAmount, userInput);
             this.incomeAmount = incomeAmount;
             this.incomeDescription = incomeDescription;
-            System.out.println("Entry successfully added!");
+            Ui.printWithTabNSeparator("Entry successfully added!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Did not enter a valid income amount!");
+            Ui.printWithTabNSeparator("Did not enter a valid income amount!");
         } catch (WiagiEmptyDescriptionException e) {
-            System.out.println(e);
+            Ui.printWithTabNSeparator(e.getMessage());
         }
     }
 
