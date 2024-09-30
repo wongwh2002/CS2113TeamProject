@@ -75,7 +75,6 @@ public class Wiagi {
             }
         }
 
-
         /* Test code to print input in array list
         Income testIncome = new Income(100);
         incomes.add(testIncome);
