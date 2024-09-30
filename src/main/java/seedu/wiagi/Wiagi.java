@@ -33,7 +33,8 @@ public class Wiagi {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            Ui.printWithTabNSeparator("Invalid input. Please enter in the form: add [spending/income] [amount] [description]...");
+            Ui.printWithTabNSeparator("Invalid input. " +
+                    "Please enter in the form: add [spending/income] [amount] [description]...");
         } catch (Exception e) {
             Ui.printWithTabNSeparator("An error occurred. Please try again.");
         }
