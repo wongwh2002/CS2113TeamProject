@@ -6,7 +6,6 @@ import seedu.commands.Command;
 import seedu.commands.DeleteCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.UnknownCommand;
-import seedu.exception.WiagiEmptyDescriptionException;
 
 public class Parser {
 
