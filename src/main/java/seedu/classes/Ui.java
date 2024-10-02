@@ -1,15 +1,33 @@
 package seedu.classes;
 
+import java.util.Scanner;
+
 public class Ui {
+    private final Scanner scanner;
+
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+    public String readCommand() {
+        return scanner.nextLine();
+    }
     public static void printSeparator() {
         printWithTab(Constants.SEPARATOR);
     }
     public static void printWithTab(String message) {
         System.out.println("\t" + message);
     }
-    public static void printWithTabNSeparator(String message) {
-        printSeparator();
-        System.out.println("\t" + message);
-        printSeparator();
+    public static void welcome() {
+        Ui.printSeparator();
+        Ui.printWithTab("Hello from");
+        printFancyWiagi();
+        Ui.printSeparator();
+    }
+    private static void printFancyWiagi() {
+        Ui.printWithTab("__        __  ___      /\\       ____   ___");
+        Ui.printWithTab("\\ \\      / / |_ _|    /  \\     / ___| |_ _|");
+        Ui.printWithTab(" \\ \\ /\\ / /   | |    / /\\ \\   | |  _   | |");
+        Ui.printWithTab("  \\ V  V /    | |   / ____ \\  | |_| |  | |");
+        Ui.printWithTab("   \\_/\\_/    |___| /_/    \\_\\  \\____| |___|");
     }
 }

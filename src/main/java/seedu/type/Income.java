@@ -13,11 +13,11 @@ public class Income {
             String incomeDescription = getIncomeDescription(incomeAmount, userInput);
             this.incomeAmount = incomeAmount;
             this.incomeDescription = incomeDescription;
-            Ui.printWithTabNSeparator("Entry successfully added!");
+            Ui.printWithTab("Entry successfully added!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            Ui.printWithTabNSeparator("Did not enter a valid income amount!");
+            Ui.printWithTab("Did not enter a valid income amount!");
         } catch (WiagiEmptyDescriptionException e) {
-            Ui.printWithTabNSeparator(e.getMessage());
+            Ui.printWithTab(e.getMessage());
         }
     }
 
