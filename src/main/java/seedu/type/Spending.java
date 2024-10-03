@@ -13,11 +13,11 @@ public class Spending {
             String spendingDescription = getSpendingDescription(spendingAmount, userInput);
             this.spendingAmount = spendingAmount;
             this.spendingDescription = spendingDescription;
-            Ui.printWithTabNSeparator("Entry successfully added!");
+            Ui.printWithTab("Entry successfully added!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            Ui.printWithTabNSeparator("Did not enter a valid spending amount!");
+            Ui.printWithTab("Did not enter a valid spending amount!");
         } catch (WiagiEmptyDescriptionException e) {
-            Ui.printWithTabNSeparator(e.getMessage());
+            Ui.printWithTab(e.getMessage());
         }
     }
 
