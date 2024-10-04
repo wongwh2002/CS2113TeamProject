@@ -1,7 +1,5 @@
 package seedu.classes;
 
-import java.util.Scanner;
-
 public class Login {
     private boolean isLoginSuccess = false;
 
