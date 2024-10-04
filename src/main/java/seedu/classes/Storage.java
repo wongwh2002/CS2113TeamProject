@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
+    private static final String PASSWORD_FILE_PATH = "./password.txt";
     private int passwordHash = 0;
-    public static final String PASSWORD_FILE_PATH = "./password.txt";
 
     public Storage(Ui ui) {
         try {
