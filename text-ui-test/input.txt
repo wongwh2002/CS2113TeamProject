@@ -5,5 +5,7 @@ add 1000
 add spending macdonalds
 add spending 10 macdonalds
 delete
+delete spending a
+delete spending 1
 list
 bye
