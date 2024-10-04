@@ -10,12 +10,12 @@ public class Storage {
     private int passwordHash = 0;
     private final String PASSWORD_FILE_PATH = "./password.txt";
 
-    public Storage() {
+    public Storage(Ui ui) {
         try {
             if (!new File(PASSWORD_FILE_PATH).exists()) {
                 new File(PASSWORD_FILE_PATH).createNewFile();
                 FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
-                fw.write(new Login().createNewUser());
+                fw.write(new Login().createNewUser(ui));
                 fw.close();
             }
         } catch (IOException e) {
@@ -28,7 +28,7 @@ public class Storage {
         int passwordHash = 0;
         try {
             Scanner s = new Scanner(new File(PASSWORD_FILE_PATH));
-            passwordHash =  Integer.parseInt(s.nextLine());
+            passwordHash =  Integer.parseInt(s.next());
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }

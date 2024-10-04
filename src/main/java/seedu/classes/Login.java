@@ -5,12 +5,11 @@ import java.util.Scanner;
 public class Login {
     private boolean isLoginSuccess = false;
 
-    public String createNewUser() {
+    public String createNewUser(Ui ui) {
         Ui.printSeparator();
         Ui.printWithTab("Hi! You seem to be new, are you ready?!");
-        Ui.printWithTab("Please enter your new account password: ");
-        Scanner s = new Scanner(System.in);
-        String password = s.next();
+        Ui.printWithTab("Please enter your new account password:");
+        String password = ui.readCommand();
         Ui.printSeparator();
         return Integer.toString(password.hashCode());
     }

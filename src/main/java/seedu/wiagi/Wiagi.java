@@ -13,7 +13,7 @@ public class Wiagi {
     private final SpendingList spendings = new SpendingList();
     private final IncomeList incomes =  new IncomeList();
     private final Ui ui = new Ui();
-    private final Storage storage = new Storage();
+    private final Storage storage = new Storage(ui);
     private final Login login = new Login();
     private boolean isLoginSuccessful = false;
 
@@ -21,7 +21,7 @@ public class Wiagi {
         Ui.welcome();
         while (!isLoginSuccessful) {
             Ui.printSeparator();
-            Ui.printWithTab("Please Enter Login Credentials: ");
+            Ui.printWithTab("Please Enter Login Credentials:");
             String loginCredentials = ui.readCommand();
             login.validateLoginCredentials(loginCredentials, storage);
             isLoginSuccessful = login.getLoginSuccess();
