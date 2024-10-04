@@ -8,8 +8,6 @@ import seedu.type.IncomeList;
 import seedu.classes.Ui;
 import seedu.type.SpendingList;
 
-import java.io.FileNotFoundException;
-
 public class Wiagi {
 
     private final SpendingList spendings = new SpendingList();
