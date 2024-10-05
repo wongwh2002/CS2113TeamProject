@@ -3,13 +3,13 @@ package seedu.classes;
 public class Login {
     private boolean isLoginSuccess = false;
 
-    public String createNewUser(Ui ui) {
+    public int createNewUser(Ui ui) {
         Ui.printSeparator();
         Ui.printWithTab("Hi! You seem to be new, are you ready?!");
         Ui.printWithTab("Please enter your new account password:");
         String password = ui.readCommand();
         Ui.printSeparator();
-        return Integer.toString(password.hashCode());
+        return password.hashCode();
     }
 
     public void validateLoginCredentials(String password, Storage storage) {

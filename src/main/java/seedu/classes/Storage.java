@@ -11,17 +11,19 @@ public class Storage {
     private int passwordHash = 0;
 
     public Storage(Ui ui) {
+        if (new File(PASSWORD_FILE_PATH).exists()) {
+            this.passwordHash = getPasswordHashFromStorage();
+            return;
+        }
         try {
-            if (!new File(PASSWORD_FILE_PATH).exists()) {
-                new File(PASSWORD_FILE_PATH).createNewFile();
-                FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
-                fw.write(new Login().createNewUser(ui));
-                fw.close();
-            }
+            new File(PASSWORD_FILE_PATH).createNewFile();
+            FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
+            this.passwordHash = new Login().createNewUser(ui);
+            fw.write(Integer.toString(passwordHash));
+            fw.close();
         } catch (IOException e) {
             System.out.println(e);
         }
-        this.passwordHash = getPasswordHashFromStorage();
     }
 
     private int getPasswordHashFromStorage() {
