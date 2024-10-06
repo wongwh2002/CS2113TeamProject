@@ -15,11 +15,13 @@ public class ListCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         Ui.printWithTab("Incomes:");
         for (int i = 0; i < incomes.size(); i++) {
-            Ui.printWithTab(i + ". " + incomes.get(i).toString());
+            int oneIndexedI = i + 1;
+            Ui.printWithTab(oneIndexedI + ". " + incomes.get(i).toString());
         }
         Ui.printWithTab("Spendings:");
         for (int i = 0; i < spendings.size(); i++) {
-            Ui.printWithTab(i + ". " + spendings.get(i).toString());
+            int oneIndexedI = i + 1;
+            Ui.printWithTab(oneIndexedI + ". " + spendings.get(i).toString());
         }
     }
 }
