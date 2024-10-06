@@ -1,17 +1,14 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
-import seedu.type.Income;
 import seedu.type.IncomeList;
-import seedu.type.Spending;
 import seedu.type.SpendingList;
-
-import java.util.ArrayList;
 
 public class ListCommand extends Command {
     /**
      * Prints all incomes and spendings contained in the given IncomeList and SpendingList.
-     * @param incomes IncomeList containing all incomes in the application.
+     *
+     * @param incomes   IncomeList containing all incomes in the application.
      * @param spendings SpendingList containing all the spending in the application.
      */
     @Override
