@@ -9,7 +9,8 @@ public class Spending {
     private int spendingAmount;
     private String spendingDescription;
 
-    public Spending(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
+    public Spending(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
+            WiagiInvalidInputException {
         try {
             int spendingAmount = Integer.parseInt(userInputWords[2]);
             String spendingDescription = getSpendingDescription(spendingAmount, userInput);

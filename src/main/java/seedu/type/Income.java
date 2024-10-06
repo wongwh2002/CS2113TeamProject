@@ -9,7 +9,8 @@ public class Income {
     private int incomeAmount;
     private String incomeDescription;
 
-    public Income(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
+    public Income(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
+            WiagiInvalidInputException {
         try {
             int incomeAmount = Integer.parseInt(userInputWords[2]);
             String incomeDescription = getIncomeDescription(incomeAmount, userInput);
@@ -29,7 +30,7 @@ public class Income {
         return incomeDescriptionWords[1].trim();
     }
 
-    public String toString(){
+    public String toString() {
         return incomeDescription + Constants.LIST_SEPARATOR + incomeAmount;
     }
 }
