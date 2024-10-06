@@ -1,5 +1,6 @@
 package seedu.type;
 
+import seedu.classes.Constants;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
 
@@ -27,5 +28,9 @@ public class Income {
             throw new WiagiEmptyDescriptionException();
         }
         return incomeDescriptionWords[1].trim();
+    }
+
+    public String toString(){
+        return incomeDescription + Constants.LIST_SEPARATOR + incomeAmount;
     }
 }
