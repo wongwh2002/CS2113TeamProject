@@ -1,13 +1,16 @@
 package seedu.type;
 
+import seedu.classes.Constants;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
+import seedu.exception.WiagiInvalidInputException;
 
 public class Income {
     private int incomeAmount;
     private String incomeDescription;
 
-    public Income(String[] userInputWords, String userInput) {
+    public Income(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
+            WiagiInvalidInputException {
         try {
             int incomeAmount = Integer.parseInt(userInputWords[2]);
             String incomeDescription = getIncomeDescription(incomeAmount, userInput);
@@ -15,9 +18,7 @@ public class Income {
             this.incomeDescription = incomeDescription;
             Ui.printWithTab("Entry successfully added!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            Ui.printWithTab("Did not enter a valid income amount!");
-        } catch (WiagiEmptyDescriptionException e) {
-            Ui.printWithTab(e.getMessage());
+            throw new WiagiInvalidInputException("Did not enter a valid income amount!");
         }
     }
 
@@ -27,5 +28,9 @@ public class Income {
             throw new WiagiEmptyDescriptionException();
         }
         return incomeDescriptionWords[1].trim();
+    }
+
+    public String toString() {
+        return incomeDescription + Constants.LIST_SEPARATOR + incomeAmount;
     }
 }
