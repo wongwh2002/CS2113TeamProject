@@ -1,5 +1,8 @@
 package seedu.classes;
 
+import seedu.type.IncomeList;
+import seedu.type.SpendingList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -24,6 +27,10 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public static void load(IncomeList incomes, SpendingList spendings, Login login) {
+
     }
 
     private int getPasswordHashFromStorage() {
