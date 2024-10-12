@@ -5,14 +5,14 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 public class Storage {
-    private static IncomeList incomes;
-    private static SpendingList spendings;
-    private static int password;
+    static IncomeList incomes;
+    static SpendingList spendings;
+    static int password;
 
     public Storage(Ui ui) {
-        incomes = IncomeListStorage.load();
-        spendings = SpendingListStorage.load();
-        password = LoginStorage.load(ui);
+        IncomeListStorage.load();
+        SpendingListStorage.load();
+        LoginStorage.load(ui);
     }
     public void save(IncomeList incomes, SpendingList spendings) {
         IncomeListStorage.save(incomes);

@@ -12,19 +12,17 @@ import java.io.ObjectOutputStream;
 public class SpendingListStorage {
     private static final String SPENDINGS_FILE_PATH = "./spendings.txt";
 
-    public static SpendingList load() {
-        SpendingList spendings;
+    static void load() {
         try {
             FileInputStream fis = new FileInputStream(SPENDINGS_FILE_PATH);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            spendings = (SpendingList) ois.readObject();
+            Storage.spendings = (SpendingList) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            spendings = new SpendingList();
+            Storage.spendings = new SpendingList();
         }
-        return spendings;
     }
 
-    public static void save(SpendingList spendings) {
+    static void save(SpendingList spendings) {
         try {
             FileOutputStream fos = new FileOutputStream(SpendingListStorage.SPENDINGS_FILE_PATH);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

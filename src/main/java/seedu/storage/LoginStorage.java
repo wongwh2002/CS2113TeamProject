@@ -10,24 +10,24 @@ import java.util.Scanner;
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
 
-    public static int load(Ui ui) {
+    static void load(Ui ui) {
         try {
-            File f = new File(PASSWORD_FILE_PATH);
-            boolean isFileCreated = f.exists();
+            File file = new File(PASSWORD_FILE_PATH);
+            boolean isFileCreated = file.exists();
             if (isFileCreated) {
-                Scanner scanner = new Scanner(f);
+                Scanner scanner = new Scanner(file);
                 String passwordHash = scanner.next();
-                return Integer.parseInt(passwordHash);
+                Storage.password = Integer.parseInt(passwordHash);
+                return;
             }
             FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
             int passwordHash = createNewUser(ui);
             fw.write(Integer.toString(passwordHash));
             fw.close();
-            return passwordHash;
+            Storage.password = passwordHash;
         } catch (IOException e) {
             Ui.printWithTab(e.getMessage());
         }
-        return 0;
     }
 
     private static int createNewUser(Ui ui) {

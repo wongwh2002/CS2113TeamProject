@@ -12,19 +12,17 @@ import java.io.ObjectOutputStream;
 public class IncomeListStorage {
     private static final String INCOME_FILE_PATH = "./incomes.txt";
 
-    public static IncomeList load() {
-        IncomeList incomes;
+    static void load() {
         try {
             FileInputStream fis = new FileInputStream(INCOME_FILE_PATH);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            incomes = (IncomeList) ois.readObject();
+            Storage.incomes = (IncomeList) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            incomes = new IncomeList();
+            Storage.incomes = new IncomeList();
         }
-        return incomes;
     }
 
-    public static void save(IncomeList incomes) {
+    static void save(IncomeList incomes) {
         try {
             FileOutputStream fos = new FileOutputStream(INCOME_FILE_PATH);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
