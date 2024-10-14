@@ -16,12 +16,12 @@ public class ListCommand extends Command {
         Ui.printWithTab("Incomes:");
         for (int i = 0; i < incomes.size(); i++) {
             int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + incomes.get(i).toString());
+            Ui.printWithTab(oneIndexedI + ". " + incomes.get(i));
         }
         Ui.printWithTab("Spendings:");
         for (int i = 0; i < spendings.size(); i++) {
             int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + spendings.get(i).toString());
+            Ui.printWithTab(oneIndexedI + ". " + spendings.get(i));
         }
     }
 }
