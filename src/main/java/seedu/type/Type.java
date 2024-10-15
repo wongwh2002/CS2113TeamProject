@@ -11,6 +11,10 @@ public class Type implements Serializable {
     private final int amount;
     private final String description;
 
+    public int getAmount() {
+        return this.amount;
+    }
+
     public Type(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         try {
