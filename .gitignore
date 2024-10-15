@@ -19,6 +19,8 @@ text-ui-test/incomes.txt
 text-ui-test/password.txt
 text-ui-test/spendings.txt
 
+**/MANIFEST.MF
+
 /password.txt
 incomes.txt
 spendings.txt
