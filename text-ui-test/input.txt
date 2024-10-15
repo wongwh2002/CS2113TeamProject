@@ -4,8 +4,13 @@ add spending 1000
 add 1000
 add spending macdonalds
 add spending 10 macdonalds
+add spending 10 girlfriends
+add income 10 savings
+add spending 10 flights
 delete
 delete spending a
 delete spending 1
 list
+list spendings
+list incomes
 bye

@@ -42,3 +42,4 @@ public class Wiagi {
         new Wiagi().run();
     }
 }
+
