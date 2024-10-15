@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ListCommandTest {
 
@@ -41,19 +41,19 @@ class ListCommandTest {
                 outContent.toString().trim());
     } //idk how to do this properly, its not working well.
 
-//    @Test
-//    public void execute_allLists_success() {
-//    }
-//
-//    @Test
-//    public void execute_listIncome_success() {
-//    }
-//
-//    @Test
-//    public void execute_listSpending_success() {
-//    }
-//
-//    @Test
-//    public void execute_randomInput_exceptionThrown() {
-//    }
+    //    @Test
+    //    public void execute_allLists_success() {
+    //    }
+    //
+    //    @Test
+    //    public void execute_listIncome_success() {
+    //    }
+    //
+    //    @Test
+    //    public void execute_listSpending_success() {
+    //    }
+    //
+    //    @Test
+    //    public void execute_randomInput_exceptionThrown() {
+    //    }
 }
