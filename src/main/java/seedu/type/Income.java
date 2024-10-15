@@ -9,7 +9,7 @@ public class Income extends Type {
         super(userInputWords, userInput);
     }
 
-   public Income(int amount, String description) {
+    public Income(int amount, String description) {
         super(amount, description);
-   }
+    }
 }
