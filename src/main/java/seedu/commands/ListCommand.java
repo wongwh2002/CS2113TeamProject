@@ -71,6 +71,3 @@ public class ListCommand extends Command {
         }
     }
 }
-//Ui.printWithTab("Total " + fullCommands[1] + "s: "
-// + print_list(fullCommands[1].equals("spending")?
-// spendings : incomes)); //idk why doesnt this work
