@@ -15,5 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/incomes.txt
+text-ui-test/password.txt
+text-ui-test/spendings.txt
 
 /password.txt
+incomes.txt
+spendings.txt
