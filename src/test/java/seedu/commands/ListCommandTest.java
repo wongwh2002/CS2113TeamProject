@@ -29,7 +29,7 @@ class ListCommandTest {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }
-
+    /*
     @Test
     public void execute_emptyList_success() {
         IncomeList emptyIncomes = new IncomeList();
@@ -41,19 +41,20 @@ class ListCommandTest {
                 outContent.toString().trim());
     } //idk how to do this properly, its not working well.
 
-    //    @Test
-    //    public void execute_allLists_success() {
-    //    }
-    //
-    //    @Test
-    //    public void execute_listIncome_success() {
-    //    }
-    //
-    //    @Test
-    //    public void execute_listSpending_success() {
-    //    }
-    //
-    //    @Test
-    //    public void execute_randomInput_exceptionThrown() {
-    //    }
+        @Test
+        public void execute_allLists_success() {
+        }
+
+        @Test
+        public void execute_listIncome_success() {
+        }
+
+        @Test
+        public void execute_listSpending_success() {
+        }
+
+        @Test
+        public void execute_randomInput_exceptionThrown() {
+        }
+    */
 }

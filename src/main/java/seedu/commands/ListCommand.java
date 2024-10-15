@@ -58,11 +58,9 @@ public class ListCommand extends Command {
             Ui.printWithTab(fullCommands[1].substring(0,1).toUpperCase() + fullCommands[1].substring(1));
             if (fullCommands[1].equals("spendings")) {
                 Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(spendings));
-            }
-            else if (fullCommands[1].equals("incomes")) {
+            } else if (fullCommands[1].equals("incomes")) {
                 Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(incomes));
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException("Invalid input. " +
                         "Please enter in the form: list [spendings/incomes]");
             }
