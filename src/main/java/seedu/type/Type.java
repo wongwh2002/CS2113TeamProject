@@ -14,12 +14,16 @@ public class Type implements Serializable {
     public Type(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         try {
-            this.amount = Integer.parseInt(userInputWords[2]);;
-            this.description = getDescription(amount, userInput);;
+            this.amount = Integer.parseInt(userInputWords[2]);
+            this.description = getDescription(amount, userInput);
             Ui.printWithTab("Entry successfully added!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new WiagiInvalidInputException("Did not enter a valid amount!");
         }
+    }
+
+    public int getAmount() {
+        return this.amount;
     }
 
     private String getDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {

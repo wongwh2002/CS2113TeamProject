@@ -21,7 +21,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand(fullCommand);
         case "list":
-            return new ListCommand();
+            return new ListCommand(fullCommand);
         case "edit":
             return new EditCommand(fullCommand);
         default:
