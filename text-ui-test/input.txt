@@ -3,14 +3,16 @@ test
 add spending 1000
 add 1000
 add spending macdonalds
-add spending 10 macdonalds
+add spending 10 flights
 add spending 10 girlfriends
 add income 10 savings
-add spending 10 flights
+add spending 10 macdonalds
+add income 10 dividends
 delete
 delete spending a
 delete spending 1
 list
 list spendings
 list incomes
+list 123t4w
 bye
