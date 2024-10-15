@@ -15,9 +15,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        String[] fullCommandArray = fullCommand.split(" ");
+        String[] userInputWords = fullCommand.split(" ");
         try {
-            if (fullCommandArray.length < 3) {
+            if (userInputWords.length < 3) {
                 throw new IllegalArgumentException("Invalid input. " +
                         "Please enter in the form: delete [spending/income] [index]");
             }

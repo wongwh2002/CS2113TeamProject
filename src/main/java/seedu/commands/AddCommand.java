@@ -9,15 +9,15 @@ import seedu.type.Spending;
 import seedu.type.SpendingList;
 
 public class AddCommand extends Command {
-    private final String userInput;
 
-    public AddCommand(String userInput) {
-        this.userInput = userInput;
+    private final String fullCommand;
+    public AddCommand(String fullCommand) {
+        this.fullCommand = fullCommand;
     }
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        String[] userInputWords = userInput.split(" ");
+        String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 2) {
                 throw new IllegalArgumentException();
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
 
     private void addSpending(String[] userInputWords, SpendingList spendings) {
         try {
-            Spending toAdd = new Spending(userInputWords, userInput);
+            Spending toAdd = new Spending(userInputWords, fullCommand);
             spendings.add(toAdd);
         } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
             Ui.printWithTab(e.getMessage());
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
 
     private void addIncome(String[] userInputWords, IncomeList incomes) {
         try {
-            Income toAdd = new Income(userInputWords, userInput);
+            Income toAdd = new Income(userInputWords, fullCommand);
             incomes.add(toAdd);
         } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
             Ui.printWithTab(e.getMessage());
