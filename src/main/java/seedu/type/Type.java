@@ -22,6 +22,11 @@ public class Type implements Serializable {
         }
     }
 
+    public Type(int amount, String description) {
+        this.amount = amount;
+        this.description = description;
+    }
+
     public int getAmount() {
         return this.amount;
     }
