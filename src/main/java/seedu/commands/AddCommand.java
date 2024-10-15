@@ -1,6 +1,8 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
+import seedu.exception.WiagiEmptyDescriptionException;
+import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -21,9 +23,9 @@ public class AddCommand extends Command {
                 throw new IllegalArgumentException();
             }
             if (userInputWords[1].equals("spending")) {
-                spendings.add(new Spending(userInputWords, userInput));
+                addSpending(userInputWords, spendings);
             } else if (userInputWords[1].equals("income")) {
-                incomes.add(new Income(userInputWords, userInput));
+                addIncome(userInputWords, incomes);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -32,6 +34,24 @@ public class AddCommand extends Command {
                     "Please enter in the form: add [spending/income] [amount] [description]...");
         } catch (Exception e) {
             Ui.printWithTab("An error occurred. Please try again.");
+        }
+    }
+
+    private void addSpending(String[] userInputWords, SpendingList spendings) {
+        try {
+            Spending toAdd = new Spending(userInputWords, userInput);
+            spendings.add(toAdd);
+        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+            Ui.printWithTab(e.getMessage());
+        }
+    }
+
+    private void addIncome(String[] userInputWords, IncomeList incomes) {
+        try {
+            Income toAdd = new Income(userInputWords, userInput);
+            incomes.add(toAdd);
+        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+            Ui.printWithTab(e.getMessage());
         }
     }
 }

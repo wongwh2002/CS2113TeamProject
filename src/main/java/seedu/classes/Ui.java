@@ -9,7 +9,9 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
     public String readCommand() {
-        return scanner.nextLine();
+        String line = scanner.nextLine();
+        Ui.printSeparator();
+        return line;
     }
     public static void printSeparator() {
         printWithTab(Constants.SEPARATOR);
@@ -29,5 +31,6 @@ public class Ui {
         Ui.printWithTab(" \\ \\ /\\ / /   | |    / /\\ \\   | |  _   | |");
         Ui.printWithTab("  \\ V  V /    | |   / ____ \\  | |_| |  | |");
         Ui.printWithTab("   \\_/\\_/    |___| /_/    \\_\\  \\____| |___|");
+        Ui.printSeparator();
     }
 }
