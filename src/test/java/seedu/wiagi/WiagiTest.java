@@ -9,4 +9,5 @@ class WiagiTest {
     public void sampleTest() {
         assertTrue(true);
     }
+
 }

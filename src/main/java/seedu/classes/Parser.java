@@ -20,7 +20,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand(fullCommand);
         case "list":
-            return new ListCommand();
+            return new ListCommand(fullCommand);
         default:
             return new UnknownCommand();
         }
