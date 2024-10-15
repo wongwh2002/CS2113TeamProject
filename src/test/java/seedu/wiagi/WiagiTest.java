@@ -10,6 +10,4 @@ class WiagiTest {
         assertTrue(true);
     }
 
-    @Test
-    public void
 }

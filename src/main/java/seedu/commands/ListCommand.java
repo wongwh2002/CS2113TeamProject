@@ -45,11 +45,22 @@ public class ListCommand extends Command {
                 Ui.printWithTab("Total spendings: " + print_list(spendings));
                 Ui.printWithTab("Incomes ");
                 Ui.printWithTab("Total incomes: " + print_list(incomes));
+                return;
+            }
+
+            Ui.printWithTab(fullCommands[1].substring(0,1).toUpperCase() + fullCommands[1].substring(1) + "s ");
+            if (fullCommands[1].equals("spendings")) {
+                Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(spendings));
+            }
+            else if (fullCommands[1].equals("incomes")) {
+                Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(incomes));
             }
             else {
-                Ui.printWithTab(fullCommands[1]);
-                Ui.printWithTab("Total " + fullCommands[1] + "s: " + print_list(incomes));
+                throw new IllegalArgumentException("Invalid input. Please enter in the form: list [spendings/incomes]");
             }
+//                Ui.printWithTab("Total " + fullCommands[1] + "s: " +
+//                        print_list(fullCommands[1].equals("spending") ? spendings : incomes)); idk why doesnt this work
+
         } catch (IllegalArgumentException e) {
             Ui.printWithTab(e.getMessage());
         } catch (Exception e) {
