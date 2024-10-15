@@ -15,6 +15,13 @@ public class ListCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Prints the elements of the given ArrayList and calculates the sum of their amounts.
+     *
+     * @param <T>     The type of elements in the ArrayList, which must extend the Type class.
+     * @param arrList The ArrayList containing elements to be printed and summed.
+     * @return The sum of the amounts of the elements in the ArrayList as a String.
+     */
     public <T> String print_list(ArrayList<T> arrList) {
         int sum = 0;
         for (int i = 0; i < arrList.size(); i++) {
