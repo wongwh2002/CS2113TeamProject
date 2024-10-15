@@ -66,10 +66,6 @@ public class ListCommand extends Command {
                 throw new IllegalArgumentException("Invalid input. " +
                         "Please enter in the form: list [spendings/incomes]");
             }
-//            Ui.printWithTab("Total " + fullCommands[1] + "s: " +
-//                    print_list(fullCommands[1].equals("spending")
-//                    ? spendings : incomes)); idk why doesnt this work
-
         } catch (IllegalArgumentException e) {
             Ui.printWithTab(e.getMessage());
         } catch (Exception e) {
@@ -77,3 +73,6 @@ public class ListCommand extends Command {
         }
     }
 }
+//Ui.printWithTab("Total " + fullCommands[1] + "s: "
+// + print_list(fullCommands[1].equals("spending")?
+// spendings : incomes)); //idk why doesnt this work
