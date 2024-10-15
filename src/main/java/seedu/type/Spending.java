@@ -8,4 +8,8 @@ public class Spending extends Type {
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         super(userInputWords, userInput);
     }
+
+    public Spending(int amount, String description) {
+        super(amount, description);
+    }
 }

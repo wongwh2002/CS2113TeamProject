@@ -8,8 +8,8 @@ import seedu.exception.WiagiInvalidInputException;
 import java.io.Serializable;
 
 public class Type implements Serializable {
-    private final int amount;
-    private final String description;
+    private int amount;
+    private String description;
 
     public Type(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
@@ -20,6 +20,11 @@ public class Type implements Serializable {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new WiagiInvalidInputException("Did not enter a valid amount!");
         }
+    }
+
+    public Type(int amount, String description) {
+        this.amount = amount;
+        this.description = description;
     }
 
     public int getAmount() {
@@ -36,5 +41,13 @@ public class Type implements Serializable {
 
     public String toString() {
         return description + Constants.LIST_SEPARATOR + amount;
+    }
+
+    public void editAmount(int newAmount){
+        this.amount = newAmount;
+    }
+
+    public void editDescription(String newDescription){
+        this.description = newDescription;
     }
 }

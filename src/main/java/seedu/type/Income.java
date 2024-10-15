@@ -8,4 +8,8 @@ public class Income extends Type {
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         super(userInputWords, userInput);
     }
+
+    public Income(int amount, String description) {
+        super(amount, description);
+    }
 }
