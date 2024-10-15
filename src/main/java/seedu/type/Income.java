@@ -22,6 +22,11 @@ public class Income {
         }
     }
 
+    public Income(int incomeAmount, String incomeDescription) {
+        this.incomeAmount = incomeAmount;
+        this.incomeDescription = incomeDescription;
+    }
+
     private String getIncomeDescription(int incomeAmount, String userInput) throws WiagiEmptyDescriptionException {
         String[] incomeDescriptionWords = userInput.split(Integer.toString(incomeAmount));
         if (incomeDescriptionWords.length == 1) {

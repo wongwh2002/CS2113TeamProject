@@ -22,6 +22,11 @@ public class Spending {
         }
     }
 
+    public Spending(int spendingAmount, String spendingDescription) {
+        this.spendingAmount = spendingAmount;
+        this.spendingDescription = spendingDescription;
+    }
+
     private String getSpendingDescription(int spendingAmount, String userInput) throws WiagiEmptyDescriptionException {
         String[] spendingDescriptionWords = userInput.split(Integer.toString(spendingAmount));
         if (spendingDescriptionWords.length == 1) {
