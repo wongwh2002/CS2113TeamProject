@@ -6,6 +6,7 @@ import seedu.commands.Command;
 import seedu.commands.DeleteCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.UnknownCommand;
+import seedu.commands.EditCommand;
 
 public class Parser {
 
@@ -21,6 +22,8 @@ public class Parser {
             return new DeleteCommand(fullCommand);
         case "list":
             return new ListCommand();
+        case "edit":
+            return new EditCommand(fullCommand);
         default:
             return new UnknownCommand();
         }

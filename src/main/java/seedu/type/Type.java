@@ -8,8 +8,8 @@ import seedu.exception.WiagiInvalidInputException;
 import java.io.Serializable;
 
 public class Type implements Serializable {
-    private final int amount;
-    private final String description;
+    private int amount;
+    private String description;
 
     public Type(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
@@ -32,5 +32,13 @@ public class Type implements Serializable {
 
     public String toString() {
         return description + Constants.LIST_SEPARATOR + amount;
+    }
+
+    public void editAmount(int newAmount){
+        this.amount = newAmount;
+    }
+
+    public void editDescription(String newDescription){
+        this.description = newDescription;
     }
 }
