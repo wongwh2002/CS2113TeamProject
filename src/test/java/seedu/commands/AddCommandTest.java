@@ -78,11 +78,20 @@ public class AddCommandTest {
     }
 
     @Test
-    void addCommand_invalidAmountSpendingInput_noSpendingAdded() {
+    void addCommand_stringAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
         assertEquals("\tAmount must be an integer!" + System.lineSeparator()
+                , outContent.toString());
+    }
+
+    @Test
+    void addCommand_negativeAmountSpendingInput_noSpendingAdded() {
+        String userInput = "add spending -1 macs";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals("\tAmount must be greater than zero!" + System.lineSeparator()
                 , outContent.toString());
     }
 

@@ -16,15 +16,11 @@ public class Type implements Serializable {
 
     public Type(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
-        try {
-            this.amount = Integer.parseInt(userInputWords[2]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WiagiInvalidInputException("No amount and description provided!");
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException("Amount must be an integer!");
-        }
-        this.description = getDescription(amount, userInput);
-        this.date = getDate(userInput);
+        this.amount = extractAmount(userInputWords);
+        assert amount > 0 : "Amount should be greater than zero";
+        this.description = extractDescription(amount, userInput);
+        assert !description.isEmpty() : "Description should not be empty";
+        this.date = extractDate(userInput);
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -38,7 +34,21 @@ public class Type implements Serializable {
         return this.amount;
     }
 
-    private String getDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
+    private int extractAmount(String[] userInputWords) {
+        try {
+            int amount = Integer.parseInt(userInputWords[2]);
+            if (amount <= 0) {
+                throw new WiagiInvalidInputException("Amount must be greater than zero!");
+            }
+            return amount;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WiagiInvalidInputException("No amount and description provided!");
+        } catch (NumberFormatException e) {
+            throw new WiagiInvalidInputException("Amount must be an integer!");
+        }
+    }
+
+    private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
         String[] commandAndDescription = userInput.split(Integer.toString(amount), 2);
         if (commandAndDescription[1].isEmpty()) {
             throw new WiagiEmptyDescriptionException();
@@ -47,7 +57,7 @@ public class Type implements Serializable {
         return descriptionAndDate[0].trim();
     }
 
-    private LocalDate getDate(String userInput) throws WiagiInvalidInputException {
+    private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
         String[] commandAndDate = userInput.split("/", 2);
         try {
             if (commandAndDate.length == 1) {
@@ -65,7 +75,11 @@ public class Type implements Serializable {
 
     public void editAmount(String newAmount){
         try {
-            this.amount = Integer.parseInt(newAmount);
+            int amount = Integer.parseInt(newAmount);
+            if (amount <= 0) {
+                throw new WiagiInvalidInputException("Amount must be greater than zero!");
+            }
+            this.amount = amount;
         } catch (Exception e) {
             throw new WiagiInvalidInputException("Amount must be an integer");
         }
