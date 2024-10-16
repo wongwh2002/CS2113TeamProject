@@ -16,11 +16,15 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param incomes
-     * @param spendings
+     * Execute editing with the given arguments
+     *
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
+        assert incomes != null;
+        assert spendings != null;
         String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 4) {

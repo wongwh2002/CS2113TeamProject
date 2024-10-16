@@ -17,7 +17,6 @@ public class Wiagi {
 
     private void run() {
         Ui.welcome();
-
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;
         while (!isLoginSuccessful) {
