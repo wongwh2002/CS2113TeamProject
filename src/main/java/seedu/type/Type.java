@@ -18,8 +18,10 @@ public class Type implements Serializable {
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         try {
             this.amount = Integer.parseInt(userInputWords[2]);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new WiagiInvalidInputException("Did not enter a valid amount!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WiagiInvalidInputException("No amount and description provided!");
+        } catch (NumberFormatException e) {
+            throw new WiagiInvalidInputException("Amount must be an integer!");
         }
         this.description = getDescription(amount, userInput);
         this.date = getDate(userInput);

@@ -22,7 +22,7 @@ class ListCommandTest {
 
     private final IncomeList incomes = new IncomeList();
     private final SpendingList spendings = new SpendingList();
-    private LocalDate currentDate = LocalDate.now();
+    private final LocalDate currentDate = LocalDate.now();
 
     @BeforeEach
     public void setUp() {
