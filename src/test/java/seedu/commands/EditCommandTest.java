@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -53,7 +54,6 @@ class EditCommandTest {
         String userInout = "edit";
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
-
         assertEquals("\tInvalid input. Please enter in the form: edit [spending/income] [index] " +
                         "[amount/description] [new value]..." + System.lineSeparator(),
                 outContent.toString());
@@ -64,62 +64,54 @@ class EditCommandTest {
         String userInout = "edit notspendingincome 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-
-        assertEquals("\tSpendings " + System.lineSeparator() +
-                        "\t1. girlfriends - 10" + System.lineSeparator() +
-                        "\t2. macdonalds - 10" + System.lineSeparator() +
-                        "\tTotal spendings: 20" + System.lineSeparator() +
-                        "\tIncomes " + System.lineSeparator() +
-                        "\t1. savings - 10" + System.lineSeparator() +
-                        "\t2. dividends - 10" + System.lineSeparator() +
-                        "\tTotal incomes: 20" + System.lineSeparator(),
+        assertEquals("\tInvalid input. Please enter in the form: edit [spending/income] [index] " +
+                        "[amount/description] [new value]..." + System.lineSeparator(),
                 outContent.toString());
     }
 
     @Test
-    public void execute_listIncome_success() {
-        String userInout = "list spendings";
+    public void execute_invalidInputIndex_expectIndexOutOfBoundsException() {
+        String userInout = "edit spending 5 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-
-        assertEquals("\tSpendings" + System.lineSeparator() +
-                        "\t1. girlfriends - 10" + System.lineSeparator() +
-                        "\t2. macdonalds - 10" + System.lineSeparator() +
-                        "\tTotal spendings: 20" + System.lineSeparator(),
+        assertEquals("\tPlease enter a valid index." + System.lineSeparator(),
                 outContent.toString());
     }
 
     @Test
-    public void execute_listSpending_success() {
-        String userInout = "list incomes";
+    public void execute_invalidThirdArgument_expectIllegalArgumentException() {
+        String userInout = "edit spending 1 notamountdescription 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-
-        assertEquals("\tIncomes" + System.lineSeparator() +
-                        "\t1. savings - 10" + System.lineSeparator() +
-                        "\t2. dividends - 10" + System.lineSeparator() +
-                        "\tTotal incomes: 20" + System.lineSeparator(),
+        assertEquals("\tInvalid input. Please enter in the form: edit [spending/income] [index] " +
+                        "[amount/description] [new value]..." + System.lineSeparator(),
                 outContent.toString());
     }
 
     @Test
-    public void execute_randomInput_exceptionThrown() {
-        String userInout = "list 1234";
+    public void execute_invalidLastArgumentExpectingInt_expectIllegalArgumentExceptionThrown() {
+        String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-
-        assertEquals("\tInvalid input. Please enter in the form: list [spendings/incomes]" +
-                System.lineSeparator(), outContent.toString());
+        assertEquals("\tInvalid input. Please enter in the form: edit [spending/income] [index] " +
+                        "[amount/description] [new value]..." + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
-    public void execute_tooManyInputs_exceptionThrown() {
-        String userInout = "list spendings incomes";
+    public void execute_editSpendingAmount_success() {
+        String userInout = "edit spending 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
+        assertEquals(spendings.get(0).toString(), "girlfriends " + Constants.LIST_SEPARATOR + " 1");
+    }
 
-        assertEquals("\tInvalid input. Please enter in the form: list [spending/income]" +
-                System.lineSeparator(), outContent.toString());
+    @Test
+    public void execute_editIncomeAmount_success() {
+        String userInout = "edit income 1 amount 1";
+        Command c = Parser.parse(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(incomes.get(0).toString(), "savings " + Constants.LIST_SEPARATOR + " 1");
     }
 
 }
