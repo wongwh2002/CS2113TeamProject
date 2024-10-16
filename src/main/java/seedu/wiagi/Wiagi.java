@@ -17,8 +17,6 @@ public class Wiagi {
 
     private void run() {
         Ui.welcome();
-        assert false : "FORCE FAIL";
-
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;
         while (!isLoginSuccessful) {
