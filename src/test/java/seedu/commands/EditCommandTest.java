@@ -103,7 +103,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(spendings.get(0).toString(), "girlfriends " + Constants.LIST_SEPARATOR + " 1");
+        assertEquals(spendings.get(0).toString(), "girlfriends" + Constants.LIST_SEPARATOR + "1");
     }
 
     @Test
@@ -111,7 +111,7 @@ class EditCommandTest {
         String userInout = "edit income 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(incomes.get(0).toString(), "savings " + Constants.LIST_SEPARATOR + " 1");
+        assertEquals(incomes.get(0).toString(), "savings" + Constants.LIST_SEPARATOR + "1");
     }
 
 }
