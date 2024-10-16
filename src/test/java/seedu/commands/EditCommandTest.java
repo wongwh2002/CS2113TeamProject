@@ -48,7 +48,7 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_noArgs_expectIllegalArgumentException() {
+    public void execute_missingEditDescription_expectIllegalArgumentException() {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         String userInout = "edit";
@@ -79,7 +79,7 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_invalidThirdArgument_expectIllegalArgumentException() {
+    public void execute_invalidEditType_expectIllegalArgumentException() {
         String userInout = "edit spending 1 notamountdescription 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
@@ -89,7 +89,7 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_invalidLastArgumentExpectingInt_expectIllegalArgumentExceptionThrown() {
+    public void execute_invalidEditAmount_expectIllegalArgumentExceptionThrown() {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
