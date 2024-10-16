@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             }
         } catch (IllegalArgumentException e) {
             Ui.printWithTab("Invalid input. " +
-                    "Please enter in the form: add [spending/income] [amount] [description]...");
+                    "Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD}");
         } catch (Exception e) {
             Ui.printWithTab("An error occurred. Please try again.");
         }

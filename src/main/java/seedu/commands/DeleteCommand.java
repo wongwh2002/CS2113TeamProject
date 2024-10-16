@@ -40,21 +40,20 @@ public class DeleteCommand extends Command {
     }
 
     private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) {
-        int idx = getIdx(userInputWords);
-        if (isOutOfBounds(idx, arrList)) {
+        int index = getIndex(userInputWords);
+        if (isOutOfBounds(index, arrList)) {
             throw new IllegalArgumentException("Invalid index");
         }
-        arrList.remove(arrList.get(idx));
+        arrList.remove(arrList.get(index));
         Ui.printWithTab("Successfully deleted!");
     }
 
-    private int getIdx(String[] fullCommandArray) {
-        int idx;
+    private int getIndex(String[] fullCommandArray) {
         try {
-            idx = Integer.parseInt(fullCommandArray[2]);
+            int index = Integer.parseInt(fullCommandArray[2]);
+            return index - 1;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Please input an integer as index.");
         }
-        return idx - 1;
     }
 }
