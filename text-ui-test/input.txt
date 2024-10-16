@@ -6,7 +6,8 @@ add spending macdonalds
 add spending 10 flights
 add spending 10 girlfriends
 add income 10 savings
-add spending 10 macdonalds
+add spending 10 macdonalds /2024/10/10
+add spending 10 macdonalds /2024-10-10
 add income 10 dividends
 delete
 delete spending a
