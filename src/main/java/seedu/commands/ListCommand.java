@@ -44,23 +44,19 @@ public class ListCommand extends Command {
         int commandSize = fullCommands.length;
         try {
             if (commandSize == 0 || commandSize > 2) {
-                throw new IllegalArgumentException("Invalid input. Please enter in the form: list [spending/income]");
+                throw new IllegalArgumentException("Invalid input. Please enter in the form: list [spendings/incomes]");
             }
 
             if (commandSize == 1) {
-                Ui.printWithTab("Spendings ");
-                Ui.printWithTab("Total spendings: " + print_list(spendings));
-                Ui.printWithTab("Incomes ");
-                Ui.printWithTab("Total incomes: " + print_list(incomes));
+                printSpendings(spendings);
+                printIncomes(incomes);
                 return;
             }
 
             if (fullCommands[1].equals("spendings")) {
-                Ui.printWithTab(fullCommands[1].substring(0,1).toUpperCase() + fullCommands[1].substring(1));
-                Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(spendings));
+                printSpendings(spendings);
             } else if (fullCommands[1].equals("incomes")) {
-                Ui.printWithTab(fullCommands[1].substring(0,1).toUpperCase() + fullCommands[1].substring(1));
-                Ui.printWithTab("Total " + fullCommands[1] + ": " + print_list(incomes));
+                printIncomes(incomes);
             } else {
                 throw new IllegalArgumentException("Invalid input. " +
                         "Please enter in the form: list [spendings/incomes]");
@@ -70,5 +66,15 @@ public class ListCommand extends Command {
         } catch (Exception e) {
             Ui.printWithTab("An error occurred while listing the items.");
         }
+    }
+
+    private void printSpendings(SpendingList spendings) {
+        Ui.printWithTab("Spendings");
+        Ui.printWithTab("Total spendings: " + print_list(spendings));
+    }
+
+    private void printIncomes(IncomeList incomes) {
+        Ui.printWithTab("Incomes");
+        Ui.printWithTab("Total incomes: " + print_list(incomes));
     }
 }

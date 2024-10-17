@@ -56,9 +56,9 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
 
-        assertEquals("\tSpendings " + System.lineSeparator() +
+        assertEquals("\tSpendings" + System.lineSeparator() +
                         "\tTotal spendings: 0" + System.lineSeparator() +
-                        "\tIncomes " + System.lineSeparator() +
+                        "\tIncomes" + System.lineSeparator() +
                         "\tTotal incomes: 0" + System.lineSeparator(),
                 outContent.toString());
     }
@@ -69,11 +69,11 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tSpendings " + System.lineSeparator() +
+        assertEquals("\tSpendings" + System.lineSeparator() +
                 "\t1. girlfriends - 10 - 2024-10-10" + System.lineSeparator() +
                 "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
                 "\tTotal spendings: 20" + System.lineSeparator() +
-                        "\tIncomes " + System.lineSeparator() +
+                        "\tIncomes" + System.lineSeparator() +
                 "\t1. savings - 10 - 2024-10-10" + System.lineSeparator() +
                 "\t2. dividends - 10 - " + currentDate + System.lineSeparator() +
                 "\tTotal incomes: 20" + System.lineSeparator(),
@@ -122,7 +122,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. Please enter in the form: list [spending/income]" +
+        assertEquals("\tInvalid input. Please enter in the form: list [spendings/incomes]" +
                 System.lineSeparator(), outContent.toString());
     }
 
