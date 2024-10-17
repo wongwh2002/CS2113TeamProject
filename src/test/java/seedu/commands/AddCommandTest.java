@@ -13,12 +13,14 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 public class AddCommandTest {
-    private final IncomeList incomes = new IncomeList();
-    private final SpendingList spendings = new SpendingList();
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
+
+    private final IncomeList incomes = new IncomeList();
+    private final SpendingList spendings = new SpendingList();
     private final LocalDate currentDate = LocalDate.now();
 
     @BeforeEach

@@ -80,7 +80,7 @@ public class Type implements Serializable {
                 throw new WiagiInvalidInputException("Amount must be greater than zero!");
             }
             this.amount = amount;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException("Amount must be an integer");
         }
     }
