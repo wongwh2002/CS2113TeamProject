@@ -71,6 +71,10 @@ public class ListCommand extends Command {
     private void printSpendings(SpendingList spendings) {
         Ui.printWithTab("Spendings");
         Ui.printWithTab("Total spendings: " + print_list(spendings));
+        Ui.printWithTab("Daily spendings: " + spendings.getDailySpending() + " Monthly spendings: " +
+                spendings.getMontlySpending() + " Yearly Spendings: " + spendings.getYearlySpending());
+        Ui.printWithTab("Daily Budget: " + spendings.getDailyBudget() + " Monthly Budget: " +
+                spendings.getMonthlyBudget() + " Yearly Budget: " + spendings.getYearlyBudget());
     }
 
     private void printIncomes(IncomeList incomes) {

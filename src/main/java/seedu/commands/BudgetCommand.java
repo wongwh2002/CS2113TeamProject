@@ -33,6 +33,25 @@ public class BudgetCommand extends Command {
     }
 
     private void addBudget(String[] userInputWords, SpendingList spendings) {
+        try {
+            int budget = Integer.parseInt(userInputWords[2]);
+
+            switch (userInputWords[1]) {
+            case "daily":
+                spendings.setDailyBudget(budget);
+                break;
+            case "monthly":
+                spendings.setMonthlyBudget(budget);
+                break;
+            case "yearly":
+                spendings.setYearlyBudget(budget);
+                break;
+            default:
+                throw new IllegalArgumentException();
+            }
+        } catch (NumberFormatException e) {
+            Ui.printWithTab("Invalid amount. Please try again.");
+        }
     }
 
 
