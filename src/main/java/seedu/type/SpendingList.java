@@ -10,10 +10,16 @@ public class SpendingList extends ArrayList<Spending> {
 
     public SpendingList() {
         super();
+        dailyBudget = 0;
+        monthlyBudget = 0;
+        yearlyBudget = 0;
     }
 
     public SpendingList(SpendingList spendings) {
         super(spendings);  // Initialise with data in storage
+        dailyBudget = 0;
+        monthlyBudget = 0;
+        yearlyBudget = 0;
     }
 
     public int getDailyBudget() {
@@ -41,12 +47,12 @@ public class SpendingList extends ArrayList<Spending> {
     }
 
 
-    public int getMontlySpending() {
+    public int getMonthlySpending() {
         int spendingTotal = 0;
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         for (Spending spending : this) {
             if (spending.getDate().isAfter(oneMonthAgo) && spending.getDate().isBefore(LocalDate.now().plusDays(1))) {
-                spendingTotal++;
+                spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;
@@ -56,7 +62,7 @@ public class SpendingList extends ArrayList<Spending> {
         int spendingTotal = 0;
         for (Spending spending : this) {
             if (spending.getDate().isEqual(LocalDate.now())) {
-                spendingTotal++;
+                spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;
@@ -67,7 +73,7 @@ public class SpendingList extends ArrayList<Spending> {
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
         for (Spending spending : this) {
             if (spending.getDate().isAfter(oneYearAgo) && spending.getDate().isBefore(LocalDate.now().plusDays(1))) {
-                spendingTotal++;
+                spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;

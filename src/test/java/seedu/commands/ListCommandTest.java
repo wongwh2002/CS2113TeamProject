@@ -58,6 +58,9 @@ class ListCommandTest {
 
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\tTotal spendings: 0" + System.lineSeparator() +
+                        "\tDaily spendings: 0 Daily Budget: 0" + System.lineSeparator() +
+                        "\tMonthly spendings: 0 Monthly Budget: 0" + System.lineSeparator() +
+                        "\tYearly spendings: 0 Yearly Budget: 0" + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +
                         "\tTotal incomes: 0" + System.lineSeparator(),
                 outContent.toString());
@@ -70,13 +73,16 @@ class ListCommandTest {
         c.execute(incomes, spendings);
 
         assertEquals("\tSpendings" + System.lineSeparator() +
-                "\t1. girlfriends - 10 - 2024-10-10" + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
-                "\tTotal spendings: 20" + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - 2024-10-10" + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
+                        "\tTotal spendings: 20" + System.lineSeparator() +
+                        "\tDaily spendings: 10 Daily Budget: 0" + System.lineSeparator() +
+                        "\tMonthly spendings: 20 Monthly Budget: 0" + System.lineSeparator() +
+                        "\tYearly spendings: 20 Yearly Budget: 0" + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +
-                "\t1. savings - 10 - 2024-10-10" + System.lineSeparator() +
-                "\t2. dividends - 10 - " + currentDate + System.lineSeparator() +
-                "\tTotal incomes: 20" + System.lineSeparator(),
+                        "\t1. savings - 10 - 2024-10-10" + System.lineSeparator() +
+                        "\t2. dividends - 10 - " + currentDate + System.lineSeparator() +
+                        "\tTotal incomes: 20" + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -89,7 +95,10 @@ class ListCommandTest {
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\t1. girlfriends - 10 - 2024-10-10" + System.lineSeparator() +
                         "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
-                        "\tTotal spendings: 20" + System.lineSeparator(),
+                        "\tTotal spendings: 20" + System.lineSeparator() +
+                        "\tDaily spendings: 10 Daily Budget: 0" + System.lineSeparator() +
+                        "\tMonthly spendings: 20 Monthly Budget: 0" + System.lineSeparator() +
+                        "\tYearly spendings: 20 Yearly Budget: 0" + System.lineSeparator(),
                 outContent.toString());
     }
 

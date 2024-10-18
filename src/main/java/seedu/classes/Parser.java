@@ -1,12 +1,6 @@
 package seedu.classes;
 
-import seedu.commands.AddCommand;
-import seedu.commands.ByeCommand;
-import seedu.commands.Command;
-import seedu.commands.DeleteCommand;
-import seedu.commands.ListCommand;
-import seedu.commands.UnknownCommand;
-import seedu.commands.EditCommand;
+import seedu.commands.*;
 
 public class Parser {
 
@@ -24,6 +18,8 @@ public class Parser {
             return new ListCommand(fullCommand);
         case "edit":
             return new EditCommand(fullCommand);
+        case "budget":
+            return new BudgetCommand(fullCommand);
         default:
             return new UnknownCommand();
         }
