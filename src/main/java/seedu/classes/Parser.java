@@ -1,6 +1,13 @@
 package seedu.classes;
 
-import seedu.commands.*;
+import seedu.commands.AddCommand;
+import seedu.commands.ByeCommand;
+import seedu.commands.Command;
+import seedu.commands.DeleteCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.EditCommand;
+import seedu.commands.BudgetCommand;
+import seedu.commands.UnknownCommand;
 
 public class Parser {
 

@@ -1,11 +1,8 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
-import seedu.exception.WiagiEmptyDescriptionException;
-import seedu.exception.WiagiInvalidInputException;
-import seedu.type.Income;
+
 import seedu.type.IncomeList;
-import seedu.type.Spending;
 import seedu.type.SpendingList;
 
 public class BudgetCommand extends Command {
@@ -20,7 +17,7 @@ public class BudgetCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] userInputWords = fullCommand.split(" ", 3);
         try {
-            if (userInputWords.length < 3) {
+            if (userInputWords.length != 3) {
                 throw new IllegalArgumentException();
             }
             addBudget(userInputWords, spendings);
@@ -39,12 +36,15 @@ public class BudgetCommand extends Command {
             switch (userInputWords[1]) {
             case "daily":
                 spendings.setDailyBudget(budget);
+                Ui.printWithTab("Successfully set daily budget of: " + budget);
                 break;
             case "monthly":
                 spendings.setMonthlyBudget(budget);
+                Ui.printWithTab("Successfully set monthly budget of: " + budget);
                 break;
             case "yearly":
                 spendings.setYearlyBudget(budget);
+                Ui.printWithTab("Successfully set yearly budget of: " + budget);
                 break;
             default:
                 throw new IllegalArgumentException();
