@@ -2,13 +2,13 @@ test
 test
 add spending 1000
 add 1000
-add spending macdonalds
-add spending 10 flights
-add spending 10 girlfriends
-add income 10 savings
+add spending macdonalds /2024-10-17
+add spending 10 flights /2024-10-17
+add spending 10 girlfriends /2024-10-17
+add income 10 savings /2024-10-17
 add spending 10 macdonalds /2024/10/10
 add spending 10 macdonalds /2024-10-10
-add income 10 dividends
+add income 10 dividends /2024-10-17
 edit
 edit income
 edit income s
