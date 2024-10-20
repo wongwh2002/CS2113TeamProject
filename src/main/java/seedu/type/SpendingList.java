@@ -49,13 +49,17 @@ public class SpendingList extends ArrayList<Spending> {
 
     public int getMonthlySpending() {
         int spendingTotal = 0;
-        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         for (Spending spending : this) {
-            if (spending.getDate().isAfter(oneMonthAgo) && spending.getDate().isBefore(LocalDate.now().plusDays(1))) {
+            if (isThisMonth(spending.getDate())) {
                 spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;
+    }
+
+    private boolean isThisMonth(LocalDate date) {
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+        return date.isAfter(oneMonthAgo) && date.isBefore(LocalDate.now().plusDays(1));
     }
 
     public int getDailySpending() {
@@ -70,13 +74,17 @@ public class SpendingList extends ArrayList<Spending> {
 
     public int getYearlySpending() {
         int spendingTotal = 0;
-        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
         for (Spending spending : this) {
-            if (spending.getDate().isAfter(oneYearAgo) && spending.getDate().isBefore(LocalDate.now().plusDays(1))) {
+            if (isThisYear(spending.getDate())) {
                 spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;
+    }
+
+    private boolean isThisYear(LocalDate date) {
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        return date.isAfter(oneYearAgo) && date.isBefore(LocalDate.now().plusDays(1));
     }
 
 }
