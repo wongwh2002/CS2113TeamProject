@@ -9,14 +9,14 @@ and investment analysis.
 - [Quick start](#Quick-Start)
 - [Features](#Features)
   - [Adding an entry](#adding-an-entry)
-    - [Adding a spending: `add {$SPENDING}`](#adding-a-spending-add-spending)
-    - [Adding an income: `add {$INCOME}`](#adding-an-income-add-income)
-  - [Listing all entries: `list`](#listing-all-entries-list)
-    - [Listing all spendings: `list spendings`](#listing-all-spendings-list-spendings)
-    - [Listing all incomes: `list incomes`](#listing-all-incomes-list-incomes)
+    - [Adding a spending](#adding-a-spending)
+    - [Adding an income](#adding-an-income)
+  - [Listing all entries](#listing-all-entries)
+    - [Listing all spendings](#listing-all-spendings)
+    - [Listing all incomes](#listing-all-incomes)
   - [Deleting an entry](#deleting-an-entry)
-    - [Deleting an income: `delete income {$INDEX}`](#deleting-an-income-delete-income-index)
-    - [Deleting a spending: `delete spending {$INDEX}`](#deleting-a-spending-delete-spending-index)
+    - [Deleting an income](#deleting-an-income)
+    - [Deleting a spending](#deleting-a-spending)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -40,7 +40,7 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 > `add spending 4 lunch` or `add spending 4 lunch /2024-10-20`.
  
 ### Adding an entry
-#### Adding a spending: `add {$SPENDING}`
+#### Adding a spending:
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -52,7 +52,7 @@ Example input: <br>
 output
 ```
 
-#### Adding an income: `add {$INCOME}`
+#### Adding an income:
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -64,7 +64,7 @@ Example input: <br>
 output
 ```
 
-### Listing all entries: `list`
+### Listing all entries:
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -75,7 +75,7 @@ Example input: <br>
 ```
 output
 ```
-#### Listing all spendings: `list spendings`
+#### Listing all spendings:
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -87,7 +87,7 @@ Example input: <br>
 output
 ```
 
-#### Listing all incomes: `list incomes`
+#### Listing all incomes:
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -100,10 +100,10 @@ output
 ```
 
 ### Deleting an entry
-#### Deleting an income: `delete income {$INDEX}`
+#### Deleting an income:
 Deletes the specified income from the list. 
 The income to delete is specified by its index.<br>
-Run the [`list incomes`](#listing-all-incomes-list-incomes) command to check the index of the income.
+Run the [`list incomes`](#listing-all-incomes) command to check the index of the income.
 
 Format: `delete income {$INDEX}`
 
@@ -116,10 +116,10 @@ Example input: <br>
     ____________________________________________________________
 ```
 
-#### Deleting a spending: `delete spending {$INDEX}`
+#### Deleting a spending:
 Deletes the specified spending from the list.
 The spending to delete is specified by its index.<br>
-Run the [`list spendings`](#listing-all-spendings-list-spendings) command to check the index of the spending.
+Run the [`list spendings`](#listing-all-spendings) command to check the index of the spending.
 
 Format: `delete spending {$INDEX}`
 
