@@ -7,16 +7,18 @@ independence journey by offering a wide range of essential tools and features su
 and investment analysis. 
  
 - [Quick start](#Quick-Start)
-  - [Features](#Features)
-    - [Adding an entry](#adding-an-entry)
-      - [Adding a spending: `add {$SPENDING}`](#adding-a-spending-add-spending)
-      - [Adding an income: `add {$INCOME}`](#adding-an-income-add-income)
-    - [Listing all entries: `list`](#listing-all-entries-list)
-      - [Listing all spendings: `list spendings`](#listing-all-spendings-list-spendings)
-      - [Listing all incomes: `list incomes`](#listing-all-incomes-list-incomes)
-    - [Deleting an entry](#deleting-an-entry)
-      - [Deleting an income: `delete income {$INDEX}`](#deleting-an-income-delete-income-index)
-      - [Deleting a spending: `delete spending {$INDEX}`](#deleting-a-spending-delete-spending-index)
+- [Features](#Features)
+  - [Adding an entry](#adding-an-entry)
+    - [Adding a spending: `add {$SPENDING}`](#adding-a-spending-add-spending)
+    - [Adding an income: `add {$INCOME}`](#adding-an-income-add-income)
+  - [Listing all entries: `list`](#listing-all-entries-list)
+    - [Listing all spendings: `list spendings`](#listing-all-spendings-list-spendings)
+    - [Listing all incomes: `list incomes`](#listing-all-incomes-list-incomes)
+  - [Deleting an entry](#deleting-an-entry)
+    - [Deleting an income: `delete income {$INDEX}`](#deleting-an-income-delete-income-index)
+    - [Deleting a spending: `delete spending {$INDEX}`](#deleting-a-spending-delete-spending-index)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
 
 ## Quick Start
  
