@@ -87,6 +87,11 @@ public class SpendingList extends ArrayList<Spending> {
         this.yearlyBudget = yearlyBudget;
     }
 
+    /**
+     * Calculates the total spending for the current month.
+     *
+     * @return The total spending for the current month.
+     */
     public int getMonthlySpending() {
         int spendingTotal = 0;
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
@@ -98,6 +103,11 @@ public class SpendingList extends ArrayList<Spending> {
         return spendingTotal;
     }
 
+    /**
+     * Calculates the total spending for the current day.
+     *
+     * @return The total spending for the current day.
+     */
     public int getDailySpending() {
         int spendingTotal = 0;
         for (Spending spending : this) {
@@ -108,6 +118,11 @@ public class SpendingList extends ArrayList<Spending> {
         return spendingTotal;
     }
 
+    /**
+     * Calculates the total spending for the current year.
+     *
+     * @return The total spending for the current year.
+     */
     public int getYearlySpending() {
         int spendingTotal = 0;
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
@@ -118,7 +133,6 @@ public class SpendingList extends ArrayList<Spending> {
         }
         return spendingTotal;
     }
-
 }
 
 
