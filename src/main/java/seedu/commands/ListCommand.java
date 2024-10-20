@@ -7,10 +7,18 @@ import seedu.type.Type;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command to list incomes and spendings.
+ */
 public class ListCommand extends Command {
 
     private final String fullCommand;
 
+    /**
+     * Constructs a ListCommand with the specified full command.
+     *
+     * @param fullCommand The full command string.
+     */
     public ListCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
