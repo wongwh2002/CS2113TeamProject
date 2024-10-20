@@ -96,4 +96,8 @@ public class Type implements Serializable {
             throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD\"");
         }
     }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
 }

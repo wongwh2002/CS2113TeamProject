@@ -22,6 +22,11 @@ edit income 1 description mcd
 edit income 1 date
 edit income 1 date 2024/10/10
 edit income 1 date 2024-11-11
+list spendings
+budget yearly 1000
+budget monthly 100
+budget daily 15
+list spendings
 delete
 delete spending a
 delete spending 1
