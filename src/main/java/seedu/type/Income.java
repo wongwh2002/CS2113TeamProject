@@ -3,13 +3,15 @@ package seedu.type;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
 
+import java.time.LocalDate;
+
 public class Income extends Type {
     public Income(String[] userInputWords, String userInput)
             throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
         super(userInputWords, userInput);
     }
 
-    public Income(int amount, String description) {
-        super(amount, description);
+    public Income(int amount, String description, LocalDate date) {
+        super(amount, description, date);
     }
 }
