@@ -15,17 +15,14 @@ public class Type implements Serializable {
     private String description;
     private LocalDate date;
 
-    public Type(String[] userInputWords, String userInput) {
-        try {
-            this.amount = extractAmount(userInputWords);
-            assert amount > 0 : "Amount should be greater than zero";
-            this.description = extractDescription(amount, userInput);
-            assert !description.isEmpty() : "Description should not be empty";
-            this.date = extractDate(userInput);
-            Ui.printWithTab("Entry successfully added!");
-        } catch (WiagiMissingParamsException | WiagiEmptyDescriptionException e) {
-            Ui.printWithTab(e.getMessage());
-        }
+    public Type(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
+            WiagiMissingParamsException {
+        this.amount = extractAmount(userInputWords);
+        assert amount > 0 : "Amount should be greater than zero";
+        this.description = extractDescription(amount, userInput);
+        assert !description.isEmpty() : "Description should not be empty";
+        this.date = extractDate(userInput);
+        Ui.printWithTab("Entry successfully added!");
     }
 
     public Type(int amount, String description, LocalDate date) {
@@ -45,11 +42,14 @@ public class Type implements Serializable {
                 throw new WiagiInvalidInputException("Amount must be greater than zero!");
             }
             return amount;
+        } catch (WiagiInvalidInputException e) {
+            Ui.printWithTab(e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new WiagiMissingParamsException("No amount and description provided!");
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException("Amount must be an integer!");
         }
+        return 0;
     }
 
     private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {

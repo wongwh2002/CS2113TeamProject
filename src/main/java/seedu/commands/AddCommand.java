@@ -44,7 +44,7 @@ public class AddCommand extends Command {
         try {
             Spending toAdd = new Spending(userInputWords, fullCommand);
             spendings.add(toAdd);
-        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException | WiagiEmptyDescriptionException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
@@ -53,7 +53,7 @@ public class AddCommand extends Command {
         try {
             Income toAdd = new Income(userInputWords, fullCommand);
             incomes.add(toAdd);
-        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException | WiagiEmptyDescriptionException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
