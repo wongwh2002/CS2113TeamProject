@@ -17,9 +17,8 @@ public class SpendingListTest {
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
 
-    private final IncomeList incomes = new IncomeList();
-    private SpendingList spendings;
     private final LocalDate currentDate = LocalDate.now();
+    private SpendingList spendings;
 
     private final int dailySpending = 10000;
     private final int monthlySpending = 11000;
@@ -46,17 +45,17 @@ public class SpendingListTest {
     }
 
     @Test
-    public void getMonthlySpending_shouldReturnMonthlySpendings() {
+    public void getMonthlySpending_basicInputs_shouldReturnMonthlySpendings() {
         assertEquals(monthlySpending, spendings.getMonthlySpending());
     }
 
     @Test
-    public void getDailySpending_shouldReturnDailySpendings() {
+    public void getDailySpending_basicInputs_shouldReturnDailySpendings() {
         assertEquals(dailySpending, spendings.getDailySpending());
     }
 
     @Test
-    public void getYearlySpending_shouldReturnYearlySpendings() {
+    public void getYearlySpending_basicInputs_shouldReturnYearlySpendings() {
         assertEquals(yearlySpending, spendings.getYearlySpending());
     }
 }
