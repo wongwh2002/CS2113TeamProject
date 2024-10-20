@@ -83,11 +83,11 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. flights - 10 - 2024-10-20
-	2. girlfriends - 10 - 2024-10-20
+	1. flights - 10 - 2024-10-17
+	2. girlfriends - 10 - 2024-10-17
 	3. macdonalds - 10 - 2024-10-10
 	Total spendings: 30
-	Daily spendings: 20 Daily Budget: 0
+	Daily spendings: 0 Daily Budget: 0
 	Monthly spendings: 30 Monthly Budget: 0
 	Yearly spendings: 30 Yearly Budget: 0
 	____________________________________________________________
@@ -102,11 +102,11 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. flights - 10 - 2024-10-20
-	2. girlfriends - 10 - 2024-10-20
+	1. flights - 10 - 2024-10-17
+	2. girlfriends - 10 - 2024-10-17
 	3. macdonalds - 10 - 2024-10-10
 	Total spendings: 30
-	Daily spendings: 20 Daily Budget: 15
+	Daily spendings: 0 Daily Budget: 15
 	Monthly spendings: 30 Monthly Budget: 100
 	Yearly spendings: 30 Yearly Budget: 1000
 	____________________________________________________________
@@ -121,10 +121,10 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. girlfriends - 10 - 2024-10-20
+	1. girlfriends - 10 - 2024-10-17
 	2. macdonalds - 10 - 2024-10-10
 	Total spendings: 20
-	Daily spendings: 10 Daily Budget: 15
+	Daily spendings: 0 Daily Budget: 15
 	Monthly spendings: 20 Monthly Budget: 100
 	Yearly spendings: 20 Yearly Budget: 1000
 	Incomes
@@ -134,10 +134,10 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. girlfriends - 10 - 2024-10-20
+	1. girlfriends - 10 - 2024-10-17
 	2. macdonalds - 10 - 2024-10-10
 	Total spendings: 20
-	Daily spendings: 10 Daily Budget: 15
+	Daily spendings: 0 Daily Budget: 15
 	Monthly spendings: 20 Monthly Budget: 100
 	Yearly spendings: 20 Yearly Budget: 1000
 	____________________________________________________________
