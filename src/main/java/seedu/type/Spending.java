@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class Spending extends Type {
     public Spending(String[] userInputWords, String userInput)
-            throws WiagiEmptyDescriptionException, WiagiMissingParamsException {
+            throws WiagiEmptyDescriptionException, WiagiMissingParamsException, WiagiInvalidInputException {
         super(userInputWords, userInput);
     }
 
