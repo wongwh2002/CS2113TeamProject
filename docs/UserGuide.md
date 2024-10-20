@@ -27,6 +27,7 @@ and investment analysis.
 3. Copy the file to the folder you want to use as the home folder.
 4. Open a command terminal, navigate to the folder you have placed the jar file in, 
 and use the `java -jar Wiagi.java.jar` command to run the application.
+5. You will be prompted to set a password. Set a password and enter the password to log in. 
 
 ## Features
 > **Notes about the command format:**  
