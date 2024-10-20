@@ -25,7 +25,7 @@ and investment analysis.
 1. Ensure that you have Java 17 or above installed.
 2. Down the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder.
-4. Open a command terminal, cd into the folder you put the jar file in, 
+4. Open a command terminal, navigate to the folder you have placed the jar file in, 
 and use the `java -jar Wiagi.java.jar` command to run the application.
 
 ## Features
