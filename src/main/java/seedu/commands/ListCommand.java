@@ -3,9 +3,6 @@ package seedu.commands;
 import seedu.classes.Ui;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
-import seedu.type.Type;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to list incomes and spendings.
