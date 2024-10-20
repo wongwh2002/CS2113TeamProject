@@ -121,7 +121,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. Please enter in the form: list [spendings/incomes]" +
+        assertEquals("\tNo such category. Please enter in the form: list [spendings/incomes]" +
                 System.lineSeparator(), outContent.toString());
     }
 
@@ -131,7 +131,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. Please enter in the form: list [spendings/incomes]" +
+        assertEquals("\tToo many arguments. Please enter in the form: list [spendings/incomes]" +
                 System.lineSeparator(), outContent.toString());
     }
 

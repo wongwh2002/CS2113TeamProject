@@ -4,6 +4,7 @@ import seedu.classes.Constants;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,14 +15,17 @@ public class Type implements Serializable {
     private String description;
     private LocalDate date;
 
-    public Type(String[] userInputWords, String userInput)
-            throws WiagiEmptyDescriptionException, WiagiInvalidInputException {
-        this.amount = extractAmount(userInputWords);
-        assert amount > 0 : "Amount should be greater than zero";
-        this.description = extractDescription(amount, userInput);
-        assert !description.isEmpty() : "Description should not be empty";
-        this.date = extractDate(userInput);
-        Ui.printWithTab("Entry successfully added!");
+    public Type(String[] userInputWords, String userInput) {
+        try {
+            this.amount = extractAmount(userInputWords);
+            assert amount > 0 : "Amount should be greater than zero";
+            this.description = extractDescription(amount, userInput);
+            assert !description.isEmpty() : "Description should not be empty";
+            this.date = extractDate(userInput);
+            Ui.printWithTab("Entry successfully added!");
+        } catch (WiagiMissingParamsException | WiagiEmptyDescriptionException e) {
+            Ui.printWithTab(e.getMessage());
+        }
     }
 
     public Type(int amount, String description, LocalDate date) {
@@ -34,7 +38,7 @@ public class Type implements Serializable {
         return this.amount;
     }
 
-    private int extractAmount(String[] userInputWords) {
+    private int extractAmount(String[] userInputWords) throws WiagiMissingParamsException, WiagiInvalidInputException {
         try {
             int amount = Integer.parseInt(userInputWords[2]);
             if (amount <= 0) {
@@ -42,7 +46,7 @@ public class Type implements Serializable {
             }
             return amount;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WiagiInvalidInputException("No amount and description provided!");
+            throw new WiagiMissingParamsException("No amount and description provided!");
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException("Amount must be an integer!");
         }
@@ -81,7 +85,7 @@ public class Type implements Serializable {
             }
             this.amount = amount;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException("Amount must be an integer");
+            throw new WiagiInvalidInputException("Amount must be an integer.");
         }
     }
 

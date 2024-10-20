@@ -89,7 +89,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. Please enter in the form: budget [daily/monthly/yearly] [amount]"
+        assertEquals("\tNo such budget type. Please enter in the form: budget [daily/monthly/yearly] [amount]"
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -99,7 +99,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. Please enter in the form: budget [daily/monthly/yearly] [amount]"
+        assertEquals("\tMissing parameters. Please enter in the form: budget [daily/monthly/yearly] [amount]"
                 + System.lineSeparator(), outContent.toString());
     }
 }

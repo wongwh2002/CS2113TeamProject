@@ -1,6 +1,8 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
+import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
@@ -31,8 +33,14 @@ public class ListCommand extends Command {
         String[] fullCommands = this.fullCommand.split(" ");
         int commandSize = fullCommands.length;
         try {
-            if (commandSize == 0 || commandSize > 2) {
-                throw new IllegalArgumentException("Invalid input. Please enter in the form: list [spendings/incomes]");
+            if (commandSize == 0) {
+                throw new WiagiMissingParamsException("Missing parameters. " +
+                        "Please enter in the form: list [spendings/incomes]");
+            }
+
+            if (commandSize > 2) {
+                throw new WiagiInvalidInputException("Too many arguments. " +
+                        "Please enter in the form: list [spendings/incomes]");
             }
 
             if (commandSize == 1) {
@@ -46,10 +54,10 @@ public class ListCommand extends Command {
             } else if (fullCommands[1].equals("incomes")) {
                 Ui.printIncomes(incomes);
             } else {
-                throw new IllegalArgumentException("Invalid input. " +
+                throw new WiagiInvalidInputException("No such category. " +
                         "Please enter in the form: list [spendings/incomes]");
             }
-        } catch (IllegalArgumentException e) {
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         } catch (Exception e) {
             Ui.printWithTab("An error occurred while listing the items.");
