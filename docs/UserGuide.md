@@ -8,8 +8,9 @@ and investment analysis.
  
 - [Quick start](#Quick-Start)
   - [Features](#Features)
-    - [Adding a spending: `add {$SPENDING}`](#adding-a-spending-add-spending)
-    - [Adding an income: `add {$INCOME}`](#adding-an-income-add-income)
+    - [Adding an entry](#adding-an-entry)
+      - [Adding a spending: `add {$SPENDING}`](#adding-a-spending-add-spending)
+      - [Adding an income: `add {$INCOME}`](#adding-an-income-add-income)
     - [Listing all entries: `list`](#listing-all-entries-list)
       - [Listing all spendings: `list spendings`](#listing-all-spendings-list-spendings)
       - [Listing all incomes: `list incomes`](#listing-all-incomes-list-incomes)
@@ -36,7 +37,8 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 > e.g. `add lunch {$SPENDING} {$DESCRIPTION} [/$DATE]` can be used as 
 > `add spending 4 lunch` or `add spending 4 lunch /2024-10-20`.
  
-### Adding a spending: `add {$SPENDING}`
+### Adding an entry
+#### Adding a spending: `add {$SPENDING}`
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
@@ -48,7 +50,7 @@ Example input: <br>
 output
 ```
 
-### Adding an income: `add {$INCOME}`
+#### Adding an income: `add {$INCOME}`
 // Description
 
 Format: `todo n/TODO_NAME d/DEADLINE`
