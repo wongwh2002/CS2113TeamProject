@@ -32,11 +32,11 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 > **Notes about the command format:**  
 > 
 > - Words in `{$UPPER_CASE}` are the parameters to be supplied by the user. <br>
-> e.g., in `add spending {$SPENDING} {$DESCRIPTION}`, `{$SPENDING}` and `{$DESCRIPTION}` are parameters which 
+> e.g., in `add spending {$AMOUNT} {$DESCRIPTION}`, `{$AMOUNT}` and `{$DESCRIPTION}` are parameters which 
 > can be used as `add spending 4 dinner`.
 >  
 > - Items in square brackets are optional. <br>
-> e.g. `add lunch {$SPENDING} {$DESCRIPTION} [/$DATE]` can be used as 
+> e.g. `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE]` can be used as 
 > `add spending 4 lunch` or `add spending 4 lunch /2024-10-20`.
  
 ### Adding an entry
@@ -48,6 +48,7 @@ Format: `todo n/TODO_NAME d/DEADLINE`
 Example input: <br> 
 `input`
 
+Example output:
 ```
 output
 ```
@@ -60,6 +61,7 @@ Format: `todo n/TODO_NAME d/DEADLINE`
 Example input: <br>
 `input`
 
+Example output:
 ```
 output
 ```
@@ -72,6 +74,7 @@ Format: `todo n/TODO_NAME d/DEADLINE`
 Example input: <br>
 `input`
 
+Example output:
 ```
 output
 ```
@@ -83,6 +86,7 @@ Format: `todo n/TODO_NAME d/DEADLINE`
 Example input: <br>
 `input`
 
+Example output:
 ```
 output
 ```
@@ -95,6 +99,7 @@ Format: `todo n/TODO_NAME d/DEADLINE`
 Example input: <br>
 `input`
 
+Example output:
 ```
 output
 ```
@@ -110,6 +115,7 @@ Format: `delete income {$INDEX}`
 Example input: <br>
 `delete income 1`
 
+Example output:
 ```
     ____________________________________________________________
         Successfully deleted!
@@ -126,6 +132,7 @@ Format: `delete spending {$INDEX}`
 Example input: <br>
 `delete spending 1`
 
+Example output:
 ```
     ____________________________________________________________
     Successfully deleted!
