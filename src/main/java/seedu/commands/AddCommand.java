@@ -41,6 +41,7 @@ public class AddCommand extends Command {
     }
 
     private void addSpending(String[] userInputWords, SpendingList spendings) {
+        assert userInputWords[1].equals("spending") : "command should be to add spending";
         try {
             Spending toAdd = new Spending(userInputWords, fullCommand);
             spendings.add(toAdd);
@@ -50,6 +51,7 @@ public class AddCommand extends Command {
     }
 
     private void addIncome(String[] userInputWords, IncomeList incomes) {
+        assert userInputWords[1].equals("income") : "command should be to add income";
         try {
             Income toAdd = new Income(userInputWords, fullCommand);
             incomes.add(toAdd);
