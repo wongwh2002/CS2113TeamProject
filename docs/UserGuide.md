@@ -17,6 +17,8 @@ and investment analysis.
   - [Deleting an entry](#deleting-an-entry)
     - [Deleting an income](#deleting-an-income)
     - [Deleting a spending](#deleting-a-spending)
+  - [Setting a budget](#setting-a-budget)
+  - [Editing an entry](#editing-an-entry)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -139,6 +141,51 @@ Example output:
     Successfully deleted!
     ____________________________________________________________
 ```
+
+### Setting a Budget
+
+The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
+
+**Format**: `budget {$PERIOD} {$AMOUNT}`
+
+- `{$PERIOD}`: Specifies the period for the budget. It can be `daily`, `monthly`, or `yearly`.
+- `{$AMOUNT}`: The budget amount to be set.
+
+**Example input**:<br>
+`
+budget daily 50
+`
+
+**Example output**:
+```
+    ____________________________________________________________
+    Successfully set daily budget of: 50
+    ____________________________________________________________
+```
+
+### Editing an Entry
+
+The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry.
+
+**Format**: `edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}`
+
+- `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$INDEX}`: The index of the entry to be edited (1-based index).
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
+- `{$NEW_VALUE}`: The new value to be set for the specified field.
+
+**Example input**:<br>
+`edit spending 1 amount 100`
+
+**Example output**:
+```
+    ____________________________________________________________
+    Edit Successful!
+    ____________________________________________________________
+```
+
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
