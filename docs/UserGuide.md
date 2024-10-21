@@ -41,32 +41,70 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 > - Items in square brackets are optional. <br>
 > e.g. `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE]` can be used as 
 > `add spending 4 lunch` or `add spending 4 lunch /2024-10-20`.
- 
+
+### Login
+#### Creation of new user:
+First time users will be prompted to create a new password. Users are to type in his/her preferred password.
+Subsequent logins will not require this step. <br>
+Expected display for first time users:
+```
+	____________________________________________________________
+	Hi! You seem to be new, are you ready?!
+	Please enter your new account password:
+```
+Expected output after successfully creating password: <br>
+Note that this is also the startup page for returning users
+```
+	____________________________________________________________
+	Hello from
+	__        __  ___      /\       ____   ___
+	\ \      / / |_ _|    /  \     / ___| |_ _|
+	 \ \ /\ / /   | |    / /\ \   | |  _   | |
+	  \ V  V /    | |   / ____ \  | |_| |  | |
+	   \_/\_/    |___| /_/    \_\  \____| |___|
+	____________________________________________________________
+	____________________________________________________________
+	Please Enter Login Credentials:
+```
 ### Adding an entry
 #### Adding a spending:
 // Description
+Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
+Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry.
 
 Format: `todo n/TODO_NAME d/DEADLINE`
- 
-Example input: <br> 
+Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE]`
+
+Example input: <br>
 `input`
+`add spending 100 telegram premium /2024-10-20`
 
 Example output:
 ```
 output
+	____________________________________________________________
+	Entry successfully added!
+	____________________________________________________________
 ```
 
 #### Adding an income:
 // Description
+Adds an entry into user income list. Entry will be displayed at the latest index. <br>
+Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry.
 
 Format: `todo n/TODO_NAME d/DEADLINE`
+Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE]`
 
 Example input: <br>
 `input`
+`add income 10000 commission /2024-01-01`
 
 Example output:
 ```
 output
+	____________________________________________________________
+	Entry successfully added!
+	____________________________________________________________
 ```
 
 ### Listing all entries:

@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+*.class
+password.txt
+
 # Gradle build files
 /.gradle/
 /build/
