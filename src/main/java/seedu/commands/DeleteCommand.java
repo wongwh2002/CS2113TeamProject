@@ -1,6 +1,9 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
+import seedu.exception.WiagiInvalidIndexException;
+import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
@@ -18,19 +21,18 @@ public class DeleteCommand extends Command {
         String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 3) {
-                throw new IllegalArgumentException("Invalid input. " +
+                throw new WiagiMissingParamsException("Invalid input. " +
                         "Please enter in the form: delete [spending/income] [index]");
             }
-
             if (userInputWords[1].equalsIgnoreCase("income")) {
                 deleteEntry(userInputWords, incomes);
             } else if (userInputWords[1].equalsIgnoreCase("spending")) {
                 deleteEntry(userInputWords, spendings);
             } else {
-                throw new IllegalArgumentException("Invalid input. " +
+                throw new WiagiInvalidInputException("No such category. " +
                         "Please enter in the form: delete [spending/income] [index]");
             }
-        } catch (IllegalArgumentException e) {
+        } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
@@ -39,10 +41,10 @@ public class DeleteCommand extends Command {
         return (index >= arrList.size() || index < 0);
     }
 
-    private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) {
+    private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) throws WiagiInvalidIndexException {
         int index = getIndex(userInputWords);
         if (isOutOfBounds(index, arrList)) {
-            throw new IllegalArgumentException("Invalid index");
+            throw new WiagiInvalidIndexException("Invalid index");
         }
         arrList.remove(arrList.get(index));
         Ui.printWithTab("Successfully deleted!");
@@ -53,7 +55,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Please input an integer as index.");
+            throw new WiagiInvalidInputException("Please input an integer as index.");
         }
     }
 }

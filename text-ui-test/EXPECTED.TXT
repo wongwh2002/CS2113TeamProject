@@ -19,6 +19,7 @@
 	No Description Input!
 	____________________________________________________________
 	____________________________________________________________
+	No such category to add
 	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD}
 	____________________________________________________________
 	____________________________________________________________
@@ -43,40 +44,40 @@
 	Entry successfully added!
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Amount must be an integer
+	Amount must be an integer. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Amount must be greater than zero!
-	____________________________________________________________
-	____________________________________________________________
-	Edit Successful!
-	____________________________________________________________
-	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Amount must be greater than zero! Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
 	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid date format! Use "/YYYY-MM-DD"
+	Edit Successful!
+	____________________________________________________________
+	____________________________________________________________
+	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	____________________________________________________________
+	____________________________________________________________
+	Invalid date format! Use "/YYYY-MM-DD" Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
 	Edit Successful!
@@ -148,7 +149,7 @@
 	Total incomes: 110
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please enter in the form: list [spendings/incomes]
+	No such category. Please enter in the form: list [spendings/incomes]
 	____________________________________________________________
 	____________________________________________________________
 	Bye. Hope to see you again soon!

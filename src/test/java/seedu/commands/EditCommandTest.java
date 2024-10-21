@@ -56,10 +56,9 @@ class EditCommandTest {
         String userInout = "edit";
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
-        assertEquals("\tInvalid input. Please enter in the form: " +
-                        "edit [spending/income] [index] [amount/description/date] [new value]..."
-                        + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tMissing parameters. Please enter in the form: " +
+                "edit [spending/income] [index] [amount/description/date] [new value]..."
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -67,10 +66,9 @@ class EditCommandTest {
         String userInout = "edit notspendingincome 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid input. Please enter in the form: " +
-                        "edit [spending/income] [index] [amount/description/date] [new value]..."
-                        + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tNo such category. Please enter in the form: " +
+                "edit [spending/income] [index] [amount/description/date] [new value]..."
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -78,8 +76,9 @@ class EditCommandTest {
         String userInout = "edit spending 5 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tPlease enter a valid index." + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tPlease enter a valid index. Please enter in the form: edit " +
+                "[spending/income] [index] [amount/description/date] [new value]..." +
+                System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -87,10 +86,9 @@ class EditCommandTest {
         String userInout = "edit spending 1 notamountdescription 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid input. Please enter in the form: " +
-                        "edit [spending/income] [index] [amount/description/date] [new value]..."
-                        + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tNo such category. Please enter in the form: " +
+                "edit [spending/income] [index] [amount/description/date] [new value]..."
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -98,7 +96,8 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be an integer" + System.lineSeparator(),
+        assertEquals("\tAmount must be an integer. Please enter in the form: edit [spending/income] [index] " +
+                        "[amount/description/date] [new value]..." + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -107,8 +106,9 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount -1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be greater than zero!" + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tAmount must be greater than zero! Please enter in the form: edit [spending/income] " +
+                "[index] [amount/description/date] [new value]..." +
+                System.lineSeparator(), outContent.toString());
     }
 
     @Test
