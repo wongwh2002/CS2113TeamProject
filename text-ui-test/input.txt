@@ -23,15 +23,22 @@ edit income 1 date
 edit income 1 date 2024/10/10
 edit income 1 date 2024-11-11
 list spendings
+h
+list spendings
+y
+list spendings
+n
 budget yearly 1000
 budget monthly 100
 budget daily 15
 list spendings
+n
 delete
 delete spending a
 delete spending 1
 list
 list spendings
+n
 list incomes
 list 123t4w
 bye

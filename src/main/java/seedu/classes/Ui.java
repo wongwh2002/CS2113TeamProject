@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-    public String readCommand() {
+    public static String readCommand() {
         String line = scanner.nextLine();
         Ui.printSeparator();
         return line;
     }
+
     public static void printSeparator() {
         printWithTab(Constants.SEPARATOR);
     }
     public static void printWithTab(String message) {
         System.out.println("\t" + message);
+    }
+    public static void printWithDoubleTab(String message) {
+        System.out.println("\t\t" + message);
     }
     public static void welcome() {
         Ui.printSeparator();
@@ -39,15 +40,23 @@ public class Ui {
         Ui.printSeparator();
     }
 
+    public static void printSpendingStatistics(SpendingList spendings) {
+        Ui.printWithDoubleTab("Daily spendings: " + spendings.getDailySpending());
+        Ui.printWithDoubleTab("Daily Budget: " + spendings.getDailyBudget());
+        Ui.printWithDoubleTab("Daily budget left: " + (spendings.getDailyBudget() - spendings.getDailySpending()));
+        Ui.printWithDoubleTab("Monthly spendings: " + spendings.getMonthlySpending());
+        Ui.printWithDoubleTab("Monthly Budget: " + spendings.getMonthlyBudget());
+        Ui.printWithDoubleTab("Monthly budget left: " +
+                (spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
+        Ui.printWithDoubleTab("Yearly spendings: " + spendings.getYearlySpending());
+        Ui.printWithDoubleTab("Yearly Budget: " + spendings.getYearlyBudget());
+        Ui.printWithDoubleTab("Yearly budget left: " + (spendings.getYearlyBudget() - spendings.getYearlySpending()));
+    }
+
     public static void printSpendings(SpendingList spendings) {
         Ui.printWithTab("Spendings");
         Ui.printWithTab("Total spendings: " + print_list(spendings));
-        Ui.printWithTab("Daily spendings: " + spendings.getDailySpending() + " Daily Budget: " +
-                spendings.getDailyBudget());
-        Ui.printWithTab("Monthly spendings: " + spendings.getMonthlySpending() + " Monthly Budget: " +
-                spendings.getMonthlyBudget());
-        Ui.printWithTab(("Yearly spendings: " + spendings.getYearlySpending() + " Yearly Budget: " +
-                spendings.getYearlyBudget()));
+
     }
 
     public static void printIncomes(IncomeList incomes) {

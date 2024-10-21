@@ -42,7 +42,9 @@ public class ListCommand extends Command {
             }
 
             if (fullCommands[1].equals("spendings")) {
-                Ui.printSpendings(spendings);
+                while(!listSpendingStatistics(spendings)){
+                    Ui.printWithTab("Please enter Y/N");
+                };
             } else if (fullCommands[1].equals("incomes")) {
                 Ui.printIncomes(incomes);
             } else {
@@ -51,8 +53,22 @@ public class ListCommand extends Command {
             }
         } catch (IllegalArgumentException e) {
             Ui.printWithTab(e.getMessage());
-        } catch (Exception e) {
+        }/* catch (Exception e) {
             Ui.printWithTab("An error occurred while listing the items.");
+        }*/
+    }
+
+    private boolean listSpendingStatistics(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        String userInput = Ui.readCommand();
+        if (userInput.equals("y") || userInput.equals("Y")) {
+            Ui.printSpendings(spendings);
+            Ui.printSpendingStatistics(spendings);
+            return true;
+        } else if (userInput.equals("n") || userInput.equals("N")) {
+            Ui.printSpendings(spendings);
+            return true;
         }
+        return false;
     }
 }
