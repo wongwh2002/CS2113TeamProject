@@ -15,9 +15,11 @@ public class Ui {
 
     public Ui() {
         scanner = new Scanner(System.in);
+        assert scanner != null : "Scanner initialization failed";
     }
     public String readCommand() {
         String line = scanner.nextLine();
+        assert line != null : "Input line is null";
         Ui.printSeparator();
         return line;
     }
@@ -68,6 +70,7 @@ public class Ui {
     public static <T> String print_list(ArrayList<T> arrList) {
         int sum = 0;
         for (int i = 0; i < arrList.size(); i++) {
+            assert arrList != null : "ArrayList is null";
             int oneIndexedI = i + 1;
             sum += ((Type) arrList.get(i)).getAmount();
             Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
@@ -95,6 +98,7 @@ public class Ui {
         if (tags.isEmpty()) {
             throw new WiagiInvalidInputException("No tags found. Please input more tags!");
         }
+
         Ui.printWithTab("Tags");
         for (int i = 0; i < tags.size(); i++) {
             int oneIndexedI = i + 1;
@@ -105,6 +109,7 @@ public class Ui {
     public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
         StringBuilder sbIncome = new StringBuilder();
         StringBuilder sbSpending = new StringBuilder();
+        assert tag != null && !tag.isEmpty() : "Tag is null or empty";
         int tagsCount = 0;
         int incomeCount = 0;
         int spendingCount = 0;

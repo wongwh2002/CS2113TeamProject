@@ -5,7 +5,6 @@ import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -21,10 +20,11 @@ public class Type implements Serializable {
         this.amount = extractAmount(userInputWords);
         assert amount > 0 : "Amount should be greater than zero";
         this.description = extractDescription(amount, userInput);
-        assert !description.isEmpty() : "Description should not be empty";
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
         this.date = extractDate(userInput);
         assert date != null : "Date should not be null";
         this.tag = extractTag(userInput);
+        assert tag != null : "Tag should not be null";
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -60,6 +60,7 @@ public class Type implements Serializable {
             if (amount <= 0) {
                 throw new WiagiInvalidInputException("Amount must be greater than zero!");
             }
+            assert amount > 0 : "Amount should be greater than zero";
             return amount;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new WiagiMissingParamsException("No amount and description provided!");
@@ -73,6 +74,7 @@ public class Type implements Serializable {
         if (commandAndDescription[1].isEmpty()) {
             throw new WiagiEmptyDescriptionException();
         }
+
         String[] descriptionAndDate = commandAndDescription[1].split("[/*]");
         return descriptionAndDate[0].trim();
     }
