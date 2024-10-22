@@ -85,7 +85,8 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
 
-        assertEquals("\tNo entries with tag: tag. Please input tags first!" + System.lineSeparator(), outContent.toString());
+        assertEquals("\tNo entries with tag: tag. Please input tags first!"
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
