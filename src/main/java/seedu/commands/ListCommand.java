@@ -49,8 +49,7 @@ public class ListCommand extends Command {
             case "tags":
                 if (commandSize == 3) {
                     Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
-                }
-                else {
+                } else {
                     Ui.printAllTags(incomes, spendings);
                 }
                 break;
