@@ -38,10 +38,7 @@ public class ListCommand extends Command {
                         "Please enter in the form: list [spendings/incomes/tags]");
             }
 
-            if (commandSize > 3) {
-                throw new WiagiInvalidInputException("Too many arguments. " +
-                        "Please enter in the form: list [spendings/incomes/tags]");
-            }
+
 
             if (commandSize == 1) {
                 Ui.printSpendings(spendings);
@@ -49,12 +46,6 @@ public class ListCommand extends Command {
                 return;
             }
             switch (fullCommands[1]) {
-            case "spendings":
-                Ui.printSpendings(spendings);
-                break;
-            case "incomes":
-                Ui.printIncomes(incomes);
-                break;
             case "tags":
                 if (commandSize == 3) {
                     Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
@@ -62,6 +53,20 @@ public class ListCommand extends Command {
                 else {
                     Ui.printAllTags(incomes, spendings);
                 }
+                break;
+            case "spendings":
+                if (commandSize > 2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
+                Ui.printSpendings(spendings);
+                break;
+            case "incomes":
+                if (commandSize > 2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
+                Ui.printIncomes(incomes);
                 break;
             default:
                 throw new WiagiInvalidInputException("Invalid input. " +

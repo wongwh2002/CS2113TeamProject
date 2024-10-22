@@ -73,6 +73,7 @@ public class Ui {
 
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = new ArrayList<>();
+        tags.add("");
         for (Income income : incomes) {
             String tag = income.getTag();
             if (!tags.contains(tag)) {
@@ -85,6 +86,7 @@ public class Ui {
                 tags.add(tag);
             }
         }
+        tags.remove("");
         tags.sort(String::compareTo);
         if (tags.isEmpty()) {
             throw new WiagiInvalidInputException("No tags found. Please input more tags!");
@@ -97,30 +99,40 @@ public class Ui {
     }
 
     public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sbIncome = new StringBuilder();
+        StringBuilder sbSpending = new StringBuilder();
         int tagsCount = 0;
-        sb.append("Tag: ").append(tag).append("\n");
-        sb.append("\tIncomes\n");
+        int incomeCount = 0;
+        int spendingCount = 0;
+        sbIncome.append("\tIncomes\n");
         for (int i = 0; i < incomes.size(); i++) {
             Income income = incomes.get(i);
             if (income.getTag().equals(tag)) {
                 tagsCount++;
+                incomeCount++;
                 int oneIndexedI = i + 1;
-                sb.append("\t").append(oneIndexedI).append(". ").append(income).append("\n");
+                sbIncome.append("\t").append(oneIndexedI).append(". ").append(income).append("\n");
             }
         }
-        sb.append("\tSpendings\n");
+        sbSpending.append("Spendings\n");
         for (int i = 0; i < spendings.size(); i++) {
             Spending spending = spendings.get(i);
             if (spending.getTag().equals(tag)) {
                 tagsCount++;
+                spendingCount++;
                 int oneIndexedI = i + 1;
-                sb.append("\t").append(oneIndexedI).append(". ").append(spending).append("\n");
+                sbSpending.append("\t").append(oneIndexedI).append(". ").append(spending).append("\n");
             }
         }
         if (tagsCount == 0) {
             throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
         }
-        Ui.printWithTab(sb.toString());
+        Ui.printWithTab("Tag: " + tag);
+        if (incomeCount > 0) {
+            Ui.printWithTab(sbIncome.toString().trim());
+        }
+        if (spendingCount > 0) {
+            Ui.printWithTab(sbSpending.toString().trim());
+        }
     }
 }
