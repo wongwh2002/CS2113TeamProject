@@ -1,8 +1,7 @@
 package seedu.classes;
 
-import seedu.type.IncomeList;
-import seedu.type.SpendingList;
-import seedu.type.Type;
+import seedu.exception.WiagiInvalidInputException;
+import seedu.type.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -70,5 +69,58 @@ public class Ui {
             Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
         }
         return String.valueOf(sum);
+    }
+
+    public static void printAllTags(IncomeList incomes, SpendingList spendings) {
+        ArrayList<String> tags = new ArrayList<>();
+        for (Income income : incomes) {
+            String tag = income.getTag();
+            if (!tags.contains(tag)) {
+                tags.add(tag);
+            }
+        }
+        for (Spending spending : spendings) {
+            String tag = spending.getTag();
+            if (!tags.contains(tag)) {
+                tags.add(tag);
+            }
+        }
+        tags.sort(String::compareTo);
+        if (tags.isEmpty()) {
+            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
+        }
+        Ui.printWithTab("Tags");
+        for (int i = 0; i < tags.size(); i++) {
+            int oneIndexedI = i + 1;
+            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        }
+    }
+
+    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
+        StringBuilder sb = new StringBuilder();
+        int tagsCount = 0;
+        sb.append("Tag: ").append(tag).append("\n");
+        sb.append("\tIncomes\n");
+        for (int i = 0; i < incomes.size(); i++) {
+            Income income = incomes.get(i);
+            if (income.getTag().equals(tag)) {
+                tagsCount++;
+                int oneIndexedI = i + 1;
+                sb.append("\t").append(oneIndexedI).append(". ").append(income).append("\n");
+            }
+        }
+        sb.append("\tSpendings\n");
+        for (int i = 0; i < spendings.size(); i++) {
+            Spending spending = spendings.get(i);
+            if (spending.getTag().equals(tag)) {
+                tagsCount++;
+                int oneIndexedI = i + 1;
+                sb.append("\t").append(oneIndexedI).append(". ").append(spending).append("\n");
+            }
+        }
+        if (tagsCount == 0) {
+            throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
+        }
+        Ui.printWithTab(sb.toString());
     }
 }

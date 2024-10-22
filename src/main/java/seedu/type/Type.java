@@ -23,8 +23,8 @@ public class Type implements Serializable {
         this.description = extractDescription(amount, userInput);
         assert !description.isEmpty() : "Description should not be empty";
         this.date = extractDate(userInput);
+        assert date != null : "Date should not be null";
         this.tag = extractTag(userInput);
-        assert !tag.isEmpty() : "Tag should not be empty";
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -127,5 +127,9 @@ public class Type implements Serializable {
 
     public void editTag(String newTag) {
         this.tag = newTag;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 }

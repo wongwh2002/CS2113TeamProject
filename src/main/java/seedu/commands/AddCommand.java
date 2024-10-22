@@ -20,8 +20,8 @@ public class AddCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] userInputWords = fullCommand.split(" ");
         try {
-            if (userInputWords.length < 2) {
-                throw new WiagiMissingParamsException("Missing Parameters");
+            if (userInputWords.length < 4) {
+                throw new WiagiInvalidInputException("Missing Parameters");
             }
             if (userInputWords[1].equals("spending")) {
                 addSpending(userInputWords, spendings);
@@ -33,10 +33,7 @@ public class AddCommand extends Command {
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
             Ui.printWithTab("Invalid input. " +
-                    "Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD}");
-        } catch (WiagiMissingParamsException e) {
-            Ui.printWithTab(e.getMessage());
-            Ui.printWithTab("An error occurred. Please try again.");
+                    "Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}");
         }
     }
 

@@ -1,14 +1,22 @@
 test
 test
+list
+list tags
+list spendings
+list incomes
+list tags tagggg
 add spending 1000
 add 1000
 add spending macdonalds /2024-10-17
-add spending 10 flights /2024-10-17/ *help*
-add spending 10 girlfriends /2024-10-17/
-add income 10 savings /2024-10-17/
-add spending 10 macdonalds /2024/10/10/
-add spending 10 macdonalds /2024-10-10/
-add income 10 dividends /2024-10-17/
+add spending 10 macdonalds /2024-10-17 **
+add spending 10 kfc *food*
+add spending 10 techno *food* /2024-10-17/
+add spending 10 flights /2024-10-17/ *travel*
+add spending 10 girlfriends /2024-10-17/ *personal*
+add income 10 savings /2024-10-17/ *personal*
+add spending 10 macdonalds /2024/10/10/ *food*
+add spending 10 macdonalds /2024-10-10/ *food*
+add income 10 dividends /2024-10-17/ *investment*
 edit
 edit income
 edit income s
@@ -31,7 +39,12 @@ delete
 delete spending a
 delete spending 1
 list
+edit income 1 tag FastFood
 list spendings
 list incomes
 list 123t4w
+list tags
+list tags food
+list tags 123
+list tags personal
 bye

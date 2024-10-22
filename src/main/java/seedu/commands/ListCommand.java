@@ -35,12 +35,12 @@ public class ListCommand extends Command {
         try {
             if (commandSize == 0) {
                 throw new WiagiMissingParamsException("Missing parameters. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                        "Please enter in the form: list [spendings/incomes/tags]");
             }
 
-            if (commandSize > 2) {
+            if (commandSize > 3) {
                 throw new WiagiInvalidInputException("Too many arguments. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                        "Please enter in the form: list [spendings/incomes/tags]");
             }
 
             if (commandSize == 1) {
@@ -48,14 +48,24 @@ public class ListCommand extends Command {
                 Ui.printIncomes(incomes);
                 return;
             }
-
-            if (fullCommands[1].equals("spendings")) {
+            switch (fullCommands[1]) {
+            case "spendings":
                 Ui.printSpendings(spendings);
-            } else if (fullCommands[1].equals("incomes")) {
+                break;
+            case "incomes":
                 Ui.printIncomes(incomes);
-            } else {
-                throw new WiagiInvalidInputException("No such category. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                break;
+            case "tags":
+                if (commandSize == 3) {
+                    Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
+                }
+                else {
+                    Ui.printAllTags(incomes, spendings);
+                }
+                break;
+            default:
+                throw new WiagiInvalidInputException("Invalid input. " +
+                        "Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]");
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());

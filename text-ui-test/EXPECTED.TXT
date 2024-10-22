@@ -16,16 +16,52 @@
 	Login Success!
 	____________________________________________________________
 	____________________________________________________________
-	No Description Input!
+	Spendings
+	Total spendings: 0
+	Daily spendings: 0 Daily Budget: 0
+	Monthly spendings: 0 Monthly Budget: 0
+	Yearly spendings: 0 Yearly Budget: 0
+	Incomes
+	Total incomes: 0
 	____________________________________________________________
 	____________________________________________________________
-	No such category to add
-	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD}
+	No tags found. Please input more tags!
+	____________________________________________________________
+	____________________________________________________________
+	Spendings
+	Total spendings: 0
+	Daily spendings: 0 Daily Budget: 0
+	Monthly spendings: 0 Monthly Budget: 0
+	Yearly spendings: 0 Yearly Budget: 0
+	____________________________________________________________
+	____________________________________________________________
+	Incomes
+	Total incomes: 0
+	____________________________________________________________
+	____________________________________________________________
+	No entries with tag: tagggg. Please input tags first!
+	____________________________________________________________
+	____________________________________________________________
+	Missing Parameters
+	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}
+	____________________________________________________________
+	____________________________________________________________
+	Missing Parameters
+	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}
 	____________________________________________________________
 	____________________________________________________________
 	Amount must be an integer!
 	____________________________________________________________
 	____________________________________________________________
+	Invalid date format! Use "/YYYY-MM-DD/"
+	____________________________________________________________
+	____________________________________________________________
+	Entry successfully added!
+	____________________________________________________________
+	____________________________________________________________
+	Entry successfully added!
+	____________________________________________________________
+	____________________________________________________________
 	Entry successfully added!
 	____________________________________________________________
 	____________________________________________________________
@@ -35,7 +71,7 @@
 	Entry successfully added!
 	____________________________________________________________
 	____________________________________________________________
-	Invalid date format! Use "/YYYY-MM-DD"
+	Invalid date format! Use "/YYYY-MM-DD/"
 	____________________________________________________________
 	____________________________________________________________
 	Entry successfully added!
@@ -77,20 +113,22 @@
 	Missing parameters. Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
-	Invalid date format! Use "/YYYY-MM-DD" Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
+	Invalid date format! Use "/YYYY-MM-DD/" Please enter in the form: edit [spending/income] [index] [amount/description/date] [new value]...
 	____________________________________________________________
 	____________________________________________________________
 	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. flights - 10 - 2024-10-17
-	2. girlfriends - 10 - 2024-10-17
-	3. macdonalds - 10 - 2024-10-10
-	Total spendings: 30
-	Daily spendings: 0 Daily Budget: 0
-	Monthly spendings: 30 Monthly Budget: 0
-	Yearly spendings: 30 Yearly Budget: 0
+	1. kfc - 10 - 2024-10-22 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
+	5. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 50
+	Daily spendings: 10 Daily Budget: 0
+	Monthly spendings: 50 Monthly Budget: 0
+	Yearly spendings: 50 Yearly Budget: 0
 	____________________________________________________________
 	____________________________________________________________
 	Successfully set yearly budget of: 1000
@@ -103,13 +141,15 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. flights - 10 - 2024-10-17
-	2. girlfriends - 10 - 2024-10-17
-	3. macdonalds - 10 - 2024-10-10
-	Total spendings: 30
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 30 Monthly Budget: 100
-	Yearly spendings: 30 Yearly Budget: 1000
+	1. kfc - 10 - 2024-10-22 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
+	5. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 50
+	Daily spendings: 10 Daily Budget: 15
+	Monthly spendings: 50 Monthly Budget: 100
+	Yearly spendings: 50 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Please enter in the form: delete [spending/income] [index]
@@ -122,34 +162,67 @@
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. girlfriends - 10 - 2024-10-17
-	2. macdonalds - 10 - 2024-10-10
-	Total spendings: 20
+	1. techno - 10 - 2024-10-17 - food
+	2. flights - 10 - 2024-10-17 - travel
+	3. girlfriends - 10 - 2024-10-17 - personal
+	4. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 40
 	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 20 Monthly Budget: 100
-	Yearly spendings: 20 Yearly Budget: 1000
+	Monthly spendings: 40 Monthly Budget: 100
+	Yearly spendings: 40 Yearly Budget: 1000
 	Incomes
-	1. mcd - 100 - 2024-11-11
-	2. dividends - 10 - 2024-10-17
+	1. mcd - 100 - 2024-11-11 - personal
+	2. dividends - 10 - 2024-10-17 - investment
 	Total incomes: 110
+	____________________________________________________________
+	____________________________________________________________
+	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
 	Spendings
-	1. girlfriends - 10 - 2024-10-17
-	2. macdonalds - 10 - 2024-10-10
-	Total spendings: 20
+	1. techno - 10 - 2024-10-17 - food
+	2. flights - 10 - 2024-10-17 - travel
+	3. girlfriends - 10 - 2024-10-17 - personal
+	4. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 40
 	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 20 Monthly Budget: 100
-	Yearly spendings: 20 Yearly Budget: 1000
+	Monthly spendings: 40 Monthly Budget: 100
+	Yearly spendings: 40 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Incomes
-	1. mcd - 100 - 2024-11-11
-	2. dividends - 10 - 2024-10-17
+	1. mcd - 100 - 2024-11-11 - FastFood
+	2. dividends - 10 - 2024-10-17 - investment
 	Total incomes: 110
 	____________________________________________________________
 	____________________________________________________________
-	No such category. Please enter in the form: list [spendings/incomes]
+	Invalid input. Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]
+	____________________________________________________________
+	____________________________________________________________
+	Tags
+	1. FastFood
+	2. food
+	3. investment
+	4. personal
+	5. travel
+	____________________________________________________________
+	____________________________________________________________
+	Tag: food
+	Incomes
+	Spendings
+	1. techno - 10 - 2024-10-17 - food
+	4. macdonalds - 10 - 2024-10-10 - food
+
+	____________________________________________________________
+	____________________________________________________________
+	No entries with tag: 123. Please input tags first!
+	____________________________________________________________
+	____________________________________________________________
+	Tag: personal
+	Incomes
+	Spendings
+	3. girlfriends - 10 - 2024-10-17 - personal
+
 	____________________________________________________________
 	____________________________________________________________
 	Bye. Hope to see you again soon!
