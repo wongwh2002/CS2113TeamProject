@@ -15,4 +15,7 @@ public class Spending extends Type {
     public Spending(int amount, String description, LocalDate date) {
         super(amount, description, date);
     }
+    public Spending(int amount, String description, LocalDate date, String tag) {
+        super(amount, description, date, tag);
+    }
 }

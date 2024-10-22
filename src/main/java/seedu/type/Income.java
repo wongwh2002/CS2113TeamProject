@@ -15,4 +15,7 @@ public class Income extends Type {
     public Income(int amount, String description, LocalDate date) {
         super(amount, description, date);
     }
+    public Income(int amount, String description, LocalDate date, String tag) {
+        super(amount, description, date, tag);
+    }
 }

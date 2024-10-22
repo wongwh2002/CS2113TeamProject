@@ -14,6 +14,7 @@ public class Type implements Serializable {
     private int amount;
     private String description;
     private LocalDate date;
+    private String tag;
 
     public Type(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
             WiagiMissingParamsException, WiagiInvalidInputException {
@@ -22,13 +23,31 @@ public class Type implements Serializable {
         this.description = extractDescription(amount, userInput);
         assert !description.isEmpty() : "Description should not be empty";
         this.date = extractDate(userInput);
+        this.tag = extractTag(userInput);
+        assert !tag.isEmpty() : "Tag should not be empty";
         Ui.printWithTab("Entry successfully added!");
+    }
+
+    public Type(int amount, String description, LocalDate date, String tag) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.tag = tag;
     }
 
     public Type(int amount, String description, LocalDate date) {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.tag = "";
+    }
+
+    private String extractTag(String userInput) {
+        String[] commandAndTag = userInput.split("\\*");
+        if (commandAndTag.length == 1) {
+            return "";
+        }
+        return commandAndTag[1].trim();
     }
 
     public int getAmount() {
@@ -50,28 +69,32 @@ public class Type implements Serializable {
     }
 
     private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
-        String[] commandAndDescription = userInput.split(Integer.toString(amount), 2);
+        String[] commandAndDescription = userInput.split(Integer.toString(amount));
         if (commandAndDescription[1].isEmpty()) {
             throw new WiagiEmptyDescriptionException();
         }
-        String[] descriptionAndDate = commandAndDescription[1].split("/", 2);
+        String[] descriptionAndDate = commandAndDescription[1].split("[/*]");
         return descriptionAndDate[0].trim();
     }
 
     private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
-        String[] commandAndDate = userInput.split("/", 2);
+        String[] commandAndDate = userInput.split("/");
         try {
             if (commandAndDate.length == 1) {
                 return LocalDate.now();
             }
             return LocalDate.parse(commandAndDate[1].trim());
         } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD\"");
+            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD/\"");
         }
     }
 
     public String toString() {
-        return description + Constants.LIST_SEPARATOR + amount + Constants.LIST_SEPARATOR + date;
+        String returnString = description + Constants.LIST_SEPARATOR + amount + Constants.LIST_SEPARATOR + date;
+        if (!tag.isEmpty()) {
+            returnString += Constants.LIST_SEPARATOR + tag;
+        }
+        return returnString;
     }
 
     public void editAmount(String newAmount){
@@ -94,11 +117,15 @@ public class Type implements Serializable {
         try {
             this.date = LocalDate.parse(date);
         } catch (Exception e) {
-            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD\"");
+            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD/\"");
         }
     }
 
     public LocalDate getDate() {
         return this.date;
+    }
+
+    public void editTag(String newTag) {
+        this.tag = newTag;
     }
 }
