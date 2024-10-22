@@ -1,7 +1,11 @@
 package seedu.classes;
 
 import seedu.exception.WiagiInvalidInputException;
-import seedu.type.*;
+import seedu.type.Income;
+import seedu.type.IncomeList;
+import seedu.type.Spending;
+import seedu.type.SpendingList;
+import seedu.type.Type;
 
 import java.util.ArrayList;
 import java.util.Scanner;
