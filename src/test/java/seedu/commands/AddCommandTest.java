@@ -75,7 +75,9 @@ public class AddCommandTest {
         String userInput = "add spending";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tNo amount and description provided!" + System.lineSeparator()
+        assertEquals("\tMissing Parameters" + System.lineSeparator()
+                + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
+                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
                 , outContent.toString());
     }
 
@@ -102,8 +104,10 @@ public class AddCommandTest {
         String userInput = "add income";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tNo amount and description provided!" + System.lineSeparator(),
-                outContent.toString());
+        assertEquals("\tMissing Parameters" + System.lineSeparator()
+                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
+                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
+                , outContent.toString());
     }
 
     @Test
@@ -120,7 +124,9 @@ public class AddCommandTest {
         String userInput = "add spending 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tNo Description Input!" + System.lineSeparator()
+        assertEquals("\tMissing Parameters" + System.lineSeparator()
+                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
+                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
                 , outContent.toString());
     }
 
@@ -129,7 +135,9 @@ public class AddCommandTest {
         String userInput = "add income 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tNo Description Input!" + System.lineSeparator()
+        assertEquals("\tMissing Parameters" + System.lineSeparator()
+                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
+                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
                 , outContent.toString());
     }
 
@@ -138,7 +146,7 @@ public class AddCommandTest {
         String userInput = "add income 1000 part-time /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD\"" + System.lineSeparator()
+        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD/\"" + System.lineSeparator()
                 , outContent.toString());
     }
 
@@ -147,7 +155,7 @@ public class AddCommandTest {
         String userInput = "add spending 1000 ipad /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD\"" + System.lineSeparator()
+        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD/\"" + System.lineSeparator()
                 , outContent.toString());
     }
 }
