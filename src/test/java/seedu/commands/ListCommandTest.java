@@ -193,3 +193,4 @@ class ListCommandTest {
                 outContent.toString());
     }
 }
+
