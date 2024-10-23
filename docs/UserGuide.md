@@ -14,6 +14,8 @@ and investment analysis.
   - [Listing all entries](#listing-all-entries)
     - [Listing all spendings](#listing-all-spendings)
     - [Listing all incomes](#listing-all-incomes)
+    - [Listing all tags](#listing-all-tags)
+    - [Listing all of specific tag](#listing-all-of-specific-tag)
   - [Deleting an entry](#deleting-an-entry)
     - [Deleting an income](#deleting-an-income)
     - [Deleting a spending](#deleting-a-spending)
@@ -302,7 +304,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 
 - `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
-- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
 
 **Example input**:<br>
