@@ -1,13 +1,16 @@
 package seedu.type;
 
+import seedu.classes.Parser;
+import seedu.recurrence.Recurrence;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents a list of spendings with budget settings.
  */
 public class SpendingList extends ArrayList<Spending> {
-    private static ArrayList<Recurrence> recurrences;
     private int dailyBudget;
     private int monthlyBudget;
     private int yearlyBudget;
@@ -145,6 +148,17 @@ public class SpendingList extends ArrayList<Spending> {
         return date.isAfter(oneMonthAgo) && date.isBefore(LocalDate.now().plusDays(1));
     }
 
+    public void updateRecurrence() {
+        int size = this.size();
+        for (int i = 0; i < size; i++) {
+            Spending spending = this.get(i);
+            Recurrence recurrence = Parser.parseRecurrence(spending);
+            if (recurrence != null) {
+                recurrence.checkSpendingRecurrence(spending, this);
+            }
+        }
+        this.sort(Comparator.comparing(Type::getDate));
+    }
 }
 
 

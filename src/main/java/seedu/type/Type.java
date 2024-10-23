@@ -5,6 +5,8 @@ import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
+import seedu.recurrence.RecurrenceFrequency;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -32,11 +34,13 @@ public class Type implements Serializable {
         Ui.printWithTab("Entry successfully added!");
     }
 
-    public Type(int amount, String description, LocalDate date, String tag) {
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.tag = tag;
+    public Type(Type other) {
+        this.amount = other.amount;
+        this.description = other.description;
+        this.date = other.date;
+        this.tag = other.tag;
+        this.recurrenceFrequency = RecurrenceFrequency.NONE;
+        this.lastRecurrence = null;
     }
 
     public Type(int amount, String description, LocalDate date) {
@@ -45,6 +49,7 @@ public class Type implements Serializable {
         this.date = date;
         this.tag = "";
     }
+
 
     private String extractTag(String userInput) {
         String[] commandAndTag = userInput.split("\\*");
@@ -79,7 +84,7 @@ public class Type implements Serializable {
             throw new WiagiEmptyDescriptionException();
         }
 
-        String[] descriptionAndDate = commandAndDescription[1].split("[/*]");
+        String[] descriptionAndDate = commandAndDescription[1].trim().split(" ");
         return descriptionAndDate[0].trim();
     }
 
@@ -157,6 +162,10 @@ public class Type implements Serializable {
         this.date = date;
     }
 
+    public void editLastRecurrence(LocalDate date) {
+        this.lastRecurrence = date;
+    }
+
     public LocalDate getDate() {
         return this.date;
     }
@@ -171,5 +180,9 @@ public class Type implements Serializable {
 
     public LocalDate getLastRecurrence() {
         return this.lastRecurrence;
+    }
+
+    public RecurrenceFrequency getRecurrenceFrequency() {
+        return recurrenceFrequency;
     }
 }
