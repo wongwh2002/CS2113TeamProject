@@ -4,11 +4,18 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 import seedu.type.Type;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private static final Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void userInputForTest(String data) {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+        scanner = new Scanner(System.in);
+    }
 
     public static String readCommand() {
         String line = scanner.nextLine();

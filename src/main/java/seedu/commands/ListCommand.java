@@ -53,9 +53,7 @@ public class ListCommand extends Command {
             }
         } catch (IllegalArgumentException e) {
             Ui.printWithTab(e.getMessage());
-        }/* catch (Exception e) {
-            Ui.printWithTab("An error occurred while listing the items.");
-        }*/
+        }
     }
 
     private boolean listSpendingStatistics(SpendingList spendings) {

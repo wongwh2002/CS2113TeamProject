@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import seedu.classes.Parser;
+import seedu.classes.Ui;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
@@ -27,6 +29,10 @@ class ListCommandTest {
     private final SpendingList spendings = new SpendingList();
     private final LocalDate currentDate = LocalDate.now();
 
+    private void provideInput(String data) {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+    }
 
     @BeforeEach
     public void setUp() {
@@ -34,6 +40,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE));
         incomes.add(new Income(10, "savings", VALID_TEST_DATE));
         incomes.add(new Income(10, "dividends", VALID_TEST_DATE));
+        provideInput("N");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
@@ -109,4 +116,43 @@ class ListCommandTest {
                 System.lineSeparator(), outContent.toString());
     }
 
+    @Test
+    public void execute_listSpendingAllStatistics_correctMessage() {
+        String userInout = "list spendings";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("Y");
+        c.execute(incomes, spendings);
+
+        assertEquals("\tList all statistics? [Y/N]:" + System.lineSeparator() +
+                        "\t____________________________________________________________" + System.lineSeparator() +
+                        "\tSpendings" + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
+                        "\tTotal spendings: 20" + System.lineSeparator() +
+                        "\t\tDaily spendings: 20" + System.lineSeparator() +
+                        "\t\tDaily Budget: 0" + System.lineSeparator() +
+                        "\t\tDaily budget left: -20" + System.lineSeparator() +
+                        "\t\tMonthly spendings: 20" + System.lineSeparator() +
+                        "\t\tMonthly Budget: 0" + System.lineSeparator() +
+                        "\t\tMonthly budget left: -20" + System.lineSeparator() +
+                        "\t\tYearly spendings: 20" + System.lineSeparator() +
+                        "\t\tYearly Budget: 0" + System.lineSeparator() +
+                        "\t\tYearly budget left: -20" + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_listSpendingNotAllStatistics_correctMessage() {
+        String userInout = "list spendings";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("N");
+        c.execute(incomes, spendings);
+        assertEquals("\tList all statistics? [Y/N]:" + System.lineSeparator() +
+                        "\t____________________________________________________________" + System.lineSeparator() +
+                        "\tSpendings" + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + System.lineSeparator() +
+                        "\tTotal spendings: 20" + System.lineSeparator(),
+                outContent.toString());
+    }
 }
