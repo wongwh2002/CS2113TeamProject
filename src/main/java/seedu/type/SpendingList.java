@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Represents a list of spendings with budget settings.
  */
 public class SpendingList extends ArrayList<Spending> {
+    private static ArrayList<Recurrence> recurrences;
     private int dailyBudget;
     private int monthlyBudget;
     private int yearlyBudget;

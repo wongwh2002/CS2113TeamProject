@@ -14,6 +14,8 @@ public class Type implements Serializable {
     private String description;
     private LocalDate date;
     private String tag;
+    private RecurrenceFrequency recurrenceFrequency;
+    private LocalDate lastRecurrence;
 
     public Type(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
             WiagiMissingParamsException, WiagiInvalidInputException {
@@ -25,6 +27,8 @@ public class Type implements Serializable {
         assert date != null : "Date should not be null";
         this.tag = extractTag(userInput);
         assert tag != null : "Tag should not be null";
+        this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
+        this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -91,6 +95,32 @@ public class Type implements Serializable {
         }
     }
 
+    private RecurrenceFrequency extractRecurrenceFrequency(String userInput) {
+        String[] commandAndFrequency = userInput.split("~");
+        if (commandAndFrequency.length == 1) {
+            return RecurrenceFrequency.NONE;
+        }
+        String frequency = commandAndFrequency[1].toLowerCase();
+
+        switch (frequency) {
+        case "daily":
+            return RecurrenceFrequency.DAILY;
+        case "monthly":
+            return RecurrenceFrequency.MONTHLY;
+        case "yearly":
+            return RecurrenceFrequency.YEARLY;
+        default:
+            throw new WiagiInvalidInputException("Invalid frequency type! Please input ~daily/monthly/yearly~");
+        }
+    }
+
+    private LocalDate checkRecurrence(RecurrenceFrequency frequency) {
+        if (frequency == RecurrenceFrequency.NONE) {
+            return null;
+        }
+        return this.date;
+    }
+
     public String toString() {
         String returnString = description + Constants.LIST_SEPARATOR + amount + Constants.LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
@@ -123,6 +153,10 @@ public class Type implements Serializable {
         }
     }
 
+    public void editDateWithLocalDate(LocalDate date) {
+        this.date = date;
+    }
+
     public LocalDate getDate() {
         return this.date;
     }
@@ -133,5 +167,9 @@ public class Type implements Serializable {
 
     public String getTag() {
         return this.tag;
+    }
+
+    public LocalDate getLastRecurrence() {
+        return this.lastRecurrence;
     }
 }
