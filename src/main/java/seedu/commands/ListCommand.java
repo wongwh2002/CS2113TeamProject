@@ -32,22 +32,28 @@ public class ListCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] fullCommands = this.fullCommand.split(" ");
         int commandSize = fullCommands.length;
+        String firstIndex = fullCommands[1];
+        boolean isCommandSizeMoreThan2 = commandSize > 2;
+        boolean isCommandSizeEqual3 = commandSize == 3;
+        boolean isCommandSizeEqual1 = commandSize == 1;
+        boolean isCommandSize0 = commandSize == 0;
+
         try {
-            if (commandSize == 0) {
+            if (isCommandSize0) {
                 throw new WiagiMissingParamsException("Missing parameters. " +
                         "Please enter in the form: list [spendings/incomes/tags]");
             }
 
-            if (commandSize == 1) {
+            if (isCommandSizeEqual1) {
                 assert fullCommands[0].equals("list") : "command should be 'list'";
                 Ui.printSpendings(spendings);
                 Ui.printIncomes(incomes);
                 return;
             }
-            switch (fullCommands[1]) {
+            switch (firstIndex) {
             case "tags":
-                assert fullCommands[1].equals("tags") : "command should be to list tags";
-                if (commandSize == 3) {
+                assert firstIndex.equals("tags") : "command should be to list tags";
+                if (isCommandSizeEqual3) {
                     assert fullCommands[2] != null : "tag name should not be null";
                     Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
                 } else {
@@ -55,16 +61,16 @@ public class ListCommand extends Command {
                 }
                 break;
             case "spendings":
-                assert fullCommands[1].equals("spendings") : "command should be to list spendings";
-                if (commandSize > 2) {
+                assert firstIndex.equals("spendings") : "command should be to list spendings";
+                if (isCommandSizeMoreThan2) {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             "Please enter in the form: list [spendings/incomes/tags]");
                 }
                 Ui.printSpendings(spendings);
                 break;
             case "incomes":
-                assert fullCommands[1].equals("incomes") : "command should be to list incomes";
-                if (commandSize > 2) {
+                assert firstIndex.equals("incomes") : "command should be to list incomes";
+                if (isCommandSizeMoreThan2) {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             "Please enter in the form: list [spendings/incomes/tags]");
                 }

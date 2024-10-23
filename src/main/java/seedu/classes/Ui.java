@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
+    public static final String EMPTY_STRING = "";
+    public static final String TAB = "\t";
     private final Scanner scanner;
 
     public Ui() {
@@ -27,7 +29,7 @@ public class Ui {
         printWithTab(Constants.SEPARATOR);
     }
     public static void printWithTab(String message) {
-        System.out.println("\t" + message);
+        System.out.println(TAB + message);
     }
     public static void welcome() {
         Ui.printSeparator();
@@ -94,7 +96,7 @@ public class Ui {
 
     private static ArrayList<String> getStrings(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = new ArrayList<>();
-        tags.add("");
+        tags.add(EMPTY_STRING);
         assert tags != null : "Tags list is null";
         for (Income income : incomes) {
             String tag = income.getTag();
@@ -108,7 +110,7 @@ public class Ui {
                 tags.add(tag);
             }
         }
-        tags.remove("");
+        tags.remove(EMPTY_STRING);
         return tags;
     }
 
@@ -119,14 +121,14 @@ public class Ui {
         int tagsCount = 0;
         int incomeCount = 0;
         int spendingCount = 0;
-        sbIncome.append("\tIncomes").append(System.lineSeparator());
+        sbIncome.append("Incomes").append(System.lineSeparator());
         for (int i = 0; i < incomes.size(); i++) {
             Income income = incomes.get(i);
             if (income.getTag().equals(tag)) {
                 tagsCount++;
                 incomeCount++;
                 int oneIndexedI = i + 1;
-                sbIncome.append("\t").append(oneIndexedI).append(". ").append(income).append(System.lineSeparator());
+                sbIncome.append(TAB).append(oneIndexedI).append(". ").append(income).append(System.lineSeparator());
             }
         }
         sbSpending.append("Spendings").append(System.lineSeparator());
@@ -136,7 +138,7 @@ public class Ui {
                 tagsCount++;
                 spendingCount++;
                 int oneIndexedI = i + 1;
-                sbSpending.append("\t").append(oneIndexedI).append(". ")
+                sbSpending.append(TAB).append(oneIndexedI).append(". ")
                         .append(spending).append(System.lineSeparator());
             }
         }
