@@ -136,7 +136,8 @@ public class Ui {
                 tagsCount++;
                 spendingCount++;
                 int oneIndexedI = i + 1;
-                sbSpending.append("\t").append(oneIndexedI).append(". ").append(spending).append(System.lineSeparator());
+                sbSpending.append("\t").append(oneIndexedI).append(". ")
+                        .append(spending).append(System.lineSeparator());
             }
         }
         if (tagsCount == 0) {
