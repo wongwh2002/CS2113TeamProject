@@ -79,8 +79,23 @@ public class Ui {
     }
 
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
+        ArrayList<String> tags = getStrings(incomes, spendings);
+        tags.sort(String::compareTo);
+        if (tags.isEmpty()) {
+            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
+        }
+        assert tags != null : "Tags list is null";
+        Ui.printWithTab("Tags");
+        for (int i = 0; i < tags.size(); i++) {
+            int oneIndexedI = i + 1;
+            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        }
+    }
+
+    private static ArrayList<String> getStrings(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = new ArrayList<>();
         tags.add("");
+        assert tags != null : "Tags list is null";
         for (Income income : incomes) {
             String tag = income.getTag();
             if (!tags.contains(tag)) {
@@ -94,16 +109,7 @@ public class Ui {
             }
         }
         tags.remove("");
-        tags.sort(String::compareTo);
-        if (tags.isEmpty()) {
-            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
-        }
-
-        Ui.printWithTab("Tags");
-        for (int i = 0; i < tags.size(); i++) {
-            int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
-        }
+        return tags;
     }
 
     public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
@@ -113,29 +119,31 @@ public class Ui {
         int tagsCount = 0;
         int incomeCount = 0;
         int spendingCount = 0;
-        sbIncome.append("\tIncomes\n");
+        sbIncome.append("\tIncomes").append(System.lineSeparator());
         for (int i = 0; i < incomes.size(); i++) {
             Income income = incomes.get(i);
             if (income.getTag().equals(tag)) {
                 tagsCount++;
                 incomeCount++;
                 int oneIndexedI = i + 1;
-                sbIncome.append("\t").append(oneIndexedI).append(". ").append(income).append("\n");
+                sbIncome.append("\t").append(oneIndexedI).append(". ").append(income).append(System.lineSeparator());
             }
         }
-        sbSpending.append("Spendings\n");
+        sbSpending.append("Spendings").append(System.lineSeparator());
         for (int i = 0; i < spendings.size(); i++) {
             Spending spending = spendings.get(i);
             if (spending.getTag().equals(tag)) {
                 tagsCount++;
                 spendingCount++;
                 int oneIndexedI = i + 1;
-                sbSpending.append("\t").append(oneIndexedI).append(". ").append(spending).append("\n");
+                sbSpending.append("\t").append(oneIndexedI).append(". ").append(spending).append(System.lineSeparator());
             }
         }
         if (tagsCount == 0) {
             throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
         }
+        assert tagsCount > 0 : "No entries with tag: " + tag;
+        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
         Ui.printWithTab("Tag: " + tag);
         if (incomeCount > 0) {
             Ui.printWithTab(sbIncome.toString().trim());
