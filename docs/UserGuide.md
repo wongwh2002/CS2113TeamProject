@@ -71,13 +71,25 @@ Note that this is also the startup page for returning users
 // Description
 Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
 Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry.
+Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
+Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
 Format: `todo n/TODO_NAME d/DEADLINE`
-Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE]`
+Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] *TAG*`
 
 Example input: <br>
-`input`
-`add spending 100 telegram premium /2024-10-20`
+`add spending 100 telegram premium`
+
+Example input: <br>
+`add spending 100 telegram premium /2024-10-20/`
+
+Example input: <br>
+`add spending 100 telegram premium *personal expense*`
+
+Example input: <br>
+`add spending 100 telegram premium /2024-10-20/ *personal expense*`
+
+
 
 Example output:
 ```
@@ -91,13 +103,23 @@ output
 // Description
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
 Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry.
+Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
+Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
 Format: `todo n/TODO_NAME d/DEADLINE`
-Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE]`
+Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] *TAG*`
 
 Example input: <br>
-`input`
-`add income 10000 commission /2024-01-01`
+`add income 10000 commission`
+
+Example input: <br>
+`add income 10000 commission /2024-01-01/`
+
+Example input: <br>
+`add income 10000 commission *bonus*`
+
+Example input: <br>
+`add income 10000 commission /2024-01-01/ *bonus*`
 
 Example output:
 ```
@@ -109,40 +131,111 @@ output
 
 ### Listing all entries:
 // Description
-
-Format: `todo n/TODO_NAME d/DEADLINE`
+Lists all the entries in the user's spending or income list.
+Format: `list`
 
 Example input: <br>
-`input`
+`list`
 
 Example output:
 ```
-output
+	____________________________________________________________
+	Spendings
+	1. techno - 10 - 2024-10-17 - food
+	2. flights - 10 - 2024-10-17 - travel
+	3. girlfriends - 10 - 2024-10-17 - personal
+	4. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 40
+	Daily spendings: 0 Daily Budget: 15
+	Monthly spendings: 40 Monthly Budget: 100
+	Yearly spendings: 40 Yearly Budget: 1000
+	Incomes
+	1. mcd - 100 - 2024-11-11 - personal
+	2. dividends - 10 - 2024-10-17 - investment
+	Total incomes: 110
+	____________________________________________________________
 ```
 #### Listing all spendings:
 // Description
+Lists all the entries in the user's spending list.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+Format: `list spendings`
 
 Example input: <br>
-`input`
+`list spendings`
 
 Example output:
 ```
-output
+	____________________________________________________________
+	Spendings
+	1. techno - 10 - 2024-10-17 - food
+	2. flights - 10 - 2024-10-17 - travel
+	3. girlfriends - 10 - 2024-10-17 - personal
+	4. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 40
+	Daily spendings: 0 Daily Budget: 15
+	Monthly spendings: 40 Monthly Budget: 100
+	Yearly spendings: 40 Yearly Budget: 1000
+	____________________________________________________________
 ```
 
 #### Listing all incomes:
 // Description
+Lists all the entries in the user's income list.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+Format: `list incomes`
 
 Example input: <br>
-`input`
+`list incomes`
 
 Example output:
 ```
-output
+	____________________________________________________________
+	Incomes
+	1. mcd - 100 - 2024-11-11 - FastFood
+	2. dividends - 10 - 2024-10-17 - investment
+	Total incomes: 110
+	____________________________________________________________
+```
+
+#### Listing all tags:
+// Description
+Lists all the tags in the user's list.
+
+Format: `list tags`
+
+Example input: <br>
+`list tags`
+
+Example output:
+```
+	____________________________________________________________
+	Tags
+	1. FastFood
+	2. food
+	3. investment
+	4. personal
+	5. travel
+	____________________________________________________________
+```
+
+#### Listing all of specific tag:
+// Description
+Lists all the entries in the user's list with the specified tag.
+
+Format: `list tags <TAGNAME>`
+
+Example input: <br>
+`list tags food`
+
+Example output:
+```
+	____________________________________________________________
+	Tag: food
+	Spendings
+	1. techno - 10 - 2024-10-17 - food
+	4. macdonalds - 10 - 2024-10-10 - food
+	____________________________________________________________
 ```
 
 ### Deleting an entry
