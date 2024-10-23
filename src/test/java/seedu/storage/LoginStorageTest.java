@@ -3,6 +3,7 @@ package seedu.storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.classes.Ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -26,7 +27,7 @@ public class LoginStorageTest {
     void loginStorage_userPassword_correctHashCode() {
         String userPassword = "password";
         int hashCode = userPassword.hashCode();
-        //provideInput("password");
+        Ui.userInputForTest("password");
         LoginStorage.load();
         assertEquals(hashCode, Storage.password);
     }
