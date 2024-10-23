@@ -77,7 +77,7 @@ Date is optional and can be added to the end of the input, default would be set 
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
 Format: `todo n/TODO_NAME d/DEADLINE`
-Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] *TAG*`
+Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
 Example input: <br>
 `add spending 100 telegram premium`
@@ -109,7 +109,7 @@ Date is optional and can be added to the end of the input, default would be set 
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
 Format: `todo n/TODO_NAME d/DEADLINE`
-Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] *TAG*`
+Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
 Example input: <br>
 `add income 10000 commission`
@@ -225,7 +225,7 @@ Example output:
 // Description
 Lists all the entries in the user's list with the specified tag.
 
-Format: `list tags <TAGNAME>`
+Format: `list tags {$TAGNAME}`
 
 Example input: <br>
 `list tags food`

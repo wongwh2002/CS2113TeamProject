@@ -119,7 +119,7 @@ public class Ui {
         int tagsCount = 0;
         int incomeCount = 0;
         int spendingCount = 0;
-        sbIncome.append("\tIncomes").append(System.lineSeparator());
+        sbIncome.append("Incomes").append(System.lineSeparator());
         for (int i = 0; i < incomes.size(); i++) {
             Income income = incomes.get(i);
             if (income.getTag().equals(tag)) {
