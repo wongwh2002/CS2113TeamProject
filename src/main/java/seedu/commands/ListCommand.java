@@ -32,14 +32,13 @@ public class ListCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] fullCommands = this.fullCommand.split(" ");
         int commandSize = fullCommands.length;
-        String firstIndex = fullCommands[1];
         boolean isCommandSizeMoreThan2 = commandSize > 2;
         boolean isCommandSizeEqual3 = commandSize == 3;
         boolean isCommandSizeEqual1 = commandSize == 1;
-        boolean isCommandSize0 = commandSize == 0;
+        boolean isCommandSizeEqual0 = commandSize == 0;
 
         try {
-            if (isCommandSize0) {
+            if (isCommandSizeEqual0) {
                 throw new WiagiMissingParamsException("Missing parameters. " +
                         "Please enter in the form: list [spendings/incomes/tags]");
             }
@@ -50,6 +49,7 @@ public class ListCommand extends Command {
                 Ui.printIncomes(incomes);
                 return;
             }
+            String firstIndex = fullCommands[1];
             switch (firstIndex) {
             case "tags":
                 assert firstIndex.equals("tags") : "command should be to list tags";
