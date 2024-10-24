@@ -133,35 +133,23 @@ public class Ui {
         StringBuilder sbIncome = new StringBuilder();
         StringBuilder sbSpending = new StringBuilder();
         assert tag != null && !tag.isEmpty() : "Tag is null or empty";
-        int tagsCount = 0;
-        int incomeCount = 0;
-        int spendingCount = 0;
-        sbIncome.append("Incomes").append(System.lineSeparator());
-        for (int i = 0; i < incomes.size(); i++) {
-            Income income = incomes.get(i);
-            if (income.getTag().equals(tag)) {
-                tagsCount++;
-                incomeCount++;
-                int oneIndexedI = i + 1;
-                sbIncome.append(TAB).append(oneIndexedI).append(". ").append(income).append(System.lineSeparator());
-            }
-        }
-        sbSpending.append("Spendings").append(System.lineSeparator());
-        for (int i = 0; i < spendings.size(); i++) {
-            Spending spending = spendings.get(i);
-            if (spending.getTag().equals(tag)) {
-                tagsCount++;
-                spendingCount++;
-                int oneIndexedI = i + 1;
-                sbSpending.append(TAB).append(oneIndexedI).append(". ")
-                        .append(spending).append(System.lineSeparator());
-            }
-        }
+
+        String INCOME = "Incomes";
+        String SPENDING = "Spendings";
+        int tagsCount;
+        int incomeCount;
+        int spendingCount;
+
+        incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
+        spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
+        tagsCount = incomeCount + spendingCount;
         if (tagsCount == 0) {
             throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
         }
+
         assert tagsCount > 0 : "No entries with tag: " + tag;
         assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
+
         Ui.printWithTab("Tag: " + tag);
         if (incomeCount > 0) {
             Ui.printWithTab(sbIncome.toString().trim());
@@ -169,6 +157,22 @@ public class Ui {
         if (spendingCount > 0) {
             Ui.printWithTab(sbSpending.toString().trim());
         }
+    }
+
+    private static <T> int getTagsCount(ArrayList<T> arrList, String tag,
+                                        StringBuilder sb, String listName) {
+        sb.append(listName).append(System.lineSeparator());
+        int tagsCount = 0;
+        for (int i = 0; i < arrList.size(); i++) {
+            Type listIndex = (Type) arrList.get(i);
+            if (listIndex.getTag().equals(tag)) {
+                tagsCount++;
+                int oneIndexedI = i + 1;
+                sb.append(TAB).append(oneIndexedI).append(". ")
+                        .append(listIndex).append(System.lineSeparator());
+            }
+        }
+        return tagsCount;
     }
 }
 
