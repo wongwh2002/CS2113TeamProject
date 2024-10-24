@@ -148,7 +148,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -174,7 +174,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -200,7 +200,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -226,7 +226,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal

@@ -12,7 +12,7 @@ add spending 1000
 add 1000
 add spending macdonalds /2024-10-17
 add spending 10 macdonalds /2024-10-17 **
-add spending 10 kfc /2024-10-25/ *food*
+add spending 10 kfc *food*
 add spending 10 techno *food* /2024-10-17/
 add spending 10 flights /2024-10-17/ *travel*
 add spending 10 girlfriends /2024-10-17/ *personal*
