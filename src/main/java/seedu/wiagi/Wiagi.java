@@ -10,25 +10,26 @@ import seedu.type.SpendingList;
 
 public class Wiagi {
 
-    private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage(ui);
+    private static final Storage storage = new Storage();
     private static final IncomeList incomes =  Storage.getIncomes();
     private static final SpendingList spendings = Storage.getSpendings();
 
     private void run() {
+        incomes.updateRecurrence();
+        spendings.updateRecurrence();
         Ui.welcome();
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;
         while (!isLoginSuccessful) {
             Ui.printWithTab("Please Enter Login Credentials:");
-            String loginCredentials = ui.readCommand();
+            String loginCredentials = Ui.readCommand();
             isLoginSuccessful = Password.validate(password, loginCredentials);
             Ui.printSeparator();
         }
 
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = ui.readCommand();
+            String fullCommand = Ui.readCommand();
             Command c = Parser.parse(fullCommand);
             c.execute(incomes, spendings);
             isExit = c.isExit();

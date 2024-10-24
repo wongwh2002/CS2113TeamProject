@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
 
-    static void load(Ui ui) {
+    static void load() {
         try {
             File file = new File(PASSWORD_FILE_PATH);
             boolean isFileCreated = file.exists();
@@ -21,7 +21,7 @@ public class LoginStorage {
                 return;
             }
             FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
-            int passwordHash = createNewUser(ui);
+            int passwordHash = createNewUser();
             fw.write(Integer.toString(passwordHash));
             fw.close();
             Storage.password = passwordHash;
@@ -30,11 +30,11 @@ public class LoginStorage {
         }
     }
 
-    private static int createNewUser(Ui ui) {
+    private static int createNewUser() {
         Ui.printSeparator();
         Ui.printWithTab("Hi! You seem to be new, are you ready?!");
         Ui.printWithTab("Please enter your new account password:");
-        String password = ui.readCommand();
+        String password = Ui.readCommand();
         return password.hashCode();
     }
 }

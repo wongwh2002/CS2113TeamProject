@@ -3,6 +3,7 @@ package seedu.type;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
+import seedu.recurrence.RecurrenceFrequency;
 
 import java.time.LocalDate;
 
@@ -12,10 +13,12 @@ public class Spending extends Type {
         super(userInputWords, userInput);
     }
 
-    public Spending(int amount, String description, LocalDate date) {
-        super(amount, description, date);
+    public Spending(int amount, String description, LocalDate date, String tag,
+                    RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence) {
+        super(amount, description, date, tag, recurrenceFrequency, lastRecurrence);
     }
-    public Spending(int amount, String description, LocalDate date, String tag) {
-        super(amount, description, date, tag);
+
+    public Spending(Spending other) {
+        super(other);
     }
 }

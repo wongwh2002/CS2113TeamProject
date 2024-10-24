@@ -18,9 +18,6 @@
 	____________________________________________________________
 	Spendings
 	Total spendings: 0
-	Daily spendings: 0 Daily Budget: 0
-	Monthly spendings: 0 Monthly Budget: 0
-	Yearly spendings: 0 Yearly Budget: 0
 	Incomes
 	Total incomes: 0
 	____________________________________________________________
@@ -28,11 +25,19 @@
 	No tags found. Please input more tags!
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
 	Total spendings: 0
-	Daily spendings: 0 Daily Budget: 0
-	Monthly spendings: 0 Monthly Budget: 0
-	Yearly spendings: 0 Yearly Budget: 0
+		Daily spendings: 0
+		Daily Budget: 0
+		Daily budget left: 0
+		Monthly spendings: 0
+		Monthly Budget: 0
+		Monthly budget left: 0
+		Yearly spendings: 0
+		Yearly Budget: 0
+		Yearly budget left: 0
 	____________________________________________________________
 	____________________________________________________________
 	Incomes
@@ -119,16 +124,58 @@
 	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Please enter Y/N
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-23 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
 	5. macdonalds - 10 - 2024-10-10 - food
 	Total spendings: 50
-	Daily spendings: 10 Daily Budget: 0
-	Monthly spendings: 50 Monthly Budget: 0
-	Yearly spendings: 50 Yearly Budget: 0
+		Daily spendings: 10
+		Daily Budget: 0
+		Daily budget left: -10
+		Monthly spendings: 50
+		Monthly Budget: 0
+		Monthly budget left: -50
+		Yearly spendings: 50
+		Yearly Budget: 0
+		Yearly budget left: -50
+	____________________________________________________________
+	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Spendings
+	1. kfc - 10 - 2024-10-24 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
+	5. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 50
+		Daily spendings: 10
+		Daily Budget: 0
+		Daily budget left: -10
+		Monthly spendings: 50
+		Monthly Budget: 0
+		Monthly budget left: -50
+		Yearly spendings: 50
+		Yearly Budget: 0
+		Yearly budget left: -50
+	____________________________________________________________
+	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Spendings
+	1. kfc - 10 - 2024-10-24 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
+	5. macdonalds - 10 - 2024-10-10 - food
+	Total spendings: 50
 	____________________________________________________________
 	____________________________________________________________
 	Successfully set yearly budget of: 1000
@@ -140,16 +187,15 @@
 	Successfully set daily budget of: 15
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-23 - food
+	1. kfc - 10 - 2024-10-24 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
 	5. macdonalds - 10 - 2024-10-10 - food
 	Total spendings: 50
-	Daily spendings: 10 Daily Budget: 15
-	Monthly spendings: 50 Monthly Budget: 100
-	Yearly spendings: 50 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Please enter in the form: delete [spending/income] [index]
@@ -167,9 +213,6 @@
 	3. girlfriends - 10 - 2024-10-17 - personal
 	4. macdonalds - 10 - 2024-10-10 - food
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
 	Incomes
 	1. mcd - 100 - 2024-11-11 - personal
 	2. dividends - 10 - 2024-10-17 - investment
@@ -179,15 +222,14 @@
 	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
 	1. techno - 10 - 2024-10-17 - food
 	2. flights - 10 - 2024-10-17 - travel
 	3. girlfriends - 10 - 2024-10-17 - personal
 	4. macdonalds - 10 - 2024-10-10 - food
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Incomes
