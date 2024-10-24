@@ -24,7 +24,7 @@ public class LoginStorageTest {
     }
 
     @Test
-    void loginStorage_userPassword_correctHashCode() {
+    public void loginStorage_userPassword_correctHashCode() {
         String userPassword = "password";
         int hashCode = userPassword.hashCode();
         Ui.userInputForTest("password");

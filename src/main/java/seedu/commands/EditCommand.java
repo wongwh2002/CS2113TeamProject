@@ -53,16 +53,20 @@ public class EditCommand extends Command {
             Type toEdit = list.get(getIndex(arguments));
             String newValue = arguments[4];
             switch (arguments[3]) {
-            case "amount" -> {
+            case "amount":
                 toEdit.editAmount(newValue);
-            }
-            case "description" -> {
+                break;
+            case "description":
                 toEdit.editDescription(newValue);
-            }
-            case "date" -> {
+                break;
+            case "date":
                 toEdit.editDate(newValue);
-            }
-            default -> throw new WiagiInvalidInputException("No such category.");
+                break;
+            case "tag":
+                toEdit.editTag(newValue);
+                break;
+            default:
+                throw new WiagiInvalidInputException("No such category.");
             }
             Ui.printWithTab("Edit Successful!");
         } catch (IndexOutOfBoundsException e) {

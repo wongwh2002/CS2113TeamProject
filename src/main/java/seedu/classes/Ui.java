@@ -1,6 +1,9 @@
 package seedu.classes;
 
+import seedu.exception.WiagiInvalidInputException;
+import seedu.type.Income;
 import seedu.type.IncomeList;
+import seedu.type.Spending;
 import seedu.type.SpendingList;
 import seedu.type.Type;
 
@@ -19,6 +22,7 @@ public class Ui {
 
     public static String readCommand() {
         String line = scanner.nextLine();
+        assert line != null : "Input line is null";
         Ui.printSeparator();
         return line;
     }
@@ -81,10 +85,88 @@ public class Ui {
     public static <T> String print_list(ArrayList<T> arrList) {
         int sum = 0;
         for (int i = 0; i < arrList.size(); i++) {
+            assert arrList != null : "ArrayList is null";
             int oneIndexedI = i + 1;
             sum += ((Type) arrList.get(i)).getAmount();
             Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
         }
         return String.valueOf(sum);
     }
+
+    public static void printAllTags(IncomeList incomes, SpendingList spendings) {
+        ArrayList<String> tags = getStrings(incomes, spendings);
+        tags.sort(String::compareTo);
+        if (tags.isEmpty()) {
+            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
+        }
+        assert tags != null : "Tags list is null";
+        Ui.printWithTab("Tags");
+        for (int i = 0; i < tags.size(); i++) {
+            int oneIndexedI = i + 1;
+            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        }
+    }
+
+    private static ArrayList<String> getStrings(IncomeList incomes, SpendingList spendings) {
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("");
+        assert tags != null : "Tags list is null";
+        for (Income income : incomes) {
+            String tag = income.getTag();
+            if (!tags.contains(tag)) {
+                tags.add(tag);
+            }
+        }
+        for (Spending spending : spendings) {
+            String tag = spending.getTag();
+            if (!tags.contains(tag)) {
+                tags.add(tag);
+            }
+        }
+        tags.remove("");
+        return tags;
+    }
+
+    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
+        StringBuilder sbIncome = new StringBuilder();
+        StringBuilder sbSpending = new StringBuilder();
+        assert tag != null && !tag.isEmpty() : "Tag is null or empty";
+        int tagsCount = 0;
+        int incomeCount = 0;
+        int spendingCount = 0;
+        sbIncome.append("\tIncomes").append(System.lineSeparator());
+        for (int i = 0; i < incomes.size(); i++) {
+            Income income = incomes.get(i);
+            if (income.getTag().equals(tag)) {
+                tagsCount++;
+                incomeCount++;
+                int oneIndexedI = i + 1;
+                sbIncome.append("\t").append(oneIndexedI).append(". ").append(income).append(System.lineSeparator());
+            }
+        }
+        sbSpending.append("Spendings").append(System.lineSeparator());
+        for (int i = 0; i < spendings.size(); i++) {
+            Spending spending = spendings.get(i);
+            if (spending.getTag().equals(tag)) {
+                tagsCount++;
+                spendingCount++;
+                int oneIndexedI = i + 1;
+                sbSpending.append("\t").append(oneIndexedI).append(". ")
+                        .append(spending).append(System.lineSeparator());
+            }
+        }
+        if (tagsCount == 0) {
+            throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
+        }
+        assert tagsCount > 0 : "No entries with tag: " + tag;
+        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
+        Ui.printWithTab("Tag: " + tag);
+        if (incomeCount > 0) {
+            Ui.printWithTab(sbIncome.toString().trim());
+        }
+        if (spendingCount > 0) {
+            Ui.printWithTab(sbSpending.toString().trim());
+        }
+    }
 }
+

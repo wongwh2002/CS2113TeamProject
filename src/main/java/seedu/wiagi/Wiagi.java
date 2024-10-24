@@ -15,6 +15,8 @@ public class Wiagi {
     private static final SpendingList spendings = Storage.getSpendings();
 
     private void run() {
+        incomes.updateRecurrence();
+        spendings.updateRecurrence();
         Ui.welcome();
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;

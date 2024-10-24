@@ -35,29 +35,46 @@ public class ListCommand extends Command {
         try {
             if (commandSize == 0) {
                 throw new WiagiMissingParamsException("Missing parameters. " +
-                        "Please enter in the form: list [spendings/incomes]");
-            }
-
-            if (commandSize > 2) {
-                throw new WiagiInvalidInputException("Too many arguments. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                        "Please enter in the form: list [spendings/incomes/tags]");
             }
 
             if (commandSize == 1) {
+                assert fullCommands[0].equals("list") : "command should be 'list'";
                 Ui.printSpendings(spendings);
                 Ui.printIncomes(incomes);
                 return;
             }
-
-            if (fullCommands[1].equals("spendings")) {
-                while(!listSpendingStatistics(spendings)){
+            switch (fullCommands[1]) {
+            case "tags":
+                assert fullCommands[1].equals("tags") : "command should be to list tags";
+                if (commandSize == 3) {
+                    assert fullCommands[2] != null : "tag name should not be null";
+                    Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
+                } else {
+                    Ui.printAllTags(incomes, spendings);
+                }
+                break;
+            case "spendings":
+                assert fullCommands[1].equals("spendings") : "command should be to list spendings";
+                if (commandSize > 2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
+                while(!listSpendingStatistics(spendings)) {
                     Ui.printWithTab("Please enter Y/N");
-                };
-            } else if (fullCommands[1].equals("incomes")) {
+                }
+                break;
+            case "incomes":
+                assert fullCommands[1].equals("incomes") : "command should be to list incomes";
+                if (commandSize > 2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
                 Ui.printIncomes(incomes);
-            } else {
-                throw new WiagiInvalidInputException("No such category. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                break;
+            default:
+                throw new WiagiInvalidInputException("Invalid input. " +
+                        "Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]");
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
