@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Scanner;
 
 public class Ui {

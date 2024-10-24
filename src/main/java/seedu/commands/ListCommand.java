@@ -3,7 +3,7 @@ package seedu.commands;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
-import seedu.timeRange;
+import seedu.TimeRange;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
@@ -68,20 +68,20 @@ public class ListCommand extends Command {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             correctFormatString);
                 }
-                timeRange listSpendingsTimeRange = null;
+                TimeRange listSpendingsTimeRange = null;
                 while (listSpendingsTimeRange == null) {
                     listSpendingsTimeRange = askForTimeRange();
                 }
                 assert listSpendingsTimeRange != null : "time range cannot be null";
-                if (listSpendingsTimeRange == timeRange.ALL) {
+                if (listSpendingsTimeRange == TimeRange.ALL) {
                     while (!listSpendingStatistics(spendings)) {
                         Ui.printWithTab("Please enter Y/N");
                     }
-                } else if (listSpendingsTimeRange == timeRange.WEEKLY) {
+                } else if (listSpendingsTimeRange == TimeRange.WEEKLY) {
                     Ui.printWeekly(spendings);
-                } else if (listSpendingsTimeRange == timeRange.BIWEEKLY) {
+                } else if (listSpendingsTimeRange == TimeRange.BIWEEKLY) {
                     Ui.printBiweekly(spendings);
-                } else if (listSpendingsTimeRange == timeRange.MONTHLY) {
+                } else if (listSpendingsTimeRange == TimeRange.MONTHLY) {
                     Ui.printMonthly(spendings);
                 }
                 break;
@@ -91,18 +91,18 @@ public class ListCommand extends Command {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             correctFormatString);
                 }
-                timeRange listIncomesTimeRange = null;
+                TimeRange listIncomesTimeRange = null;
                 while (listIncomesTimeRange == null) {
                     listIncomesTimeRange = askForTimeRange();
                 }
                 assert listIncomesTimeRange != null : "time range cannot be null";
-                if (listIncomesTimeRange == timeRange.ALL) {
+                if (listIncomesTimeRange == TimeRange.ALL) {
                     Ui.printIncomes(incomes);
-                } else if (listIncomesTimeRange == timeRange.WEEKLY) {
+                } else if (listIncomesTimeRange == TimeRange.WEEKLY) {
                     Ui.printWeekly(incomes);
-                } else if (listIncomesTimeRange == timeRange.BIWEEKLY) {
+                } else if (listIncomesTimeRange == TimeRange.BIWEEKLY) {
                     Ui.printBiweekly(incomes);
-                } else if (listIncomesTimeRange == timeRange.MONTHLY) {
+                } else if (listIncomesTimeRange == TimeRange.MONTHLY) {
                     Ui.printMonthly(incomes);
                 }
                 break;
@@ -130,17 +130,21 @@ public class ListCommand extends Command {
     }
 
     //@@author wx-03
-    private timeRange askForTimeRange() {
-        Ui.printWithTab("Select time range:\n\t[1] All\n\t[2] Weekly\n\t[3] Biweekly\n\t[4] Monthly");
+    private TimeRange askForTimeRange() {
+        Ui.printWithTab("Select time range:" + System.lineSeparator() +
+                "\t[1] All" + System.lineSeparator() +
+                "\t[2] Weekly" + System.lineSeparator() +
+                "\t[3] Biweekly" + System.lineSeparator() +
+                "\t[4] Monthly");
         String userInput = Ui.readCommand();
         if (userInput.equals("1")) {
-            return timeRange.ALL;
+            return TimeRange.ALL;
         } else if (userInput.equals("2")) {
-            return timeRange.WEEKLY;
+            return TimeRange.WEEKLY;
         } else if (userInput.equals("3")) {
-            return timeRange.BIWEEKLY;
+            return TimeRange.BIWEEKLY;
         } else if (userInput.equals("4")) {
-            return timeRange.MONTHLY;
+            return TimeRange.MONTHLY;
         } else {
             Ui.printWithTab("Invalid input");
             return askForTimeRange();

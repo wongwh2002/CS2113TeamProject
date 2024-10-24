@@ -1,5 +1,5 @@
 package seedu;
 
-public enum timeRange {
+public enum TimeRange {
     ALL, WEEKLY, BIWEEKLY, MONTHLY
 }
