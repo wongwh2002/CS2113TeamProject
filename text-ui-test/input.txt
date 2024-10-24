@@ -3,8 +3,10 @@ test
 list
 list tags
 list spendings
+1
 y
 list incomes
+1
 list tags tagggg
 add spending 1000
 add 1000
@@ -32,16 +34,20 @@ edit income 1 date
 edit income 1 date 2024/10/10
 edit income 1 date 2024-11-11
 list spendings
+1
 h
 y
 list spendings
+1
 y
 list spendings
+1
 n
 budget yearly 1000
 budget monthly 100
 budget daily 15
 list spendings
+1
 n
 delete
 delete spending a
@@ -49,8 +55,10 @@ delete spending 1
 list
 edit income 1 tag FastFood
 list spendings
+1
 n
 list incomes
+1
 list 123t4w
 list tags
 list tags food
