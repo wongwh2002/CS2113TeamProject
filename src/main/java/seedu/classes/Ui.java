@@ -15,6 +15,8 @@ public class Ui {
     private static Scanner scanner = new Scanner(System.in);
     public static final String EMPTY_STRING = "";
     public static final String TAB = "\t";
+    public final static String INCOME = "Incomes";
+    public final static String SPENDING = "Spendings";
 
     public static void userInputForTest(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
@@ -67,13 +69,13 @@ public class Ui {
     }
 
     public static void printSpendings(SpendingList spendings) {
-        Ui.printWithTab("Spendings");
+        Ui.printWithTab(SPENDING);
         Ui.printWithTab("Total spendings: " + print_list(spendings));
 
     }
 
     public static void printIncomes(IncomeList incomes) {
-        Ui.printWithTab("Incomes");
+        Ui.printWithTab(INCOME);
         Ui.printWithTab("Total incomes: " + print_list(incomes));
     }
 
@@ -134,8 +136,7 @@ public class Ui {
         StringBuilder sbSpending = new StringBuilder();
         assert tag != null && !tag.isEmpty() : "Tag is null or empty";
 
-        String INCOME = "Incomes";
-        String SPENDING = "Spendings";
+
         int tagsCount;
         int incomeCount;
         int spendingCount;
