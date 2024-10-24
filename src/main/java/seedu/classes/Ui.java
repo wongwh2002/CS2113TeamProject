@@ -8,7 +8,10 @@ import seedu.type.SpendingList;
 import seedu.type.Type;
 
 import java.io.ByteArrayInputStream;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Ui {
@@ -168,5 +171,69 @@ public class Ui {
             Ui.printWithTab(sbSpending.toString().trim());
         }
     }
+
+    //@@author wx-03
+    public static <T extends Type> void printWeekly(ArrayList<T> arrList) {
+        ArrayList<T> filteredList = new ArrayList<>();
+        LocalDate currDate = LocalDate.now();
+        LocalDate monday = getMondayDate(currDate);
+        LocalDate sunday = getSundayDate(currDate);
+        for (T entry : arrList) {
+            LocalDate entryDate = entry.getDate();
+            if (inRange(entryDate, monday, sunday)) {
+                filteredList.add(entry);
+            }
+        }
+        print_list(filteredList);
+    }
+
+    public static <T extends Type> void printMonthly(ArrayList<T> arrList) {
+        ArrayList<T> filteredList = new ArrayList<>();
+        LocalDate currDate = LocalDate.now();
+        LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
+        LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
+        for (T entry : arrList) {
+            if (inRange(entry.getDate(), monthStart, monthEnd)) {
+                filteredList.add(entry);
+            }
+        }
+        print_list(filteredList);
+    }
+
+    public static <T extends Type> void printBiweekly(ArrayList<T> arrList) {
+        ArrayList<T> filteredList = new ArrayList<>();
+        LocalDate currDate = LocalDate.now();
+        LocalDate start = getMondayDate(currDate.minusDays(7));
+        LocalDate end = getSundayDate(currDate);
+        Ui.printWithTab("start: " + start + "\n\tEnd: " + end);
+        for (T entry : arrList) {
+            LocalDate entryDate = entry.getDate();
+            if (inRange(entryDate, start, end)) {
+                filteredList.add(entry);
+            }
+        }
+        print_list(filteredList);
+    }
+
+    private static LocalDate getMondayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
+            currDate = currDate.minusDays(1);
+        }
+        return currDate;
+    }
+
+    private static LocalDate getSundayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            currDate = currDate.plusDays(1);
+        }
+        return currDate;
+    }
+
+    private static boolean inRange(LocalDate date, LocalDate start, LocalDate end) {
+        return (date.isAfter(start) || date.isEqual(start))
+                && (date.isBefore(end) || date.isEqual(end));
+    }
+
+
 }
 
