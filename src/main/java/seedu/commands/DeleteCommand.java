@@ -16,6 +16,7 @@ public class DeleteCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    // @@author wx-03
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] userInputWords = fullCommand.split(" ");
@@ -46,6 +47,7 @@ public class DeleteCommand extends Command {
         if (isOutOfBounds(index, arrList)) {
             throw new WiagiInvalidIndexException("Invalid index");
         }
+        assert arrList.get(index) != null : "entry to delete cannot be null";
         arrList.remove(arrList.get(index));
         Ui.printWithTab("Successfully deleted!");
     }

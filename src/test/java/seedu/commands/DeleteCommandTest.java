@@ -20,6 +20,7 @@ class DeleteCommandTest {
     private IncomeList incomes = new IncomeList();
     private SpendingList spendings = new SpendingList();
 
+    // @@author wx-03
     @BeforeEach
     void setUp() {
         incomes.add(new Income(1000, "salary", null, null, null, null));
