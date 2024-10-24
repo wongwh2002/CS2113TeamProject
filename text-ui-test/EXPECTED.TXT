@@ -83,14 +83,37 @@
 	Edit Successful!
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Please enter Y/N
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Please enter Y/N
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
 	1. flights - 10 - 2024-10-17
 	2. girlfriends - 10 - 2024-10-17
 	3. macdonalds - 10 - 2024-10-10
 	Total spendings: 30
-	Daily spendings: 0 Daily Budget: 0
-	Monthly spendings: 30 Monthly Budget: 0
-	Yearly spendings: 30 Yearly Budget: 0
+		Daily spendings: 0
+		Daily Budget: 0
+		Daily budget left: 0
+		Monthly spendings: 30
+		Monthly Budget: 0
+		Monthly budget left: -30
+		Yearly spendings: 30
+		Yearly Budget: 0
+		Yearly budget left: -30
+	____________________________________________________________
+	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
+	Spendings
+	1. flights - 10 - 2024-10-17
+	2. girlfriends - 10 - 2024-10-17
+	3. macdonalds - 10 - 2024-10-10
+	Total spendings: 30
 	____________________________________________________________
 	____________________________________________________________
 	Successfully set yearly budget of: 1000
@@ -102,14 +125,13 @@
 	Successfully set daily budget of: 15
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
 	1. flights - 10 - 2024-10-17
 	2. girlfriends - 10 - 2024-10-17
 	3. macdonalds - 10 - 2024-10-10
 	Total spendings: 30
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 30 Monthly Budget: 100
-	Yearly spendings: 30 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Please enter in the form: delete [spending/income] [index]
@@ -125,22 +147,18 @@
 	1. girlfriends - 10 - 2024-10-17
 	2. macdonalds - 10 - 2024-10-10
 	Total spendings: 20
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 20 Monthly Budget: 100
-	Yearly spendings: 20 Yearly Budget: 1000
 	Incomes
 	1. mcd - 100 - 2024-11-11
 	2. dividends - 10 - 2024-10-17
 	Total incomes: 110
 	____________________________________________________________
 	____________________________________________________________
+	List all statistics? [Y/N]:
+	____________________________________________________________
 	Spendings
 	1. girlfriends - 10 - 2024-10-17
 	2. macdonalds - 10 - 2024-10-10
 	Total spendings: 20
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 20 Monthly Budget: 100
-	Yearly spendings: 20 Yearly Budget: 1000
 	____________________________________________________________
 	____________________________________________________________
 	Incomes
