@@ -66,7 +66,9 @@ public class ListCommand extends Command {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             "Please enter in the form: list [spendings/incomes/tags]");
                 }
-                Ui.printSpendings(spendings);
+                while(!listSpendingStatistics(spendings)) {
+                    Ui.printWithTab("Please enter Y/N");
+                }
                 break;
             case "incomes":
                 assert firstIndex.equals("incomes") : "command should be to list incomes";
@@ -82,8 +84,20 @@ public class ListCommand extends Command {
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
-        } catch (Exception e) {
-            Ui.printWithTab("An error occurred while listing the items.");
         }
+    }
+
+    private boolean listSpendingStatistics(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        String userInput = Ui.readCommand();
+        if (userInput.equals("y") || userInput.equals("Y")) {
+            Ui.printSpendings(spendings);
+            Ui.printSpendingStatistics(spendings);
+            return true;
+        } else if (userInput.equals("n") || userInput.equals("N")) {
+            Ui.printSpendings(spendings);
+            return true;
+        }
+        return false;
     }
 }

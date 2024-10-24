@@ -22,9 +22,9 @@ class DeleteCommandTest {
 
     @BeforeEach
     void setUp() {
-        incomes.add(new Income(1000, "salary", null));
-        spendings.add(new Spending(4, "dinner", null));
-        spendings.add(new Spending(5, "lunch", null));
+        incomes.add(new Income(1000, "salary", null, null, null, null));
+        spendings.add(new Spending(4, "dinner", null, null, null, null));
+        spendings.add(new Spending(5, "lunch", null, null, null, null));
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
