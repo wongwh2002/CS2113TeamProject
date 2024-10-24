@@ -62,20 +62,20 @@ public class ListCommand extends Command {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             correctFormatString);
                 }
-                timeRange listTimeRange = null;
-                while (listTimeRange == null) {
-                    listTimeRange = askForTimeRange();
+                timeRange listSpendingsTimeRange = null;
+                while (listSpendingsTimeRange == null) {
+                    listSpendingsTimeRange = askForTimeRange();
                 }
-                assert listTimeRange != null : "time range cannot be null";
-                if (listTimeRange == timeRange.ALL) {
+                assert listSpendingsTimeRange != null : "time range cannot be null";
+                if (listSpendingsTimeRange == timeRange.ALL) {
                     while (!listSpendingStatistics(spendings)) {
                         Ui.printWithTab("Please enter Y/N");
                     }
-                } else if (listTimeRange == timeRange.WEEKLY) {
+                } else if (listSpendingsTimeRange == timeRange.WEEKLY) {
                     Ui.printWeekly(spendings);
-                } else if (listTimeRange == timeRange.BIWEEKLY) {
+                } else if (listSpendingsTimeRange == timeRange.BIWEEKLY) {
                     Ui.printBiweekly(spendings);
-                } else if (listTimeRange == timeRange.MONTHLY) {
+                } else if (listSpendingsTimeRange == timeRange.MONTHLY) {
                     Ui.printMonthly(spendings);
                 }
                 break;
@@ -85,7 +85,20 @@ public class ListCommand extends Command {
                     throw new WiagiInvalidInputException("Too many arguments. " +
                             correctFormatString);
                 }
-                Ui.printIncomes(incomes);
+                timeRange listIncomesTimeRange = null;
+                while (listIncomesTimeRange == null) {
+                    listIncomesTimeRange = askForTimeRange();
+                }
+                assert listIncomesTimeRange != null : "time range cannot be null";
+                if (listIncomesTimeRange == timeRange.ALL) {
+                    Ui.printIncomes(incomes);
+                } else if (listIncomesTimeRange == timeRange.WEEKLY) {
+                    Ui.printWeekly(incomes);
+                } else if (listIncomesTimeRange == timeRange.BIWEEKLY) {
+                    Ui.printBiweekly(incomes);
+                } else if (listIncomesTimeRange == timeRange.MONTHLY) {
+                    Ui.printMonthly(incomes);
+                }
                 break;
             default:
                 throw new WiagiInvalidInputException("Invalid input. " +
