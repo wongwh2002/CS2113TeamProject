@@ -16,6 +16,7 @@ public class DeleteCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    // @@author wx-03
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] userInputWords = fullCommand.split(" ");
