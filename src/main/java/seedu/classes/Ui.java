@@ -205,7 +205,6 @@ public class Ui {
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
-        Ui.printWithTab("start: " + start + "\n\tEnd: " + end);
         for (T entry : arrList) {
             LocalDate entryDate = entry.getDate();
             if (inRange(entryDate, start, end)) {
