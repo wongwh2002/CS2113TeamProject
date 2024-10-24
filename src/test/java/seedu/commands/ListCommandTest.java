@@ -235,5 +235,120 @@ class ListCommandTest {
                         "\tTotal spendings: 20" + System.lineSeparator(),
                 outContent.toString());
     }
+
+    @Test
+    public void execute_listWeeklySpendings_expectWeeklySpendingList() {
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null));
+        String userInout = "list spendings";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
+                outContent.toString());
+        spendings.remove(2);
+    }
+
+    @Test
+    public void execute_listBiweeklySpendings_expectBiweeklySpendingList() {
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null));
+        String userInout = "list spendings";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
+                outContent.toString());
+        spendings.remove(2);
+    }
+
+    @Test
+    public void execute_listMonthlySpendings_expectMonthlySpendingList() {
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null));
+        String userInout = "list spendings";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
+                outContent.toString());
+        spendings.remove(2);
+    }
+
+    @Test
+    public void execute_listWeeklyIncomes_expectWeeklyIncomeList() {
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null));
+        String userInout = "list incomes";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
+                outContent.toString());
+        incomes.remove(2);
+    }
+
+    @Test
+    public void execute_listBiweeklyIncomes_expectBiweeklyIncomeList() {
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null));
+        String userInout = "list incomes";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
+                outContent.toString());
+        incomes.remove(2);
+    }
+
+    @Test
+    public void execute_listMonthlyIncomes_expectMonthlyIncomeList() {
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null));
+        String userInout = "list incomes";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest("2");
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
+                outContent.toString());
+        incomes.remove(2);
+    }
 }
+
 
