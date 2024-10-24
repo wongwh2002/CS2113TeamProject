@@ -15,8 +15,8 @@ public class Ui {
     private static Scanner scanner = new Scanner(System.in);
     public static final String EMPTY_STRING = "";
     public static final String TAB = "\t";
-    public final static String INCOME = "Incomes";
-    public final static String SPENDING = "Spendings";
+    public static final String INCOME = "Incomes";
+    public static final String SPENDING = "Spendings";
 
     public static void userInputForTest(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
