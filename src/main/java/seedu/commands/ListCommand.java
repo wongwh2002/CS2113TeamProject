@@ -32,35 +32,72 @@ public class ListCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] fullCommands = this.fullCommand.split(" ");
         int commandSize = fullCommands.length;
+        boolean isCommandSizeMoreThan2 = commandSize > 2;
+        boolean isCommandSizeEqual3 = commandSize == 3;
+        boolean isCommandSizeEqual1 = commandSize == 1;
+        boolean isCommandSizeEqual0 = commandSize == 0;
+
         try {
-            if (commandSize == 0) {
+            if (isCommandSizeEqual0) {
                 throw new WiagiMissingParamsException("Missing parameters. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                        "Please enter in the form: list [spendings/incomes/tags]");
             }
 
-            if (commandSize > 2) {
-                throw new WiagiInvalidInputException("Too many arguments. " +
-                        "Please enter in the form: list [spendings/incomes]");
-            }
-
-            if (commandSize == 1) {
+            if (isCommandSizeEqual1) {
+                assert fullCommands[0].equals("list") : "command should be 'list'";
                 Ui.printSpendings(spendings);
                 Ui.printIncomes(incomes);
                 return;
             }
-
-            if (fullCommands[1].equals("spendings")) {
-                Ui.printSpendings(spendings);
-            } else if (fullCommands[1].equals("incomes")) {
+            String firstIndex = fullCommands[1];
+            switch (firstIndex) {
+            case "tags":
+                assert firstIndex.equals("tags") : "command should be to list tags";
+                if (isCommandSizeEqual3) {
+                    assert fullCommands[2] != null : "tag name should not be null";
+                    Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
+                } else {
+                    Ui.printAllTags(incomes, spendings);
+                }
+                break;
+            case "spendings":
+                assert firstIndex.equals("spendings") : "command should be to list spendings";
+                if (isCommandSizeMoreThan2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
+                while(!listSpendingStatistics(spendings)) {
+                    Ui.printWithTab("Please enter Y/N");
+                }
+                break;
+            case "incomes":
+                assert firstIndex.equals("incomes") : "command should be to list incomes";
+                if (isCommandSizeMoreThan2) {
+                    throw new WiagiInvalidInputException("Too many arguments. " +
+                            "Please enter in the form: list [spendings/incomes/tags]");
+                }
                 Ui.printIncomes(incomes);
-            } else {
-                throw new WiagiInvalidInputException("No such category. " +
-                        "Please enter in the form: list [spendings/incomes]");
+                break;
+            default:
+                throw new WiagiInvalidInputException("Invalid input. " +
+                        "Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]");
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
-        } catch (Exception e) {
-            Ui.printWithTab("An error occurred while listing the items.");
         }
+    }
+
+    private boolean listSpendingStatistics(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        String userInput = Ui.readCommand();
+        if (userInput.equals("y") || userInput.equals("Y")) {
+            Ui.printSpendings(spendings);
+            Ui.printSpendingStatistics(spendings);
+            return true;
+        } else if (userInput.equals("n") || userInput.equals("N")) {
+            Ui.printSpendings(spendings);
+            return true;
+        }
+        return false;
     }
 }

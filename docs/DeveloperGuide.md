@@ -36,3 +36,16 @@
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+## Components Interaction
+### Storage
+To load data from previous session: 
+Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and 
+password by de-serialising the text at their distinct file paths. Wiagi will then initialise it incomes and spendings 
+based on the member in the Storage class.
+![storageLoad.png](storageLoad.png)
+
+To save data for current session:
+After the command bye is sent by the user, incomes and spendings will be serialised and overwrite texts in 
+their distinct file paths. 
+![storageSave.png](storageSave.png)

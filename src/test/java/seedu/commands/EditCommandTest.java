@@ -39,6 +39,9 @@ class EditCommandTest {
         c = Parser.parse("add income 10 dividends");
         c.execute(incomes, spendings);
 
+        c = Parser.parse("add income 10 stocks *wronginput* /2024-10-10/");
+        c.execute(incomes, spendings);
+
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
@@ -146,5 +149,15 @@ class EditCommandTest {
         c.execute(incomes, spendings);
         assertEquals("macdonalds" + Constants.LIST_SEPARATOR + "10" + Constants.LIST_SEPARATOR + "2024-10-10",
                 spendings.get(1).toString());
+    }
+
+    @Test
+    public void execute_editTag_success() {
+        String userInout = "edit income 3 tag investments";
+        Command c = Parser.parse(userInout);
+        c.execute(incomes, spendings);
+        assertEquals("stocks" + Constants.LIST_SEPARATOR + "10" + Constants.LIST_SEPARATOR + "2024-10-10" +
+                        Constants.LIST_SEPARATOR + "investments",
+                incomes.get(2).toString());
     }
 }

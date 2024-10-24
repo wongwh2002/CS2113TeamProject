@@ -8,6 +8,12 @@ import seedu.commands.ListCommand;
 import seedu.commands.EditCommand;
 import seedu.commands.BudgetCommand;
 import seedu.commands.UnknownCommand;
+import seedu.recurrence.DailyRecurrence;
+import seedu.recurrence.MonthlyRecurrence;
+import seedu.recurrence.Recurrence;
+import seedu.recurrence.RecurrenceFrequency;
+import seedu.type.Type;
+import seedu.recurrence.YearlyRecurrence;
 
 public class Parser {
 
@@ -29,6 +35,21 @@ public class Parser {
             return new BudgetCommand(fullCommand);
         default:
             return new UnknownCommand();
+        }
+    }
+
+    public static Recurrence parseRecurrence(Type entry) {
+        RecurrenceFrequency frequency = entry.getRecurrenceFrequency();
+
+        switch (frequency) {
+        case DAILY:
+            return new DailyRecurrence();
+        case MONTHLY:
+            return new MonthlyRecurrence();
+        case YEARLY:
+            return new YearlyRecurrence();
+        default:
+            return null;
         }
     }
 }
