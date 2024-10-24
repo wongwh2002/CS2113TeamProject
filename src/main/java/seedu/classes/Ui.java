@@ -136,7 +136,6 @@ public class Ui {
         StringBuilder sbSpending = new StringBuilder();
         assert tag != null && !tag.isEmpty() : "Tag is null or empty";
 
-
         int tagsCount;
         int incomeCount;
         int spendingCount;
@@ -144,6 +143,7 @@ public class Ui {
         incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
         spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
         tagsCount = incomeCount + spendingCount;
+
         if (tagsCount == 0) {
             throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
         }
