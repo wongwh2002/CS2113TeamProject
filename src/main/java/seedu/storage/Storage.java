@@ -1,6 +1,5 @@
 package seedu.storage;
 
-import seedu.classes.Ui;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
@@ -9,10 +8,10 @@ public class Storage {
     static SpendingList spendings;
     static int password;
 
-    public Storage(Ui ui) {
+    public Storage() {
         IncomeListStorage.load();
         SpendingListStorage.load();
-        LoginStorage.load(ui);
+        LoginStorage.load();
     }
     public void save(IncomeList incomes, SpendingList spendings) {
         IncomeListStorage.save(incomes);

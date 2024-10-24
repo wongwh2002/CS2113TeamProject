@@ -10,28 +10,28 @@ import java.time.LocalDate;
 public class MonthlyRecurrence extends Recurrence {
 
     @Override
-    public void checkIncomeRecurrence(Income recurrence, IncomeList incomes) {
-        LocalDate lastRecurred = recurrence.getLastRecurrence();
-        Income copyEntry = new Income(recurrence);
+    public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
+        LocalDate lastRecurred = recurringIncome.getLastRecurrence();
+        Income copyEntry = new Income(recurringIncome);
         int currentTotalMonth = LocalDate.now().getYear() * 12 + LocalDate.now().getMonthValue();
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
             LocalDate checkDate = lastRecurred.plusMonths(1);
             for (; checkDate.isBefore(LocalDate.now());
-                 checkDate = checkDate.plusMonths(1)) {
+                    checkDate = checkDate.plusMonths(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Income newEntry = new Income(copyEntry);
                 incomes.add(newEntry);
             }
             checkDate = checkDate.minusMonths(1);
-            recurrence.editLastRecurrence(checkDate);
+            recurringIncome.editLastRecurrence(checkDate);
         }
     }
 
     @Override
-    public void checkSpendingRecurrence(Spending recurrence, SpendingList spendings) {
-        LocalDate lastRecurred = recurrence.getLastRecurrence();
-        Spending copyEntry = new Spending(recurrence);
+    public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings) {
+        LocalDate lastRecurred = recurringSpending.getLastRecurrence();
+        Spending copyEntry = new Spending(recurringSpending);
         int currentTotalMonth = LocalDate.now().getYear() * 12 + LocalDate.now().getMonthValue();
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
@@ -43,7 +43,7 @@ public class MonthlyRecurrence extends Recurrence {
                 spendings.add(newEntry);
             }
             checkDate = checkDate.minusMonths(1);
-            recurrence.editLastRecurrence(checkDate);
+            recurringSpending.editLastRecurrence(checkDate);
         }
     }
 

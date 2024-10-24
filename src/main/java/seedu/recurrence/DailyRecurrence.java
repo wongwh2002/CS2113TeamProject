@@ -10,9 +10,9 @@ import java.time.LocalDate;
 public class DailyRecurrence extends Recurrence{
 
     @Override
-    public void checkIncomeRecurrence(Income recurrence, IncomeList incomes) {
-        LocalDate lastRecurred = recurrence.getLastRecurrence();
-        Income copyEntry = new Income(recurrence);
+    public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
+        LocalDate lastRecurred = recurringIncome.getLastRecurrence();
+        Income copyEntry = new Income(recurringIncome);
         if (LocalDate.now().isAfter(lastRecurred)) {
             LocalDate date = lastRecurred.plusDays(1);
             for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
@@ -21,14 +21,14 @@ public class DailyRecurrence extends Recurrence{
                 incomes.add(newEntry);
             }
             date = date.minusDays(1);
-            recurrence.editLastRecurrence(date);
+            recurringIncome.editLastRecurrence(date);
         }
     }
 
     @Override
-    public void checkSpendingRecurrence(Spending recurrence, SpendingList spendings) {
-        LocalDate lastRecurred = recurrence.getLastRecurrence();
-        Spending copyEntry = new Spending(recurrence);
+    public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings) {
+        LocalDate lastRecurred = recurringSpending.getLastRecurrence();
+        Spending copyEntry = new Spending(recurringSpending);
         if (LocalDate.now().isAfter(lastRecurred)) {
             LocalDate date = lastRecurred.plusDays(1);
             for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
@@ -37,7 +37,7 @@ public class DailyRecurrence extends Recurrence{
                 spendings.add(newEntry);
             }
             date = date.minusDays(1);
-            recurrence.editLastRecurrence(date);
+            recurringSpending.editLastRecurrence(date);
         }
     }
 }

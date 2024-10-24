@@ -7,6 +7,6 @@ import seedu.type.SpendingList;
 
 public abstract class Recurrence {
 
-    public abstract void checkIncomeRecurrence(Income recurrence, IncomeList incomes);
-    public abstract void checkSpendingRecurrence(Spending recurrence, SpendingList spendings);
+    public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes);
+    public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings);
 }

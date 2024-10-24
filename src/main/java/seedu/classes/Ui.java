@@ -7,17 +7,20 @@ import seedu.type.Spending;
 import seedu.type.SpendingList;
 import seedu.type.Type;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner scanner;
+    private static Scanner scanner = new Scanner(System.in);
 
-    public Ui() {
+    public static void userInputForTest(String data) {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
         scanner = new Scanner(System.in);
-        assert scanner != null : "Scanner initialization failed";
     }
-    public String readCommand() {
+
+    public static String readCommand() {
         String line = scanner.nextLine();
         assert line != null : "Input line is null";
         Ui.printSeparator();

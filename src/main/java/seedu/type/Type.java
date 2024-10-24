@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static seedu.classes.Constants.DAILY_RECURRENCE;
+import static seedu.classes.Constants.MONTHLY_RECURRENCE;
+import static seedu.classes.Constants.YEARLY_RECURRENCE;
+
 public class Type implements Serializable {
     private int amount;
     private String description;
@@ -43,11 +47,14 @@ public class Type implements Serializable {
         this.lastRecurrence = null;
     }
 
-    public Type(int amount, String description, LocalDate date) {
+    public Type(int amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
+                LocalDate lastRecurrence) {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.tag = "";
+        this.tag = tag;
+        this.recurrenceFrequency = recurrenceFrequency;
+        this.lastRecurrence = lastRecurrence;
     }
 
 
@@ -108,11 +115,11 @@ public class Type implements Serializable {
         String frequency = commandAndFrequency[1].toLowerCase();
 
         switch (frequency) {
-        case "daily":
+        case DAILY_RECURRENCE:
             return RecurrenceFrequency.DAILY;
-        case "monthly":
+        case MONTHLY_RECURRENCE:
             return RecurrenceFrequency.MONTHLY;
-        case "yearly":
+        case YEARLY_RECURRENCE:
             return RecurrenceFrequency.YEARLY;
         default:
             throw new WiagiInvalidInputException("Invalid frequency type! Please input ~daily/monthly/yearly~");
