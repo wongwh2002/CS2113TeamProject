@@ -47,6 +47,7 @@ public class DeleteCommand extends Command {
         if (isOutOfBounds(index, arrList)) {
             throw new WiagiInvalidIndexException("Invalid index");
         }
+        assert arrList.get(index) != null : "entry to delete cannot be null";
         arrList.remove(arrList.get(index));
         Ui.printWithTab("Successfully deleted!");
     }
