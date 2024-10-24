@@ -10,10 +10,17 @@ import seedu.type.SpendingList;
 
 public class Wiagi {
 
-    private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage(ui);
-    private static final IncomeList incomes =  Storage.getIncomes();
-    private static final SpendingList spendings = Storage.getSpendings();
+    private static Ui ui;
+    private static Storage storage;
+    private static IncomeList incomes;
+    private static SpendingList spendings;
+
+    private Wiagi() {
+        ui = new Ui();
+        storage = new Storage(ui);
+        incomes = Storage.getIncomes();
+        spendings = Storage.getSpendings();
+    }
 
     private void run() {
         Ui.welcome();
