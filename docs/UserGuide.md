@@ -70,7 +70,7 @@ Note that this is also the startup page for returning users
 ```
 ### Adding an entry
 #### Adding a spending:
-// Description
+
 Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
 Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry.
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
@@ -102,7 +102,7 @@ output
 ```
 
 #### Adding an income:
-// Description
+
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
 Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry.
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
@@ -132,7 +132,7 @@ output
 ```
 
 ### Listing all entries:
-// Description
+
 Lists all the entries in the user's spending or income list.
 Format: `list`
 
@@ -158,7 +158,7 @@ Example output:
 	____________________________________________________________
 ```
 #### Listing all spendings:
-// Description
+
 Lists all the entries in the user's spending list.
 
 Format: `list spendings`
@@ -182,7 +182,7 @@ Example output:
 ```
 
 #### Listing all incomes:
-// Description
+
 Lists all the entries in the user's income list.
 
 Format: `list incomes`
@@ -201,7 +201,7 @@ Example output:
 ```
 
 #### Listing all tags:
-// Description
+
 Lists all the tags in the user's list.
 
 Format: `list tags`
@@ -222,7 +222,7 @@ Example output:
 ```
 
 #### Listing all of specific tag:
-// Description
+
 Lists all the entries in the user's list with the specified tag.
 
 Format: `list tags {$TAGNAME}`
