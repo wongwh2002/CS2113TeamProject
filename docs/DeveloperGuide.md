@@ -54,6 +54,31 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | **  | Student  | set budgets for each category of expense      | make better financial decisions |
 | *   |user| be alerted when I overspend my budget | try to curb my spendings |
 
+
+## Use cases
+
+### Use case: Add an Entry
+
+** Adding an income entry with optional input for date and tag **
+
+** MSS **
+
+1. User inputs to add income with description, amount, date, and tag.
+2. Wiagi adds the income to the income list.
+3. If the date is not provided, Wiagi will use the current date.
+4. If the tag is not provided, Wiagi will use the default tag (Empty String).
+5. Wiagi will display a message to the user that the income has been added.
+
+Use case ends.
+
+** Extensions **
+1. User enters invalid input.
+   1. If the user inputs invalid formatting, Wiagi will display an error message.
+   2. If the user inputs an invalid amount, Wiagi will display an error message.
+   3. If the user inputs an invalid date, Wiagi will display an error message.
+   
+   Use case restarts at step 1.
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
