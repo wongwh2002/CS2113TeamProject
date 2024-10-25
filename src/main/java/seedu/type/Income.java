@@ -14,8 +14,8 @@ public class Income extends Type {
     }
 
     public Income(int amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
-                  LocalDate lastRecurrence) {
-        super(amount, description, date, tag, recurrenceFrequency, lastRecurrence);
+                  LocalDate lastRecurrence, int dayOfRecurrence) {
+        super(amount, description, date, tag, recurrenceFrequency, lastRecurrence, dayOfRecurrence);
     }
 
     public Income(Income entry) {

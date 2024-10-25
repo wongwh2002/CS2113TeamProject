@@ -8,7 +8,6 @@ import seedu.type.SpendingList;
 import java.time.LocalDate;
 
 public class MonthlyRecurrence extends Recurrence {
-
     @Override
     public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
@@ -17,10 +16,14 @@ public class MonthlyRecurrence extends Recurrence {
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
             LocalDate checkDate = lastRecurred.plusMonths(1);
-            for (; checkDate.isBefore(LocalDate.now());
+            for (; !checkDate.isAfter(LocalDate.now());
                     checkDate = checkDate.plusMonths(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Income newEntry = new Income(copyEntry);
+                int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
+                int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
+                newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(Math.min(dayOfSupposedRecurrence,
+                        lastDayOfNewEntryMonth)));
                 incomes.add(newEntry);
             }
             checkDate = checkDate.minusMonths(1);
@@ -36,10 +39,14 @@ public class MonthlyRecurrence extends Recurrence {
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
             LocalDate checkDate = lastRecurred.plusMonths(1);
-            for (; checkDate.isBefore(LocalDate.now());
+            for (; !checkDate.isAfter(LocalDate.now());
                  checkDate = checkDate.plusMonths(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Spending newEntry = new Spending(copyEntry);
+                int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
+                int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
+                newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(Math.min(dayOfSupposedRecurrence,
+                        lastDayOfNewEntryMonth)));
                 spendings.add(newEntry);
             }
             checkDate = checkDate.minusMonths(1);

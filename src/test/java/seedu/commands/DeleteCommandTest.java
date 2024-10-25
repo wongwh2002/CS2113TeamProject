@@ -23,9 +23,9 @@ class DeleteCommandTest {
     // @@author wx-03
     @BeforeEach
     void setUp() {
-        incomes.add(new Income(1000, "salary", null, null, null, null));
-        spendings.add(new Spending(4, "dinner", null, null, null, null));
-        spendings.add(new Spending(5, "lunch", null, null, null, null));
+        incomes.add(new Income(1000, "salary", null, null, null, null, 0));
+        spendings.add(new Spending(4, "dinner", null, null, null, null, 0));
+        spendings.add(new Spending(5, "lunch", null, null, null, null, 0));
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 

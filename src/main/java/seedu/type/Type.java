@@ -22,6 +22,7 @@ public class Type implements Serializable {
     private String tag;
     private RecurrenceFrequency recurrenceFrequency;
     private LocalDate lastRecurrence;
+    private int dayOfRecurrence;
 
     public Type(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
             WiagiMissingParamsException, WiagiInvalidInputException {
@@ -35,6 +36,9 @@ public class Type implements Serializable {
         assert tag != null : "Tag should not be null";
         this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
         this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
+        if (lastRecurrence != null) {
+            this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
+        }
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -45,16 +49,18 @@ public class Type implements Serializable {
         this.tag = other.tag;
         this.recurrenceFrequency = RecurrenceFrequency.NONE;
         this.lastRecurrence = null;
+        this.dayOfRecurrence = other.dayOfRecurrence;
     }
 
     public Type(int amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
-                LocalDate lastRecurrence) {
+                LocalDate lastRecurrence, int dayOfRecurrence) {
         this.amount = amount;
         this.description = description;
         this.date = date;
         this.tag = tag;
         this.recurrenceFrequency = recurrenceFrequency;
         this.lastRecurrence = lastRecurrence;
+        this.dayOfRecurrence = dayOfRecurrence;
     }
 
 
@@ -191,5 +197,9 @@ public class Type implements Serializable {
 
     public RecurrenceFrequency getRecurrenceFrequency() {
         return recurrenceFrequency;
+    }
+
+    public int getDayOfRecurrence() {
+        return dayOfRecurrence;
     }
 }

@@ -14,8 +14,8 @@ public class Spending extends Type {
     }
 
     public Spending(int amount, String description, LocalDate date, String tag,
-                    RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence) {
-        super(amount, description, date, tag, recurrenceFrequency, lastRecurrence);
+                    RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence, int dayOfRecurence) {
+        super(amount, description, date, tag, recurrenceFrequency, lastRecurrence, dayOfRecurence);
     }
 
     public Spending(Spending other) {
