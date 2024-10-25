@@ -2,7 +2,7 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the 
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
 original source as well}
 
 [Original Source](https://github.com/nus-cs2113-AY2425S1/tp)
@@ -38,15 +38,47 @@ monthly, and yearly dates.
 {Describe the value proposition: what problem does it solve?}
 
 ## User Stories
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Version | As a ... | I want to ...                                 | So that I can ...               |
-|---------|----------|-----------------------------------------------|---------------------------------|
-| v1.0    | user     | start and close the application               | use it only when needed         |
-| v1.0    | user     | add my financial transactions                 | track the flow of my moeny      |
-| v1.0    | user     | categorise my entries as income and spendings | better undestand my financials  |
-| v1.0    | user     | see all my spendings                          | know what I spent on            |
-| v1.0    | user     | edit my incomes and spendings                 | correct my mistakes             |
-| v2.0    | Student  | set budgets for each category of expense      | make better financial decisions |
+| Priority | As a ... | I want to ...                                        | So that I can ... |
+|-----|----|------------------------------------------------------|-------------------|
+| *** |user| start and close the application                      | use it only when needed |
+| *** |user| add my financial transactions                        | track the flow of my money |
+| *** |user| categorise my entries as income and spendings        | better undestand my financials |
+| *** |user| add income and expenditure categories                | see my overall net gain or loss |
+| *** | user     | see all my spendings                          | know what I spent on            |
+| *** |user| have a password to my account                        | protect my account informations |
+| **  | user     | edit my incomes and spendings                 | correct my mistakes             |
+| **  |user| read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
+| **  |user| set expenses and incomes as recurring | do not need to manually add them each time |
+| **  | Student  | set budgets for each category of expense      | make better financial decisions |
+| *   |user| be alerted when I overspend my budget | try to curb my spendings |
+
+
+## Use cases
+
+### Use case: Add an Entry
+
+** Adding an income entry with optional input for date and tag **
+
+** MSS **
+
+1. User inputs to add income with description, amount, date, and tag.
+2. Wiagi adds the income to the income list.
+3. If the date is not provided, Wiagi will use the current date.
+4. If the tag is not provided, Wiagi will use the default tag (Empty String).
+5. Wiagi will display a message to the user that the income has been added.
+
+Use case ends.
+
+** Extensions **
+1. User enters invalid input.
+   1. If the user inputs invalid formatting, Wiagi will display an error message.
+   2. If the user inputs an invalid amount, Wiagi will display an error message.
+   3. If the user inputs an invalid date, Wiagi will display an error message.
+   
+   Use case restarts at step 1.
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
