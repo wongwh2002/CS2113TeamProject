@@ -349,6 +349,32 @@ class ListCommandTest {
                 outContent.toString());
         incomes.remove(2);
     }
+
+    @Test
+    public void execute_listInvalidTimeRangeWeekly_expectAskAgainShowWeekly() {
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
+        String userInout = "list incomes";
+        Command c = Parser.parse(userInout);
+        Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
+        c.execute(incomes, spendings);
+        assertEquals("\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\tInvalid input" + System.lineSeparator() +
+                        "\tSelect time range:" + System.lineSeparator() +
+                        "\t[1] All" + System.lineSeparator() +
+                        "\t[2] Weekly" + System.lineSeparator() +
+                        "\t[3] Biweekly" + System.lineSeparator() +
+                        "\t[4] Monthly" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
+                        "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
+                        "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
+                outContent.toString());
+        incomes.remove(2);
+    }
 }
 
 
