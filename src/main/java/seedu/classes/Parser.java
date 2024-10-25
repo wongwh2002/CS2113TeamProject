@@ -21,17 +21,17 @@ public class Parser {
         String command = fullCommand.split(" ")[0].toLowerCase();
 
         switch (command) {
-        case "bye":
+        case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
-        case "add": // user input should be in the form add [add type] [amount] [description]...
+        case AddCommand.COMMAND_WORD:// user input should be in the form add [add type] [amount] [description]...
             return new AddCommand(fullCommand);
-        case "delete":
+        case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(fullCommand);
-        case "list":
+        case ListCommand.COMMAND_WORD:
             return new ListCommand(fullCommand);
-        case "edit":
+        case EditCommand.COMMAND_WORD:
             return new EditCommand(fullCommand);
-        case "budget":
+        case BudgetCommand.COMMAND_WORD:
             return new BudgetCommand(fullCommand);
         default:
             return new UnknownCommand();

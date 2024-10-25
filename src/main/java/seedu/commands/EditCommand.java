@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class EditCommand extends Command {
 
+    public static final String COMMAND_WORD = "edit";
+
     private final String fullCommand;
 
     public EditCommand(String fullCommand) {

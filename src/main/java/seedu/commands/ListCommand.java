@@ -3,7 +3,7 @@ package seedu.commands;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
-import seedu.TimeRange;
+import seedu.enums.TimeRange;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
@@ -11,6 +11,8 @@ import seedu.type.SpendingList;
  * Represents a command to list incomes and spendings.
  */
 public class ListCommand extends Command {
+
+    public static final String COMMAND_WORD = "list";
 
     private final String fullCommand;
 
