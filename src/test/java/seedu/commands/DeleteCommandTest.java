@@ -50,7 +50,8 @@ class DeleteCommandTest {
     void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete income a");
         c.execute(incomes, spendings);
-        assertEquals(Constants.INDEX_NOT_INTEGER, outputStreamCaptor.toString().trim());
+        assertEquals(Constants.TAB + Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT
+                + System.lineSeparator(), outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
     }
 

@@ -22,9 +22,10 @@ public class Constants {
     public static final String INVALID_CATEGORY = "No such category exists! ";
     public static final String INVALID_FIELD = "No such field exists! ";
     public static final String INDEX_OUT_OF_BOUNDS = "Not a valid index!";
-    public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index!";
+    public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String INVALID_AMOUNT = "Invalid amount! ";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use \"/YYYY-MM-DD/\" ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input ~daily/monthly/yearly~ ";
+    public static final String MISSING_AMOUNT = "No amount found! ";
 }

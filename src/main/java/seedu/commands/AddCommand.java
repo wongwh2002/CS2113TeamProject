@@ -55,22 +55,22 @@ public class AddCommand extends Command {
         }
 
         if (commandWords.length == 2) {
-            throw new WiagiInvalidInputException("Cannot find Amount");
+            throw new WiagiInvalidInputException(Constants.MISSING_AMOUNT + Constants.ADD_COMMAND_FORMAT);
         }
 
         if (!isNumeric(commandWords[AMOUNT_INDEX])) {
-            throw new WiagiInvalidInputException("Amount must be an integer");
+            throw new WiagiInvalidInputException(Constants.INDEX_NOT_INTEGER + Constants.ADD_COMMAND_FORMAT);
         }
         int amount = Integer.parseInt(commandWords[AMOUNT_INDEX]);
         if (amount <= 0) {
-            throw new WiagiInvalidInputException("Amount must be greater than zero");
+            throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.ADD_COMMAND_FORMAT);
         }
         assert amount > 0 : "Amount should be greater than zero";
 
         String[] splitDescription = Arrays.copyOfRange(commandWords, DESCRIPTION_INDEX, commandWords.length);
         String description = String.join(" ", splitDescription);
         if (splitDescription.length == 0) {
-            throw new WiagiEmptyDescriptionException("Cannot find Description");
+            throw new WiagiEmptyDescriptionException(Constants.MISSING_DESCRIPTION + Constants.ADD_COMMAND_FORMAT);
         }
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
 

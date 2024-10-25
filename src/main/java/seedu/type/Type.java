@@ -1,10 +1,8 @@
 package seedu.type;
 
 import seedu.classes.Constants;
-import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
-import seedu.exception.WiagiMissingParamsException;
 import seedu.recurrence.RecurrenceFrequency;
 
 import java.io.Serializable;
@@ -76,34 +74,6 @@ public class Type implements Serializable {
         return this.amount;
     }
 
-<<<<<<< HEAD
-=======
-    private int extractAmount(String[] userInputWords) throws WiagiMissingParamsException, WiagiInvalidInputException {
-        try {
-            int amount = Integer.parseInt(userInputWords[2]);
-            if (amount <= 0) {
-                throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.ADD_COMMAND_FORMAT);
-            }
-            assert amount > 0 : "Amount should be greater than zero";
-            return amount;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT);
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT);
-        }
-    }
-
-    private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
-        String[] commandAndDescription = userInput.split(Integer.toString(amount));
-        if (commandAndDescription[1].isEmpty()) {
-            throw new WiagiEmptyDescriptionException(Constants.MISSING_DESCRIPTION + Constants.ADD_COMMAND_FORMAT);
-        }
-
-        String[] descriptionAndDate = commandAndDescription[1].trim().split(" ");
-        return descriptionAndDate[0].trim();
-    }
-
->>>>>>> origin/branch-cleaning
     private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
         String[] commandAndDate = userInput.split("/");
         try {

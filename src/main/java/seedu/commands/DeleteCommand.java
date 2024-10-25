@@ -59,7 +59,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(Constants.INDEX_NOT_INTEGER);
+            throw new WiagiInvalidInputException(Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT);
         }
     }
 }
