@@ -22,6 +22,12 @@ After the command bye is sent by the user, incomes and spendings will be seriali
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
 
+### Budgets
+Daily, monthly, and yearly spending totals are calculated everytime a ListCommand is received. This is done by
+iterating through each of the spendings stored in SpendingList and comparing their dates to the respective daily,
+monthly, and yearly dates.
+
+
 ## Product scope
 ### Target user profile
 
@@ -33,12 +39,14 @@ their distinct file paths.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                 | So that I can ...              |
-|---------|------|-----------------------------------------------|--------------------------------|
-| v1.0    |user| start and close the application               | use it only when needed        |
-| v1.0    |user| add my financial transactions                 | track the flow of my moeny     |
-| v1.0    |user| categorise my entries as income and spendings | better undestand my financials |
-
+| Version | As a ... | I want to ...                                 | So that I can ...               |
+|---------|----------|-----------------------------------------------|---------------------------------|
+| v1.0    | user     | start and close the application               | use it only when needed         |
+| v1.0    | user     | add my financial transactions                 | track the flow of my moeny      |
+| v1.0    | user     | categorise my entries as income and spendings | better undestand my financials  |
+| v1.0    | user     | see all my spendings                          | know what I spent on            |
+| v1.0    | user     | edit my incomes and spendings                 | correct my mistakes             |
+| v2.0    | Student  | set budgets for each category of expense      | make better financial decisions |
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
