@@ -133,23 +133,26 @@ public class ListCommand extends Command {
 
     //@@author wx-03
     private TimeRange askForTimeRange() {
-        Ui.printWithTab("Select time range:" + System.lineSeparator() +
-                "\t[1] All" + System.lineSeparator() +
-                "\t[2] Weekly" + System.lineSeparator() +
-                "\t[3] Biweekly" + System.lineSeparator() +
-                "\t[4] Monthly");
-        String userInput = Ui.readCommand();
-        if (userInput.equals("1")) {
-            return TimeRange.ALL;
-        } else if (userInput.equals("2")) {
-            return TimeRange.WEEKLY;
-        } else if (userInput.equals("3")) {
-            return TimeRange.BIWEEKLY;
-        } else if (userInput.equals("4")) {
-            return TimeRange.MONTHLY;
-        } else {
-            Ui.printWithTab("Invalid input");
-            return askForTimeRange();
+        TimeRange selectedTimeRange = null;
+        while (selectedTimeRange == null) {
+            Ui.printWithTab("Select time range:" + System.lineSeparator() +
+                    "\t[1] All" + System.lineSeparator() +
+                    "\t[2] Weekly" + System.lineSeparator() +
+                    "\t[3] Biweekly" + System.lineSeparator() +
+                    "\t[4] Monthly");
+            String userInput = Ui.readCommand();
+            if (userInput.equals("1")) {
+                selectedTimeRange = TimeRange.ALL;
+            } else if (userInput.equals("2")) {
+                selectedTimeRange = TimeRange.WEEKLY;
+            } else if (userInput.equals("3")) {
+                selectedTimeRange = TimeRange.BIWEEKLY;
+            } else if (userInput.equals("4")) {
+                selectedTimeRange = TimeRange.MONTHLY;
+            } else {
+                Ui.printWithTab("Invalid input");
+            }
         }
+        return selectedTimeRange;
     }
 }
