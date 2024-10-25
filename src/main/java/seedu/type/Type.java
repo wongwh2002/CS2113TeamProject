@@ -42,6 +42,19 @@ public class Type implements Serializable {
         Ui.printWithTab("Entry successfully added!");
     }
 
+    public Type(String userInput, int amount, String description) {
+        this.amount = amount;
+        this.description = description;
+        this.date = extractDate(userInput);
+        this.tag = extractTag(userInput);
+        this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
+        this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
+        if (lastRecurrence != null) {
+            this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
+        }
+        Ui.printWithTab("Entry successfully added!");
+    }
+
     public Type(Type other) {
         this.amount = other.amount;
         this.description = other.description;

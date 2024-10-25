@@ -99,6 +99,7 @@ public class Ui {
         return String.valueOf(sum);
     }
 
+    //@@author wongwh2002
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
@@ -113,6 +114,7 @@ public class Ui {
         }
     }
 
+    //@@author wongwh2002
     private static ArrayList<String> getStrings(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = new ArrayList<>();
         tags.add(EMPTY_STRING);
@@ -133,6 +135,7 @@ public class Ui {
         return tags;
     }
 
+    //@@author wongwh2002
     public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
         StringBuilder sbIncome = new StringBuilder();
         StringBuilder sbSpending = new StringBuilder();
@@ -162,7 +165,8 @@ public class Ui {
         }
     }
 
-    private static <T> int getTagsCount(ArrayList<T> arrList, String tag,
+    //@@author wongwh2002
+    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
                                         StringBuilder sb, String listName) {
         sb.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
