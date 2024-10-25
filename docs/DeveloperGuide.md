@@ -2,7 +2,7 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the 
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
 original source as well}
 
 [Original Source](https://github.com/nus-cs2113-AY2425S1/tp)
@@ -33,12 +33,16 @@ their distinct file paths.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                 | So that I can ...              |
-|---------|------|-----------------------------------------------|--------------------------------|
-| v1.0    |user| start and close the application               | use it only when needed        |
-| v1.0    |user| add my financial transactions                 | track the flow of my moeny     |
-| v1.0    |user| categorise my entries as income and spendings | better undestand my financials |
-
+| Version | As a ... | I want to ...                                        | So that I can ... |
+|----|----|------------------------------------------------------|-------------------|
+|v1.0|user| start and close the application                      | use it only when needed |
+|v1.0|user| add my financial transactions                        | track the flow of my money |
+|v1.0|user| categorise my entries as income and spendings        | better undestand my financials |
+|v1.0|user| add income and expenditure categories                | see my overall net gain or loss |
+|v1.0|user| have a password to my account                        | protect my account informations |
+|v2.0|user| read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
+|v2.0|user| set expenses and incomes as recurring | do not need to manually add them each time |
+|v2.0|user| be alerted when I overspend my budget | try to curb my spendings | 
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
