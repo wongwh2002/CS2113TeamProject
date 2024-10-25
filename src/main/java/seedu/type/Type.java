@@ -42,11 +42,16 @@ public class Type implements Serializable {
         Ui.printWithTab("Entry successfully added!");
     }
 
+    //@@author wongwh2002
     public Type(String userInput, int amount, String description) {
         this.amount = amount;
+        assert amount > 0 : "Amount should be greater than zero";
         this.description = description;
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
         this.date = extractDate(userInput);
+        assert date != null : "Date should not be null";
         this.tag = extractTag(userInput);
+        assert tag != null : "Tag should not be null";
         this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
         this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
         if (lastRecurrence != null) {
@@ -126,7 +131,8 @@ public class Type implements Serializable {
         }
     }
 
-    private RecurrenceFrequency extractRecurrenceFrequency(String userInput) {
+    private RecurrenceFrequency extractRecurrenceFrequency(String userInput)
+            throws WiagiInvalidInputException {
         String[] commandAndFrequency = userInput.split("~");
         if (commandAndFrequency.length == 1) {
             return RecurrenceFrequency.NONE;
@@ -160,7 +166,7 @@ public class Type implements Serializable {
         return returnString;
     }
 
-    public void editAmount(String newAmount){
+    public void editAmount(String newAmount) throws WiagiInvalidInputException{
         try {
             int amount = Integer.parseInt(newAmount);
             if (amount <= 0) {
@@ -176,7 +182,7 @@ public class Type implements Serializable {
         this.description = newDescription;
     }
 
-    public void editDate(String date) {
+    public void editDate(String date) throws WiagiInvalidInputException{
         try {
             this.date = LocalDate.parse(date);
         } catch (Exception e) {

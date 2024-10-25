@@ -8,11 +8,6 @@ import seedu.recurrence.RecurrenceFrequency;
 import java.time.LocalDate;
 
 public class Spending extends Type {
-    public Spending(String[] userInputWords, String userInput)
-            throws WiagiEmptyDescriptionException, WiagiMissingParamsException, WiagiInvalidInputException {
-        super(userInputWords, userInput);
-    }
-
     public Spending(int amount, String description, LocalDate date, String tag,
                     RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence, int dayOfRecurence) {
         super(amount, description, date, tag, recurrenceFrequency, lastRecurrence, dayOfRecurence);
@@ -20,5 +15,9 @@ public class Spending extends Type {
 
     public Spending(Spending other) {
         super(other);
+    }
+
+    public Spending(String fullCommand, int amount, String description) {
+        super(fullCommand, amount, description);
     }
 }
