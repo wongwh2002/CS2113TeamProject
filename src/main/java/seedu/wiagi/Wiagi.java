@@ -10,9 +10,15 @@ import seedu.type.SpendingList;
 
 public class Wiagi {
 
-    private static final Storage storage = new Storage();
-    private static final IncomeList incomes =  Storage.getIncomes();
-    private static final SpendingList spendings = Storage.getSpendings();
+    private static Storage storage;
+    private static IncomeList incomes;
+    private static SpendingList spendings;
+
+    private Wiagi() {
+        storage = new Storage();
+        incomes = Storage.getIncomes();
+        spendings = Storage.getSpendings();
+    }
 
     private void run() {
         incomes.updateRecurrence();
