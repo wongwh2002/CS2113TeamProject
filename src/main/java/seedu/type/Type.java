@@ -24,24 +24,6 @@ public class Type implements Serializable {
     private LocalDate lastRecurrence;
     private int dayOfRecurrence;
 
-    public Type(String[] userInputWords, String userInput) throws WiagiEmptyDescriptionException,
-            WiagiMissingParamsException, WiagiInvalidInputException {
-        this.amount = extractAmount(userInputWords);
-        assert amount > 0 : "Amount should be greater than zero";
-        this.description = extractDescription(amount, userInput);
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
-        this.date = extractDate(userInput);
-        assert date != null : "Date should not be null";
-        this.tag = extractTag(userInput);
-        assert tag != null : "Tag should not be null";
-        this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
-        this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
-        if (lastRecurrence != null) {
-            this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
-        }
-        Ui.printWithTab("Entry successfully added!");
-    }
-
     //@@author wongwh2002
     public Type(String userInput, int amount, String description) {
         this.amount = amount;
@@ -92,31 +74,6 @@ public class Type implements Serializable {
 
     public int getAmount() {
         return this.amount;
-    }
-
-    private int extractAmount(String[] userInputWords) throws WiagiMissingParamsException, WiagiInvalidInputException {
-        try {
-            int amount = Integer.parseInt(userInputWords[2]);
-            if (amount <= 0) {
-                throw new WiagiInvalidInputException("Amount must be greater than zero!");
-            }
-            assert amount > 0 : "Amount should be greater than zero";
-            return amount;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WiagiMissingParamsException("No amount and description provided!");
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException("Amount must be an integer!");
-        }
-    }
-
-    private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
-        String[] commandAndDescription = userInput.split(Integer.toString(amount));
-        if (commandAndDescription[1].isEmpty()) {
-            throw new WiagiEmptyDescriptionException();
-        }
-
-        String[] descriptionAndDate = commandAndDescription[1].trim().split(" ");
-        return descriptionAndDate[0].trim();
     }
 
     private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
