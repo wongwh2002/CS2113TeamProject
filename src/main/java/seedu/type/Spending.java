@@ -1,8 +1,5 @@
 package seedu.type;
 
-import seedu.exception.WiagiEmptyDescriptionException;
-import seedu.exception.WiagiInvalidInputException;
-import seedu.exception.WiagiMissingParamsException;
 import seedu.recurrence.RecurrenceFrequency;
 
 import java.time.LocalDate;
@@ -17,7 +14,7 @@ public class Spending extends Type {
         super(other);
     }
 
-    public Spending(String fullCommand, int amount, String description) {
+    public Spending(String fullCommand, double amount, String description) {
         super(fullCommand, amount, description);
     }
 }

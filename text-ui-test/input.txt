@@ -64,4 +64,7 @@ list tags
 list tags food
 list tags 123
 list tags personal
+
+add spending 10.5555555555555555555 mos burger /2025-10-10/ *food*
+list
 bye

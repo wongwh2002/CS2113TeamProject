@@ -58,16 +58,16 @@ public class Ui {
     }
 
     public static void printSpendingStatistics(SpendingList spendings) {
-        Ui.printWithDoubleTab("Daily spendings: " + spendings.getDailySpending());
+        Ui.printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
         Ui.printWithDoubleTab("Daily Budget: " + spendings.getDailyBudget());
-        Ui.printWithDoubleTab("Daily budget left: " + (spendings.getDailyBudget() - spendings.getDailySpending()));
-        Ui.printWithDoubleTab("Monthly spendings: " + spendings.getMonthlySpending());
+        Ui.printWithDoubleTab("Daily budget left: " + formatPrintDouble(spendings.getDailyBudget() - spendings.getDailySpending()));
+        Ui.printWithDoubleTab("Monthly spendings: " + formatPrintDouble(spendings.getMonthlySpending()));
         Ui.printWithDoubleTab("Monthly Budget: " + spendings.getMonthlyBudget());
         Ui.printWithDoubleTab("Monthly budget left: " +
-                (spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
-        Ui.printWithDoubleTab("Yearly spendings: " + spendings.getYearlySpending());
+                formatPrintDouble(spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
+        Ui.printWithDoubleTab("Yearly spendings: " + formatPrintDouble(spendings.getYearlySpending()));
         Ui.printWithDoubleTab("Yearly Budget: " + spendings.getYearlyBudget());
-        Ui.printWithDoubleTab("Yearly budget left: " + (spendings.getYearlyBudget() - spendings.getYearlySpending()));
+        Ui.printWithDoubleTab("Yearly budget left: " + formatPrintDouble(spendings.getYearlyBudget() - spendings.getYearlySpending()));
     }
 
     public static void printSpendings(SpendingList spendings) {
@@ -89,12 +89,19 @@ public class Ui {
      * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
     public static <T> String print_list(ArrayList<T> arrList) {
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < arrList.size(); i++) {
             assert arrList != null : "ArrayList is null";
             int oneIndexedI = i + 1;
             sum += ((Type) arrList.get(i)).getAmount();
             Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
+        }
+        return formatPrintDouble(sum);
+    }
+
+    private static String formatPrintDouble(double sum) {
+        if (sum % 1 == 0) {
+            return String.valueOf((int) sum);
         }
         return String.valueOf(sum);
     }

@@ -96,8 +96,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The total spending for the current month.
      */
-    public int getMonthlySpending() {
-        int spendingTotal = 0;
+    public double getMonthlySpending() {
+        double spendingTotal = 0;
         for (Spending spending : this) {
             if (isThisMonth(spending.getDate())) {
                 spendingTotal = spendingTotal + spending.getAmount();
@@ -111,8 +111,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The total spending for the current day.
      */
-    public int getDailySpending() {
-        int spendingTotal = 0;
+    public double getDailySpending() {
+        double spendingTotal = 0;
         for (Spending spending : this) {
             if (spending.getDate().isEqual(LocalDate.now())) {
                 spendingTotal = spendingTotal + spending.getAmount();
@@ -126,8 +126,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The total spending for the current year.
      */
-    public int getYearlySpending() {
-        int spendingTotal = 0;
+    public double getYearlySpending() {
+        double spendingTotal = 0;
         for (Spending spending : this) {
             if (isThisYear(spending.getDate())) {
                 spendingTotal = spendingTotal + spending.getAmount();

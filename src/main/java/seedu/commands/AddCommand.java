@@ -65,7 +65,8 @@ public class AddCommand extends Command {
             throw new WiagiInvalidInputException("Amount must be an integer" +
                     ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
         }
-        int amount = Integer.parseInt(commandWords[AMOUNT_INDEX]);
+        double amount = Double.parseDouble(commandWords[AMOUNT_INDEX]);
+        amount = Math.round(amount * 100.0) / 100.0; //round to 2dp
         if (amount <= 0) {
             throw new WiagiInvalidInputException("Amount must be greater than zero" +
                     ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
@@ -87,7 +88,7 @@ public class AddCommand extends Command {
         }
     }
 
-    private void addSpending(SpendingList spendings, int amount, String description) {
+    private void addSpending(SpendingList spendings, double amount, String description) {
         try {
             Spending toAdd = new Spending(fullCommand, amount, description);
             spendings.add(toAdd);
@@ -96,7 +97,7 @@ public class AddCommand extends Command {
         }
     }
 
-    private void addIncome(IncomeList incomes, int amount, String description) {
+    private void addIncome(IncomeList incomes, double amount, String description) {
         try {
             Income toAdd = new Income(fullCommand, amount, description);
             incomes.add(toAdd);
