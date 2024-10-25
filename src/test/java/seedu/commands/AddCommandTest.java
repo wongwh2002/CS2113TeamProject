@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -75,10 +77,8 @@ public class AddCommandTest {
         String userInput = "add spending";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tMissing Parameters" + System.lineSeparator()
-                + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
-                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -86,8 +86,8 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be an integer!" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT +
+                        System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class AddCommandTest {
         String userInput = "add spending -1 macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be greater than zero!" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -104,10 +104,8 @@ public class AddCommandTest {
         String userInput = "add income";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tMissing Parameters" + System.lineSeparator()
-                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
-                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -115,8 +113,8 @@ public class AddCommandTest {
         String userInput = "add income randomNum salary";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be an integer!" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -124,10 +122,8 @@ public class AddCommandTest {
         String userInput = "add spending 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tMissing Parameters" + System.lineSeparator()
-                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
-                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -135,10 +131,8 @@ public class AddCommandTest {
         String userInput = "add income 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tMissing Parameters" + System.lineSeparator()
-                        + "\tInvalid input. Please enter in the form: add [spending/income] [amount] " +
-                        "[description] {/YYYY-MM-DD/} {*tag*}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -146,8 +140,8 @@ public class AddCommandTest {
         String userInput = "add income 1000 part-time /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD/\"" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -155,7 +149,7 @@ public class AddCommandTest {
         String userInput = "add spending 1000 ipad /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals("\tInvalid date format! Use \"/YYYY-MM-DD/\"" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 }

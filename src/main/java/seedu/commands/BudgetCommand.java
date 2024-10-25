@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
@@ -35,12 +36,12 @@ public class BudgetCommand extends Command {
         String[] userInputWords = fullCommand.split(" ", 3);
         try {
             if (userInputWords.length != 3) {
-                throw new WiagiMissingParamsException("Missing parameters.");
+                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                        + Constants.BUDGET_COMMAND_FORMAT);
             }
             addBudget(userInputWords, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
-            Ui.printWithTab(e.getMessage() +
-                    " Please enter in the form: budget [daily/monthly/yearly] [amount]");
+            Ui.printWithTab(e.getMessage());
         } catch (Exception e) {
             Ui.printWithTab("An error occurred. Please try again.");
         }
@@ -64,7 +65,7 @@ public class BudgetCommand extends Command {
                 Ui.printWithTab("Successfully set yearly budget of: " + budget);
                 break;
             default:
-                throw new WiagiInvalidInputException("No such budget type.");
+                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.BUDGET_COMMAND_FORMAT);
             }
         } catch (NumberFormatException e) {
             Ui.printWithTab("Invalid amount. Please try again.");

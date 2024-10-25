@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
@@ -33,19 +34,18 @@ public class EditCommand extends Command {
         String[] userInputWords = fullCommand.split(" ", 5);
         try {
             if (userInputWords.length < 5) {
-                throw new WiagiMissingParamsException("Missing parameters.");
+                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                        + Constants.EDIT_COMMAND_FORMAT);
             }
             if (userInputWords[1].equals("spending")) {
                 editList(userInputWords, spendings);
             } else if (userInputWords[1].equals("income")) {
                 editList(userInputWords, incomes);
             } else {
-                throw new WiagiInvalidInputException("No such category.");
+                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.EDIT_COMMAND_FORMAT);
             }
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
-            Ui.printWithTab(e.getMessage() +
-                    " Please enter in the form: " +
-                    "edit [spending/income] [index] [amount/description/date] [new value]...");
+            Ui.printWithTab(e.getMessage());
         }
     }
 
@@ -68,15 +68,13 @@ public class EditCommand extends Command {
                 toEdit.editTag(newValue);
                 break;
             default:
-                throw new WiagiInvalidInputException("No such category.");
+                throw new WiagiInvalidInputException(Constants.INVALID_FIELD + Constants.EDIT_COMMAND_FORMAT);
             }
             Ui.printWithTab("Edit Successful!");
         } catch (IndexOutOfBoundsException e) {
-            throw new WiagiInvalidIndexException("Please enter a valid index.");
+            throw new WiagiInvalidIndexException(Constants.INDEX_OUT_OF_BOUNDS);
         } catch (WiagiInvalidInputException e) {
-            Ui.printWithTab(e.getMessage() +
-                    " Please enter in the form: edit [spending/income] [index] " +
-                    "[amount/description/date] [new value]...");
+            Ui.printWithTab(e.getMessage());
         }
     }
 
@@ -85,7 +83,7 @@ public class EditCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidIndexException("Please input an integer as index.");
+            throw new WiagiInvalidIndexException(Constants.INDEX_NOT_INTEGER);
         }
     }
 }

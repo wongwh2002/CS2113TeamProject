@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
@@ -23,19 +24,17 @@ public class AddCommand extends Command {
         String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 4) {
-                throw new WiagiInvalidInputException("Missing Parameters");
+                throw new WiagiInvalidInputException(Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT);
             }
             if (userInputWords[1].equals("spending")) {
                 addSpending(userInputWords, spendings);
             } else if (userInputWords[1].equals("income")) {
                 addIncome(userInputWords, incomes);
             } else {
-                throw new WiagiInvalidInputException("No such category to add");
+                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.ADD_COMMAND_FORMAT);
             }
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
-            Ui.printWithTab("Invalid input. " +
-                    "Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}");
         }
     }
 
