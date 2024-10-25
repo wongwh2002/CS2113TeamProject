@@ -28,11 +28,11 @@ public class SpendingListTest {
     @BeforeEach
     public void setUp() {
         spendings = new SpendingList();
-        spendings.add(new Spending(1, "overAyearAgo", currentDate.minusYears(2), null, null, null));
-        spendings.add(new Spending(10, "onlyInYear", currentDate.minusMonths(2), null, null, null));
-        spendings.add(new Spending(100, "onlyInYear", currentDate.minusMonths(11), null, null, null));
-        spendings.add(new Spending(1000, "monthAndYear", currentDate.minusDays(2), null, null, null));
-        spendings.add(new Spending(10000, "inAll", currentDate, null, null, null));
+        spendings.add(new Spending(1, "overAyearAgo", currentDate.minusYears(2), null, null, null, 0));
+        spendings.add(new Spending(10, "onlyInYear", currentDate.minusMonths(2), null, null, null, 0));
+        spendings.add(new Spending(100, "onlyInYear", currentDate.minusMonths(11), null, null, null, 0));
+        spendings.add(new Spending(1000, "monthAndYear", currentDate.minusDays(2), null, null, null, 0));
+        spendings.add(new Spending(10000, "inAll", currentDate, null, null, null, 0));
 
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
