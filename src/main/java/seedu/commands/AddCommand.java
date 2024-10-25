@@ -43,6 +43,8 @@ public class AddCommand extends Command {
     //@@author wongwh2002
     public void commandHandler(IncomeList incomes, SpendingList spendings) throws
             WiagiInvalidInputException, WiagiEmptyDescriptionException {
+
+        assert fullCommand != null : "fullCommand should not be null";
         String commandWithoutDate = splitByRegex(fullCommand, "/")[0];
         String commandWithoutTag = splitByRegex(commandWithoutDate, "\\*")[0];
         String commandWithoutRecurrence = splitByRegex(commandWithoutTag, "~")[0];
@@ -55,7 +57,7 @@ public class AddCommand extends Command {
         }
 
         if (commandWords.length == 2) {
-            throw new WiagiInvalidInputException("Missing parameters" +
+            throw new WiagiInvalidInputException("Cannot find Amount" +
                     ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
         }
 
@@ -68,6 +70,7 @@ public class AddCommand extends Command {
             throw new WiagiInvalidInputException("Amount must be greater than zero" +
                     ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
         }
+        assert amount > 0 : "Amount should be greater than zero";
 
         String[] splitDescription = Arrays.copyOfRange(commandWords, DESCRIPTION_INDEX, commandWords.length);
         String description = String.join(" ", splitDescription);
@@ -75,6 +78,7 @@ public class AddCommand extends Command {
             throw new WiagiEmptyDescriptionException("Cannot find Description" +
                     ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
         }
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
 
         if (commandWords[SPENDING_OR_INCOME_INDEX].equals(SPENDING)) {
             addSpending(spendings, amount, description);
