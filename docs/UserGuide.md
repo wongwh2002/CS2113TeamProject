@@ -72,11 +72,10 @@ Note that this is also the startup page for returning users
 #### Adding a spending:
 
 Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
-Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry.
+Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry. <br>
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
-Format: `todo n/TODO_NAME d/DEADLINE`
 Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
 Example input: <br>
@@ -104,11 +103,10 @@ output
 #### Adding an income:
 
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
-Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry.
+Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry. <br>
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
-Format: `todo n/TODO_NAME d/DEADLINE`
 Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
 Example input: <br>
@@ -317,16 +315,29 @@ The `edit` command allows you to edit the amount, description, or date of an exi
     ____________________________________________________________
 ```
 
+### Exiting the program
 
+The `bye` command allows you to exit the program safely, as it will store all changes made.
+
+**Format**: `bye`
+
+**Example input**:<br>
+`bye`
+
+**Example output**:
+```
+	____________________________________________________________
+	Bye. Hope to see you again soon!
+	____________________________________________________________
+```
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program is at.
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+[//]: # ({Give a 'cheat sheet' of commands here})
+[//]: # (* Add todo `todo n/TODO_NAME d/DEADLINE`)
