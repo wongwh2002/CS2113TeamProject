@@ -2,7 +2,10 @@ package seedu.commands;
 
 import seedu.classes.Constants;
 import seedu.classes.Parser;
+import seedu.recurrence.RecurrenceFrequency;
+import seedu.type.Income;
 import seedu.type.IncomeList;
+import seedu.type.Spending;
 import seedu.type.SpendingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,21 +30,12 @@ class EditCommandTest {
 
     @BeforeEach
     public void setUp() {
-        Command c = Parser.parse("add spending 10 girlfriends");
-        c.execute(incomes, spendings);
-
-        c = Parser.parse("add spending 10 macdonalds");
-        c.execute(incomes, spendings);
-
-        c = Parser.parse("add income 10 savings");
-        c.execute(incomes, spendings);
-
-        c = Parser.parse("add income 10 dividends");
-        c.execute(incomes, spendings);
-
-        c = Parser.parse("add income 10 stocks *wronginput* /2024-10-10/");
-        c.execute(incomes, spendings);
-
+        spendings.add(new Spending(10, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10, "macdonalds", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "savings", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "dividends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "stocks", LocalDate.of(2024, 10, 10), "wronginput",
+                RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
@@ -59,8 +53,7 @@ class EditCommandTest {
         String userInout = "edit";
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
-        assertEquals("\tMissing parameters. Please enter in the form: " +
-                "edit [spending/income] [index] [amount/description/date] [new value]..."
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -69,8 +62,7 @@ class EditCommandTest {
         String userInout = "edit notspendingincome 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tNo such category. Please enter in the form: " +
-                "edit [spending/income] [index] [amount/description/date] [new value]..."
+        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -79,9 +71,7 @@ class EditCommandTest {
         String userInout = "edit spending 5 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tPlease enter a valid index. Please enter in the form: edit " +
-                "[spending/income] [index] [amount/description/date] [new value]..." +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(Constants.TAB + Constants.INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -89,8 +79,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 notamountdescription 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tNo such category. Please enter in the form: " +
-                "edit [spending/income] [index] [amount/description/date] [new value]..."
+        assertEquals(Constants.TAB + Constants.INVALID_FIELD + Constants.EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -99,9 +88,8 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be an integer. Please enter in the form: edit [spending/income] [index] " +
-                        "[amount/description/date] [new value]..." + System.lineSeparator(),
-                outContent.toString());
+        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -109,9 +97,8 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount -1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("\tAmount must be greater than zero! Please enter in the form: edit [spending/income] " +
-                "[index] [amount/description/date] [new value]..." +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test

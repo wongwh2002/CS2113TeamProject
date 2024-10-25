@@ -3,6 +3,7 @@ package seedu.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.classes.Constants;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -33,8 +34,8 @@ class DeleteCommandTest {
     void execute_missingArg_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete");
         c.execute(incomes, spendings);
-        assertEquals("Invalid input. Please enter in the form: delete [spending/income] [index]",
-                outputStreamCaptor.toString().trim());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.DELETE_COMMAND_FORMAT
+                + System.lineSeparator(), outputStreamCaptor.toString());
     }
 
     @Test
@@ -49,7 +50,8 @@ class DeleteCommandTest {
     void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete income a");
         c.execute(incomes, spendings);
-        assertEquals("Please input an integer as index.", outputStreamCaptor.toString().trim());
+        assertEquals(Constants.TAB + Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT
+                + System.lineSeparator(), outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
     }
 
@@ -57,7 +59,7 @@ class DeleteCommandTest {
     void execute_indexOutOfBounds_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete income 10");
         c.execute(incomes, spendings);
-        assertEquals("Invalid index", outputStreamCaptor.toString().trim());
+        assertEquals(Constants.INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
         assertEquals(1, incomes.size());
     }
 

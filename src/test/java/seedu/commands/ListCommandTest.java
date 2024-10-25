@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.classes.Ui;
 import seedu.type.Income;
@@ -133,9 +134,8 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tInvalid input. " +
-                "Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]" +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.LIST_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -144,8 +144,8 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals("\tToo many arguments. Please enter in the form: list [spendings/incomes/tags]" +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.LIST_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
