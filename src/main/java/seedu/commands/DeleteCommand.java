@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
 
+    public static final String COMMAND_WORD = "delete";
+
     private final String fullCommand;
     public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;

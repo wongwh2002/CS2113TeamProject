@@ -11,6 +11,8 @@ import seedu.type.SpendingList;
 
 public class AddCommand extends Command {
 
+    public static final String COMMAND_WORD = "add";
+
     private final String fullCommand;
     public AddCommand(String fullCommand) {
         this.fullCommand = fullCommand;

@@ -12,6 +12,8 @@ import seedu.type.SpendingList;
  */
 public class ListCommand extends Command {
 
+    public static final String COMMAND_WORD = "list";
+
     private final String fullCommand;
 
     /**
