@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
@@ -41,10 +42,9 @@ public class ListCommand extends Command {
         boolean isCommandSizeEqual0 = commandSize == 0;
 
         try {
-            String correctFormatString = "Please enter in the form: list [spendings/incomes/tags]";
             if (isCommandSizeEqual0) {
-                throw new WiagiMissingParamsException("Missing parameters. " +
-                        correctFormatString);
+                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                        + Constants.LIST_COMMAND_FORMAT);
             }
 
             if (isCommandSizeEqual1) {
@@ -67,8 +67,8 @@ public class ListCommand extends Command {
             case "spendings":
                 assert firstIndex.equals("spendings") : "command should be to list spendings";
                 if (isCommandSizeMoreThan2) {
-                    throw new WiagiInvalidInputException("Too many arguments. " +
-                            correctFormatString);
+                    throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                            + Constants.LIST_COMMAND_FORMAT);
                 }
                 TimeRange listSpendingsTimeRange = null;
                 while (listSpendingsTimeRange == null) {
@@ -90,8 +90,8 @@ public class ListCommand extends Command {
             case "incomes":
                 assert firstIndex.equals("incomes") : "command should be to list incomes";
                 if (isCommandSizeMoreThan2) {
-                    throw new WiagiInvalidInputException("Too many arguments. " +
-                            correctFormatString);
+                    throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                            + Constants.LIST_COMMAND_FORMAT);
                 }
                 TimeRange listIncomesTimeRange = null;
                 while (listIncomesTimeRange == null) {
@@ -109,8 +109,7 @@ public class ListCommand extends Command {
                 }
                 break;
             default:
-                throw new WiagiInvalidInputException("Invalid input. " +
-                        "Please enter in the form: list [spendings/incomes/{tags TAG_NAME}]");
+                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.LIST_COMMAND_FORMAT);
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());

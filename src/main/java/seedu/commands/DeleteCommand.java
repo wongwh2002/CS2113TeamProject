@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
@@ -24,16 +25,15 @@ public class DeleteCommand extends Command {
         String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 3) {
-                throw new WiagiMissingParamsException("Invalid input. " +
-                        "Please enter in the form: delete [spending/income] [index]");
+                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
+                        + Constants.DELETE_COMMAND_FORMAT);
             }
             if (userInputWords[1].equalsIgnoreCase("income")) {
                 deleteEntry(userInputWords, incomes);
             } else if (userInputWords[1].equalsIgnoreCase("spending")) {
                 deleteEntry(userInputWords, spendings);
             } else {
-                throw new WiagiInvalidInputException("No such category. " +
-                        "Please enter in the form: delete [spending/income] [index]");
+                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.DELETE_COMMAND_FORMAT);
             }
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
     private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) throws WiagiInvalidIndexException {
         int index = getIndex(userInputWords);
         if (isOutOfBounds(index, arrList)) {
-            throw new WiagiInvalidIndexException("Invalid index");
+            throw new WiagiInvalidIndexException(Constants.INDEX_OUT_OF_BOUNDS);
         }
         assert arrList.get(index) != null : "entry to delete cannot be null";
         arrList.remove(arrList.get(index));
@@ -59,7 +59,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException("Please input an integer as index.");
+            throw new WiagiInvalidInputException(Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT);
         }
     }
 }
