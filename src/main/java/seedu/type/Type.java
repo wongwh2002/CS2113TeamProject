@@ -76,6 +76,34 @@ public class Type implements Serializable {
         return this.amount;
     }
 
+<<<<<<< HEAD
+=======
+    private int extractAmount(String[] userInputWords) throws WiagiMissingParamsException, WiagiInvalidInputException {
+        try {
+            int amount = Integer.parseInt(userInputWords[2]);
+            if (amount <= 0) {
+                throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.ADD_COMMAND_FORMAT);
+            }
+            assert amount > 0 : "Amount should be greater than zero";
+            return amount;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT);
+        } catch (NumberFormatException e) {
+            throw new WiagiInvalidInputException(Constants.INCORRECT_PARAMS_NUMBER + Constants.ADD_COMMAND_FORMAT);
+        }
+    }
+
+    private String extractDescription(int amount, String userInput) throws WiagiEmptyDescriptionException {
+        String[] commandAndDescription = userInput.split(Integer.toString(amount));
+        if (commandAndDescription[1].isEmpty()) {
+            throw new WiagiEmptyDescriptionException(Constants.MISSING_DESCRIPTION + Constants.ADD_COMMAND_FORMAT);
+        }
+
+        String[] descriptionAndDate = commandAndDescription[1].trim().split(" ");
+        return descriptionAndDate[0].trim();
+    }
+
+>>>>>>> origin/branch-cleaning
     private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
         String[] commandAndDate = userInput.split("/");
         try {
@@ -84,7 +112,7 @@ public class Type implements Serializable {
             }
             return LocalDate.parse(commandAndDate[1].trim());
         } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD/\"");
+            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT);
         }
     }
 
@@ -104,7 +132,7 @@ public class Type implements Serializable {
         case YEARLY_RECURRENCE:
             return RecurrenceFrequency.YEARLY;
         default:
-            throw new WiagiInvalidInputException("Invalid frequency type! Please input ~daily/monthly/yearly~");
+            throw new WiagiInvalidInputException(Constants.INVALID_FREQUENCY + Constants.ADD_COMMAND_FORMAT);
         }
     }
 
@@ -115,6 +143,7 @@ public class Type implements Serializable {
         return this.date;
     }
 
+    @Override
     public String toString() {
         String returnString = description + Constants.LIST_SEPARATOR + amount + Constants.LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
@@ -127,11 +156,11 @@ public class Type implements Serializable {
         try {
             int amount = Integer.parseInt(newAmount);
             if (amount <= 0) {
-                throw new WiagiInvalidInputException("Amount must be greater than zero!");
+                throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
             }
             this.amount = amount;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException("Amount must be an integer.");
+            throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
         }
     }
 
@@ -143,7 +172,7 @@ public class Type implements Serializable {
         try {
             this.date = LocalDate.parse(date);
         } catch (Exception e) {
-            throw new WiagiInvalidInputException("Invalid date format! Use \"/YYYY-MM-DD/\"");
+            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.EDIT_COMMAND_FORMAT);
         }
     }
 

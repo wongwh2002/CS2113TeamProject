@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -89,7 +90,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals("\tNo such budget type. Please enter in the form: budget [daily/monthly/yearly] [amount]"
+        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -99,7 +100,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals("\tMissing parameters. Please enter in the form: budget [daily/monthly/yearly] [amount]"
+        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 }

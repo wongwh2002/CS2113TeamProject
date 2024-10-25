@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
@@ -9,8 +10,6 @@ import seedu.type.Spending;
 import seedu.type.SpendingList;
 
 import java.util.Arrays;
-
-import static seedu.classes.Constants.ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT;
 
 public class AddCommand extends Command {
 
@@ -52,31 +51,26 @@ public class AddCommand extends Command {
 
         if (!(commandWords[SPENDING_OR_INCOME_INDEX].equals(SPENDING) ||
                 commandWords[SPENDING_OR_INCOME_INDEX].equals(INCOME))) {
-            throw new WiagiInvalidInputException("No such category to add" +
-                    ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
+            throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.ADD_COMMAND_FORMAT);
         }
 
         if (commandWords.length == 2) {
-            throw new WiagiInvalidInputException("Cannot find Amount" +
-                    ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
+            throw new WiagiInvalidInputException("Cannot find Amount");
         }
 
         if (!isNumeric(commandWords[AMOUNT_INDEX])) {
-            throw new WiagiInvalidInputException("Amount must be an integer" +
-                    ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
+            throw new WiagiInvalidInputException("Amount must be an integer");
         }
         int amount = Integer.parseInt(commandWords[AMOUNT_INDEX]);
         if (amount <= 0) {
-            throw new WiagiInvalidInputException("Amount must be greater than zero" +
-                    ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
+            throw new WiagiInvalidInputException("Amount must be greater than zero");
         }
         assert amount > 0 : "Amount should be greater than zero";
 
         String[] splitDescription = Arrays.copyOfRange(commandWords, DESCRIPTION_INDEX, commandWords.length);
         String description = String.join(" ", splitDescription);
         if (splitDescription.length == 0) {
-            throw new WiagiEmptyDescriptionException("Cannot find Description" +
-                    ADD_COMMAND_INE_SEPARATOR_CORRECT_FORMAT);
+            throw new WiagiEmptyDescriptionException("Cannot find Description");
         }
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
 
