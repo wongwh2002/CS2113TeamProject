@@ -59,15 +59,16 @@
 	No entries with tag: tagggg. Please input tags first!
 	____________________________________________________________
 	____________________________________________________________
-	Missing Parameters
-	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}
+	Cannot find Description
+	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*} {~recurrence~}
 	____________________________________________________________
 	____________________________________________________________
-	Missing Parameters
-	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*}
+	No such category to add
+	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*} {~recurrence~}
 	____________________________________________________________
 	____________________________________________________________
-	Amount must be an integer!
+	Amount must be an integer
+	Invalid input. Please enter in the form: add [spending/income] [amount] [description] {/YYYY-MM-DD/} {*tag*} {~recurrence~}
 	____________________________________________________________
 	____________________________________________________________
 	Invalid date format! Use "/YYYY-MM-DD/"
@@ -148,7 +149,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-26 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -174,7 +175,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-26 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -200,7 +201,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-26 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
@@ -226,7 +227,7 @@
 	List all statistics? [Y/N]:
 	____________________________________________________________
 	Spendings
-	1. kfc - 10 - 2024-10-25 - food
+	1. kfc - 10 - 2024-10-26 - food
 	2. techno - 10 - 2024-10-17 - food
 	3. flights - 10 - 2024-10-17 - travel
 	4. girlfriends - 10 - 2024-10-17 - personal
