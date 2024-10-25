@@ -260,7 +260,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list spendings";
         Command c = Parser.parse(userInout);
-        Ui.userInputForTest("2");
+        Ui.userInputForTest("3");
         c.execute(incomes, spendings);
         assertEquals("\tSelect time range:" + System.lineSeparator() +
                         "\t[1] All" + System.lineSeparator() +
@@ -279,7 +279,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list spendings";
         Command c = Parser.parse(userInout);
-        Ui.userInputForTest("2");
+        Ui.userInputForTest("4");
         c.execute(incomes, spendings);
         assertEquals("\tSelect time range:" + System.lineSeparator() +
                         "\t[1] All" + System.lineSeparator() +
@@ -317,7 +317,7 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list incomes";
         Command c = Parser.parse(userInout);
-        Ui.userInputForTest("2");
+        Ui.userInputForTest("3");
         c.execute(incomes, spendings);
         assertEquals("\tSelect time range:" + System.lineSeparator() +
                         "\t[1] All" + System.lineSeparator() +
@@ -336,7 +336,7 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list incomes";
         Command c = Parser.parse(userInout);
-        Ui.userInputForTest("2");
+        Ui.userInputForTest("4");
         c.execute(incomes, spendings);
         assertEquals("\tSelect time range:" + System.lineSeparator() +
                         "\t[1] All" + System.lineSeparator() +
