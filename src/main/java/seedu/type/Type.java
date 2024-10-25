@@ -14,7 +14,7 @@ import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 
 public class Type implements Serializable {
-    private int amount;
+    private double amount;
     private String description;
     private LocalDate date;
     private String tag;
@@ -23,7 +23,7 @@ public class Type implements Serializable {
     private int dayOfRecurrence;
 
     //@@author wongwh2002
-    public Type(String userInput, int amount, String description) {
+    public Type(String userInput, double amount, String description) {
         this.amount = amount;
         assert amount > 0 : "Amount should be greater than zero";
         this.description = description;
@@ -61,7 +61,6 @@ public class Type implements Serializable {
         this.dayOfRecurrence = dayOfRecurrence;
     }
 
-
     private String extractTag(String userInput) {
         String[] commandAndTag = userInput.split("\\*");
         if (commandAndTag.length == 1) {
@@ -70,7 +69,7 @@ public class Type implements Serializable {
         return commandAndTag[1].trim();
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return this.amount;
     }
 
@@ -115,7 +114,8 @@ public class Type implements Serializable {
 
     @Override
     public String toString() {
-        String returnString = description + Constants.LIST_SEPARATOR + amount + Constants.LIST_SEPARATOR + date;
+        String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.valueOf(amount);
+        String returnString = description + Constants.LIST_SEPARATOR + amountString + Constants.LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
             returnString += Constants.LIST_SEPARATOR + tag;
         }

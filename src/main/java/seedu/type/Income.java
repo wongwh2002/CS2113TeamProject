@@ -14,7 +14,7 @@ public class Income extends Type {
         super(entry);
     }
 
-    public Income(String fullCommand, int amount, String description) {
+    public Income(String fullCommand, double amount, String description) {
         super(fullCommand, amount, description);
     }
 }

@@ -14,7 +14,7 @@ public class Spending extends Type {
         super(other);
     }
 
-    public Spending(String fullCommand, int amount, String description) {
+    public Spending(String fullCommand, double amount, String description) {
         super(fullCommand, amount, description);
     }
 }
