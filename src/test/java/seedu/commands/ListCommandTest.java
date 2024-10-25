@@ -37,10 +37,10 @@ class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", null, null));
-        spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "food", null, null));
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", null, null));
-        incomes.add(new Income(10, "dividends", VALID_TEST_DATE, "investment", null, null));
+        spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", null, null, 0));
+        spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "food", null, null, 0));
+        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", null, null, 0));
+        incomes.add(new Income(10, "dividends", VALID_TEST_DATE, "investment", null, null, 0));
         provideInput("N");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -238,7 +238,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listWeeklySpendings_expectWeeklySpendingList() {
-        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null));
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         String userInout = "list spendings";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
@@ -257,7 +257,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listBiweeklySpendings_expectBiweeklySpendingList() {
-        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null));
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list spendings";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
@@ -276,7 +276,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listMonthlySpendings_expectMonthlySpendingList() {
-        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null));
+        spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list spendings";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
@@ -295,7 +295,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listWeeklyIncomes_expectWeeklyIncomeList() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null));
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         String userInout = "list incomes";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
@@ -314,7 +314,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listBiweeklyIncomes_expectBiweeklyIncomeList() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null));
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list incomes";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
@@ -333,7 +333,7 @@ class ListCommandTest {
 
     @Test
     public void execute_listMonthlyIncomes_expectMonthlyIncomeList() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null));
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list incomes";
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
