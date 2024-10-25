@@ -141,15 +141,20 @@ public class ListCommand extends Command {
                     "\t[3] Biweekly" + System.lineSeparator() +
                     "\t[4] Monthly");
             String userInput = Ui.readCommand();
-            if (userInput.equals("1")) {
+            switch (userInput) {
+            case "1":
                 selectedTimeRange = TimeRange.ALL;
-            } else if (userInput.equals("2")) {
+                break;
+            case "2":
                 selectedTimeRange = TimeRange.WEEKLY;
-            } else if (userInput.equals("3")) {
+                break;
+            case "3":
                 selectedTimeRange = TimeRange.BIWEEKLY;
-            } else if (userInput.equals("4")) {
+                break;
+            case "4":
                 selectedTimeRange = TimeRange.MONTHLY;
-            } else {
+                break;
+            default:
                 Ui.printWithTab("Invalid input");
             }
         }
