@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -12,6 +11,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.TAB;
 
 class BudgetCommandTest {
 
@@ -90,7 +93,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.BUDGET_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -100,7 +103,7 @@ class BudgetCommandTest {
         Command command = Parser.parse(userInput);
         command.execute(incomes, spendings);
 
-        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.BUDGET_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 }

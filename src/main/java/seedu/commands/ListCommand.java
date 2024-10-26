@@ -1,12 +1,16 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.enums.TimeRange;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
+
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 
 /**
  * Represents a command to list incomes and spendings.
@@ -43,8 +47,8 @@ public class ListCommand extends Command {
 
         try {
             if (isCommandSizeEqual0) {
-                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                        + Constants.LIST_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                        + LIST_COMMAND_FORMAT);
             }
 
             if (isCommandSizeEqual1) {
@@ -67,8 +71,8 @@ public class ListCommand extends Command {
             case "spendings":
                 assert firstIndex.equals("spendings") : "command should be to list spendings";
                 if (isCommandSizeMoreThan2) {
-                    throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                            + Constants.LIST_COMMAND_FORMAT);
+                    throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                            + LIST_COMMAND_FORMAT);
                 }
                 TimeRange listSpendingsTimeRange = null;
                 while (listSpendingsTimeRange == null) {
@@ -90,8 +94,8 @@ public class ListCommand extends Command {
             case "incomes":
                 assert firstIndex.equals("incomes") : "command should be to list incomes";
                 if (isCommandSizeMoreThan2) {
-                    throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                            + Constants.LIST_COMMAND_FORMAT);
+                    throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                            + LIST_COMMAND_FORMAT);
                 }
                 TimeRange listIncomesTimeRange = null;
                 while (listIncomesTimeRange == null) {
@@ -109,7 +113,7 @@ public class ListCommand extends Command {
                 }
                 break;
             default:
-                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.LIST_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + LIST_COMMAND_FORMAT);
             }
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
@@ -134,11 +138,7 @@ public class ListCommand extends Command {
     private TimeRange askForTimeRange() {
         TimeRange selectedTimeRange = null;
         while (selectedTimeRange == null) {
-            Ui.printWithTab("Select time range:" + System.lineSeparator() +
-                    "\t[1] All" + System.lineSeparator() +
-                    "\t[2] Weekly" + System.lineSeparator() +
-                    "\t[3] Biweekly" + System.lineSeparator() +
-                    "\t[4] Monthly");
+            Ui.printWithTab(TIME_RANGE_MESSAGE);
             String userInput = Ui.readCommand();
             switch (userInput) {
             case "1":
