@@ -2,14 +2,15 @@ package seedu.commands.listcommands;
 
 import seedu.classes.Ui;
 import seedu.commands.Command;
+import seedu.exception.WiagiInvalidInputException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 public class InvalidListCommand extends Command {
 
-    private final Exception exception;
+    private final WiagiInvalidInputException exception;
 
-    public InvalidListCommand(Exception e) {
+    public InvalidListCommand(WiagiInvalidInputException e) {
         this.exception = e;
     }
 
