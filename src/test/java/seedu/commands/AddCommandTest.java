@@ -44,6 +44,7 @@ public class AddCommandTest {
     }
 
 
+
     @Test
     void addCommand_correctSpendingWithoutDateInput_success() {
         String userInput = "add spending 10 macs";
@@ -76,6 +77,42 @@ public class AddCommandTest {
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
         assertEquals("dishwasher - 1500 - 2024-10-10", incomes.get(0).toString());
+    }
+
+    @Test
+    void addCommand_correctSpendingWithExtraSpaces_success() {
+        String userInput = "add   spending   10   movie ticket   /2024-10-10/";
+        String expectedOutput = "movie ticket - 10 - 2024-10-10";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(expectedOutput, spendings.get(0).toString());
+    }
+
+    @Test
+    void addCommand_correctIncomeWithExtraSpaces_success() {
+        String userInput = "add   income   10   part time   /2024-10-10/";
+        String expectedOutput = "part time - 10 - 2024-10-10";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(expectedOutput, incomes.get(0).toString());
+    }
+
+    @Test
+    void addCommand_correctSpendingWithTag_success() {
+        String userInput = "add spending 10 movie ticket /2024-10-10/ *entertainment*";
+        String expectedOutput = "movie ticket - 10 - 2024-10-10 - entertainment";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(expectedOutput, spendings.get(0).toString());
+    }
+
+    @Test
+    void addCommand_correctIncomeWithTag_success() {
+        String userInput = "add income 10 part time /2024-10-10/ *job*";
+        String expectedOutput = "part time - 10 - 2024-10-10 - job";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(expectedOutput, incomes.get(0).toString());
     }
 
     @Test
