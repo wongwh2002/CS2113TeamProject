@@ -9,6 +9,8 @@ import seedu.type.SpendingList;
 
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
+import static seedu.classes.Constants.LIST_INCOMES_SPENDINGS_MAX_LENGTH;
+import static seedu.classes.Constants.SECOND_WORD_INDEX;
 
 public class ListSpendingsCommand extends Command {
 
@@ -22,10 +24,10 @@ public class ListSpendingsCommand extends Command {
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert fullCommands[1].equals("spendings") : "command should be to list spendings";
+        assert fullCommands[SECOND_WORD_INDEX].equals("spendings") : "command should be to list spendings";
 
         try {
-            if (fullCommands.length > 2) {
+            if (fullCommands.length > LIST_INCOMES_SPENDINGS_MAX_LENGTH) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + LIST_COMMAND_FORMAT);
             }

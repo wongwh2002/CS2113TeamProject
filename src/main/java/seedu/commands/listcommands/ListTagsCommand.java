@@ -6,6 +6,8 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
+import static seedu.classes.Constants.LIST_SPECIFIC_TAG_LENGTH;
+
 public class ListTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "tags";
@@ -23,7 +25,7 @@ public class ListTagsCommand extends Command {
 
 
         try {
-            if (commandSize == 3) {
+            if (commandSize == LIST_SPECIFIC_TAG_LENGTH) {
                 assert fullCommands[2] != null : "tag name should not be null";
                 Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
             } else {

@@ -7,9 +7,12 @@ import seedu.commands.DeleteCommand;
 import seedu.commands.EditCommand;
 import seedu.commands.BudgetCommand;
 import seedu.commands.UnknownCommand;
-import seedu.commands.listcommands.*;
+import seedu.commands.listcommands.InvalidListCommand;
+import seedu.commands.listcommands.ListAllCommand;
+import seedu.commands.listcommands.ListIncomesCommand;
+import seedu.commands.listcommands.ListSpendingsCommand;
+import seedu.commands.listcommands.ListTagsCommand;
 import seedu.exception.WiagiInvalidInputException;
-import seedu.exception.WiagiMissingParamsException;
 import seedu.recurrence.DailyRecurrence;
 import seedu.recurrence.MonthlyRecurrence;
 import seedu.recurrence.Recurrence;
@@ -17,7 +20,8 @@ import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Type;
 import seedu.recurrence.YearlyRecurrence;
 
-import static seedu.classes.Constants.*;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.LIST_ALL_COMMAND_LENGTH;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
@@ -47,7 +51,7 @@ public class Parser {
         String[] fullCommands = fullCommand.split(" ");
         int commandSize = fullCommands.length;
         assert commandSize != 0 : "command should have at least 1 word";
-        if (commandSize == 1) {
+        if (commandSize == LIST_ALL_COMMAND_LENGTH) {
             return new ListAllCommand(fullCommands);
         }
         String firstIndex = fullCommands[1];
@@ -59,9 +63,7 @@ public class Parser {
         case ListIncomesCommand.COMMAND_WORD:
             return new ListIncomesCommand(fullCommands);
         default:
-            WiagiInvalidInputException e =
-                    new WiagiInvalidInputException(INVALID_CATEGORY + LIST_COMMAND_FORMAT);
-            return new InvalidListCommand(e);
+            return new InvalidListCommand(new WiagiInvalidInputException(INVALID_CATEGORY + LIST_COMMAND_FORMAT));
         }
     }
 

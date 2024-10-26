@@ -280,7 +280,5 @@ public class Ui {
         }
         return selectedTimeRange;
     }
-
-
 }
 
