@@ -46,23 +46,28 @@ public class EditCommand extends Command {
         assert incomes != null;
         assert spendings != null;
         try {
-            String[] arguments = extractArguments();
-            String type = arguments[TYPE_INDEX];
-            if (!(type.equals(SPENDING) || type.equals(INCOME))) {
-                throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
-            }
-            switch (type) {
-            case INCOME:
-                editList(arguments, incomes);
-                break;
-            case SPENDING:
-                editList(arguments, spendings);
-                break;
-            default:
-                throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
-            }
+            commandHandler(incomes, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
+        }
+    }
+
+    private void commandHandler(IncomeList incomes, SpendingList spendings)
+            throws WiagiMissingParamsException, WiagiInvalidIndexException {
+        String[] arguments = extractArguments();
+        String type = arguments[TYPE_INDEX];
+        if (!(type.equals(SPENDING) || type.equals(INCOME))) {
+            throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
+        }
+        switch (type) {
+        case INCOME:
+            editList(arguments, incomes);
+            break;
+        case SPENDING:
+            editList(arguments, spendings);
+            break;
+        default:
+            throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
         }
     }
 
