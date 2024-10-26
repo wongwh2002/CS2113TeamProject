@@ -16,6 +16,7 @@ import static seedu.classes.Constants.INVALID_CATEGORY;
 public class BudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "budget";
+    private static final int BUDGET_COMPULSORY_ARGUMENTS_LENGTH = 3;
 
     private final String fullCommand;
 
@@ -38,7 +39,7 @@ public class BudgetCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         String[] arguments = fullCommand.split(" ", 3);
         try {
-            if (arguments.length != 3) {
+            if (arguments.length != BUDGET_COMPULSORY_ARGUMENTS_LENGTH) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + BUDGET_COMMAND_FORMAT);
             }

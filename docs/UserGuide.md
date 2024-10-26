@@ -77,7 +77,7 @@ Adds an entry into user spending list. Entry will be displayed at the latest ind
 Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry. <br>
 
 
-**Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]`
+**Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending.
 - `{$DESCRIPTION}`: Name of the spending.
 - `[/$DATE/]`: Date of the transaction.
@@ -86,7 +86,7 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
   - Enclosed in asterisks. 
-- `[~$Frequency~]`: Frequency of recurrence to automate repeated transactions.
+- `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
 
@@ -119,7 +119,7 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
 Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry. <br>
 
-**Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]`
+**Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income.
 - `{$DESCRIPTION}`: Name of the income.
 - `[/$DATE/]`: Date of the transaction.
@@ -128,7 +128,7 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
   - Enclosed in asterisks.
-- `[~$Frequency~]`: Frequency of recurrence to automate repeated transactions.
+- `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
 

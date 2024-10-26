@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     private static final int DESCRIPTION_INDEX = 3;
     private static final int TYPE_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
-    private static final int COMPULSORY_ARGUMENTS_LENGTH = 4;
+    private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
     private static final String SPENDING = "spending";
     private static final String INCOME = "income";
 
@@ -41,10 +41,10 @@ public class AddCommand extends Command {
 
     public void commandHandler(IncomeList incomes, SpendingList spendings) throws
             WiagiInvalidInputException, WiagiEmptyDescriptionException {
-        String[] compulsoryAndOptionalArguments = fullCommand.split(" ", 5);
-        if (compulsoryAndOptionalArguments.length == 2) {
+        String[] compulsoryAndOptionalArguments = fullCommand.split(" ", ADD_COMPULSORY_ARGUMENTS_LENGTH + 1);
+        if (compulsoryAndOptionalArguments.length == AMOUNT_INDEX) {
             throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
-        } else if (compulsoryAndOptionalArguments.length == 3) {
+        } else if (compulsoryAndOptionalArguments.length == DESCRIPTION_INDEX) {
             throw new WiagiInvalidInputException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
         }
 
@@ -61,10 +61,10 @@ public class AddCommand extends Command {
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
 
         String optionalArguments;
-        if (compulsoryAndOptionalArguments.length == COMPULSORY_ARGUMENTS_LENGTH) {
+        if (compulsoryAndOptionalArguments.length == ADD_COMPULSORY_ARGUMENTS_LENGTH) {
             optionalArguments = "";
         } else {
-            optionalArguments = compulsoryAndOptionalArguments[COMPULSORY_ARGUMENTS_LENGTH];
+            optionalArguments = compulsoryAndOptionalArguments[ADD_COMPULSORY_ARGUMENTS_LENGTH];
         }
 
         if (type.equals(SPENDING)) {
