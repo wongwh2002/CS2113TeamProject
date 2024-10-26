@@ -46,12 +46,7 @@ public class Parser {
     private static Command parseListCommand(String fullCommand) {
         String[] fullCommands = fullCommand.split(" ");
         int commandSize = fullCommands.length;
-        // TODO: Command size wont be 0, change to assert?
-        if (commandSize == 0) {
-            WiagiMissingParamsException e =
-                    new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT);
-            return new InvalidListCommand(e);
-        }
+        assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == 1) {
             return new ListAllCommand(fullCommands);
         }
