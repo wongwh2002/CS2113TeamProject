@@ -36,13 +36,13 @@ public class BudgetCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        String[] userInputWords = fullCommand.split(" ", 3);
+        String[] arguments = fullCommand.split(" ", 3);
         try {
-            if (userInputWords.length != 3) {
+            if (arguments.length != 3) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + BUDGET_COMMAND_FORMAT);
             }
-            addBudget(userInputWords, spendings);
+            addBudget(arguments, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         } catch (Exception e) {
@@ -50,11 +50,12 @@ public class BudgetCommand extends Command {
         }
     }
 
-    private void addBudget(String[] userInputWords, SpendingList spendings) {
+    private void addBudget(String[] arguments, SpendingList spendings) {
         try {
-            int budget = Integer.parseInt(userInputWords[2]);
+            int budget = Integer.parseInt(arguments[2]);
+            String budgetTimeRange = arguments[1];
 
-            switch (userInputWords[1]) {
+            switch (budgetTimeRange) {
             case "daily":
                 spendings.setDailyBudget(budget);
                 Ui.printWithTab("Successfully set daily budget of: " + budget);

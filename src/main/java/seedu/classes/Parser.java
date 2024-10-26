@@ -54,8 +54,8 @@ public class Parser {
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {
             return new ListAllCommand(fullCommands);
         }
-        String firstIndex = fullCommands[1];
-        switch (firstIndex) {
+        String category = fullCommands[1];
+        switch (category) {
         case ListTagsCommand.COMMAND_WORD:
             return new ListTagsCommand(fullCommands);
         case ListSpendingsCommand.COMMAND_WORD:

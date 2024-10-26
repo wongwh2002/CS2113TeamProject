@@ -37,16 +37,17 @@ public class EditCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;
         assert spendings != null;
-        String[] userInputWords = fullCommand.split(" ", 5);
+        String[] arguments = fullCommand.split(" ", 5);
         try {
-            if (userInputWords.length < 5) {
+            if (arguments.length < 5) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + EDIT_COMMAND_FORMAT);
             }
-            if (userInputWords[1].equals("spending")) {
-                editList(userInputWords, spendings);
-            } else if (userInputWords[1].equals("income")) {
-                editList(userInputWords, incomes);
+            String entryType = arguments[1];
+            if (entryType.equals("spending")) {
+                editList(arguments, spendings);
+            } else if (entryType.equals("income")) {
+                editList(arguments, incomes);
             } else {
                 throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
             }
@@ -58,20 +59,22 @@ public class EditCommand extends Command {
     private <T extends ArrayList<? extends Type>> void editList(String[] arguments, T list)
             throws WiagiInvalidIndexException {
         try {
-            Type toEdit = list.get(getIndex(arguments));
+            int indexOfEntryToEdit = getIndex(arguments);
+            Type entryToEdit = list.get(indexOfEntryToEdit);
             String newValue = arguments[4];
-            switch (arguments[3]) {
+            String category = arguments[3];
+            switch (category) {
             case "amount":
-                toEdit.editAmount(newValue);
+                entryToEdit.editAmount(newValue);
                 break;
             case "description":
-                toEdit.editDescription(newValue);
+                entryToEdit.editDescription(newValue);
                 break;
             case "date":
-                toEdit.editDate(newValue);
+                entryToEdit.editDate(newValue);
                 break;
             case "tag":
-                toEdit.editTag(newValue);
+                entryToEdit.editTag(newValue);
                 break;
             default:
                 throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);

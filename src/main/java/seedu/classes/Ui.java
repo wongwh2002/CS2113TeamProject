@@ -81,13 +81,13 @@ public class Ui {
 
     public static void printSpendings(SpendingList spendings) {
         Ui.printWithTab(SPENDING);
-        Ui.printWithTab("Total spendings: " + print_list(spendings));
+        Ui.printWithTab("Total spendings: " + printList(spendings));
 
     }
 
     public static void printIncomes(IncomeList incomes) {
         Ui.printWithTab(INCOME);
-        Ui.printWithTab("Total incomes: " + print_list(incomes));
+        Ui.printWithTab("Total incomes: " + printList(incomes));
     }
 
     /**
@@ -97,13 +97,13 @@ public class Ui {
      * @param arrList The ArrayList containing elements to be printed and summed.
      * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
-    public static <T> String print_list(ArrayList<T> arrList) {
+    public static <T> String printList(ArrayList<T> arrList) {
         double sum = 0;
-        for (int i = 0; i < arrList.size(); i++) {
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
-            int oneIndexedI = i + 1;
-            sum += ((Type) arrList.get(i)).getAmount();
-            Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
+            int indexToUser = indexInList + 1;
+            sum += ((Type) arrList.get(indexInList)).getAmount();
+            Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
         return formatPrintDouble(sum);
     }
@@ -124,9 +124,9 @@ public class Ui {
         }
         assert tags != null : "Tags list is null";
         Ui.printWithTab("Tags");
-        for (int i = 0; i < tags.size(); i++) {
-            int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        for (int indexInList = 0; indexInList < tags.size(); indexInList++) {
+            int indexToUser = indexInList + 1;
+            Ui.printWithTab(indexToUser + ". " + tags.get(indexInList));
         }
     }
 
@@ -157,19 +157,19 @@ public class Ui {
         StringBuilder sbSpending = new StringBuilder();
         assert tag != null && !tag.isEmpty() : "Tag is null or empty";
 
-        int tagsCount;
+        int tagCount;
         int incomeCount;
         int spendingCount;
 
         incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
         spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
-        tagsCount = incomeCount + spendingCount;
+        tagCount = incomeCount + spendingCount;
 
-        if (tagsCount == 0) {
+        if (tagCount == 0) {
             throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
         }
 
-        assert tagsCount > 0 : "No entries with tag: " + tag;
+        assert tagCount > 0 : "No entries with tag: " + tag;
         assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
 
         Ui.printWithTab("Tag: " + tag);
@@ -186,13 +186,14 @@ public class Ui {
                                         StringBuilder sb, String listName) {
         sb.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
-        for (int i = 0; i < arrList.size(); i++) {
-            Type listIndex = (Type) arrList.get(i);
-            if (listIndex.getTag().equals(tag)) {
+        int sizeOfArray = arrList.size();
+        for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
+            Type entry = (Type) arrList.get(indexInList);
+            if (entry.getTag().equals(tag)) {
                 tagsCount++;
-                int oneIndexedI = i + 1;
-                sb.append(TAB).append(oneIndexedI).append(". ")
-                        .append(listIndex).append(System.lineSeparator());
+                int indexToUser = indexInList + 1;
+                sb.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
             }
         }
         return tagsCount;
@@ -210,7 +211,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printMonthly(ArrayList<T> arrList) {
@@ -223,7 +224,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printBiweekly(ArrayList<T> arrList) {
@@ -237,7 +238,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     private static LocalDate getMondayDate(LocalDate currDate) {

@@ -27,16 +27,16 @@ public class DeleteCommand extends Command {
     // @@author wx-03
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        String[] userInputWords = fullCommand.split(" ");
+        String[] arguments = fullCommand.split(" ");
         try {
-            if (userInputWords.length < 3) {
+            if (arguments.length < 3) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + DELETE_COMMAND_FORMAT);
             }
-            if (userInputWords[1].equalsIgnoreCase("income")) {
-                deleteEntry(userInputWords, incomes);
-            } else if (userInputWords[1].equalsIgnoreCase("spending")) {
-                deleteEntry(userInputWords, spendings);
+            if (arguments[1].equalsIgnoreCase("income")) {
+                deleteEntry(arguments, incomes);
+            } else if (arguments[1].equalsIgnoreCase("spending")) {
+                deleteEntry(arguments, spendings);
             } else {
                 throw new WiagiInvalidInputException(INVALID_CATEGORY + DELETE_COMMAND_FORMAT);
             }
@@ -49,8 +49,8 @@ public class DeleteCommand extends Command {
         return (index >= arrList.size() || index < 0);
     }
 
-    private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) throws WiagiInvalidIndexException {
-        int index = getIndex(userInputWords);
+    private <T> void deleteEntry(String[] arguments, ArrayList<T> arrList) throws WiagiInvalidIndexException {
+        int index = getIndex(arguments);
         if (isOutOfBounds(index, arrList)) {
             throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
         }
