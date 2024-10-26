@@ -162,22 +162,54 @@ Lists all the entries in the user's spending list.
 
 **Format:** `list spendings`
 
-**Example input:** <br>
-`list spendings`
+The user will then be prompted to select a time range.
+Only entries that are within the time range will be displayed.
+If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed.
 
-**Example output:**
+**Example**
+
+**Input:** `list spendings`
+
+**Output:**
+
+```
+	____________________________________________________________
+	Select time range:
+	[1] All
+	[2] Weekly
+	[3] Biweekly
+	[4] Monthly
+```
+**Input:** `1`
+
+**Output:**
+```
+	____________________________________________________________
+	List all statistics? [Y/N]:
+```
+
+**Input:** `y`
+
+**Output:**
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - food
-	2. flights - 10 - 2024-10-17 - travel
-	3. girlfriends - 10 - 2024-10-17 - personal
-	4. macdonalds - 10 - 2024-10-10 - food
+	1. macdonalds - 10 - 2024-10-10 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
+		Daily spendings: 0
+		Daily Budget: 0
+		Daily budget left: 0
+		Monthly spendings: 40
+		Monthly Budget: 0
+		Monthly budget left: -40
+		Yearly spendings: 40
+		Yearly Budget: 0
+		Yearly budget left: -40
 	____________________________________________________________
+
 ```
 
 #### Listing all incomes:
@@ -186,10 +218,27 @@ Lists all the entries in the user's income list.
 
 **Format:** `list incomes`
 
-**Example input:** <br>
-`list incomes`
+The user will then be prompted to select a time range. 
+Only entries that are within the time range will be displayed.
 
-**Example output:**
+**Example**
+
+**Input:** `list incomes` 
+
+**Output:**
+```
+	____________________________________________________________
+	Select time range:
+	[1] All
+	[2] Weekly
+	[3] Biweekly
+	[4] Monthly 
+
+```
+**Input:**
+`1`
+
+**Output:**
 ```
 	____________________________________________________________
 	Incomes
