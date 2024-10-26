@@ -18,12 +18,12 @@ import static seedu.classes.Constants.MISSING_DESCRIPTION;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    public static final int DESCRIPTION_INDEX = 3;
-    public static final int TYPE_INDEX = 1;
-    public static final int AMOUNT_INDEX = 2;
-    public static final int COMPULSORY_ARGUMENTS_LENGTH = 4;
-    public static final String SPENDING = "spending";
-    public static final String INCOME = "income";
+    private static final int DESCRIPTION_INDEX = 3;
+    private static final int TYPE_INDEX = 1;
+    private static final int AMOUNT_INDEX = 2;
+    private static final int COMPULSORY_ARGUMENTS_LENGTH = 4;
+    private static final String SPENDING = "spending";
+    private static final String INCOME = "income";
 
     private final String fullCommand;
     public AddCommand(String fullCommand) {
