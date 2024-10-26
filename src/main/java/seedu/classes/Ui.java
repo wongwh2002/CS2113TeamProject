@@ -198,6 +198,11 @@ public class Ui {
         return tagsCount;
     }
 
+    public static void printOverspendMessage(String budgetType, double overspendAmont) {
+        overspendAmont *= -1;
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
+    }
+
     //@@author wx-03
     public static <T extends Type> void printWeekly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();

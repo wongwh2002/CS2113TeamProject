@@ -92,6 +92,7 @@ public class AddCommand extends Command {
         try {
             Spending toAdd = new Spending(fullCommand, amount, description);
             spendings.add(toAdd);
+            spendings.checkOverspend();
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }

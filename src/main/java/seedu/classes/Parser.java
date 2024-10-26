@@ -26,7 +26,7 @@ import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
 
-    public static Command parse(String fullCommand) {
+    public static Command parseUserInput(String fullCommand) {
         String command = fullCommand.split(" ")[0].toLowerCase();
 
         switch (command) {

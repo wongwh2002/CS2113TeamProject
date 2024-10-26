@@ -146,6 +146,10 @@ public class Type implements Serializable {
         }
     }
 
+    public void setRecurrenceToNone() {
+        this.recurrenceFrequency = RecurrenceFrequency.NONE;
+    }
+
     public void editDateWithLocalDate(LocalDate date) {
         this.date = date;
     }

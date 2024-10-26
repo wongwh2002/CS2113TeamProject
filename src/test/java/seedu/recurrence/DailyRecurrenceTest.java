@@ -45,7 +45,7 @@ public class DailyRecurrenceTest {
                 VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
         spendings.updateRecurrence();
         String userInput = "list";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\t1. food - 10 - " + VALID_TEST_DATE.minusDays(1) + System.lineSeparator() +
@@ -62,7 +62,7 @@ public class DailyRecurrenceTest {
                 VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
         incomes.updateRecurrence();
         String userInput = "list";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\tTotal spendings: 0" + System.lineSeparator() +

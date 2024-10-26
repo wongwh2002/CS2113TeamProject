@@ -62,7 +62,7 @@ class ListCommandTest {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         String userInout = "list";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(emptyIncomes, emptySpendings);
 
         assertEquals("\tSpendings" + System.lineSeparator() +
@@ -77,7 +77,7 @@ class ListCommandTest {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         String userInout = "list tags";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(emptyIncomes, emptySpendings);
 
         assertEquals("\tNo tags found. Please input more tags!" + System.lineSeparator(), outContent.toString());
@@ -88,7 +88,7 @@ class ListCommandTest {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         String userInout = "list tags tag";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(emptyIncomes, emptySpendings);
 
         assertEquals("\tNo entries with tag: tag. Please input tags first!"
@@ -98,7 +98,7 @@ class ListCommandTest {
     @Test
     public void execute_allLists_success() {
         String userInout = "list";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals("\tSpendings" + System.lineSeparator() +
@@ -115,7 +115,7 @@ class ListCommandTest {
     @Test
     public void execute_listIncome_success() {
         String userInout = "list incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("1");
         c.execute(incomes, spendings);
 
@@ -131,7 +131,7 @@ class ListCommandTest {
     @Test
     public void execute_randomInput_expectWiagiInvalidInputException() {
         String userInout = "list 1234";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals(TAB + INVALID_CATEGORY + LIST_COMMAND_FORMAT
@@ -141,7 +141,7 @@ class ListCommandTest {
     @Test
     public void execute_tooManyInputs_expectWiagiInvalidInputException() {
         String userInout = "list spendings incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
@@ -151,7 +151,7 @@ class ListCommandTest {
     @Test
     public void execute_listTags_success() {
         String userInout = "list tags";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals("\tTags" + System.lineSeparator() +
@@ -163,7 +163,7 @@ class ListCommandTest {
     @Test
     void execute_listSpecificInvestmentTag_success() {
         String userInout = "list tags investment";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals("\tTag: investment" + System.lineSeparator() +
@@ -175,7 +175,7 @@ class ListCommandTest {
     @Test
     void execute_listSpecificFoodTag_success() {
         String userInout = "list tags food";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
         assertEquals("\tTag: food" + System.lineSeparator() +
@@ -187,7 +187,7 @@ class ListCommandTest {
     @Test
     public void execute_listSpendingAllStatistics_correctMessage() {
         String userInout = "list spendings";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest(String.format("1%sY", System.lineSeparator()));
         c.execute(incomes, spendings);
 
@@ -214,7 +214,7 @@ class ListCommandTest {
     @Test
     public void execute_listSpendingNotAllStatistics_correctMessage() {
         String userInout = "list spendings";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest(String.format("1%sN", System.lineSeparator()));
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -232,7 +232,7 @@ class ListCommandTest {
     public void execute_listWeeklySpendings_expectWeeklySpendingList() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         String userInout = "list spendings";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("2");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -247,7 +247,7 @@ class ListCommandTest {
     public void execute_listBiweeklySpendings_expectBiweeklySpendingList() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list spendings";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("3");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -262,7 +262,7 @@ class ListCommandTest {
     public void execute_listMonthlySpendings_expectMonthlySpendingList() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list spendings";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("4");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -277,7 +277,7 @@ class ListCommandTest {
     public void execute_listWeeklyIncomes_expectWeeklyIncomeList() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         String userInout = "list incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("2");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -292,7 +292,7 @@ class ListCommandTest {
     public void execute_listBiweeklyIncomes_expectBiweeklyIncomeList() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         String userInout = "list incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("3");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -307,7 +307,7 @@ class ListCommandTest {
     public void execute_listMonthlyIncomes_expectMonthlyIncomeList() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         String userInout = "list incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest("4");
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
@@ -322,7 +322,7 @@ class ListCommandTest {
     public void execute_listInvalidTimeRangeWeekly_expectAskAgainShowWeekly() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         String userInout = "list incomes";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
         c.execute(incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +

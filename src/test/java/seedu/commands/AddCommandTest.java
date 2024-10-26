@@ -11,6 +11,7 @@ import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.VALID_TEST_DATE;
 
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
@@ -18,7 +19,6 @@ import seedu.type.SpendingList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
 
 public class AddCommandTest {
 
@@ -27,12 +27,13 @@ public class AddCommandTest {
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
 
-    private final IncomeList incomes = new IncomeList();
-    private final SpendingList spendings = new SpendingList();
-    private final LocalDate currentDate = LocalDate.now();
+    private IncomeList incomes = new IncomeList();
+    private SpendingList spendings = new SpendingList();
 
     @BeforeEach
     public void setUp() {
+        incomes = new IncomeList();
+        spendings = new SpendingList();
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
@@ -47,8 +48,8 @@ public class AddCommandTest {
     @Test
     void addCommand_correctSpendingWithoutDateInput_success() {
         String userInput = "add spending 10 macs";
-        String expectedOutput = "macs - 10 - " + currentDate;
-        Command c = Parser.parse(userInput);
+        String expectedOutput = "macs - 10 - " + VALID_TEST_DATE;
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(expectedOutput, spendings.get(0).toString());
     }
@@ -56,8 +57,8 @@ public class AddCommandTest {
     @Test
     void addCommand_correctIncomeWithoutDateInput_success() {
         String userInput = "add income 1500 dishwasher";
-        String expectedOutput = "dishwasher - 1500 - " + currentDate;
-        Command c = Parser.parse(userInput);
+        String expectedOutput = "dishwasher - 1500 - " + VALID_TEST_DATE;
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(expectedOutput, incomes.get(0).toString());
     }
@@ -65,7 +66,7 @@ public class AddCommandTest {
     @Test
     void addCommand_correctSpendingWithDateInput_success() {
         String userInput = "add spending 10 macs /2024-10-10";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("macs - 10 - 2024-10-10", spendings.get(0).toString());
     }
@@ -73,7 +74,7 @@ public class AddCommandTest {
     @Test
     void addCommand_correctIncomeWithDateInput_success() {
         String userInput = "add income 1500 dishwasher /2024-10-10";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("dishwasher - 1500 - 2024-10-10", incomes.get(0).toString());
     }
@@ -81,7 +82,7 @@ public class AddCommandTest {
     @Test
     void addCommand_missingAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -90,7 +91,7 @@ public class AddCommandTest {
     @Test
     void addCommand_stringAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending randomPrice macs";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT +
                         System.lineSeparator(), outContent.toString());
@@ -99,7 +100,7 @@ public class AddCommandTest {
     @Test
     void addCommand_negativeAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending -1 macs";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -108,7 +109,7 @@ public class AddCommandTest {
     @Test
     void addCommand_missingAmountIncomeInput_noIncomeAdded(){
         String userInput = "add income";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -117,7 +118,7 @@ public class AddCommandTest {
     @Test
     void addCommand_invalidAmountIncomeInput_noIncomeAdded(){
         String userInput = "add income randomNum salary";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -126,7 +127,7 @@ public class AddCommandTest {
     @Test
     void addCommand_missingDescriptionSpendingInput_noSpendingAdded(){
         String userInput = "add spending 1000";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -135,7 +136,7 @@ public class AddCommandTest {
     @Test
     void addCommand_missingDescriptionIncomeInput_noIncomeAdded(){
         String userInput = "add income 1000";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -144,7 +145,7 @@ public class AddCommandTest {
     @Test
     void addCommand_invalidDateInput_noIncomeAdded() {
         String userInput = "add income 1000 part-time /2024/10/10";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -153,7 +154,7 @@ public class AddCommandTest {
     @Test
     void addCommand_invalidDateInput_noSpendingAdded() {
         String userInput = "add spending 1000 ipad /2024/10/10";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
@@ -162,8 +163,20 @@ public class AddCommandTest {
     @Test
     void addCommand_wrongOrderUnknownCommand_unknownCommandMessage() {
         String userInput = "blah add";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Unknown command" + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    void addCommand_validCommandOverspend_overspendMessage() {
+        String userInput = "add spending 10 macs";
+        Command c = Parser.parseUserInput(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + "Entry successfully added!" + System.lineSeparator()
+                + TAB + "!!! You have overspent your daily by: 10.0 !!!" + System.lineSeparator()
+                + TAB + "!!! You have overspent your monthly by: 10.0 !!!" + System.lineSeparator()
+                + TAB + "!!! You have overspent your yearly by: 10.0 !!!" + System.lineSeparator(),
+                outContent.toString());
     }
 }

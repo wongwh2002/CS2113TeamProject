@@ -1,6 +1,7 @@
 package seedu.type;
 
 import seedu.classes.Parser;
+import seedu.classes.Ui;
 import seedu.recurrence.Recurrence;
 
 import java.time.LocalDate;
@@ -158,6 +159,21 @@ public class SpendingList extends ArrayList<Spending> {
             }
         }
         this.sort(Comparator.comparing(Type::getDate));
+    }
+
+    public void checkOverspend() {
+        double dailyBudgetLeft = getDailyBudget() - getDailySpending();
+        double monthlyBudgetLeft = getMonthlyBudget() - getMonthlySpending();
+        double yearlyBudgetLeft = getYearlyBudget() - getYearlySpending();
+        if (dailyBudgetLeft  < 0) {
+            Ui.printOverspendMessage("daily", dailyBudgetLeft);
+        }
+        if (monthlyBudgetLeft  < 0) {
+            Ui.printOverspendMessage("monthly", monthlyBudgetLeft);
+        }
+        if (yearlyBudgetLeft  < 0) {
+            Ui.printOverspendMessage("yearly", yearlyBudgetLeft);
+        }
     }
 }
 

@@ -58,7 +58,7 @@ class EditCommandTest {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         String userInout = "edit";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(emptyIncomes, emptySpendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -67,7 +67,7 @@ class EditCommandTest {
     @Test
     public void execute_invalidInput_expectIllegalArgumentException() {
         String userInout = "edit notspendingincome 1 amount 1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -76,7 +76,7 @@ class EditCommandTest {
     @Test
     public void execute_invalidInputIndex_expectIndexOutOfBoundsException() {
         String userInout = "edit spending 5 amount 1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
     }
@@ -84,7 +84,7 @@ class EditCommandTest {
     @Test
     public void execute_invalidEditType_expectIllegalArgumentException() {
         String userInout = "edit spending 1 notamountdescription 1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_FIELD + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -93,7 +93,7 @@ class EditCommandTest {
     @Test
     public void execute_invalidEditAmount_expectIllegalArgumentExceptionThrown() {
         String userInout = "edit spending 1 amount notanint";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -102,7 +102,7 @@ class EditCommandTest {
     @Test
     public void execute_negativeEditAmount_expectIllegalArgumentExceptionThrown() {
         String userInout = "edit spending 1 amount -1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
@@ -111,7 +111,7 @@ class EditCommandTest {
     @Test
     public void execute_editSpendingAmount_success() {
         String userInout = "edit spending 1 amount 1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
                 spendings.get(0).toString());
@@ -120,7 +120,7 @@ class EditCommandTest {
     @Test
     public void execute_editIncomeAmount_success() {
         String userInout = "edit income 1 amount 1";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
                 incomes.get(0).toString());
@@ -130,7 +130,7 @@ class EditCommandTest {
     @Test
     public void execute_editIncomeDate_success() {
         String userInout = "edit income 2 date 2024-10-10";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("dividends" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
                 incomes.get(1).toString());
@@ -139,7 +139,7 @@ class EditCommandTest {
     @Test
     public void execute_editSpendingDate_success() {
         String userInout = "edit spending 2 date 2024-10-10";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
                 spendings.get(1).toString());
@@ -148,7 +148,7 @@ class EditCommandTest {
     @Test
     public void execute_editTag_success() {
         String userInout = "edit income 3 tag investments";
-        Command c = Parser.parse(userInout);
+        Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
                         LIST_SEPARATOR + "investments",

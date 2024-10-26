@@ -13,6 +13,7 @@ public class DailyRecurrence extends Recurrence{
     public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
         Income copyEntry = new Income(recurringIncome);
+        copyEntry.setRecurrenceToNone();
         if (LocalDate.now().isAfter(lastRecurred)) {
             LocalDate date = lastRecurred.plusDays(1);
             for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
@@ -29,6 +30,7 @@ public class DailyRecurrence extends Recurrence{
     public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings) {
         LocalDate lastRecurred = recurringSpending.getLastRecurrence();
         Spending copyEntry = new Spending(recurringSpending);
+        copyEntry.setRecurrenceToNone();
         if (LocalDate.now().isAfter(lastRecurred)) {
             LocalDate date = lastRecurred.plusDays(1);
             for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
