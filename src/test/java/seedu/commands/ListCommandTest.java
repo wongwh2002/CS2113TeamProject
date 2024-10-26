@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.classes.Ui;
 import seedu.type.Income;
@@ -17,7 +16,12 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 import static seedu.classes.Constants.SEPARATOR;
+import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 
 class ListCommandTest {
@@ -115,17 +119,13 @@ class ListCommandTest {
         Ui.userInputForTest("1");
         c.execute(incomes, spendings);
 
-        assertEquals("Select time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +
                         "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator() +
-                        "\tTotal incomes: 20",
-                outContent.toString().strip());
+                        "\tTotal incomes: 20" + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
@@ -134,7 +134,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.LIST_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_CATEGORY + LIST_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -144,7 +144,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
 
-        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.LIST_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -191,11 +191,7 @@ class ListCommandTest {
         Ui.userInputForTest(String.format("1%sY", System.lineSeparator()));
         c.execute(incomes, spendings);
 
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\tList all statistics? [Y/N]:" + System.lineSeparator() +
                         "\t____________________________________________________________" + System.lineSeparator() +
@@ -221,14 +217,10 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest(String.format("1%sN", System.lineSeparator()));
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\tList all statistics? [Y/N]:" + System.lineSeparator() +
-                        "\t____________________________________________________________" + System.lineSeparator() +
+                        "\t" + SEPARATOR + System.lineSeparator() +
                         "\tSpendings" + System.lineSeparator() +
                         "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator() +
@@ -243,11 +235,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
@@ -262,11 +250,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("3");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
@@ -281,11 +265,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("4");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. girlfriends - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator(),
@@ -300,11 +280,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("2");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
@@ -319,11 +295,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("3");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
@@ -338,11 +310,7 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest("4");
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),
@@ -357,18 +325,10 @@ class ListCommandTest {
         Command c = Parser.parse(userInout);
         Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
         c.execute(incomes, spendings);
-        assertEquals("\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\tInvalid input" + System.lineSeparator() +
-                        "\tSelect time range:" + System.lineSeparator() +
-                        "\t[1] All" + System.lineSeparator() +
-                        "\t[2] Weekly" + System.lineSeparator() +
-                        "\t[3] Biweekly" + System.lineSeparator() +
-                        "\t[4] Monthly" + System.lineSeparator() +
+                        TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                         "\t" + SEPARATOR + System.lineSeparator() +
                         "\t1. savings - 10 - " + currentDate + System.lineSeparator() +
                         "\t2. dividends - 10 - " + currentDate + " - investment" + System.lineSeparator(),

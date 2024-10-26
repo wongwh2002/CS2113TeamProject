@@ -4,8 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
+import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.MISSING_AMOUNT;
+import static seedu.classes.Constants.MISSING_DESCRIPTION;
+import static seedu.classes.Constants.TAB;
 
-import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
@@ -77,7 +83,7 @@ public class AddCommandTest {
         String userInput = "add spending";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.MISSING_AMOUNT + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -86,7 +92,7 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INDEX_NOT_INTEGER + Constants.ADD_COMMAND_FORMAT +
+        assertEquals(TAB + INDEX_NOT_INTEGER + ADD_COMMAND_FORMAT +
                         System.lineSeparator(), outContent.toString());
     }
 
@@ -95,7 +101,7 @@ public class AddCommandTest {
         String userInput = "add spending -1 macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -104,7 +110,7 @@ public class AddCommandTest {
         String userInput = "add income";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.MISSING_AMOUNT + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -113,7 +119,7 @@ public class AddCommandTest {
         String userInput = "add income randomNum salary";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INDEX_NOT_INTEGER + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + INDEX_NOT_INTEGER + ADD_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -122,7 +128,7 @@ public class AddCommandTest {
         String userInput = "add spending 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.MISSING_DESCRIPTION + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -131,7 +137,7 @@ public class AddCommandTest {
         String userInput = "add income 1000";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.MISSING_DESCRIPTION + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -140,7 +146,7 @@ public class AddCommandTest {
         String userInput = "add income 1000 part-time /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -149,7 +155,7 @@ public class AddCommandTest {
         String userInput = "add spending 1000 ipad /2024/10/10";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 }

@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
@@ -10,6 +9,13 @@ import seedu.type.SpendingList;
 import seedu.type.Type;
 
 import java.util.ArrayList;
+
+import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
+import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
 
 public class EditCommand extends Command {
 
@@ -34,15 +40,15 @@ public class EditCommand extends Command {
         String[] userInputWords = fullCommand.split(" ", 5);
         try {
             if (userInputWords.length < 5) {
-                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                        + Constants.EDIT_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                        + EDIT_COMMAND_FORMAT);
             }
             if (userInputWords[1].equals("spending")) {
                 editList(userInputWords, spendings);
             } else if (userInputWords[1].equals("income")) {
                 editList(userInputWords, incomes);
             } else {
-                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.EDIT_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
             }
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
@@ -68,11 +74,11 @@ public class EditCommand extends Command {
                 toEdit.editTag(newValue);
                 break;
             default:
-                throw new WiagiInvalidInputException(Constants.INVALID_FIELD + Constants.EDIT_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);
             }
             Ui.printWithTab("Edit Successful!");
         } catch (IndexOutOfBoundsException e) {
-            throw new WiagiInvalidIndexException(Constants.INDEX_OUT_OF_BOUNDS);
+            throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
@@ -83,7 +89,7 @@ public class EditCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidIndexException(Constants.INDEX_NOT_INTEGER);
+            throw new WiagiInvalidIndexException(INDEX_NOT_INTEGER);
         }
     }
 }

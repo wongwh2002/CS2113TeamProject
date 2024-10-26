@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
@@ -9,6 +8,12 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 import java.util.ArrayList;
+
+import static seedu.classes.Constants.DELETE_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
+import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 
 public class DeleteCommand extends Command {
 
@@ -25,15 +30,15 @@ public class DeleteCommand extends Command {
         String[] userInputWords = fullCommand.split(" ");
         try {
             if (userInputWords.length < 3) {
-                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                        + Constants.DELETE_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                        + DELETE_COMMAND_FORMAT);
             }
             if (userInputWords[1].equalsIgnoreCase("income")) {
                 deleteEntry(userInputWords, incomes);
             } else if (userInputWords[1].equalsIgnoreCase("spending")) {
                 deleteEntry(userInputWords, spendings);
             } else {
-                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.DELETE_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + DELETE_COMMAND_FORMAT);
             }
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
@@ -47,7 +52,7 @@ public class DeleteCommand extends Command {
     private <T> void deleteEntry(String[] userInputWords, ArrayList<T> arrList) throws WiagiInvalidIndexException {
         int index = getIndex(userInputWords);
         if (isOutOfBounds(index, arrList)) {
-            throw new WiagiInvalidIndexException(Constants.INDEX_OUT_OF_BOUNDS);
+            throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
         }
         assert arrList.get(index) != null : "entry to delete cannot be null";
         arrList.remove(arrList.get(index));
@@ -59,7 +64,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(fullCommandArray[2]);
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT);
         }
     }
 }
