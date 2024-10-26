@@ -1,5 +1,6 @@
 package seedu.classes;
 
+import seedu.enums.TimeRange;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -12,6 +13,12 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static seedu.classes.Constants.ALL_TIME_OPTION;
+import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
     public static final String EMPTY_STRING = "";
@@ -199,7 +206,7 @@ public class Ui {
         LocalDate sunday = getSundayDate(currDate);
         for (T entry : arrList) {
             LocalDate entryDate = entry.getDate();
-            if (inRange(entryDate, monday, sunday)) {
+            if (isInRange(entryDate, monday, sunday)) {
                 filteredList.add(entry);
             }
         }
@@ -212,7 +219,7 @@ public class Ui {
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
         for (T entry : arrList) {
-            if (inRange(entry.getDate(), monthStart, monthEnd)) {
+            if (isInRange(entry.getDate(), monthStart, monthEnd)) {
                 filteredList.add(entry);
             }
         }
@@ -226,7 +233,7 @@ public class Ui {
         LocalDate end = getSundayDate(currDate);
         for (T entry : arrList) {
             LocalDate entryDate = entry.getDate();
-            if (inRange(entryDate, start, end)) {
+            if (isInRange(entryDate, start, end)) {
                 filteredList.add(entry);
             }
         }
@@ -247,11 +254,35 @@ public class Ui {
         return currDate;
     }
 
-    private static boolean inRange(LocalDate date, LocalDate start, LocalDate end) {
+    private static boolean isInRange(LocalDate date, LocalDate start, LocalDate end) {
         return (date.isAfter(start) || date.isEqual(start))
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
-
+    //@@author wx-03
+    public static TimeRange askForTimeRange() {
+        TimeRange selectedTimeRange = null;
+        while (selectedTimeRange == null) {
+            Ui.printWithTab(TIME_RANGE_MESSAGE);
+            String userInput = Ui.readCommand();
+            switch (userInput) {
+            case ALL_TIME_OPTION:
+                selectedTimeRange = TimeRange.ALL;
+                break;
+            case WEEKLY_OPTION:
+                selectedTimeRange = TimeRange.WEEKLY;
+                break;
+            case BIWEEKLY_OPTION:
+                selectedTimeRange = TimeRange.BIWEEKLY;
+                break;
+            case MONTHLY_OPTION:
+                selectedTimeRange = TimeRange.MONTHLY;
+                break;
+            default:
+                Ui.printWithTab("Invalid input");
+            }
+        }
+        return selectedTimeRange;
+    }
 }
 

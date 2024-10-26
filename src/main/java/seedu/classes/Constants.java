@@ -3,6 +3,8 @@ package seedu.classes;
 import java.time.LocalDate;
 
 public class Constants {
+
+    // Strings
     public static final String SEPARATOR = "____________________________________________________________";
     public static final String LIST_SEPARATOR = " - ";
     public static final String TAB = "\t";
@@ -32,4 +34,16 @@ public class Constants {
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
             "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
             "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
+    public static final String ALL_TIME_OPTION = "1";
+    public static final String WEEKLY_OPTION = "2";
+    public static final String BIWEEKLY_OPTION = "3";
+    public static final String MONTHLY_OPTION = "4";
+
+    // List command
+    public static final int LIST_ALL_COMMAND_LENGTH = 1;
+    public static final int SECOND_WORD_INDEX = 1;
+    public static final int LIST_INCOMES_SPENDINGS_MAX_LENGTH = 2;
+    public static final int LIST_SPECIFIC_TAG_LENGTH = 3;
+
+
 }
