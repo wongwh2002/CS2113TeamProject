@@ -1,6 +1,5 @@
 package seedu.type;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.RecurrenceFrequency;
@@ -9,9 +8,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static seedu.classes.Constants.DAILY_RECURRENCE;
+import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
+import static seedu.classes.Constants.DAILY_RECURRENCE;
+import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.LIST_SEPARATOR;
 
 public class Type implements Serializable {
     private double amount;
@@ -81,7 +86,7 @@ public class Type implements Serializable {
             }
             return LocalDate.parse(commandAndDate[1].trim());
         } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
         }
     }
 
@@ -101,7 +106,7 @@ public class Type implements Serializable {
         case YEARLY_RECURRENCE:
             return RecurrenceFrequency.YEARLY;
         default:
-            throw new WiagiInvalidInputException(Constants.INVALID_FREQUENCY + Constants.ADD_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INVALID_FREQUENCY + ADD_COMMAND_FORMAT);
         }
     }
 
@@ -115,9 +120,9 @@ public class Type implements Serializable {
     @Override
     public String toString() {
         String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.valueOf(amount);
-        String returnString = description + Constants.LIST_SEPARATOR + amountString + Constants.LIST_SEPARATOR + date;
+        String returnString = description + LIST_SEPARATOR + amountString + LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
-            returnString += Constants.LIST_SEPARATOR + tag;
+            returnString += LIST_SEPARATOR + tag;
         }
         return returnString;
     }
@@ -126,11 +131,11 @@ public class Type implements Serializable {
         try {
             int amount = Integer.parseInt(newAmount);
             if (amount <= 0) {
-                throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
             }
             this.amount = amount;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
         }
     }
 
@@ -142,7 +147,7 @@ public class Type implements Serializable {
         try {
             this.date = LocalDate.parse(date);
         } catch (Exception e) {
-            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.EDIT_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + EDIT_COMMAND_FORMAT);
         }
     }
 
