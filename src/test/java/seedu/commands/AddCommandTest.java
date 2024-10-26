@@ -164,6 +164,6 @@ public class AddCommandTest {
         String userInput = "blah add";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + "Unknown command" + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + "Unknown command" + System.lineSeparator(), outContent.toString());
     }
 }
