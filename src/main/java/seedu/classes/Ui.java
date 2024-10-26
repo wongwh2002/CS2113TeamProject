@@ -14,7 +14,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static seedu.classes.Constants.ALL_TIME_OPTION;
+import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
     public static final String EMPTY_STRING = "";
@@ -262,16 +266,16 @@ public class Ui {
             Ui.printWithTab(TIME_RANGE_MESSAGE);
             String userInput = Ui.readCommand();
             switch (userInput) {
-            case "1":
+            case ALL_TIME_OPTION:
                 selectedTimeRange = TimeRange.ALL;
                 break;
-            case "2":
+            case WEEKLY_OPTION:
                 selectedTimeRange = TimeRange.WEEKLY;
                 break;
-            case "3":
+            case BIWEEKLY_OPTION:
                 selectedTimeRange = TimeRange.BIWEEKLY;
                 break;
-            case "4":
+            case MONTHLY_OPTION:
                 selectedTimeRange = TimeRange.MONTHLY;
                 break;
             default:

@@ -34,6 +34,10 @@ public class Constants {
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
             "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
             "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
+    public static final String ALL_TIME_OPTION = "1";
+    public static final String WEEKLY_OPTION = "2";
+    public static final String BIWEEKLY_OPTION = "3";
+    public static final String MONTHLY_OPTION = "4";
 
     // List command
     public static final int LIST_ALL_COMMAND_LENGTH = 1;
