@@ -62,9 +62,9 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 
 ### Use case: Add an Entry
 
-** Adding an income entry with optional input for date and tag **
+**Adding an income entry with optional input for date and tag**
 
-** MSS **
+**MSS**
 
 1. User inputs to add income with description, amount, date, and tag.
 2. Wiagi adds the income to the income list.
@@ -74,13 +74,34 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 
 Use case ends.
 
-** Extensions **
+**Extensions**
 1. User enters invalid input.
    1. If the user inputs invalid formatting, Wiagi will display an error message.
    2. If the user inputs an invalid amount, Wiagi will display an error message.
    3. If the user inputs an invalid date, Wiagi will display an error message.
    
    Use case restarts at step 1.
+
+### Use case: Delete an Entry
+
+**Deleting an income or spending from the list**
+
+**MSS**
+
+1. User requests to list all incomes
+2. Wiagi shows a list of all incomes
+3. User takes note of the index of the income to delete and requests to delete the entry
+by specifying the index
+4. Wiagi deletes the entry
+  
+Use case ends.
+
+**Extensions**
+- 1a. The list is empty. 
+<br>Use case ends. 
+- 3a. The given index is invalid.
+  - 3a1. Wiagi displays an error message.
+<br>Use case restarts at step 1.
 
 ## Non-Functional Requirements
 
