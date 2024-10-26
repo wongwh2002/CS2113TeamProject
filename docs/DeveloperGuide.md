@@ -27,6 +27,11 @@ Daily, monthly, and yearly spending totals are calculated everytime a ListComman
 iterating through each of the spendings stored in SpendingList and comparing their dates to the respective daily,
 monthly, and yearly dates.
 
+### Deleting an entry
+The user deletes an entry by sending a delete command which specifies the index of the income/spending to be deleted. 
+The income or spending will be deleted from its corresponding list using its index. 
+
+
 
 ## Product scope
 ### Target user profile
@@ -44,11 +49,11 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 |----------|----------|------------------------------------------------------|--------------------------------------------------|
 | ***      | user     | start and close the application                      | use it only when needed                          |
 | ***      | user     | add my financial transactions                        | track the flow of my money                       |
-| ***      | user     | categorise my entries as income and spendings        | better undestand my financials                   |
+| ***      | user     | categorise my entries as income and spendings        | better understand my financials                  |
 | ***      | user     | add income and expenditure categories                | see my overall net gain or loss                  |
 | ***      | user     | see all my spendings                                 | know what I spent on                             |
 | ***      | user     | delete my entries                                    | correct my mistakes                              |
-| ***      | user     | have a password to my account                        | protect my account informations                  |
+| ***      | user     | have a password to my account                        | protect my account information                   |
 | **       | user     | edit my incomes and spendings                        | correct my mistakes                              |
 | **       | user     | categorise my expenses                               | see what I spend on                              |
 | **       | user     | categorise my incomes                                | see where my savings come from                   |
