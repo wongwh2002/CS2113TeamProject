@@ -27,6 +27,11 @@ Daily, monthly, and yearly spending totals are calculated everytime a ListComman
 iterating through each of the spendings stored in SpendingList and comparing their dates to the respective daily,
 monthly, and yearly dates.
 
+### Deleting an entry
+The user deletes an entry by sending a delete command which specifies the index of the income/spending to be deleted. 
+The income or spending will be deleted from its corresponding list using its index. 
+
+
 
 ## Product scope
 ### Target user profile
@@ -40,28 +45,31 @@ monthly, and yearly dates.
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority | As a ... | I want to ...                                        | So that I can ... |
-|-----|----|------------------------------------------------------|-------------------|
-| *** |user| start and close the application                      | use it only when needed |
-| *** |user| add my financial transactions                        | track the flow of my money |
-| *** |user| categorise my entries as income and spendings        | better undestand my financials |
-| *** |user| add income and expenditure categories                | see my overall net gain or loss |
-| *** | user     | see all my spendings                          | know what I spent on            |
-| *** |user| have a password to my account                        | protect my account informations |
-| **  | user     | edit my incomes and spendings                 | correct my mistakes             |
-| **  |user| read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
-| **  |user| set expenses and incomes as recurring | do not need to manually add them each time |
-| **  | Student  | set budgets for each category of expense      | make better financial decisions |
-| *   |user| be alerted when I overspend my budget | try to curb my spendings |
+| Priority | As a ... | I want to ...                                        | So that I can ...                                |
+|----------|----------|------------------------------------------------------|--------------------------------------------------|
+| ***      | user     | start and close the application                      | use it only when needed                          |
+| ***      | user     | add my financial transactions                        | track the flow of my money                       |
+| ***      | user     | categorise my entries as income and spendings        | better understand my financials                  |
+| ***      | user     | add income and expenditure categories                | see my overall net gain or loss                  |
+| ***      | user     | see all my spendings                                 | know what I spent on                             |
+| ***      | user     | delete my entries                                    | correct my mistakes                              |
+| ***      | user     | have a password to my account                        | protect my account information                   |
+| **       | user     | edit my incomes and spendings                        | correct my mistakes                              |
+| **       | user     | categorise my expenses                               | see what I spend on                              |
+| **       | user     | categorise my incomes                                | see where my savings come from                   |
+| **       | user     | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
+| **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
+| **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
+| *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
 
 
 ## Use cases
 
 ### Use case: Add an Entry
 
-** Adding an income entry with optional input for date and tag **
+**Adding an income entry with optional input for date and tag**
 
-** MSS **
+**MSS**
 
 1. User inputs to add income with description, amount, date, and tag.
 2. Wiagi adds the income to the income list.
@@ -71,13 +79,34 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 
 Use case ends.
 
-** Extensions **
+**Extensions**
 1. User enters invalid input.
    1. If the user inputs invalid formatting, Wiagi will display an error message.
    2. If the user inputs an invalid amount, Wiagi will display an error message.
    3. If the user inputs an invalid date, Wiagi will display an error message.
    
    Use case restarts at step 1.
+
+### Use case: Delete an Entry
+
+**Deleting an income or spending from the list**
+
+**MSS**
+
+1. User requests to list all incomes
+2. Wiagi shows a list of all incomes
+3. User takes note of the index of the income to delete and requests to delete the entry
+by specifying the index
+4. Wiagi deletes the entry
+  
+Use case ends.
+
+**Extensions**
+- 1a. The list is empty. 
+<br>Use case ends. 
+- 3a. The given index is invalid.
+  - 3a1. Wiagi displays an error message.
+<br>Use case restarts at step 1.
 
 ## Non-Functional Requirements
 

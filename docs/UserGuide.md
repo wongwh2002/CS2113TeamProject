@@ -8,6 +8,8 @@ and investment analysis.
  
 - [Quick start](#Quick-Start)
 - [Features](#Features)
+  - [Login](#login) 
+    - [Creation of new user](#creation-of-new-user)
   - [Adding an entry](#adding-an-entry)
     - [Adding a spending](#adding-a-spending)
     - [Adding an income](#adding-an-income)
@@ -76,25 +78,24 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
-Format: `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
+**Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
-Example input: <br>
+**Example input:** <br>
 `add spending 100 telegram premium`
 
-Example input: <br>
+**Example input:** <br>
 `add spending 100 telegram premium /2024-10-20/`
 
-Example input: <br>
+**Example input:** <br>
 `add spending 100 telegram premium *personal expense*`
 
-Example input: <br>
+**Example input:** <br>
 `add spending 100 telegram premium /2024-10-20/ *personal expense*`
 
 
 
-Example output:
+**Example output:**
 ```
-output
 	____________________________________________________________
 	Entry successfully added!
 	____________________________________________________________
@@ -107,21 +108,21 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 Date is optional and can be added to the end of the input, default would be set to current date. A date is enclosed in slashes. <br>
 Tag is optional and can be added to the end of the input. A Tag is enclosed in asterisks. <br>
 
-Format: `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
+**Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*]`
 
-Example input: <br>
+**Example input:** <br>
 `add income 10000 commission`
 
-Example input: <br>
+**Example input:** <br>
 `add income 10000 commission /2024-01-01/`
 
-Example input: <br>
+**Example input:** <br>
 `add income 10000 commission *bonus*`
 
-Example input: <br>
+**Example input:** <br>
 `add income 10000 commission /2024-01-01/ *bonus*`
 
-Example output:
+**Example output:**
 ```
 output
 	____________________________________________________________
@@ -132,12 +133,12 @@ output
 ### Listing all entries:
 
 Lists all the entries in the user's spending or income list.
-Format: `list`
+**Format:** `list`
 
-Example input: <br>
+**Example input:** <br>
 `list`
 
-Example output:
+**Example output:**
 ```
 	____________________________________________________________
 	Spendings
@@ -159,36 +160,85 @@ Example output:
 
 Lists all the entries in the user's spending list.
 
-Format: `list spendings`
+**Format:** `list spendings`
 
-Example input: <br>
-`list spendings`
+The user will then be prompted to select a time range.
+Only entries that are within the time range will be displayed.
+If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed.
 
-Example output:
+**Example**
+
+**Input:** `list spendings`
+
+**Output:**
+
+```
+	____________________________________________________________
+	Select time range:
+	[1] All
+	[2] Weekly
+	[3] Biweekly
+	[4] Monthly
+```
+**Input:** `1`
+
+**Output:**
+```
+	____________________________________________________________
+	List all statistics? [Y/N]:
+```
+
+**Input:** `y`
+
+**Output:**
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - food
-	2. flights - 10 - 2024-10-17 - travel
-	3. girlfriends - 10 - 2024-10-17 - personal
-	4. macdonalds - 10 - 2024-10-10 - food
+	1. macdonalds - 10 - 2024-10-10 - food
+	2. techno - 10 - 2024-10-17 - food
+	3. flights - 10 - 2024-10-17 - travel
+	4. girlfriends - 10 - 2024-10-17 - personal
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
+		Daily spendings: 0
+		Daily Budget: 0
+		Daily budget left: 0
+		Monthly spendings: 40
+		Monthly Budget: 0
+		Monthly budget left: -40
+		Yearly spendings: 40
+		Yearly Budget: 0
+		Yearly budget left: -40
 	____________________________________________________________
+
 ```
 
 #### Listing all incomes:
 
 Lists all the entries in the user's income list.
 
-Format: `list incomes`
+**Format:** `list incomes`
 
-Example input: <br>
-`list incomes`
+The user will then be prompted to select a time range. 
+Only entries that are within the time range will be displayed.
 
-Example output:
+**Example**
+
+**Input:** `list incomes` 
+
+**Output:**
+```
+	____________________________________________________________
+	Select time range:
+	[1] All
+	[2] Weekly
+	[3] Biweekly
+	[4] Monthly 
+
+```
+**Input:**
+`1`
+
+**Output:**
 ```
 	____________________________________________________________
 	Incomes
@@ -202,12 +252,12 @@ Example output:
 
 Lists all the tags in the user's list.
 
-Format: `list tags`
+**Format:** `list tags`
 
-Example input: <br>
+**Example input:** <br>
 `list tags`
 
-Example output:
+**Example output:**
 ```
 	____________________________________________________________
 	Tags
@@ -223,12 +273,12 @@ Example output:
 
 Lists all the entries in the user's list with the specified tag.
 
-Format: `list tags {$TAGNAME}`
+**Format:** `list tags {$TAGNAME}`
 
-Example input: <br>
+**Example input:** <br>
 `list tags food`
 
-Example output:
+**Example output:**
 ```
 	____________________________________________________________
 	Tag: food
@@ -244,12 +294,12 @@ Deletes the specified income from the list.
 The income to delete is specified by its index.<br>
 Run the [`list incomes`](#listing-all-incomes) command to check the index of the income.
 
-Format: `delete income {$INDEX}`
+**Format:** `delete income {$INDEX}`
 
-Example input: <br>
+**Example input:** <br>
 `delete income 1`
 
-Example output:
+**Example output:**
 ```
     ____________________________________________________________
         Successfully deleted!
@@ -261,12 +311,12 @@ Deletes the specified spending from the list.
 The spending to delete is specified by its index.<br>
 Run the [`list spendings`](#listing-all-spendings) command to check the index of the spending.
 
-Format: `delete spending {$INDEX}`
+**Format:** `delete spending {$INDEX}`
 
-Example input: <br>
+**Example input:** <br>
 `delete spending 1`
 
-Example output:
+**Example output:**
 ```
     ____________________________________________________________
     Successfully deleted!
@@ -282,7 +332,7 @@ The `budget` command allows you to set a daily, monthly, or yearly budget for yo
 - `{$PERIOD}`: Specifies the period for the budget. It can be `daily`, `monthly`, or `yearly`.
 - `{$AMOUNT}`: The budget amount to be set.
 
-**Example input**:<br>
+**Example input:**<br>
 `
 budget daily 50
 `
@@ -298,14 +348,14 @@ budget daily 50
 
 The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry.
 
-**Format**: `edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}`
+**Format:** `edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}`
 
 - `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
 
-**Example input**:<br>
+**Example input:**<br>
 `edit spending 1 amount 100`
 
 **Example output**:
@@ -319,12 +369,12 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 
 The `bye` command allows you to exit the program safely, as it will store all changes made.
 
-**Format**: `bye`
+**Format:** `bye`
 
-**Example input**:<br>
+**Example input:**<br>
 `bye`
 
-**Example output**:
+**Example output:**
 ```
 	____________________________________________________________
 	Bye. Hope to see you again soon!
