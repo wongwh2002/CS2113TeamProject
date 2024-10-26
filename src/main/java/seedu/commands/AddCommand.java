@@ -16,6 +16,7 @@ import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
+import static seedu.classes.Constants.SPACE_REGEX;
 
 public class AddCommand extends Command {
 
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
     private static final int TYPE_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
     private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
-    private static final String REGEX_OF_OPTIONAL_ARGUMENTS = "^(.*?)(?:[/~*].*)?$";
+    private static final String OPTIONAL_ARGUMENTS_REGEX = "^(.*?)(?:[/~*].*)?$";
     private static final String SPENDING = "spending";
     private static final String INCOME = "income";
 
@@ -69,7 +70,7 @@ public class AddCommand extends Command {
     }
 
     private String[] extractArguments() {
-        String[] arguments = fullCommand.split("\\s+", ADD_COMPULSORY_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(SPACE_REGEX, ADD_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length == AMOUNT_INDEX) {
             throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         } else if (arguments.length == DESCRIPTION_INDEX) {
@@ -79,7 +80,7 @@ public class AddCommand extends Command {
     }
 
     private static String extractDescription(String descriptionAndOptionalArguments) {
-        Pattern pattern = Pattern.compile(REGEX_OF_OPTIONAL_ARGUMENTS);
+        Pattern pattern = Pattern.compile(OPTIONAL_ARGUMENTS_REGEX);
         Matcher matcher = pattern.matcher(descriptionAndOptionalArguments);
         if (matcher.find()) {
             return matcher.group(1).trim();

@@ -14,6 +14,7 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.SPACE_REGEX;
 
 public class DeleteCommand extends Command {
 
@@ -27,7 +28,7 @@ public class DeleteCommand extends Command {
     // @@author wx-03
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        String[] arguments = fullCommand.split(" ");
+        String[] arguments = fullCommand.split(SPACE_REGEX);
         try {
             if (arguments.length < 3) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER

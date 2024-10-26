@@ -16,10 +16,16 @@ import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.SPACE_REGEX;
 
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    private static final int TYPE_INDEX = 1;
+    private static final int INDEX_OF_ENTRY_INDEX = 2;
+    private static final int CATEGORY_INDEX = 3;
+    private static final int NEW_VALUE_INDEX = 4;
+    private static final int EDIT_COMPULSORY_ARGUMENTS_LENGTH = 5;
 
     private final String fullCommand;
 
@@ -37,16 +43,16 @@ public class EditCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;
         assert spendings != null;
-        String[] arguments = fullCommand.split(" ", 5);
+        String[] arguments = fullCommand.split(SPACE_REGEX, EDIT_COMPULSORY_ARGUMENTS_LENGTH);
         try {
-            if (arguments.length < 5) {
+            if (arguments.length < EDIT_COMPULSORY_ARGUMENTS_LENGTH) {
                 throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                         + EDIT_COMMAND_FORMAT);
             }
-            String entryType = arguments[1];
-            if (entryType.equals("spending")) {
+            String type = arguments[TYPE_INDEX];
+            if (type.equals("spending")) {
                 editList(arguments, spendings);
-            } else if (entryType.equals("income")) {
+            } else if (type.equals("income")) {
                 editList(arguments, incomes);
             } else {
                 throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
@@ -59,10 +65,10 @@ public class EditCommand extends Command {
     private <T extends ArrayList<? extends Type>> void editList(String[] arguments, T list)
             throws WiagiInvalidIndexException {
         try {
-            int indexOfEntryToEdit = getIndex(arguments);
+            int indexOfEntryToEdit = extractIndex(arguments);
             Type entryToEdit = list.get(indexOfEntryToEdit);
-            String newValue = arguments[4];
-            String category = arguments[3];
+            String newValue = arguments[NEW_VALUE_INDEX];
+            String category = arguments[CATEGORY_INDEX];
             switch (category) {
             case "amount":
                 entryToEdit.editAmount(newValue);
@@ -87,9 +93,9 @@ public class EditCommand extends Command {
         }
     }
 
-    private int getIndex(String[] fullCommandArray) throws WiagiInvalidIndexException {
+    private int extractIndex(String[] arguments) throws WiagiInvalidIndexException {
         try {
-            int index = Integer.parseInt(fullCommandArray[2]);
+            int index = Integer.parseInt(arguments[INDEX_OF_ENTRY_INDEX]);
             return index - 1;
         } catch (NumberFormatException e) {
             throw new WiagiInvalidIndexException(INDEX_NOT_INTEGER);
