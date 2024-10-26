@@ -1,5 +1,6 @@
 package seedu.classes;
 
+import seedu.enums.TimeRange;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -12,6 +13,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 
 public class Ui {
     public static final String EMPTY_STRING = "";
@@ -250,6 +253,32 @@ public class Ui {
     private static boolean inRange(LocalDate date, LocalDate start, LocalDate end) {
         return (date.isAfter(start) || date.isEqual(start))
                 && (date.isBefore(end) || date.isEqual(end));
+    }
+
+    //@@author wx-03
+    public static TimeRange askForTimeRange() {
+        TimeRange selectedTimeRange = null;
+        while (selectedTimeRange == null) {
+            Ui.printWithTab(TIME_RANGE_MESSAGE);
+            String userInput = Ui.readCommand();
+            switch (userInput) {
+            case "1":
+                selectedTimeRange = TimeRange.ALL;
+                break;
+            case "2":
+                selectedTimeRange = TimeRange.WEEKLY;
+                break;
+            case "3":
+                selectedTimeRange = TimeRange.BIWEEKLY;
+                break;
+            case "4":
+                selectedTimeRange = TimeRange.MONTHLY;
+                break;
+            default:
+                Ui.printWithTab("Invalid input");
+            }
+        }
+        return selectedTimeRange;
     }
 
 
