@@ -183,8 +183,8 @@ public class Ui {
 
     //@@author wongwh2002
     private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
-                                        StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
+                                        StringBuilder outputMessage, String listName) {
+        outputMessage.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
         int sizeOfArray = arrList.size();
         for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
@@ -192,7 +192,7 @@ public class Ui {
             if (entry.getTag().equals(tag)) {
                 tagsCount++;
                 int indexToUser = indexInList + 1;
-                sb.append(TAB).append(indexToUser).append(". ")
+                outputMessage.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
             }
         }
