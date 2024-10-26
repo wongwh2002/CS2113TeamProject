@@ -3,7 +3,6 @@ package seedu.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.classes.Constants;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -13,6 +12,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.DELETE_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
+import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.TAB;
 
 class DeleteCommandTest {
     private final PrintStream standardOut = System.out;
@@ -34,7 +38,7 @@ class DeleteCommandTest {
     void execute_missingArg_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete");
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.DELETE_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
     }
 
@@ -50,7 +54,7 @@ class DeleteCommandTest {
     void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete income a");
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INDEX_NOT_INTEGER + Constants.DELETE_COMMAND_FORMAT
+        assertEquals(TAB + INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
     }
@@ -59,7 +63,7 @@ class DeleteCommandTest {
     void execute_indexOutOfBounds_expectIllegalArgumentExceptionMessage() {
         DeleteCommand c = new DeleteCommand("delete income 10");
         c.execute(incomes, spendings);
-        assertEquals(Constants.INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
+        assertEquals(INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
         assertEquals(1, incomes.size());
     }
 

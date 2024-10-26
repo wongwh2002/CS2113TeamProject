@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Parser;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Income;
@@ -16,6 +15,14 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.LIST_SEPARATOR;
+import static seedu.classes.Constants.TAB;
 
 class EditCommandTest {
 
@@ -53,7 +60,7 @@ class EditCommandTest {
         String userInout = "edit";
         Command c = Parser.parse(userInout);
         c.execute(emptyIncomes, emptySpendings);
-        assertEquals(Constants.TAB + Constants.INCORRECT_PARAMS_NUMBER + Constants.EDIT_COMMAND_FORMAT
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -62,7 +69,7 @@ class EditCommandTest {
         String userInout = "edit notspendingincome 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INVALID_CATEGORY + Constants.EDIT_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_CATEGORY + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -71,7 +78,7 @@ class EditCommandTest {
         String userInout = "edit spending 5 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -79,7 +86,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 notamountdescription 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INVALID_FIELD + Constants.EDIT_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_FIELD + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -88,7 +95,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -97,7 +104,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount -1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(Constants.TAB + Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -106,7 +113,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("girlfriends" + Constants.LIST_SEPARATOR + "1" + Constants.LIST_SEPARATOR + currentDate,
+        assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
                 spendings.get(0).toString());
     }
 
@@ -115,7 +122,7 @@ class EditCommandTest {
         String userInout = "edit income 1 amount 1";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("savings" + Constants.LIST_SEPARATOR + "1" + Constants.LIST_SEPARATOR + currentDate,
+        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
                 incomes.get(0).toString());
     }
 
@@ -125,7 +132,7 @@ class EditCommandTest {
         String userInout = "edit income 2 date 2024-10-10";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("dividends" + Constants.LIST_SEPARATOR + "10" + Constants.LIST_SEPARATOR + "2024-10-10",
+        assertEquals("dividends" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
                 incomes.get(1).toString());
     }
 
@@ -134,7 +141,7 @@ class EditCommandTest {
         String userInout = "edit spending 2 date 2024-10-10";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("macdonalds" + Constants.LIST_SEPARATOR + "10" + Constants.LIST_SEPARATOR + "2024-10-10",
+        assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
                 spendings.get(1).toString());
     }
 
@@ -143,8 +150,8 @@ class EditCommandTest {
         String userInout = "edit income 3 tag investments";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("stocks" + Constants.LIST_SEPARATOR + "10" + Constants.LIST_SEPARATOR + "2024-10-10" +
-                        Constants.LIST_SEPARATOR + "investments",
+        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
+                        LIST_SEPARATOR + "investments",
                 incomes.get(2).toString());
     }
 }

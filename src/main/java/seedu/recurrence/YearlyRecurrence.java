@@ -21,10 +21,7 @@ public class YearlyRecurrence extends Recurrence {
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Income newEntry = new Income(copyEntry);
-                int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
-                int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
-                newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(Math.min(dayOfSupposedRecurrence,
-                        lastDayOfNewEntryMonth)));
+                checkIfDateAltered(newEntry, checkDate);
                 incomes.add(newEntry);
             }
             checkDate = checkDate.minusYears(1);
@@ -44,10 +41,7 @@ public class YearlyRecurrence extends Recurrence {
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Spending newEntry = new Spending(copyEntry);
-                int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
-                int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
-                newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(Math.min(dayOfSupposedRecurrence,
-                        lastDayOfNewEntryMonth)));
+                checkIfDateAltered(newEntry, checkDate);
                 spendings.add(newEntry);
             }
             checkDate = checkDate.minusYears(1);

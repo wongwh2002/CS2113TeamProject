@@ -1,11 +1,14 @@
 package seedu.commands;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
+
+import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 
 /**
  * Represents a command to set a budget.
@@ -36,8 +39,8 @@ public class BudgetCommand extends Command {
         String[] userInputWords = fullCommand.split(" ", 3);
         try {
             if (userInputWords.length != 3) {
-                throw new WiagiMissingParamsException(Constants.INCORRECT_PARAMS_NUMBER
-                        + Constants.BUDGET_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
+                        + BUDGET_COMMAND_FORMAT);
             }
             addBudget(userInputWords, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
@@ -65,7 +68,7 @@ public class BudgetCommand extends Command {
                 Ui.printWithTab("Successfully set yearly budget of: " + budget);
                 break;
             default:
-                throw new WiagiInvalidInputException(Constants.INVALID_CATEGORY + Constants.BUDGET_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
             }
         } catch (NumberFormatException e) {
             Ui.printWithTab("Invalid amount. Please try again.");
