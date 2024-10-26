@@ -40,19 +40,22 @@ monthly, and yearly dates.
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority | As a ... | I want to ...                                        | So that I can ... |
-|-----|----|------------------------------------------------------|-------------------|
-| *** |user| start and close the application                      | use it only when needed |
-| *** |user| add my financial transactions                        | track the flow of my money |
-| *** |user| categorise my entries as income and spendings        | better undestand my financials |
-| *** |user| add income and expenditure categories                | see my overall net gain or loss |
-| *** | user     | see all my spendings                          | know what I spent on            |
-| *** |user| have a password to my account                        | protect my account informations |
-| **  | user     | edit my incomes and spendings                 | correct my mistakes             |
-| **  |user| read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
-| **  |user| set expenses and incomes as recurring | do not need to manually add them each time |
-| **  | Student  | set budgets for each category of expense      | make better financial decisions |
-| *   |user| be alerted when I overspend my budget | try to curb my spendings |
+| Priority | As a ... | I want to ...                                        | So that I can ...                                |
+|----------|----------|------------------------------------------------------|--------------------------------------------------|
+| ***      | user     | start and close the application                      | use it only when needed                          |
+| ***      | user     | add my financial transactions                        | track the flow of my money                       |
+| ***      | user     | categorise my entries as income and spendings        | better undestand my financials                   |
+| ***      | user     | add income and expenditure categories                | see my overall net gain or loss                  |
+| ***      | user     | see all my spendings                                 | know what I spent on                             |
+| ***      | user     | delete my entries                                    | correct my mistakes                              |
+| ***      | user     | have a password to my account                        | protect my account informations                  |
+| **       | user     | edit my incomes and spendings                        | correct my mistakes                              |
+| **       | user     | categorise my expenses                               | see what I spend on                              |
+| **       | user     | categorise my incomes                                | see where my savings come from                   |
+| **       | user     | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
+| **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
+| **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
+| *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
 
 
 ## Use cases
