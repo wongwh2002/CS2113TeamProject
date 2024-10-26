@@ -152,4 +152,12 @@ public class AddCommandTest {
         assertEquals(Constants.TAB + Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
+
+    @Test
+    void addCommand_wrongOrderUnknownCommand_unknownCommandMessage() {
+        String userInput = "blah add";
+        Command c = Parser.parse(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(Constants.TAB + "Unknown command" + System.lineSeparator(), outContent.toString());
+    }
 }
