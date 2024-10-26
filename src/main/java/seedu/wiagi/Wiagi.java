@@ -8,10 +8,6 @@ import seedu.type.IncomeList;
 import seedu.classes.Ui;
 import seedu.type.SpendingList;
 
-import java.io.Console;
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class Wiagi {
 
     private static Storage storage;
