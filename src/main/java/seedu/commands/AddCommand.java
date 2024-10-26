@@ -11,7 +11,7 @@ import seedu.type.SpendingList;
 import java.util.Arrays;
 
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
-import static seedu.classes.Constants.INDEX_NOT_INTEGER;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
         }
 
         if (!isNumeric(commandWords[AMOUNT_INDEX])) {
-            throw new WiagiInvalidInputException(INDEX_NOT_INTEGER + ADD_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT);
         }
         double amount = Double.parseDouble(commandWords[AMOUNT_INDEX]);
         amount = Math.round(amount * 100.0) / 100.0; //round to 2dp

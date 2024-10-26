@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
-import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
@@ -92,7 +92,7 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + INDEX_NOT_INTEGER + ADD_COMMAND_FORMAT +
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT +
                         System.lineSeparator(), outContent.toString());
     }
 
@@ -119,7 +119,7 @@ public class AddCommandTest {
         String userInput = "add income randomNum salary";
         Command c = Parser.parse(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + INDEX_NOT_INTEGER + ADD_COMMAND_FORMAT
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
