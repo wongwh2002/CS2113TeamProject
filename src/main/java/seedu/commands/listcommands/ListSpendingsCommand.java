@@ -52,6 +52,7 @@ public class ListSpendingsCommand extends Command {
         }
     }
 
+    //@@author NigelYeoTW
     private boolean listSpendingStatistics(SpendingList spendings) {
         Ui.printWithTab("List all statistics? [Y/N]:");
         String userInput = Ui.readCommand();

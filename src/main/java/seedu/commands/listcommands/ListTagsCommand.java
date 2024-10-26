@@ -19,11 +19,10 @@ public class ListTagsCommand extends Command {
         this.commandSize = fullCommands.length;
     }
 
+    //@@author wongwh2002
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert fullCommands[1].equals("tags") : "command should be to list tags";
-
-
         try {
             if (commandSize == LIST_SPECIFIC_TAG_LENGTH) {
                 assert fullCommands[2] != null : "tag name should not be null";

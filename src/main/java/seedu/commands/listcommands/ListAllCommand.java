@@ -14,6 +14,7 @@ public class ListAllCommand extends Command {
         this.fullCommands = fullCommands;
     }
 
+    //@@author rharwo
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert fullCommands[0].equals("list") : "command should be 'list'";
