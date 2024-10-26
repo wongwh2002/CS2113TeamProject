@@ -10,6 +10,7 @@ original source as well}
 ## Design & implementation
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
 ### Storage
 To load data from previous session:
 Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
@@ -21,6 +22,88 @@ To save data for current session:
 After the command bye is sent by the user, incomes and spendings will be serialised and overwrite texts in
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
+
+### Recurrence Component
+
+#### Motivation behind the component:</br>
++ Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
+  application
++ Users may have differing frequencies for recurring events thus application gives them a few common options
+
+Illustrated below is the class diagram for the Recurrence Component:</br>
+{Insert Class diagram} </br>
+</br>
+{Insert Sequence Diagram} </br>
+</br>
+#### How the Recurrence Component works:</br>
++ Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
+`Wiagi` to retrieve past data.
++ Both list are then iterated through. Each member of the list is parsed through `Parser` which returns the type of 
+recurrence it is (eg. `DailyRecurrence`, `null`) which is encapsulated as a `Recurrence` object.
++ If `Recurrence` is not `null` (ie. a recurring entry), it checks the entry and adds to the `SpendingList` and 
+`IncomeList` if needed. </br>
+
+#### Implementation:
+#### Recurrence class
+The `Recurrence` class is a abstract class that provides the interface for checking `Income` and `Spending` and adding 
+recurring entries into the list. </br>
+The following are the abstract methods defined: </br>
++ `checkSpendingRecurrence`
++ `checkIncomeRecurrence`
+
+The following are child classes of `Recurrence`:
++ `DailyRecurrence`: Handles entries labelled as daily recurring events
++ `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
++ `YearlyRecurrence`: Handles entries labelled as yearly recurring events
+
+{Insert class diagram for Recurrence}
+##### parseRecurrence method
+Class: `Parser` </br>
+Method Signature: </br>
+```
+public static Recurrence parseRecurrence(Type entry)
+```
+Functionality: </br>
+1. Takes in child class of `Type` (ie. `Spending`, `Income`)
+2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
+3. Returns `DaillyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
+
+##### checkIncomeRecurrence / checkSpendingRecurrence method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` </br>
+Method Signature: </br>
+```
+@Override
+public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes)
+@Override
+public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings)
+```
+Functionality: </br>
+1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
+2. According to the type of recurrence, check if enough time has passed between the 2 dates
+3. Adds additional recurring entries into the `IncomeList`/`SpendingList` if needed.
+
+##### updateRecurrence method
+Class: `SpendingList`, `IncomeList` </br>
+Method Signature:
+```
+public static Recurrence parseRecurrence(Type entry)
+```
+Functionality: </br>
+1. Loops through its list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
+2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new 
+recurring entry is supposed to be added
+
+#### Here are some things to take note:
++ Entries are only added when user logs in, which is not determinable, thus many additional entries may be added at once
+(eg. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
+will be backlogged and added). List is thus also sorted by date after recurrence is done.
++ Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
+added in the future
++ Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is a example scenario: 
+  + Monthly recurring entry dated at 31st August
+  + Since September ends on the 30th, recurring entry is added on the 30 September and `lastRecurred` is stored as 
+  30th September
+  + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
 
 ### Budgets
 Daily, monthly, and yearly spending totals are calculated everytime a ListCommand is received. This is done by
