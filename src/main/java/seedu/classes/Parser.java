@@ -32,7 +32,7 @@ public class Parser {
         switch (command) {
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
-        case AddCommand.COMMAND_WORD:// user input should be in the form add [add type] [amount] [description]...
+        case AddCommand.COMMAND_WORD:
             return new AddCommand(fullCommand);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(fullCommand);
