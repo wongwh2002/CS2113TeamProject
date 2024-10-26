@@ -17,6 +17,8 @@ import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.INCOME;
+import static seedu.classes.Constants.SPENDING;
 
 public class EditCommand extends Command {
 
@@ -43,18 +45,20 @@ public class EditCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;
         assert spendings != null;
-        String[] arguments = fullCommand.split(SPACE_REGEX, EDIT_COMPULSORY_ARGUMENTS_LENGTH);
         try {
-            if (arguments.length < EDIT_COMPULSORY_ARGUMENTS_LENGTH) {
-                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
-                        + EDIT_COMMAND_FORMAT);
-            }
+            String[] arguments = extractArguments();
             String type = arguments[TYPE_INDEX];
-            if (type.equals("spending")) {
-                editList(arguments, spendings);
-            } else if (type.equals("income")) {
+            if (!(type.equals(SPENDING) || type.equals(INCOME))) {
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
+            }
+            switch (type) {
+            case INCOME:
                 editList(arguments, incomes);
-            } else {
+                break;
+            case SPENDING:
+                editList(arguments, spendings);
+                break;
+            default:
                 throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
             }
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
@@ -62,43 +66,48 @@ public class EditCommand extends Command {
         }
     }
 
-    private <T extends ArrayList<? extends Type>> void editList(String[] arguments, T list)
-            throws WiagiInvalidIndexException {
-        try {
-            int indexOfEntryToEdit = extractIndex(arguments);
-            Type entryToEdit = list.get(indexOfEntryToEdit);
-            String newValue = arguments[NEW_VALUE_INDEX];
-            String category = arguments[CATEGORY_INDEX];
-            switch (category) {
-            case "amount":
-                entryToEdit.editAmount(newValue);
-                break;
-            case "description":
-                entryToEdit.editDescription(newValue);
-                break;
-            case "date":
-                entryToEdit.editDate(newValue);
-                break;
-            case "tag":
-                entryToEdit.editTag(newValue);
-                break;
-            default:
-                throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);
-            }
-            Ui.printWithTab("Edit Successful!");
-        } catch (IndexOutOfBoundsException e) {
-            throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
-        } catch (WiagiInvalidInputException e) {
-            Ui.printWithTab(e.getMessage());
+    private String[] extractArguments() throws WiagiMissingParamsException {
+        String[] arguments = fullCommand.split(SPACE_REGEX, EDIT_COMPULSORY_ARGUMENTS_LENGTH);
+        if (arguments.length < EDIT_COMPULSORY_ARGUMENTS_LENGTH) {
+            throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT);
         }
+        return arguments;
     }
 
-    private int extractIndex(String[] arguments) throws WiagiInvalidIndexException {
+    private <T extends ArrayList<? extends Type>> void editList(String[] arguments, T list)
+            throws WiagiInvalidIndexException {
+        String index = arguments[INDEX_OF_ENTRY_INDEX];
+        Type entryToEdit = extractEntry(list, index);
+        String newValue = arguments[NEW_VALUE_INDEX];
+        String category = arguments[CATEGORY_INDEX];
+        switch (category) {
+        case "amount":
+            entryToEdit.editAmount(newValue);
+            break;
+        case "description":
+            entryToEdit.editDescription(newValue);
+            break;
+        case "date":
+            entryToEdit.editDate(newValue);
+            break;
+        case "tag":
+            entryToEdit.editTag(newValue);
+            break;
+        default:
+            throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);
+        }
+        Ui.printWithTab("Edit Successful!");
+    }
+
+    private <T extends ArrayList<? extends Type>> Type extractEntry(T list, String stringIndex)
+            throws WiagiInvalidIndexException {
         try {
-            int index = Integer.parseInt(arguments[INDEX_OF_ENTRY_INDEX]);
-            return index - 1;
+            int index = Integer.parseInt(stringIndex) - 1;
+            return list.get(index);
         } catch (NumberFormatException e) {
             throw new WiagiInvalidIndexException(INDEX_NOT_INTEGER);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
         }
     }
 }

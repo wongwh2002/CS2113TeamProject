@@ -17,6 +17,8 @@ import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.INCOME;
+import static seedu.classes.Constants.SPENDING;
 
 public class AddCommand extends Command {
 
@@ -26,8 +28,6 @@ public class AddCommand extends Command {
     private static final int AMOUNT_INDEX = 2;
     private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
     private static final String OPTIONAL_ARGUMENTS_REGEX = "^(.*?)(?:[/~*].*)?$";
-    private static final String SPENDING = "spending";
-    private static final String INCOME = "income";
 
     private final String fullCommand;
     public AddCommand(String fullCommand) {
@@ -36,6 +36,8 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
+        assert incomes != null;
+        assert spendings != null;
         try {
             commandHandler(incomes, spendings);
         } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
@@ -43,8 +45,8 @@ public class AddCommand extends Command {
         }
     }
 
-    public void commandHandler(IncomeList incomes, SpendingList spendings) throws
-            WiagiInvalidInputException, WiagiEmptyDescriptionException {
+    private void commandHandler(IncomeList incomes, SpendingList spendings)
+            throws WiagiInvalidInputException, WiagiEmptyDescriptionException {
 
         String[] arguments = extractArguments(); // [add] [type] [amount] [others]
         String type = arguments[TYPE_INDEX];
