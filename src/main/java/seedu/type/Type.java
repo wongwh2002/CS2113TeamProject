@@ -23,16 +23,16 @@ public class Type implements Serializable {
     private int dayOfRecurrence;
 
     //@@author wongwh2002
-    public Type(String userInput, double amount, String description) {
+    public Type(String optionalArguments, double amount, String description) {
         this.amount = amount;
         assert amount > 0 : "Amount should be greater than zero";
         this.description = description;
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
-        this.date = extractDate(userInput);
+        this.date = extractDate(optionalArguments);
         assert date != null : "Date should not be null";
-        this.tag = extractTag(userInput);
+        this.tag = extractTag(optionalArguments);
         assert tag != null : "Tag should not be null";
-        this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
+        this.recurrenceFrequency = extractRecurrenceFrequency(optionalArguments);
         this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
         if (lastRecurrence != null) {
             this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
@@ -61,8 +61,8 @@ public class Type implements Serializable {
         this.dayOfRecurrence = dayOfRecurrence;
     }
 
-    private String extractTag(String userInput) {
-        String[] commandAndTag = userInput.split("\\*");
+    private String extractTag(String optionalArguments) {
+        String[] commandAndTag = optionalArguments.split("\\*");
         if (commandAndTag.length == 1) {
             return "";
         }
@@ -73,8 +73,8 @@ public class Type implements Serializable {
         return this.amount;
     }
 
-    private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
-        String[] commandAndDate = userInput.split("/");
+    private LocalDate extractDate(String optionalArguments) throws WiagiInvalidInputException {
+        String[] commandAndDate = optionalArguments.split("/");
         try {
             if (commandAndDate.length == 1) {
                 return LocalDate.now();
@@ -85,9 +85,9 @@ public class Type implements Serializable {
         }
     }
 
-    private RecurrenceFrequency extractRecurrenceFrequency(String userInput)
+    private RecurrenceFrequency extractRecurrenceFrequency(String optionalArguments)
             throws WiagiInvalidInputException {
-        String[] commandAndFrequency = userInput.split("~");
+        String[] commandAndFrequency = optionalArguments.split("~");
         if (commandAndFrequency.length == 1) {
             return RecurrenceFrequency.NONE;
         }

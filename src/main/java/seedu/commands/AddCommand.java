@@ -8,8 +8,6 @@ import seedu.type.IncomeList;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
 
-import java.util.Arrays;
-
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
@@ -21,8 +19,9 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final int DESCRIPTION_INDEX = 3;
-    public static final int SPENDING_OR_INCOME_INDEX = 1;
+    public static final int TYPE_INDEX = 1;
     public static final int AMOUNT_INDEX = 2;
+    public static final int COMPULSORY_ARGUMENTS_LENGTH = 4;
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
 
@@ -40,82 +39,69 @@ public class AddCommand extends Command {
         }
     }
 
-    //@@author wongwh2002
-    public static String[] splitByRegex(String fullCommand, String regex) {
-        return fullCommand.split(regex);
-    }
-
-    //@@author wongwh2002
     public void commandHandler(IncomeList incomes, SpendingList spendings) throws
             WiagiInvalidInputException, WiagiEmptyDescriptionException {
+        String[] compulsoryAndOptionalArguments = fullCommand.split(" ", 5);
+        if (compulsoryAndOptionalArguments.length == 2) {
+            throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
+        } else if (compulsoryAndOptionalArguments.length == 3) {
+            throw new WiagiInvalidInputException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
+        }
 
-        assert fullCommand != null : "fullCommand should not be null";
-        String commandWithoutDate = splitByRegex(fullCommand, "/")[0];
-        String commandWithoutTag = splitByRegex(commandWithoutDate, "\\*")[0];
-        String commandWithoutRecurrence = splitByRegex(commandWithoutTag, "~")[0];
-        String[] commandWords = splitByRegex(commandWithoutRecurrence, " ");
-
-        if (!(commandWords[SPENDING_OR_INCOME_INDEX].equals(SPENDING) ||
-                commandWords[SPENDING_OR_INCOME_INDEX].equals(INCOME))) {
+        String type = compulsoryAndOptionalArguments[TYPE_INDEX];
+        if (!(type.equals(SPENDING) || type.equals(INCOME))) {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + ADD_COMMAND_FORMAT);
         }
 
-        if (commandWords.length == 2) {
-            throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
-        }
-
-        if (!isNumeric(commandWords[AMOUNT_INDEX])) {
-            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT);
-        }
-        double amount = Double.parseDouble(commandWords[AMOUNT_INDEX]);
-        amount = Math.round(amount * 100.0) / 100.0; //round to 2dp
-        if (amount <= 0) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT + ADD_COMMAND_FORMAT);
-        }
+        String stringAmount = compulsoryAndOptionalArguments[AMOUNT_INDEX];
+        double amount = formatAmount(stringAmount);
         assert amount > 0 : "Amount should be greater than zero";
 
-        String[] splitDescription = Arrays.copyOfRange(commandWords, DESCRIPTION_INDEX, commandWords.length);
-        String description = String.join(" ", splitDescription);
-        if (splitDescription.length == 0) {
-            throw new WiagiEmptyDescriptionException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
-        }
+        String description = compulsoryAndOptionalArguments[DESCRIPTION_INDEX];
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
 
-        if (commandWords[SPENDING_OR_INCOME_INDEX].equals(SPENDING)) {
-            addSpending(spendings, amount, description);
+        String optionalArguments;
+        if (compulsoryAndOptionalArguments.length == COMPULSORY_ARGUMENTS_LENGTH) {
+            optionalArguments = "";
         } else {
-            addIncome(incomes, amount, description);
+            optionalArguments = compulsoryAndOptionalArguments[COMPULSORY_ARGUMENTS_LENGTH];
+        }
+
+        if (type.equals(SPENDING)) {
+            addSpending(spendings, amount, description, optionalArguments);
+        } else {
+            addIncome(incomes, amount, description, optionalArguments);
         }
     }
 
-    private void addSpending(SpendingList spendings, double amount, String description) {
+    private void addSpending(SpendingList spendings, double amount, String description, String optionalArguments) {
         try {
-            Spending toAdd = new Spending(fullCommand, amount, description);
+            Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void addIncome(IncomeList incomes, double amount, String description) {
+    private void addIncome(IncomeList incomes, double amount, String description, String optionalArguments) {
         try {
-            Income toAdd = new Income(fullCommand, amount, description);
+            Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    //@@author wongwh2002
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
+    //@@author TPH777
+    private static double formatAmount(String stringAmount) {
         try {
-            double d = Double.parseDouble(strNum);
+            double doubleAmount = Double.parseDouble(stringAmount);
+            if (doubleAmount <= 0) {
+                throw new WiagiInvalidInputException(INVALID_AMOUNT + ADD_COMMAND_FORMAT);
+            }
+            return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException nfe) {
-            return false;
+            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT);
         }
-        return true;
     }
 }
