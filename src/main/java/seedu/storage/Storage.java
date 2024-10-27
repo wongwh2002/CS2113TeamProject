@@ -4,8 +4,8 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 public class Storage {
-    static IncomeList incomes;
-    static SpendingList spendings;
+    static IncomeList incomes = new IncomeList();
+    static SpendingList spendings = new SpendingList();
     static int password;
 
     public Storage() {

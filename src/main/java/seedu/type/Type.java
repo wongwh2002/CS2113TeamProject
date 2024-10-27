@@ -50,7 +50,7 @@ public class Type implements Serializable {
         this.dayOfRecurrence = other.dayOfRecurrence;
     }
 
-    public Type(int amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
+    public Type(double amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
                 LocalDate lastRecurrence, int dayOfRecurrence) {
         this.amount = amount;
         this.description = description;
@@ -156,6 +156,10 @@ public class Type implements Serializable {
 
     public LocalDate getDate() {
         return this.date;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void editTag(String newTag) {

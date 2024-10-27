@@ -17,7 +17,7 @@ public class SpendingListStorageTest {
         SpendingList spendings = new SpendingList();
         spendings.add(new Spending(10, "macs", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         SpendingListStorage.save(spendings);
-        assertTrue(new File("./spendings.txt").exists());
+        assertTrue(new File("./spendings.csv").exists());
     }
 
     @Test

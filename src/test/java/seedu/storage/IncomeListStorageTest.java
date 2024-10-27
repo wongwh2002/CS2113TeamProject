@@ -17,7 +17,7 @@ public class IncomeListStorageTest {
         IncomeList incomes = new IncomeList();
         incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         IncomeListStorage.save(incomes);
-        assertTrue(new File("./incomes.txt").exists());
+        assertTrue(new File("./incomes.csv").exists());
     }
 
     @Test

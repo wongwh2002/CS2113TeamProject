@@ -5,8 +5,8 @@ import seedu.recurrence.RecurrenceFrequency;
 import java.time.LocalDate;
 
 public class Income extends Type {
-    public Income(int amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
-                  LocalDate lastRecurrence, int dayOfRecurrence) {
+    public Income(double amount, String description, LocalDate date, String tag,
+                  RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence, int dayOfRecurrence) {
         super(amount, description, date, tag, recurrenceFrequency, lastRecurrence, dayOfRecurrence);
     }
 
