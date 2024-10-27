@@ -47,6 +47,7 @@ public class Constants {
     public static final int LIST_SPECIFIC_TAG_LENGTH = 3;
 
     // Storage load
+    public static final String NO_RECURRENCE = "null";
     public static final int LOAD_AMOUNT_INDEX = 0;
     public static final int LOAD_DESCRIPTION_INDEX = 1;
     public static final int LOAD_DATE_INDEX = 2;

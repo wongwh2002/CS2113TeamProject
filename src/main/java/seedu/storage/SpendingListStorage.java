@@ -22,6 +22,7 @@ import static seedu.classes.Constants.LOAD_DESCRIPTION_INDEX;
 import static seedu.classes.Constants.LOAD_LAST_RECURRED_INDEX;
 import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
+import static seedu.classes.Constants.NO_RECURRENCE;
 
 public class SpendingListStorage {
     private static final String SPENDINGS_FILE_PATH = "./spendings.csv";
@@ -50,10 +51,10 @@ public class SpendingListStorage {
         try {
             BufferedReader br = new BufferedReader(new FileReader(SPENDINGS_FILE_PATH));
             while ((newEntry = br.readLine()) != null) {
-                String[] entryData = newEntry.split(",");
+                String[] entryData = newEntry.split(CSV_SEPARATOR);
                 LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
                 LocalDate lastRecurred = null;
-                if (!entryData[LOAD_LAST_RECURRED_INDEX].equals("null")) {
+                if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
                     lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
                 }
                 Spending nextEntry =  new Spending(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
