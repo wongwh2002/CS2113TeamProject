@@ -13,7 +13,9 @@ import java.util.Scanner;
 
 import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
+import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_YEARLY_BUDGET_INDEX;
+import static seedu.classes.Constants.SAVE_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
 import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
@@ -43,7 +45,7 @@ public class SpendingListStorage {
             }
             fw.close();
         } catch (IOException e){
-            Ui.printWithTab("An error has occurred when saving file!");
+            Ui.printWithTab(SAVE_SPENDING_FILE_ERROR);
         }
     }
 
@@ -73,7 +75,7 @@ public class SpendingListStorage {
                 Storage.spendings.add(nextEntry);
             }
         } catch (IOException e) {
-            Ui.printWithTab("An error has occurred when loading file!");
+            Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         }
     }
 }

@@ -47,6 +47,10 @@ public class Constants {
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
 
     // Storage load
+    public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";
+    public static final String SAVE_INCOME_FILE_ERROR = "An error has occurred when saving income file!";
+    public static final String LOAD_SPENDING_FILE_ERROR = "An error has occurred when loading spending file!";
+    public static final String SAVE_SPENDING_FILE_ERROR = "An error has occurred when saving spending file!";
     public static final String NO_RECURRENCE = "null";
     public static final int LOAD_AMOUNT_INDEX = 0;
     public static final int LOAD_DESCRIPTION_INDEX = 1;

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
+import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
 import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
@@ -37,7 +39,7 @@ public class IncomeListStorage {
             }
             fw.close();
         } catch (IOException e){
-            Ui.printWithTab("An error has occurred when saving income file!");
+            Ui.printWithTab(SAVE_INCOME_FILE_ERROR);
         }
     }
 
@@ -63,7 +65,7 @@ public class IncomeListStorage {
                 Storage.incomes.add(nextEntry);
             }
         } catch (IOException e) {
-            Ui.printWithTab("An error has occurred when loading income file!");
+            Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
         }
     }
 }
