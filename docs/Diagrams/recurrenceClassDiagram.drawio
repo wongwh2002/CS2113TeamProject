@@ -1,4 +1,4 @@
-<mxGraphModel dx="2187" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxGraphModel dx="1940" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
   <root>
     <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
     <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -226,6 +226,23 @@
     </mxCell>
     <mxCell id="rN-NryZCxEeuz7KnTCO--89" value="Some method and attributes are omitted due to irrelevance to Recurrence Component" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
       <mxGeometry x="560" y="94" width="150" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="rN-NryZCxEeuz7KnTCO--90" value="&lt;&lt;Enumeration&gt;&gt;&#xa;RecurrenceFrequency" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+      <mxGeometry x="-420" y="110" width="200" height="160" as="geometry">
+        <mxRectangle x="47.5" y="80" width="160" height="26" as="alternateBounds" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="rN-NryZCxEeuz7KnTCO--91" value="NONE" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rN-NryZCxEeuz7KnTCO--90">
+      <mxGeometry y="40" width="200" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="rN-NryZCxEeuz7KnTCO--92" value="DAILY" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rN-NryZCxEeuz7KnTCO--90">
+      <mxGeometry y="70" width="200" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="rN-NryZCxEeuz7KnTCO--93" value="MONTHLY" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rN-NryZCxEeuz7KnTCO--90">
+      <mxGeometry y="100" width="200" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="rN-NryZCxEeuz7KnTCO--94" value="YEARLY" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rN-NryZCxEeuz7KnTCO--90">
+      <mxGeometry y="130" width="200" height="30" as="geometry" />
     </mxCell>
   </root>
 </mxGraphModel>
