@@ -18,7 +18,7 @@ public class ListAllCommand extends Command {
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert fullCommands[0].equals("list") : "command should be 'list'";
-        Ui.printSpendings(spendings);
-        Ui.printIncomes(incomes);
+        Ui.printArrList(spendings);
+        Ui.printArrList(incomes);
     }
 }

@@ -6,11 +6,10 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
-import static seedu.classes.Constants.LIST_SPECIFIC_TAG_LENGTH;
-
 public class ListTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "tags";
+    private static final int LIST_SPECIFIC_TAG_LENGTH = 3;
     private final String[] fullCommands;
     private final int commandSize;
 

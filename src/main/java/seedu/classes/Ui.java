@@ -1,6 +1,5 @@
 package seedu.classes;
 
-import seedu.enums.TimeRange;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -79,15 +78,16 @@ public class Ui {
                 spendings.getYearlySpending()));
     }
 
-    public static void printSpendings(SpendingList spendings) {
-        Ui.printWithTab(SPENDING);
-        Ui.printWithTab("Total spendings: " + printList(spendings));
+    public static <T extends Type> void printArrList(ArrayList<T> arrList) {
+        String type;
+        if (arrList instanceof SpendingList) {
+            type = SPENDING;
+        } else {
+            type = INCOME;
+        }
+        Ui.printWithTab(type);
+        Ui.printWithTab("Total " + type.toLowerCase() + ": " + printList(arrList));
 
-    }
-
-    public static void printIncomes(IncomeList incomes) {
-        Ui.printWithTab(INCOME);
-        Ui.printWithTab("Total incomes: " + printList(incomes));
     }
 
     /**
@@ -261,29 +261,44 @@ public class Ui {
     }
 
     //@@author wx-03
-    public static TimeRange askForTimeRange() {
-        TimeRange selectedTimeRange = null;
-        while (selectedTimeRange == null) {
+    public static <T extends Type> boolean printListOfTimeRange(ArrayList<T> arrList) {
+        while (true) {
             Ui.printWithTab(TIME_RANGE_MESSAGE);
             String userInput = Ui.readCommand();
             switch (userInput) {
             case ALL_TIME_OPTION:
-                selectedTimeRange = TimeRange.ALL;
-                break;
+                return true;
             case WEEKLY_OPTION:
-                selectedTimeRange = TimeRange.WEEKLY;
-                break;
+                Ui.printWeekly(arrList);
+                return false;
             case BIWEEKLY_OPTION:
-                selectedTimeRange = TimeRange.BIWEEKLY;
-                break;
+                Ui.printBiweekly(arrList);
+                return false;
             case MONTHLY_OPTION:
-                selectedTimeRange = TimeRange.MONTHLY;
-                break;
+                Ui.printMonthly(arrList);
+                return false;
             default:
                 Ui.printWithTab("Invalid input");
             }
         }
-        return selectedTimeRange;
+    }
+
+    public static void printStatisticsIfRequired(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        while (true) {
+            String userInput = Ui.readCommand().toLowerCase();
+            switch (userInput) {
+            case "y":
+                Ui.printArrList(spendings);
+                Ui.printSpendingStatistics(spendings);
+                return;
+            case "n":
+                Ui.printArrList(spendings);
+                return;
+            default:
+                Ui.printWithTab("Invalid input. [Y/N].");
+            }
+        }
     }
 }
 

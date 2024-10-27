@@ -9,43 +9,35 @@ import seedu.type.SpendingList;
 
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
-import static seedu.classes.Constants.LIST_INCOMES_SPENDINGS_MAX_LENGTH;
+import static seedu.classes.Constants.LIST_TYPE_INDEX;
+import static seedu.classes.Constants.LIST_COMPULSORY_ARGUMENTS_LENGTH;
 
 public class ListIncomesCommand extends Command {
 
     public static final String COMMAND_WORD = "incomes";
-
-    private final String[] fullCommands;
+    private final String[] arguments;
 
     public ListIncomesCommand(String[] fullCommands) {
-        this.fullCommands = fullCommands;
+        this.arguments = fullCommands;
     }
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert fullCommands[1].equals("incomes") : "command should be to list incomes";
+        assert arguments[LIST_TYPE_INDEX].equals("incomes") : "command should be to list incomes";
         try {
-            if (fullCommands.length > LIST_INCOMES_SPENDINGS_MAX_LENGTH) {
-                throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
-                        + LIST_COMMAND_FORMAT);
-            }
-            TimeRange listIncomesTimeRange = null;
-            while (listIncomesTimeRange == null) {
-                listIncomesTimeRange = Ui.askForTimeRange();
-            }
-            assert listIncomesTimeRange != null : "time range cannot be null";
-            if (listIncomesTimeRange == TimeRange.ALL) {
-                Ui.printIncomes(incomes);
-            } else if (listIncomesTimeRange == TimeRange.WEEKLY) {
-                Ui.printWeekly(incomes);
-            } else if (listIncomesTimeRange == TimeRange.BIWEEKLY) {
-                Ui.printBiweekly(incomes);
-            } else if (listIncomesTimeRange == TimeRange.MONTHLY) {
-                Ui.printMonthly(incomes);
-            }
+            commandHandler(incomes);
         } catch (WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
+    }
 
+    private void commandHandler(IncomeList incomes) throws WiagiMissingParamsException {
+        if (arguments.length != LIST_COMPULSORY_ARGUMENTS_LENGTH) {
+            throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT);
+        }
+        boolean isListAllIncomes =  Ui.printListOfTimeRange(incomes);
+        if (isListAllIncomes) {
+            Ui.printArrList(incomes);
+        }
     }
 }

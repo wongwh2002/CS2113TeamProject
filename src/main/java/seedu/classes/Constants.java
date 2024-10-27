@@ -42,11 +42,6 @@ public class Constants {
     public static final String BIWEEKLY_OPTION = "3";
     public static final String MONTHLY_OPTION = "4";
 
-    // List command
-    public static final int LIST_ALL_COMMAND_LENGTH = 1;
-    public static final int SECOND_WORD_INDEX = 1;
-    public static final int LIST_INCOMES_SPENDINGS_MAX_LENGTH = 2;
-    public static final int LIST_SPECIFIC_TAG_LENGTH = 3;
-
-
+    public static final int LIST_TYPE_INDEX = 1;
+    public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
 }
