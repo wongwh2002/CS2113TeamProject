@@ -1,6 +1,5 @@
 package seedu.type;
 
-import seedu.classes.Constants;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.RecurrenceFrequency;
@@ -8,9 +7,15 @@ import seedu.recurrence.RecurrenceFrequency;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static seedu.classes.Constants.DAILY_RECURRENCE;
+import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
+import static seedu.classes.Constants.DAILY_RECURRENCE;
+import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.LIST_SEPARATOR;
 
 public class Type {
     private double amount;
@@ -22,16 +27,16 @@ public class Type {
     private int dayOfRecurrence;
 
     //@@author wongwh2002
-    public Type(String userInput, double amount, String description) {
+    public Type(String optionalArguments, double amount, String description) {
         this.amount = amount;
         assert amount > 0 : "Amount should be greater than zero";
         this.description = description;
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
-        this.date = extractDate(userInput);
+        this.date = extractDate(optionalArguments);
         assert date != null : "Date should not be null";
-        this.tag = extractTag(userInput);
+        this.tag = extractTag(optionalArguments);
         assert tag != null : "Tag should not be null";
-        this.recurrenceFrequency = extractRecurrenceFrequency(userInput);
+        this.recurrenceFrequency = extractRecurrenceFrequency(optionalArguments);
         this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
         if (lastRecurrence != null) {
             this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
@@ -60,8 +65,8 @@ public class Type {
         this.dayOfRecurrence = dayOfRecurrence;
     }
 
-    private String extractTag(String userInput) {
-        String[] commandAndTag = userInput.split("\\*");
+    private String extractTag(String optionalArguments) {
+        String[] commandAndTag = optionalArguments.split("\\*");
         if (commandAndTag.length == 1) {
             return "";
         }
@@ -72,21 +77,21 @@ public class Type {
         return this.amount;
     }
 
-    private LocalDate extractDate(String userInput) throws WiagiInvalidInputException {
-        String[] commandAndDate = userInput.split("/");
+    private LocalDate extractDate(String optionalArguments) throws WiagiInvalidInputException {
+        String[] commandAndDate = optionalArguments.split("/");
         try {
             if (commandAndDate.length == 1) {
                 return LocalDate.now();
             }
             return LocalDate.parse(commandAndDate[1].trim());
         } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.ADD_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
         }
     }
 
-    private RecurrenceFrequency extractRecurrenceFrequency(String userInput)
+    private RecurrenceFrequency extractRecurrenceFrequency(String optionalArguments)
             throws WiagiInvalidInputException {
-        String[] commandAndFrequency = userInput.split("~");
+        String[] commandAndFrequency = optionalArguments.split("~");
         if (commandAndFrequency.length == 1) {
             return RecurrenceFrequency.NONE;
         }
@@ -100,7 +105,7 @@ public class Type {
         case YEARLY_RECURRENCE:
             return RecurrenceFrequency.YEARLY;
         default:
-            throw new WiagiInvalidInputException(Constants.INVALID_FREQUENCY + Constants.ADD_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INVALID_FREQUENCY + ADD_COMMAND_FORMAT);
         }
     }
 
@@ -114,9 +119,9 @@ public class Type {
     @Override
     public String toString() {
         String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.valueOf(amount);
-        String returnString = description + Constants.LIST_SEPARATOR + amountString + Constants.LIST_SEPARATOR + date;
+        String returnString = description + LIST_SEPARATOR + amountString + LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
-            returnString += Constants.LIST_SEPARATOR + tag;
+            returnString += LIST_SEPARATOR + tag;
         }
         return returnString;
     }
@@ -125,11 +130,11 @@ public class Type {
         try {
             int amount = Integer.parseInt(newAmount);
             if (amount <= 0) {
-                throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
             }
             this.amount = amount;
         } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(Constants.INVALID_AMOUNT + Constants.EDIT_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
         }
     }
 
@@ -141,7 +146,7 @@ public class Type {
         try {
             this.date = LocalDate.parse(date);
         } catch (Exception e) {
-            throw new WiagiInvalidInputException(Constants.INCORRECT_DATE_FORMAT + Constants.EDIT_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + EDIT_COMMAND_FORMAT);
         }
     }
 
