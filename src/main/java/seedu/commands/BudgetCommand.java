@@ -52,7 +52,7 @@ public class BudgetCommand extends Command {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
         int budget = formatBudget(stringBudget);
-        String timeRange = arguments[TIME_RANGE_INDEX];
+        String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
         addBudget(spendings, budget, timeRange);
     }
 

@@ -8,16 +8,16 @@ import seedu.type.SpendingList;
 public class ListAllCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    private final String[] fullCommands;
+    private final String[] arguments;
 
-    public ListAllCommand(String [] fullCommands) {
-        this.fullCommands = fullCommands;
+    public ListAllCommand(String [] arguments) {
+        this.arguments = arguments;
     }
 
     //@@author rharwo
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert fullCommands[0].equals("list") : "command should be 'list'";
+        assert arguments[0].equals(COMMAND_WORD) : "command should be 'list'";
         Ui.printArrList(spendings);
         Ui.printArrList(incomes);
     }

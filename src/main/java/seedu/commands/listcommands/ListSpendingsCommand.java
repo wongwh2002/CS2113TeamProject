@@ -22,7 +22,7 @@ public class ListSpendingsCommand extends Command {
 
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert arguments[LIST_TYPE_INDEX].equals("spendings") : "command should be to list spendings";
+        assert arguments[LIST_TYPE_INDEX].equals(COMMAND_WORD) : "command should be to list spendings";
         try {
             commandHandler(spendings);
         } catch (WiagiMissingParamsException e) {
