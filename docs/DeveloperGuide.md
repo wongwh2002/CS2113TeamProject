@@ -31,9 +31,11 @@ their distinct file paths.
 + Users may have differing frequencies for recurring events thus application gives them a few common options
 
 Illustrated below is the class diagram for the Recurrence Component:</br>
-{Insert Class diagram} </br>
+![recurrenceClassDiagram.png](./Diagrams/recurrenceClassDiagram.png)
 </br>
-{Insert Sequence Diagram} </br>
+</br>
+Illustrated below is the sequence diagram of the Recurrence Component: </br>
+![recurrenceSequenceDiagram.png](./Diagrams/recurrenceSequenceDiagram.png)
 </br>
 #### How the Recurrence Component works:</br>
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
