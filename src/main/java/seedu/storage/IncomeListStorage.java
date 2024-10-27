@@ -16,8 +16,10 @@ import java.time.LocalDate;
 
 import static seedu.classes.Constants.CSV_SEPARATOR;
 import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
+import static seedu.classes.Constants.LOAD_DATE_INDEX;
 import static seedu.classes.Constants.LOAD_DAY_OF_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_DESCRIPTION_INDEX;
+import static seedu.classes.Constants.LOAD_LAST_RECURRED_INDEX;
 import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 
@@ -49,10 +51,10 @@ public class IncomeListStorage {
             BufferedReader br = new BufferedReader(new FileReader(INCOME_FILE_PATH));
             while ((newEntry = br.readLine()) != null) {
                 String[] entryData = newEntry.split(",");
-                LocalDate date = LocalDate.parse(entryData[2]);
+                LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
                 LocalDate lastRecurred = null;
-                if (!entryData[5].equals("null")) {
-                    lastRecurred = LocalDate.parse(entryData[5]);
+                if (!entryData[LOAD_LAST_RECURRED_INDEX].equals("null")) {
+                    lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
                 }
                 Income nextEntry = new Income(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
                         entryData[LOAD_DESCRIPTION_INDEX], date, entryData[LOAD_TAG_INDEX],
