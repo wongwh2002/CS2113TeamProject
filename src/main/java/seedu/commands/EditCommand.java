@@ -28,6 +28,10 @@ public class EditCommand extends Command {
     private static final int CATEGORY_INDEX = 3;
     private static final int NEW_VALUE_INDEX = 4;
     private static final int EDIT_COMPULSORY_ARGUMENTS_LENGTH = 5;
+    private static final String AMOUNT_CATEGORY = "amount";
+    private static final String DESCRIPTION_CATEGORY = "description";
+    private static final String DATE_CATEGORY = "date";
+    private static final String TAG_CATEGORY = "tag";
 
     private final String fullCommand;
 
@@ -46,20 +50,20 @@ public class EditCommand extends Command {
         assert incomes != null;
         assert spendings != null;
         try {
-            commandHandler(incomes, spendings);
+            handleCommand(incomes, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(IncomeList incomes, SpendingList spendings)
+    private void handleCommand(IncomeList incomes, SpendingList spendings)
             throws WiagiMissingParamsException, WiagiInvalidIndexException {
         String[] arguments = extractArguments();
-        String type = arguments[TYPE_INDEX];
-        if (!(type.equals(SPENDING) || type.equals(INCOME))) {
+        String typeOfList = arguments[TYPE_INDEX];
+        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
         }
-        switch (type) {
+        switch (typeOfList) {
         case INCOME:
             editList(arguments, incomes);
             break;
@@ -86,16 +90,16 @@ public class EditCommand extends Command {
         String newValue = arguments[NEW_VALUE_INDEX];
         String category = arguments[CATEGORY_INDEX];
         switch (category) {
-        case "amount":
+        case AMOUNT_CATEGORY:
             entryToEdit.editAmount(newValue);
             break;
-        case "description":
+        case DESCRIPTION_CATEGORY:
             entryToEdit.editDescription(newValue);
             break;
-        case "date":
+        case DATE_CATEGORY:
             entryToEdit.editDate(newValue);
             break;
-        case "tag":
+        case TAG_CATEGORY:
             entryToEdit.editTag(newValue);
             break;
         default:

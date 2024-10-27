@@ -24,13 +24,13 @@ public class ListIncomesCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert arguments[LIST_TYPE_INDEX].equals(COMMAND_WORD) : "command should be to list incomes";
         try {
-            commandHandler(incomes);
+            handleCommand(incomes);
         } catch (WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(IncomeList incomes) throws WiagiMissingParamsException {
+    private void handleCommand(IncomeList incomes) throws WiagiMissingParamsException {
         if (arguments.length != LIST_COMPULSORY_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT);
         }

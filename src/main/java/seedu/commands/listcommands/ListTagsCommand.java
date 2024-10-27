@@ -24,13 +24,13 @@ public class ListTagsCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert arguments[LIST_CATEGORY_INDEX].equals(COMMAND_WORD) : "command should be to list tags";
         try {
-            commandHandler(incomes, spendings);
+            handleCommand(incomes, spendings);
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(IncomeList incomes, SpendingList spendings) throws WiagiMissingParamsException {
+    private void handleCommand(IncomeList incomes, SpendingList spendings) throws WiagiMissingParamsException {
         if (arguments.length < LIST_SPECIFIC_TAG_LENGTH) {
             Ui.printAllTags(incomes, spendings);
             return;

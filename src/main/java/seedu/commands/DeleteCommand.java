@@ -21,7 +21,7 @@ import static seedu.classes.Constants.SPENDING;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    private static final int TYPE_INDEX = 1;
+    private static final int LIST_TYPE_INDEX = 1;
     private static final int INDEX_OF_ENTRY_INDEX = 2;
     private static final int DELETE_COMPULSORY_ARGUMENTS_LENGTH = 3;
 
@@ -36,20 +36,20 @@ public class DeleteCommand extends Command {
         assert incomes != null;
         assert spendings != null;
         try {
-            commandHandler(incomes, spendings);
+            handleCommand(incomes, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(IncomeList incomes, SpendingList spendings)
+    private void handleCommand(IncomeList incomes, SpendingList spendings)
             throws WiagiMissingParamsException, WiagiInvalidIndexException {
         String[] arguments = extractArguments();
-        String type = arguments[TYPE_INDEX];
-        if (!(type.equals(SPENDING) || type.equals(INCOME))) {
+        String typeOfList = arguments[LIST_TYPE_INDEX];
+        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + DELETE_COMMAND_FORMAT);
         }
-        switch (type) {
+        switch (typeOfList) {
         case INCOME:
             deleteEntry(arguments, incomes);
             break;

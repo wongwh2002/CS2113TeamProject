@@ -21,6 +21,9 @@ public class BudgetCommand extends Command {
     private static final int TIME_RANGE_INDEX = 1;
     private static final int BUDGET_AMOUNT_INDEX = 2;
     private static final int BUDGET_COMPULSORY_ARGUMENTS_LENGTH = 3;
+    private static final String DAILY = "daily";
+    private static final String MONTHLY = "monthly";
+    private static final String YEARLY = "yearly";
 
     private final String fullCommand;
 
@@ -42,13 +45,13 @@ public class BudgetCommand extends Command {
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         try {
-            commandHandler(spendings);
+            handleCommand(spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(SpendingList spendings) throws WiagiMissingParamsException {
+    private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
         int budget = formatBudget(stringBudget);
@@ -74,15 +77,15 @@ public class BudgetCommand extends Command {
 
     private void addBudget(SpendingList spendings, int budget, String timeRange) {
         switch (timeRange) {
-        case "daily":
+        case DAILY:
             spendings.setDailyBudget(budget);
             Ui.printWithTab("Successfully set daily budget of: " + budget);
             break;
-        case "monthly":
+        case MONTHLY:
             spendings.setMonthlyBudget(budget);
             Ui.printWithTab("Successfully set monthly budget of: " + budget);
             break;
-        case "yearly":
+        case YEARLY:
             spendings.setYearlyBudget(budget);
             Ui.printWithTab("Successfully set yearly budget of: " + budget);
             break;

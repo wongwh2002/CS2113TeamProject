@@ -24,7 +24,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     private static final int DESCRIPTION_INDEX = 3;
-    private static final int TYPE_INDEX = 1;
+    private static final int LIST_TYPE_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
     private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
     private static final String OPTIONAL_ARGUMENTS_REGEX = "^(.*?)(?:[/~*].*)?$";
@@ -39,18 +39,18 @@ public class AddCommand extends Command {
         assert incomes != null;
         assert spendings != null;
         try {
-            commandHandler(incomes, spendings);
+            handleCommand(incomes, spendings);
         } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void commandHandler(IncomeList incomes, SpendingList spendings)
+    private void handleCommand(IncomeList incomes, SpendingList spendings)
             throws WiagiInvalidInputException, WiagiEmptyDescriptionException {
 
         String[] arguments = extractArguments(); // [add] [type] [amount] [others]
-        String type = arguments[TYPE_INDEX];
-        if (!(type.equals(SPENDING) || type.equals(INCOME))) {
+        String typeOfList = arguments[LIST_TYPE_INDEX];
+        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + ADD_COMMAND_FORMAT);
         }
 
@@ -64,7 +64,7 @@ public class AddCommand extends Command {
 
         String optionalArguments = descriptionAndOptionalArguments.substring(description.length());
 
-        if (type.equals(SPENDING)) {
+        if (typeOfList.equals(SPENDING)) {
             addSpending(spendings, amount, description, optionalArguments);
         } else {
             addIncome(incomes, amount, description, optionalArguments);
@@ -81,7 +81,7 @@ public class AddCommand extends Command {
         return arguments;
     }
 
-    private static String extractDescription(String descriptionAndOptionalArguments) {
+    private String extractDescription(String descriptionAndOptionalArguments) {
         Pattern pattern = Pattern.compile(OPTIONAL_ARGUMENTS_REGEX);
         Matcher matcher = pattern.matcher(descriptionAndOptionalArguments);
         if (matcher.find()) {
@@ -108,7 +108,7 @@ public class AddCommand extends Command {
         }
     }
 
-    private static double formatAmount(String stringAmount) {
+    private double formatAmount(String stringAmount) {
         try {
             double doubleAmount = Double.parseDouble(stringAmount);
             if (doubleAmount <= 0) {

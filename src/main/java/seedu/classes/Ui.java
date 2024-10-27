@@ -79,14 +79,14 @@ public class Ui {
     }
 
     public static <T extends Type> void printArrList(ArrayList<T> arrList) {
-        String type;
+        String typeOfList;
         if (arrList instanceof SpendingList) {
-            type = SPENDING;
+            typeOfList = SPENDING;
         } else {
-            type = INCOME;
+            typeOfList = INCOME;
         }
-        Ui.printWithTab(type);
-        Ui.printWithTab("Total " + type.toLowerCase() + ": " + printList(arrList));
+        Ui.printWithTab(typeOfList);
+        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
 
     }
 
@@ -98,14 +98,14 @@ public class Ui {
      * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
     public static <T> String printList(ArrayList<T> arrList) {
-        double sum = 0;
+        double sumOfAmountInList = 0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            sum += ((Type) arrList.get(indexInList)).getAmount();
+            sumOfAmountInList += ((Type) arrList.get(indexInList)).getAmount();
             Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
-        return formatPrintDouble(sum);
+        return formatPrintDouble(sumOfAmountInList);
     }
 
     private static String formatPrintDouble(double sum) {
