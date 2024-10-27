@@ -5,7 +5,6 @@ import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.RecurrenceFrequency;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -13,7 +12,7 @@ import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 
-public class Type implements Serializable {
+public class Type {
     private double amount;
     private String description;
     private LocalDate date;
