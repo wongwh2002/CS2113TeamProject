@@ -1,6 +1,5 @@
 package seedu.classes;
 
-import seedu.enums.TimeRange;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -34,7 +33,7 @@ public class Ui {
     }
 
     public static String readCommand() {
-        String line = scanner.nextLine();
+        String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
         return line;
@@ -79,15 +78,16 @@ public class Ui {
                 spendings.getYearlySpending()));
     }
 
-    public static void printSpendings(SpendingList spendings) {
-        Ui.printWithTab(SPENDING);
-        Ui.printWithTab("Total spendings: " + print_list(spendings));
+    public static <T extends Type> void printArrList(ArrayList<T> arrList) {
+        String typeOfList;
+        if (arrList instanceof SpendingList) {
+            typeOfList = SPENDING;
+        } else {
+            typeOfList = INCOME;
+        }
+        Ui.printWithTab(typeOfList);
+        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
 
-    }
-
-    public static void printIncomes(IncomeList incomes) {
-        Ui.printWithTab(INCOME);
-        Ui.printWithTab("Total incomes: " + print_list(incomes));
     }
 
     /**
@@ -97,15 +97,15 @@ public class Ui {
      * @param arrList The ArrayList containing elements to be printed and summed.
      * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
-    public static <T> String print_list(ArrayList<T> arrList) {
-        double sum = 0;
-        for (int i = 0; i < arrList.size(); i++) {
+    public static <T> String printList(ArrayList<T> arrList) {
+        double sumOfAmountInList = 0;
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
-            int oneIndexedI = i + 1;
-            sum += ((Type) arrList.get(i)).getAmount();
-            Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
+            int indexToUser = indexInList + 1;
+            sumOfAmountInList += ((Type) arrList.get(indexInList)).getAmount();
+            Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
-        return formatPrintDouble(sum);
+        return formatPrintDouble(sumOfAmountInList);
     }
 
     private static String formatPrintDouble(double sum) {
@@ -113,6 +113,49 @@ public class Ui {
             return String.valueOf((int) sum);
         }
         return String.valueOf(sum);
+    }
+
+    //@@author wongwh2002
+    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tagName) {
+        StringBuilder sbIncome = new StringBuilder();
+        StringBuilder sbSpending = new StringBuilder();
+        assert tagName != null && !tagName.isEmpty() : "Tag is null or empty";
+
+        int incomeCount = getTagsCount(incomes, tagName, sbIncome, INCOME);
+        int spendingCount = getTagsCount(spendings, tagName, sbSpending, SPENDING);
+        int tagCount = incomeCount + spendingCount;
+
+        if (tagCount == 0) {
+            throw new WiagiInvalidInputException("No entries with tag: " + tagName + ". Please input tags first!");
+        }
+        assert tagCount > 0 : "No entries with tag: " + tagName;
+        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tagName;
+
+        Ui.printWithTab("Tag: " + tagName);
+        if (incomeCount > 0) {
+            Ui.printWithTab(sbIncome.toString().trim());
+        }
+        if (spendingCount > 0) {
+            Ui.printWithTab(sbSpending.toString().trim());
+        }
+    }
+
+    //@@author wongwh2002
+    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
+                                                     StringBuilder sb, String listName) {
+        sb.append(listName).append(System.lineSeparator());
+        int tagsCount = 0;
+        int sizeOfArray = arrList.size();
+        for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
+            Type entry = arrList.get(indexInList);
+            if (entry.getTag().equals(tag)) {
+                tagsCount++;
+                int indexToUser = indexInList + 1;
+                sb.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
+            }
+        }
+        return tagsCount;
     }
 
     //@@author wongwh2002
@@ -124,9 +167,9 @@ public class Ui {
         }
         assert tags != null : "Tags list is null";
         Ui.printWithTab("Tags");
-        for (int i = 0; i < tags.size(); i++) {
-            int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        for (int indexInList = 0; indexInList < tags.size(); indexInList++) {
+            int indexToUser = indexInList + 1;
+            Ui.printWithTab(indexToUser + ". " + tags.get(indexInList));
         }
     }
 
@@ -151,53 +194,6 @@ public class Ui {
         return tags;
     }
 
-    //@@author wongwh2002
-    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
-        StringBuilder sbIncome = new StringBuilder();
-        StringBuilder sbSpending = new StringBuilder();
-        assert tag != null && !tag.isEmpty() : "Tag is null or empty";
-
-        int tagsCount;
-        int incomeCount;
-        int spendingCount;
-
-        incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
-        spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
-        tagsCount = incomeCount + spendingCount;
-
-        if (tagsCount == 0) {
-            throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
-        }
-
-        assert tagsCount > 0 : "No entries with tag: " + tag;
-        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
-
-        Ui.printWithTab("Tag: " + tag);
-        if (incomeCount > 0) {
-            Ui.printWithTab(sbIncome.toString().trim());
-        }
-        if (spendingCount > 0) {
-            Ui.printWithTab(sbSpending.toString().trim());
-        }
-    }
-
-    //@@author wongwh2002
-    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
-                                        StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
-        int tagsCount = 0;
-        for (int i = 0; i < arrList.size(); i++) {
-            Type listIndex = (Type) arrList.get(i);
-            if (listIndex.getTag().equals(tag)) {
-                tagsCount++;
-                int oneIndexedI = i + 1;
-                sb.append(TAB).append(oneIndexedI).append(". ")
-                        .append(listIndex).append(System.lineSeparator());
-            }
-        }
-        return tagsCount;
-    }
-
     //@@author wx-03
     public static <T extends Type> void printWeekly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();
@@ -210,7 +206,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printMonthly(ArrayList<T> arrList) {
@@ -223,7 +219,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printBiweekly(ArrayList<T> arrList) {
@@ -237,7 +233,48 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
+    }
+
+    //@@author wx-03
+    public static <T extends Type> boolean printListOfTimeRange(ArrayList<T> arrList) {
+        while (true) {
+            Ui.printWithTab(TIME_RANGE_MESSAGE);
+            String userInput = Ui.readCommand();
+            switch (userInput) {
+            case ALL_TIME_OPTION:
+                return true;
+            case WEEKLY_OPTION:
+                Ui.printWeekly(arrList);
+                return false;
+            case BIWEEKLY_OPTION:
+                Ui.printBiweekly(arrList);
+                return false;
+            case MONTHLY_OPTION:
+                Ui.printMonthly(arrList);
+                return false;
+            default:
+                Ui.printWithTab("Invalid input");
+            }
+        }
+    }
+
+    public static void printStatisticsIfRequired(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        while (true) {
+            String userInput = Ui.readCommand().toLowerCase();
+            switch (userInput) {
+            case "y":
+                Ui.printArrList(spendings);
+                Ui.printSpendingStatistics(spendings);
+                return;
+            case "n":
+                Ui.printArrList(spendings);
+                return;
+            default:
+                Ui.printWithTab("Invalid input. [Y/N].");
+            }
+        }
     }
 
     private static LocalDate getMondayDate(LocalDate currDate) {
@@ -259,30 +296,5 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
-    //@@author wx-03
-    public static TimeRange askForTimeRange() {
-        TimeRange selectedTimeRange = null;
-        while (selectedTimeRange == null) {
-            Ui.printWithTab(TIME_RANGE_MESSAGE);
-            String userInput = Ui.readCommand();
-            switch (userInput) {
-            case ALL_TIME_OPTION:
-                selectedTimeRange = TimeRange.ALL;
-                break;
-            case WEEKLY_OPTION:
-                selectedTimeRange = TimeRange.WEEKLY;
-                break;
-            case BIWEEKLY_OPTION:
-                selectedTimeRange = TimeRange.BIWEEKLY;
-                break;
-            case MONTHLY_OPTION:
-                selectedTimeRange = TimeRange.MONTHLY;
-                break;
-            default:
-                Ui.printWithTab("Invalid input");
-            }
-        }
-        return selectedTimeRange;
-    }
 }
 
