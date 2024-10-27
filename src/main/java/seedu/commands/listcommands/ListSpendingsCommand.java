@@ -2,7 +2,6 @@ package seedu.commands.listcommands;
 
 import seedu.classes.Ui;
 import seedu.commands.Command;
-import seedu.enums.TimeRange;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;

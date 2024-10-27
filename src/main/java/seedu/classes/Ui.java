@@ -116,6 +116,49 @@ public class Ui {
     }
 
     //@@author wongwh2002
+    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tagName) {
+        StringBuilder sbIncome = new StringBuilder();
+        StringBuilder sbSpending = new StringBuilder();
+        assert tagName != null && !tagName.isEmpty() : "Tag is null or empty";
+
+        int incomeCount = getTagsCount(incomes, tagName, sbIncome, INCOME);
+        int spendingCount = getTagsCount(spendings, tagName, sbSpending, SPENDING);
+        int tagCount = incomeCount + spendingCount;
+
+        if (tagCount == 0) {
+            throw new WiagiInvalidInputException("No entries with tag: " + tagName + ". Please input tags first!");
+        }
+        assert tagCount > 0 : "No entries with tag: " + tagName;
+        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tagName;
+
+        Ui.printWithTab("Tag: " + tagName);
+        if (incomeCount > 0) {
+            Ui.printWithTab(sbIncome.toString().trim());
+        }
+        if (spendingCount > 0) {
+            Ui.printWithTab(sbSpending.toString().trim());
+        }
+    }
+
+    //@@author wongwh2002
+    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
+                                                     StringBuilder sb, String listName) {
+        sb.append(listName).append(System.lineSeparator());
+        int tagsCount = 0;
+        int sizeOfArray = arrList.size();
+        for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
+            Type entry = arrList.get(indexInList);
+            if (entry.getTag().equals(tag)) {
+                tagsCount++;
+                int indexToUser = indexInList + 1;
+                sb.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
+            }
+        }
+        return tagsCount;
+    }
+
+    //@@author wongwh2002
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
@@ -149,54 +192,6 @@ public class Ui {
         }
         tags.remove(EMPTY_STRING);
         return tags;
-    }
-
-    //@@author wongwh2002
-    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
-        StringBuilder sbIncome = new StringBuilder();
-        StringBuilder sbSpending = new StringBuilder();
-        assert tag != null && !tag.isEmpty() : "Tag is null or empty";
-
-        int tagCount;
-        int incomeCount;
-        int spendingCount;
-
-        incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
-        spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
-        tagCount = incomeCount + spendingCount;
-
-        if (tagCount == 0) {
-            throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
-        }
-
-        assert tagCount > 0 : "No entries with tag: " + tag;
-        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
-
-        Ui.printWithTab("Tag: " + tag);
-        if (incomeCount > 0) {
-            Ui.printWithTab(sbIncome.toString().trim());
-        }
-        if (spendingCount > 0) {
-            Ui.printWithTab(sbSpending.toString().trim());
-        }
-    }
-
-    //@@author wongwh2002
-    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
-                                        StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
-        int tagsCount = 0;
-        int sizeOfArray = arrList.size();
-        for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
-            Type entry = (Type) arrList.get(indexInList);
-            if (entry.getTag().equals(tag)) {
-                tagsCount++;
-                int indexToUser = indexInList + 1;
-                sb.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
-            }
-        }
-        return tagsCount;
     }
 
     //@@author wx-03
@@ -241,25 +236,6 @@ public class Ui {
         printList(filteredList);
     }
 
-    private static LocalDate getMondayDate(LocalDate currDate) {
-        while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
-            currDate = currDate.minusDays(1);
-        }
-        return currDate;
-    }
-
-    private static LocalDate getSundayDate(LocalDate currDate) {
-        while (currDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-            currDate = currDate.plusDays(1);
-        }
-        return currDate;
-    }
-
-    private static boolean isInRange(LocalDate date, LocalDate start, LocalDate end) {
-        return (date.isAfter(start) || date.isEqual(start))
-                && (date.isBefore(end) || date.isEqual(end));
-    }
-
     //@@author wx-03
     public static <T extends Type> boolean printListOfTimeRange(ArrayList<T> arrList) {
         while (true) {
@@ -300,5 +276,25 @@ public class Ui {
             }
         }
     }
+
+    private static LocalDate getMondayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
+            currDate = currDate.minusDays(1);
+        }
+        return currDate;
+    }
+
+    private static LocalDate getSundayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            currDate = currDate.plusDays(1);
+        }
+        return currDate;
+    }
+
+    private static boolean isInRange(LocalDate date, LocalDate start, LocalDate end) {
+        return (date.isAfter(start) || date.isEqual(start))
+                && (date.isBefore(end) || date.isEqual(end));
+    }
+
 }
 
