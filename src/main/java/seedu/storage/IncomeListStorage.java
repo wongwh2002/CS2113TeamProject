@@ -5,16 +5,14 @@ import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.classes.Ui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Scanner;
 
-import static seedu.classes.Constants.CSV_SEPARATOR;
+import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
+import static seedu.classes.Constants.STORAGE_SEPARATOR;
 import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
 import static seedu.classes.Constants.LOAD_DATE_INDEX;
 import static seedu.classes.Constants.LOAD_DAY_OF_RECURRENCE_INDEX;
@@ -25,33 +23,34 @@ import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
 public class IncomeListStorage {
-    private static final String INCOME_FILE_PATH = "./incomes.csv";
+    private static final String INCOME_FILE_PATH = "./incomes.txt";
 
     static void save(IncomeList incomes) {
         try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(INCOME_FILE_PATH),
-                    StandardCharsets.UTF_8));
+            FileWriter fw = new FileWriter(INCOME_FILE_PATH);
             for (Income income : incomes) {
-                String incomeEntry = income.getAmount() + CSV_SEPARATOR + income.getDescription() +
-                        CSV_SEPARATOR + income.getDate() + CSV_SEPARATOR + income.getTag() + CSV_SEPARATOR +
-                        income.getRecurrenceFrequency() + CSV_SEPARATOR + income.getLastRecurrence() +
-                        CSV_SEPARATOR + income.getDayOfRecurrence();
-                bw.write(incomeEntry);
-                bw.newLine();
+                String incomeEntry = income.getAmount() + STORAGE_SEPARATOR + income.getDescription() +
+                        STORAGE_SEPARATOR + income.getDate() + STORAGE_SEPARATOR + income.getTag() + STORAGE_SEPARATOR +
+                        income.getRecurrenceFrequency() + STORAGE_SEPARATOR + income.getLastRecurrence() +
+                        STORAGE_SEPARATOR + income.getDayOfRecurrence();
+                fw.write(incomeEntry + System.lineSeparator());
             }
-            bw.flush();
-            bw.close();
+            fw.close();
         } catch (IOException e){
-            Ui.printWithTab("An error has occurred when saving file!");
+            Ui.printWithTab("An error has occurred when saving income file!");
         }
     }
 
     static void load() {
-        String newEntry = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(INCOME_FILE_PATH));
-            while ((newEntry = br.readLine()) != null) {
-                String[] entryData = newEntry.split(CSV_SEPARATOR);
+            if (new File(INCOME_FILE_PATH).createNewFile()) {
+                return;
+            }
+            File incomeFile = new File(INCOME_FILE_PATH);
+            Scanner incomeReader = new Scanner(incomeFile);
+            while (incomeReader.hasNext()) {
+                String newEntry = incomeReader.nextLine();
+                String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
                 LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
                 LocalDate lastRecurred = null;
                 if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
@@ -64,7 +63,7 @@ public class IncomeListStorage {
                 Storage.incomes.add(nextEntry);
             }
         } catch (IOException e) {
-            Ui.printWithTab("An error has occurred when saving file!");
+            Ui.printWithTab("An error has occurred when loading income file!");
         }
     }
 }

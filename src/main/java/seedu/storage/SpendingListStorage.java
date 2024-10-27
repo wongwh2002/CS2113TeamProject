@@ -5,16 +5,17 @@ import seedu.type.Spending;
 import seedu.type.SpendingList;
 import seedu.classes.Ui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Scanner;
 
-import static seedu.classes.Constants.CSV_SEPARATOR;
+import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
+import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
+import static seedu.classes.Constants.LOAD_YEARLY_BUDGET_INDEX;
+import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
+import static seedu.classes.Constants.STORAGE_SEPARATOR;
 import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
 import static seedu.classes.Constants.LOAD_DATE_INDEX;
 import static seedu.classes.Constants.LOAD_DAY_OF_RECURRENCE_INDEX;
@@ -25,33 +26,41 @@ import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
 public class SpendingListStorage {
-    private static final String SPENDINGS_FILE_PATH = "./spendings.csv";
+    private static final String SPENDINGS_FILE_PATH = "./spendings.txt";
 
     static void save(SpendingList spendings) {
         try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(SPENDINGS_FILE_PATH),
-                    StandardCharsets.UTF_8));
+            FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
+            String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
+                    spendings.getMonthlyBudget() + STORAGE_SEPARATOR + spendings.getYearlySpending();
+            fw.write(budgetDetails + System.lineSeparator());
             for (Spending spending : spendings) {
-                String singleEntry = spending.getAmount() + CSV_SEPARATOR + spending.getDescription() +
-                        CSV_SEPARATOR + spending.getDate() + CSV_SEPARATOR + spending.getTag() + CSV_SEPARATOR +
-                        spending.getRecurrenceFrequency() + CSV_SEPARATOR + spending.getLastRecurrence() +
-                        CSV_SEPARATOR + spending.getDayOfRecurrence();
-                bw.write(singleEntry);
-                bw.newLine();
+                String singleEntry = spending.getAmount() + STORAGE_SEPARATOR + spending.getDescription() +
+                        STORAGE_SEPARATOR + spending.getDate() + STORAGE_SEPARATOR + spending.getTag() +
+                        STORAGE_SEPARATOR + spending.getRecurrenceFrequency() + STORAGE_SEPARATOR +
+                        spending.getLastRecurrence() + STORAGE_SEPARATOR + spending.getDayOfRecurrence();
+                fw.write(singleEntry + System.lineSeparator());
             }
-            bw.flush();
-            bw.close();
+            fw.close();
         } catch (IOException e){
             Ui.printWithTab("An error has occurred when saving file!");
         }
     }
 
     static void load() {
-        String newEntry = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(SPENDINGS_FILE_PATH));
-            while ((newEntry = br.readLine()) != null) {
-                String[] entryData = newEntry.split(CSV_SEPARATOR);
+            if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
+                return;
+            }
+            File spendingFile = new File(SPENDINGS_FILE_PATH);
+            Scanner spendingReader = new Scanner(spendingFile);
+            String[] budgetDetails = spendingReader.nextLine().split(STORAGE_LOAD_SEPARATOR);
+            Storage.spendings.setDailyBudget(Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]));
+            Storage.spendings.setMonthlyBudget(Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]));
+            Storage.spendings.setYearlyBudget(Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]));
+            while (spendingReader.hasNext()) {
+                String newEntry = spendingReader.nextLine();
+                String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
                 LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
                 LocalDate lastRecurred = null;
                 if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
@@ -64,7 +73,7 @@ public class SpendingListStorage {
                 Storage.spendings.add(nextEntry);
             }
         } catch (IOException e) {
-            Ui.printWithTab("An error has occurred when saving file!");
+            Ui.printWithTab("An error has occurred when loading file!");
         }
     }
 }

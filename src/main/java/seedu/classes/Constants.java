@@ -7,7 +7,8 @@ public class Constants {
     // Strings
     public static final String SEPARATOR = "____________________________________________________________";
     public static final String LIST_SEPARATOR = " - ";
-    public static final String CSV_SEPARATOR = ",";
+    public static final String STORAGE_SEPARATOR = "|";
+    public static final String STORAGE_LOAD_SEPARATOR = "\\|";
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
     public static final String SPENDING = "spending";
@@ -54,4 +55,7 @@ public class Constants {
     public static final int LOAD_RECURRENCE_INDEX = 4;
     public static final int LOAD_LAST_RECURRED_INDEX = 5;
     public static final int LOAD_DAY_OF_RECURRENCE_INDEX = 6;
+    public static final int LOAD_DAILY_BUDGET_INDEX = 0;
+    public static final int LOAD_MONTHLY_BUDGET_INDEX = 1;
+    public static final int LOAD_YEARLY_BUDGET_INDEX = 2;
 }
