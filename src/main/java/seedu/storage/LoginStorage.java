@@ -5,10 +5,12 @@ import seedu.classes.Ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
+
 
     static void load() {
         try {
@@ -20,17 +22,29 @@ public class LoginStorage {
                 Storage.password = Integer.parseInt(passwordHash);
                 return;
             }
+            createNewUser();
+        } catch (IOException e) {
+            Ui.printWithTab(e.getMessage());
+        } catch (NoSuchElementException e) {
+            File passwordFile = new File(PASSWORD_FILE_PATH);
+            passwordFile.delete();
+            createNewUser();
+        }
+    }
+
+    private static void createNewUser() {
+        try {
             FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
-            int passwordHash = createNewUser();
+            int passwordHash = getNewUserPassword();
             fw.write(Integer.toString(passwordHash));
             fw.close();
             Storage.password = passwordHash;
         } catch (IOException e) {
             Ui.printWithTab(e.getMessage());
         }
-    }
+        }
 
-    private static int createNewUser() {
+    private static int getNewUserPassword() {
         Ui.printSeparator();
         Ui.printWithTab("Hi! You seem to be new, are you ready?!");
         Ui.printWithTab("Please enter your new account password:");
