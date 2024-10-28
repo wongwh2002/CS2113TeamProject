@@ -11,9 +11,9 @@ import java.util.Comparator;
  * Represents a list of spendings with budget settings.
  */
 public class SpendingList extends ArrayList<Spending> {
-    private int dailyBudget;
-    private int monthlyBudget;
-    private int yearlyBudget;
+    private double dailyBudget;
+    private double monthlyBudget;
+    private double yearlyBudget;
 
     /**
      * Constructs an empty SpendingList with default budget values.
@@ -42,7 +42,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The daily budget.
      */
-    public int getDailyBudget() {
+    public double getDailyBudget() {
         return dailyBudget;
     }
 
@@ -51,7 +51,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The monthly budget.
      */
-    public int getMonthlyBudget() {
+    public double getMonthlyBudget() {
         return monthlyBudget;
     }
 
@@ -60,7 +60,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The yearly budget.
      */
-    public int getYearlyBudget() {
+    public double getYearlyBudget() {
         return yearlyBudget;
     }
 
@@ -69,8 +69,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param dailyBudget The daily budget to set.
      */
-    public void setDailyBudget(int dailyBudget) {
-        this.dailyBudget = dailyBudget;
+    public void setDailyBudget(double dailyBudget) {
+        this.dailyBudget = Math.round(dailyBudget * 100.0) / 100.0;
     }
 
     /**
@@ -78,8 +78,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param monthlyBudget The monthly budget to set.
      */
-    public void setMonthlyBudget(int monthlyBudget) {
-        this.monthlyBudget = monthlyBudget;
+    public void setMonthlyBudget(double monthlyBudget) {
+        this.monthlyBudget = Math.round(monthlyBudget * 100.0) / 100.0;
     }
 
     /**
@@ -87,8 +87,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param yearlyBudget The yearly budget to set.
      */
-    public void setYearlyBudget(int yearlyBudget) {
-        this.yearlyBudget = yearlyBudget;
+    public void setYearlyBudget(double yearlyBudget) {
+        this.yearlyBudget = Math.round(yearlyBudget * 100.0) / 100.0;
     }
 
     /**

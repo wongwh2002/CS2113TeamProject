@@ -7,6 +7,8 @@ public class Constants {
     // Strings
     public static final String SEPARATOR = "____________________________________________________________";
     public static final String LIST_SEPARATOR = " - ";
+    public static final String STORAGE_SEPARATOR = "|";
+    public static final String STORAGE_LOAD_SEPARATOR = "\\|";
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
     public static final String SPENDING = "spending";
@@ -41,7 +43,23 @@ public class Constants {
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";
     public static final String MONTHLY_OPTION = "4";
-
     public static final int LIST_TYPE_INDEX = 1;
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
+
+    // Storage load
+    public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";
+    public static final String SAVE_INCOME_FILE_ERROR = "An error has occurred when saving income file!";
+    public static final String LOAD_SPENDING_FILE_ERROR = "An error has occurred when loading spending file!";
+    public static final String SAVE_SPENDING_FILE_ERROR = "An error has occurred when saving spending file!";
+    public static final String NO_RECURRENCE = "null";
+    public static final int LOAD_AMOUNT_INDEX = 0;
+    public static final int LOAD_DESCRIPTION_INDEX = 1;
+    public static final int LOAD_DATE_INDEX = 2;
+    public static final int LOAD_TAG_INDEX = 3;
+    public static final int LOAD_RECURRENCE_INDEX = 4;
+    public static final int LOAD_LAST_RECURRED_INDEX = 5;
+    public static final int LOAD_DAY_OF_RECURRENCE_INDEX = 6;
+    public static final int LOAD_DAILY_BUDGET_INDEX = 0;
+    public static final int LOAD_MONTHLY_BUDGET_INDEX = 1;
+    public static final int LOAD_YEARLY_BUDGET_INDEX = 2;
 }
