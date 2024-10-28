@@ -11,8 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
-import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
-import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
@@ -55,7 +53,7 @@ public class AddCommand extends Command {
         }
 
         String stringAmount = arguments[AMOUNT_INDEX];
-        double amount = formatAmount(stringAmount);
+        double amount = CommandUtils.formatAmount(stringAmount, ADD_COMMAND_FORMAT);
         assert amount > 0 : "Amount should be greater than zero";
 
         String descriptionAndOptionalArguments = arguments[DESCRIPTION_INDEX];
@@ -105,18 +103,6 @@ public class AddCommand extends Command {
             incomes.add(toAdd);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
-        }
-    }
-
-    private double formatAmount(String stringAmount) {
-        try {
-            double doubleAmount = Double.parseDouble(stringAmount);
-            if (doubleAmount <= 0) {
-                throw new WiagiInvalidInputException(INVALID_AMOUNT + ADD_COMMAND_FORMAT);
-            }
-            return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
-        } catch (NumberFormatException nfe) {
-            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT);
         }
     }
 }

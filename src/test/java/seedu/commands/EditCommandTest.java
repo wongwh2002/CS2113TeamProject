@@ -15,14 +15,18 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
-import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+
+
 
 class EditCommandTest {
 
@@ -37,7 +41,7 @@ class EditCommandTest {
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(10, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10.51, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         spendings.add(new Spending(10, "macdonalds", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(10, "savings", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(10, "dividends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
@@ -95,7 +99,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
