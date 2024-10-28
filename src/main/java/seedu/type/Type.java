@@ -128,7 +128,7 @@ public class Type {
 
     public void editAmount(String newAmount) throws WiagiInvalidInputException{
         try {
-            int amount = Integer.parseInt(newAmount);
+            double amount = Double.parseDouble(newAmount);
             if (amount <= 0) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
             }
