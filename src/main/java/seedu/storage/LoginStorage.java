@@ -42,7 +42,7 @@ public class LoginStorage {
         } catch (IOException e) {
             Ui.printWithTab(e.getMessage());
         }
-        }
+    }
 
     private static int getNewUserPassword() {
         Ui.printSeparator();
