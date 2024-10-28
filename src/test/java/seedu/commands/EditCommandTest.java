@@ -41,7 +41,7 @@ class EditCommandTest {
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(10.51, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         spendings.add(new Spending(10, "macdonalds", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(10, "savings", currentDate, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(10, "dividends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
@@ -114,10 +114,10 @@ class EditCommandTest {
 
     @Test
     public void execute_editSpendingAmount_success() {
-        String userInout = "edit spending 1 amount 1";
+        String userInout = "edit spending 1 amount 1.05";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
+        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + currentDate,
                 spendings.get(0).toString());
     }
 
