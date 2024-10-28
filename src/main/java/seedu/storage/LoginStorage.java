@@ -20,9 +20,9 @@ public class LoginStorage {
                 Scanner scanner = new Scanner(file);
                 String passwordHash = scanner.next();
                 Storage.password = Integer.parseInt(passwordHash);
-                return;
+            } else {
+                createNewUser();
             }
-            createNewUser();
         } catch (IOException e) {
             Ui.printWithTab(e.getMessage());
         } catch (NoSuchElementException e) {
