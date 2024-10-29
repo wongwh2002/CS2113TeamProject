@@ -17,7 +17,7 @@ import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 
-public class Type {
+public class EntryType {
     private double amount;
     private String description;
     private LocalDate date;
@@ -27,7 +27,7 @@ public class Type {
     private int dayOfRecurrence;
 
     //@@author wongwh2002
-    public Type(String optionalArguments, double amount, String description) {
+    public EntryType(String optionalArguments, double amount, String description) {
         this.amount = amount;
         assert amount > 0 : "Amount should be greater than zero";
         this.description = description;
@@ -44,7 +44,7 @@ public class Type {
         Ui.printWithTab("Entry successfully added!");
     }
 
-    public Type(Type other) {
+    public EntryType(EntryType other) {
         this.amount = other.amount;
         this.description = other.description;
         this.date = other.date;
@@ -54,8 +54,8 @@ public class Type {
         this.dayOfRecurrence = other.dayOfRecurrence;
     }
 
-    public Type(double amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
-                LocalDate lastRecurrence, int dayOfRecurrence) {
+    public EntryType(double amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
+                     LocalDate lastRecurrence, int dayOfRecurrence) {
         this.amount = amount;
         this.description = description;
         this.date = date;

@@ -24,6 +24,6 @@ public class IncomeList extends ArrayList<Income> {
                 recurrence.checkIncomeRecurrence(income, this);
             }
         }
-        this.sort(Comparator.comparing(Type::getDate));
+        this.sort(Comparator.comparing(EntryType::getDate));
     }
 }

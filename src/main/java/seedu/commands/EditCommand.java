@@ -6,7 +6,7 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
-import seedu.type.Type;
+import seedu.type.EntryType;
 
 import java.util.ArrayList;
 
@@ -83,10 +83,10 @@ public class EditCommand extends Command {
         return arguments;
     }
 
-    private <T extends ArrayList<? extends Type>> void editList(String[] arguments, T list)
+    private <T extends ArrayList<? extends EntryType>> void editList(String[] arguments, T list)
             throws WiagiInvalidIndexException {
         String index = arguments[INDEX_OF_ENTRY_INDEX];
-        Type entryToEdit = extractEntry(list, index);
+        EntryType entryToEdit = extractEntry(list, index);
         String newValue = arguments[NEW_VALUE_INDEX];
         String category = arguments[CATEGORY_INDEX];
         switch (category) {
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         Ui.printWithTab("Edit Successful!");
     }
 
-    private <T extends ArrayList<? extends Type>> Type extractEntry(T list, String stringIndex)
+    private <T extends ArrayList<? extends EntryType>> EntryType extractEntry(T list, String stringIndex)
             throws WiagiInvalidIndexException {
         try {
             int index = Integer.parseInt(stringIndex) - 1;
