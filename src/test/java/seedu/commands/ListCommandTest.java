@@ -200,13 +200,13 @@ class ListCommandTest {
                         "\t2. macdonalds - 10 - " + currentDate + " - food" + System.lineSeparator() +
                         "\tTotal spendings: 20" + System.lineSeparator() +
                         "\t\tDaily spendings: 20" + System.lineSeparator() +
-                        "\t\tDaily Budget: 0" + System.lineSeparator() +
+                        "\t\tDaily Budget: 0.0" + System.lineSeparator() +
                         "\t\tDaily budget left: -20" + System.lineSeparator() +
                         "\t\tMonthly spendings: 20" + System.lineSeparator() +
-                        "\t\tMonthly Budget: 0" + System.lineSeparator() +
+                        "\t\tMonthly Budget: 0.0" + System.lineSeparator() +
                         "\t\tMonthly budget left: -20" + System.lineSeparator() +
                         "\t\tYearly spendings: 20" + System.lineSeparator() +
-                        "\t\tYearly Budget: 0" + System.lineSeparator() +
+                        "\t\tYearly Budget: 0.0" + System.lineSeparator() +
                         "\t\tYearly budget left: -20" + System.lineSeparator(),
                 outContent.toString());
     }

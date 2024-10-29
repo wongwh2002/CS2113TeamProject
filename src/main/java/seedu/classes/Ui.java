@@ -1,6 +1,5 @@
 package seedu.classes;
 
-import seedu.enums.TimeRange;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -34,7 +33,7 @@ public class Ui {
     }
 
     public static String readCommand() {
-        String line = scanner.nextLine();
+        String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
         return line;
@@ -79,15 +78,16 @@ public class Ui {
                 spendings.getYearlySpending()));
     }
 
-    public static void printSpendings(SpendingList spendings) {
-        Ui.printWithTab(SPENDING);
-        Ui.printWithTab("Total spendings: " + print_list(spendings));
+    public static <T extends Type> void printArrList(ArrayList<T> arrList) {
+        String typeOfList;
+        if (arrList instanceof SpendingList) {
+            typeOfList = SPENDING;
+        } else {
+            typeOfList = INCOME;
+        }
+        Ui.printWithTab(typeOfList);
+        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
 
-    }
-
-    public static void printIncomes(IncomeList incomes) {
-        Ui.printWithTab(INCOME);
-        Ui.printWithTab("Total incomes: " + print_list(incomes));
     }
 
     /**
@@ -97,15 +97,15 @@ public class Ui {
      * @param arrList The ArrayList containing elements to be printed and summed.
      * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
-    public static <T> String print_list(ArrayList<T> arrList) {
-        double sum = 0;
-        for (int i = 0; i < arrList.size(); i++) {
+    public static <T> String printList(ArrayList<T> arrList) {
+        double sumOfAmountInList = 0;
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
-            int oneIndexedI = i + 1;
-            sum += ((Type) arrList.get(i)).getAmount();
-            Ui.printWithTab(oneIndexedI + ". " + arrList.get(i));
+            int indexToUser = indexInList + 1;
+            sumOfAmountInList += ((Type) arrList.get(indexInList)).getAmount();
+            Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
-        return formatPrintDouble(sum);
+        return formatPrintDouble(sumOfAmountInList);
     }
 
     private static String formatPrintDouble(double sum) {
@@ -124,9 +124,9 @@ public class Ui {
         }
         assert tags != null : "Tags list is null";
         Ui.printWithTab("Tags");
-        for (int i = 0; i < tags.size(); i++) {
-            int oneIndexedI = i + 1;
-            Ui.printWithTab(oneIndexedI + ". " + tags.get(i));
+        for (int indexInList = 0; indexInList < tags.size(); indexInList++) {
+            int indexToUser = indexInList + 1;
+            Ui.printWithTab(indexToUser + ". " + tags.get(indexInList));
         }
     }
 
@@ -203,7 +203,6 @@ public class Ui {
         Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
     }
 
-    //@@author wx-03
     public static <T extends Type> void printWeekly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
@@ -215,7 +214,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printMonthly(ArrayList<T> arrList) {
@@ -228,7 +227,7 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
     }
 
     public static <T extends Type> void printBiweekly(ArrayList<T> arrList) {
@@ -242,7 +241,48 @@ public class Ui {
                 filteredList.add(entry);
             }
         }
-        print_list(filteredList);
+        printList(filteredList);
+    }
+
+    //@@author wx-03
+    public static <T extends Type> boolean printListOfTimeRange(ArrayList<T> arrList) {
+        while (true) {
+            Ui.printWithTab(TIME_RANGE_MESSAGE);
+            String userInput = Ui.readCommand();
+            switch (userInput) {
+            case ALL_TIME_OPTION:
+                return true;
+            case WEEKLY_OPTION:
+                Ui.printWeekly(arrList);
+                return false;
+            case BIWEEKLY_OPTION:
+                Ui.printBiweekly(arrList);
+                return false;
+            case MONTHLY_OPTION:
+                Ui.printMonthly(arrList);
+                return false;
+            default:
+                Ui.printWithTab("Invalid input");
+            }
+        }
+    }
+
+    public static void printStatisticsIfRequired(SpendingList spendings) {
+        Ui.printWithTab("List all statistics? [Y/N]:");
+        while (true) {
+            String userInput = Ui.readCommand().toLowerCase();
+            switch (userInput) {
+            case "y":
+                Ui.printArrList(spendings);
+                Ui.printSpendingStatistics(spendings);
+                return;
+            case "n":
+                Ui.printArrList(spendings);
+                return;
+            default:
+                Ui.printWithTab("Invalid input. [Y/N].");
+            }
+        }
     }
 
     private static LocalDate getMondayDate(LocalDate currDate) {
@@ -264,30 +304,5 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
-    //@@author wx-03
-    public static TimeRange askForTimeRange() {
-        TimeRange selectedTimeRange = null;
-        while (selectedTimeRange == null) {
-            Ui.printWithTab(TIME_RANGE_MESSAGE);
-            String userInput = Ui.readCommand();
-            switch (userInput) {
-            case ALL_TIME_OPTION:
-                selectedTimeRange = TimeRange.ALL;
-                break;
-            case WEEKLY_OPTION:
-                selectedTimeRange = TimeRange.WEEKLY;
-                break;
-            case BIWEEKLY_OPTION:
-                selectedTimeRange = TimeRange.BIWEEKLY;
-                break;
-            case MONTHLY_OPTION:
-                selectedTimeRange = TimeRange.MONTHLY;
-                break;
-            default:
-                Ui.printWithTab("Invalid input");
-            }
-        }
-        return selectedTimeRange;
-    }
 }
 

@@ -1,6 +1,5 @@
 package seedu.recurrence;
 
-
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;

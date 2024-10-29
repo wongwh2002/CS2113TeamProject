@@ -3,35 +3,40 @@ package seedu.commands.listcommands;
 import seedu.classes.Ui;
 import seedu.commands.Command;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
-
-import static seedu.classes.Constants.LIST_SPECIFIC_TAG_LENGTH;
 
 public class ListTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "tags";
-    private final String[] fullCommands;
-    private final int commandSize;
+    private static final int LIST_CATEGORY_INDEX = 1;
+    private static final int LIST_TAG_NAME_INDEX = 2;
+    private static final int LIST_SPECIFIC_TAG_LENGTH = 3;
+    private final String[] arguments;
 
-    public ListTagsCommand(String[] fullCommands) {
-        this.fullCommands = fullCommands;
-        this.commandSize = fullCommands.length;
+    public ListTagsCommand(String[] arguments) {
+        this.arguments = arguments;
     }
 
     //@@author wongwh2002
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert fullCommands[1].equals("tags") : "command should be to list tags";
+        assert arguments[LIST_CATEGORY_INDEX].equals(COMMAND_WORD) : "command should be to list tags";
         try {
-            if (commandSize == LIST_SPECIFIC_TAG_LENGTH) {
-                assert fullCommands[2] != null : "tag name should not be null";
-                Ui.printSpecificTag(incomes, spendings, fullCommands[2]);
-            } else {
-                Ui.printAllTags(incomes, spendings);
-            }
-        } catch (WiagiInvalidInputException e) {
+            handleCommand(incomes, spendings);
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
+    }
+
+    private void handleCommand(IncomeList incomes, SpendingList spendings) throws WiagiMissingParamsException {
+        if (arguments.length < LIST_SPECIFIC_TAG_LENGTH) {
+            Ui.printAllTags(incomes, spendings);
+            return;
+        }
+        String tagName = arguments[LIST_TAG_NAME_INDEX];
+        assert tagName != null : "tag name should not be null";
+        Ui.printSpecificTag(incomes, spendings, tagName);
     }
 }

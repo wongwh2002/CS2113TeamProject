@@ -21,10 +21,12 @@ import seedu.type.Type;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.LIST_ALL_COMMAND_LENGTH;
+import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
+    private static final int LIST_CATEGORY_INDEX = 1;
+    private static final int LIST_ALL_COMMAND_LENGTH = 1;
 
     public static Command parseUserInput(String fullCommand) {
         String command = fullCommand.split(" ")[0].toLowerCase();
@@ -48,20 +50,20 @@ public class Parser {
     }
 
     private static Command parseListCommand(String fullCommand) {
-        String[] fullCommands = fullCommand.split(" ");
-        int commandSize = fullCommands.length;
+        String[] arguments = fullCommand.split(SPACE_REGEX);
+        int commandSize = arguments.length;
         assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {
-            return new ListAllCommand(fullCommands);
+            return new ListAllCommand(arguments);
         }
-        String firstIndex = fullCommands[1];
-        switch (firstIndex) {
+        String category = arguments[LIST_CATEGORY_INDEX];
+        switch (category) {
         case ListTagsCommand.COMMAND_WORD:
-            return new ListTagsCommand(fullCommands);
+            return new ListTagsCommand(arguments);
         case ListSpendingsCommand.COMMAND_WORD:
-            return new ListSpendingsCommand(fullCommands);
+            return new ListSpendingsCommand(arguments);
         case ListIncomesCommand.COMMAND_WORD:
-            return new ListIncomesCommand(fullCommands);
+            return new ListIncomesCommand(arguments);
         default:
             return new InvalidListCommand(new WiagiInvalidInputException(INVALID_CATEGORY + LIST_COMMAND_FORMAT));
         }
