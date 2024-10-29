@@ -11,9 +11,9 @@ import java.util.Comparator;
  * Represents a list of spendings with budget settings.
  */
 public class SpendingList extends ArrayList<Spending> {
-    private int dailyBudget;
-    private int monthlyBudget;
-    private int yearlyBudget;
+    private double dailyBudget;
+    private double monthlyBudget;
+    private double yearlyBudget;
 
     /**
      * Constructs an empty SpendingList with default budget values.
@@ -42,7 +42,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The daily budget.
      */
-    public int getDailyBudget() {
+    public double getDailyBudget() {
         return dailyBudget;
     }
 
@@ -51,7 +51,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The monthly budget.
      */
-    public int getMonthlyBudget() {
+    public double getMonthlyBudget() {
         return monthlyBudget;
     }
 
@@ -60,7 +60,7 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @return The yearly budget.
      */
-    public int getYearlyBudget() {
+    public double getYearlyBudget() {
         return yearlyBudget;
     }
 
@@ -69,8 +69,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param dailyBudget The daily budget to set.
      */
-    public void setDailyBudget(int dailyBudget) {
-        this.dailyBudget = dailyBudget;
+    public void setDailyBudget(double dailyBudget) {
+        this.dailyBudget = Math.round(dailyBudget * 100.0) / 100.0;
     }
 
     /**
@@ -78,8 +78,8 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param monthlyBudget The monthly budget to set.
      */
-    public void setMonthlyBudget(int monthlyBudget) {
-        this.monthlyBudget = monthlyBudget;
+    public void setMonthlyBudget(double monthlyBudget) {
+        this.monthlyBudget = Math.round(monthlyBudget * 100.0) / 100.0;
     }
 
     /**
@@ -87,19 +87,29 @@ public class SpendingList extends ArrayList<Spending> {
      *
      * @param yearlyBudget The yearly budget to set.
      */
-    public void setYearlyBudget(int yearlyBudget) {
-        this.yearlyBudget = yearlyBudget;
+    public void setYearlyBudget(double yearlyBudget) {
+        this.yearlyBudget = Math.round(yearlyBudget * 100.0) / 100.0;
     }
 
     /**
-     * Calculates the total spending for the current month.
+     * Calculates the total spending for the current calendar month.
      *
      * @return The total spending for the current month.
      */
     public double getMonthlySpending() {
+        return getMonthlySpending(LocalDate.now());
+    }
+
+    /**
+     * Calculates the total spending for the specified month of the given date.
+     *
+     * @param currentDate The date used to specify the month to calculate spending.
+     * @return The total spending for the specified month.
+     */
+    public double getMonthlySpending(LocalDate currentDate){
         double spendingTotal = 0;
         for (Spending spending : this) {
-            if (isThisMonth(spending.getDate())) {
+            if (isThisMonth(spending.getDate(), currentDate)) {
                 spendingTotal = spendingTotal + spending.getAmount();
             }
         }
@@ -112,9 +122,19 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the current day.
      */
     public double getDailySpending() {
+        return getDailySpending(LocalDate.now());
+    }
+
+    /**
+     * Calculates the total spending for the specified day.
+     *
+     * @param currentDate The date used to specify the day to calculate spending.
+     * @return The total spending for the specified day.
+     */
+    public double getDailySpending(LocalDate currentDate){
         double spendingTotal = 0;
         for (Spending spending : this) {
-            if (spending.getDate().isEqual(LocalDate.now())) {
+            if (spending.getDate().isEqual(currentDate)) {
                 spendingTotal = spendingTotal + spending.getAmount();
             }
         }
@@ -122,32 +142,42 @@ public class SpendingList extends ArrayList<Spending> {
     }
 
     /**
-     * Calculates the total spending for the current year.
+     * Calculates the total spending for the current calendar year.
      *
      * @return The total spending for the current year.
      */
     public double getYearlySpending() {
+        return getYearlySpending(LocalDate.now());
+    }
+
+    /**
+     * Calculates the total spending for the specified calendar year.
+     *
+     * @param currentDate The date used to specify the year to calculate spending.
+     * @return The total spending for the specified year.
+     */
+    public double getYearlySpending(LocalDate currentDate){
         double spendingTotal = 0;
         for (Spending spending : this) {
-            if (isThisYear(spending.getDate())) {
+            if (isThisYear(spending.getDate(), currentDate)) {
                 spendingTotal = spendingTotal + spending.getAmount();
             }
         }
         return spendingTotal;
     }
 
-    private boolean isThisYear(LocalDate date) {
-        int yearsToSubtract = 1;
-        LocalDate oneYearAgo = LocalDate.now().minusYears(yearsToSubtract);
-        return date.isAfter(oneYearAgo) && date.isBefore(LocalDate.now().plusDays(1));
+    private boolean isThisYear(LocalDate date, LocalDate currentDate) {
+        return date.getYear() == currentDate.getYear();
     }
 
-    private boolean isThisMonth(LocalDate date) {
-        int monthsToSubtract = 1;
-        LocalDate oneMonthAgo = LocalDate.now().minusMonths(monthsToSubtract);
-        return date.isAfter(oneMonthAgo) && date.isBefore(LocalDate.now().plusDays(1));
+    private boolean isThisMonth(LocalDate date, LocalDate currentDate) {
+        return date.getMonth().equals(currentDate.getMonth()) && isThisYear(date, currentDate);
     }
 
+    /**
+     * Updates all recurring spendings in the list based on their recurrence rules.
+     * After updating, sorts the list by spending dates.
+     */
     public void updateRecurrence() {
         int size = this.size();
         for (int i = 0; i < size; i++) {
