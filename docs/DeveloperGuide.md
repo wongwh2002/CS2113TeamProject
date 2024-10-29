@@ -31,10 +31,19 @@ their distinct file paths.
 + Users may have differing frequencies for recurring events thus application gives them a few common options
 
 Illustrated below is the class diagram for the Recurrence Component:</br>
-{Insert Class diagram} </br>
 </br>
-{Insert Sequence Diagram} </br>
+<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="800"/>
 </br>
+</br>
+Illustrated below is the sequence diagram of the Recurrence Component: </br>
+</br>
+<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="700"/>
+</br>
+For the reference fragment of 'load from storage', refer to [Storage component](#storage). </br>
+For the reference fragment of 'add recurring entry', refer to 
+[checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. </br>
+
+
 #### How the Recurrence Component works:</br>
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
 `Wiagi` to retrieve past data.
@@ -56,7 +65,6 @@ The following are child classes of `Recurrence`:
 + `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
-{Insert class diagram for Recurrence}
 ##### parseRecurrence method
 Class: `Parser` </br>
 Method Signature: </br>
@@ -77,6 +85,13 @@ public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes)
 @Override
 public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings)
 ```
+Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram </br>
+</br>
+<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="700"/> </br>
+Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). </br>
+Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
+for brevity.
+
 Functionality: </br>
 1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
 2. According to the type of recurrence, check if enough time has passed between the 2 dates
