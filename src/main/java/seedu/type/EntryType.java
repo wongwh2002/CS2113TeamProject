@@ -54,7 +54,8 @@ public class EntryType {
         this.dayOfRecurrence = other.dayOfRecurrence;
     }
 
-    public EntryType(double amount, String description, LocalDate date, String tag, RecurrenceFrequency recurrenceFrequency,
+    public EntryType(double amount, String description, LocalDate date,
+                     String tag, RecurrenceFrequency recurrenceFrequency,
                      LocalDate lastRecurrence, int dayOfRecurrence) {
         this.amount = amount;
         this.description = description;
