@@ -14,10 +14,10 @@ public class YearlyRecurrence extends Recurrence {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
         Income copyEntry = new Income(recurringIncome);
         copyEntry.setRecurrenceToNone();
+        if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
+            return;
+        }
         if (lastRecurred.getYear() < LocalDate.now().getYear()) {
-            if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
-                return;
-            }
             LocalDate checkDate = lastRecurred.plusYears(1);
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
@@ -34,10 +34,10 @@ public class YearlyRecurrence extends Recurrence {
         LocalDate lastRecurred = recurringSpending.getLastRecurrence();
         Spending copyEntry = new Spending(recurringSpending);
         copyEntry.setRecurrenceToNone();
+        if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
+            return;
+        }
         if (lastRecurred.getYear() < LocalDate.now().getYear()) {
-            if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
-                return;
-            }
             LocalDate checkDate = lastRecurred.plusYears(1);
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);

@@ -17,8 +17,7 @@ public class MonthlyRecurrence extends Recurrence {
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
             LocalDate checkDate = lastRecurred.plusMonths(1);
-            for (; !checkDate.isAfter(LocalDate.now());
-                    checkDate = checkDate.plusMonths(1)) {
+            for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusMonths(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Income newEntry = new Income(copyEntry);
                 checkIfDateAltered(newEntry, checkDate, incomes);
@@ -37,8 +36,7 @@ public class MonthlyRecurrence extends Recurrence {
         int lastRecurredTotalMonth = lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
         if (currentTotalMonth > lastRecurredTotalMonth) {
             LocalDate checkDate = lastRecurred.plusMonths(1);
-            for (; !checkDate.isAfter(LocalDate.now());
-                 checkDate = checkDate.plusMonths(1)) {
+            for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusMonths(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Spending newEntry = new Spending(copyEntry);
                 checkIfDateAltered(newEntry, checkDate, spendings);
