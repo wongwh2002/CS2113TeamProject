@@ -1,6 +1,7 @@
 package seedu.type;
 
 import seedu.classes.Ui;
+import seedu.commands.CommandUtils;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.RecurrenceFrequency;
 
@@ -14,7 +15,6 @@ import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
-import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 
 public class Type {
@@ -127,15 +127,7 @@ public class Type {
     }
 
     public void editAmount(String newAmount) throws WiagiInvalidInputException{
-        try {
-            int amount = Integer.parseInt(newAmount);
-            if (amount <= 0) {
-                throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
-            }
-            this.amount = amount;
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT + EDIT_COMMAND_FORMAT);
-        }
+        this.amount = CommandUtils.formatAmount(newAmount, EDIT_COMMAND_FORMAT);
     }
 
     public void editDescription(String newDescription){
