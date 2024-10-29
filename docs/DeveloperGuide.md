@@ -11,6 +11,9 @@ original source as well}
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+## Overall Class Diagram
+![overallClass.jpg](./Diagrams/overallClass.jpg)
+
 ### Storage
 To load data from previous session:
 Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
@@ -22,6 +25,9 @@ To save data for current session:
 After the command bye is sent by the user, incomes and spendings will be serialised and overwrite texts in
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
+
+### adding of new entry
+![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
 
 ### Recurrence Component
 
@@ -205,6 +211,42 @@ Use case ends.
 - 3a. The given index is invalid.
   - 3a1. Wiagi displays an error message.
 <br>Use case restarts at step 1.
+
+
+### Use case: Listing all Entries
+**MSS**
+1. User requests to list all entries.
+2. Wiagi shows a list of all incomes and spendings, including optional parameters such as tags.
+
+Use case ends.
+**Extensions**
+1. The list is empty.
+    - 1a. Wiagi displays incomes and spendings without entries (equal to 0).
+
+Use case of listing all spendings, incomes, tags is similar, omitted for brevity.
+
+
+### Use Case: Edit an Entry
+**Editing an existing income or spending entry**
+
+**MSS**
+
+1. User requests to list all incomes or spendings.
+2. Wiagi shows a list of all incomes or spendings.
+3. User takes note of the index of the entry to edit and requests to edit the entry by specifying the index and new details.
+4. Wiagi updates the entry with the new details.
+5. Wiagi displays a message to the user that the entry has been updated.
+
+Use case ends.  
+**Extensions**
+1. The list is empty.
+<br>Use case ends.
+2. The given index is invalid.
+    - 2a. Wiagi displays an error message.
+    Use case restarts at step 1.
+3. The new details are invalid.
+    - 3a. Wiagi displays an error message.
+    Use case restarts at step 1.
 
 ## Non-Functional Requirements
 
