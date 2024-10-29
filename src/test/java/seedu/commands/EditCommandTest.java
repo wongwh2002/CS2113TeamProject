@@ -15,14 +15,18 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
-import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+
+
 
 class EditCommandTest {
 
@@ -95,7 +99,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount notanint";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + EDIT_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -110,10 +114,10 @@ class EditCommandTest {
 
     @Test
     public void execute_editSpendingAmount_success() {
-        String userInout = "edit spending 1 amount 1";
+        String userInout = "edit spending 1 amount 1.05";
         Command c = Parser.parse(userInout);
         c.execute(incomes, spendings);
-        assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
+        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + currentDate,
                 spendings.get(0).toString());
     }
 
