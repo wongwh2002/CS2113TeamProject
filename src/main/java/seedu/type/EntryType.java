@@ -124,7 +124,7 @@ public class EntryType {
         if (!tag.isEmpty()) {
             returnString += LIST_SEPARATOR + "Tag: " + tag;
         }
-        if (recurrenceFrequency != RecurrenceFrequency.NONE) {
+        if (recurrenceFrequency != RecurrenceFrequency.NONE && recurrenceFrequency != null) {
             returnString += LIST_SEPARATOR + "Recurring: " + recurrenceFrequency;
         }
         return returnString;
