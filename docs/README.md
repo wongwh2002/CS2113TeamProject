@@ -1,4 +1,4 @@
-# Duke
+# Wiagi
 
 {Give product intro here}
 
