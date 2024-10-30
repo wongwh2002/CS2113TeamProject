@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
 
-
     static void load() {
         try {
             File file = new File(PASSWORD_FILE_PATH);
