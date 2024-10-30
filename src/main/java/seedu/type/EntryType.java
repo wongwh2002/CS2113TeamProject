@@ -122,7 +122,10 @@ public class EntryType {
         String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.valueOf(amount);
         String returnString = description + LIST_SEPARATOR + amountString + LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
-            returnString += LIST_SEPARATOR + tag;
+            returnString += LIST_SEPARATOR + "Tag: " + tag;
+        }
+        if (recurrenceFrequency != RecurrenceFrequency.NONE) {
+            returnString += LIST_SEPARATOR + "Recurring: " + recurrenceFrequency;
         }
         return returnString;
     }
