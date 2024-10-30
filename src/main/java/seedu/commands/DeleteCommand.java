@@ -7,7 +7,6 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
-import seedu.wiagi.Wiagi;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
