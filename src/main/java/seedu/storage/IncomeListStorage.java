@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
@@ -66,6 +67,9 @@ public class IncomeListStorage {
             }
         } catch (IOException e) {
             Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
+        } catch (NoSuchElementException e) {
+            File incomeFile = new File(INCOME_FILE_PATH);
+            incomeFile.delete();
         }
     }
 }

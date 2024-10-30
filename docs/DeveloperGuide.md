@@ -11,6 +11,21 @@ original source as well}
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+## Overall Class Diagram
+![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+<br>
+On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
+new lists would be created
+Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
+The related output is printed through the UI class.
+At the end of the run, or when the user exits the application, Wiagi will save the lists.
+
+### Storage
+To load data from previous session:
+Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
+password by de-serialising the text at their distinct file paths. Wiagi will then initialise it incomes and spendings
+based on the member in the Storage class.
+![storageLoad.png](./Diagrams/storageLoad.png)
 ### Storage Component
 #### Motivation behind the component:
 + Allows the user to save changes, so that they can resume where they left off.
@@ -71,40 +86,62 @@ and add it to the lists.
   the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
 ![storageLoad.png](./Diagrams/Storage/loginStorageSequenceDiagram.drawio.png)
 
+### Adding of new entry
+![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+<br>
+To add new entries, user will have to input the related commands.
+Wiagi will then parse the command to the AddCommand class.
+The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
+
+### Deleting of entry, editing of entry
+The commands are similar where there would be a parsing of command to each of its individual classes.
+A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
+(deleting entry from list for delete and editing of entry from list for edit)
+
+### Listing entries
+Since there are various list commands that the user can execute, the list commands are split into multiple classes.
+The parser then calls a separate function that will return the correct list command if the command word is `list`.
+
+Since listing requires Wiagi to print items in the spendings and incomes list, these will be handled by the UI component.
+
+The sequence diagram below shows what happens when the user executes a `list spendings` command.
+
+![listSpendingsCommandSequence.png](./Diagrams/listSpendingsCommandSequence.png)
+
 ### Recurrence Component
 
-#### Motivation behind the component:</br>
+#### Motivation behind the component:<br>
 + Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
   application
 + Users may have differing frequencies for recurring events thus application gives them a few common options
 
-Illustrated below is the class diagram for the Recurrence Component:</br>
-</br>
-<img src="./Diagrams/Recurrence/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="800"/>
-</br>
-</br>
-Illustrated below is the sequence diagram of the Recurrence Component: </br>
-</br>
-<img src="./Diagrams/Recurrence/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="700"/>
-</br>
-For the reference fragment of 'load from storage', refer to [Storage component](#storage). </br>
+Illustrated below is the class diagram for the Recurrence Component:<br>
+<br>
+<img src="./Diagrams/Recurrence/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
+<br>
+<br>
+Illustrated below is the sequence diagram of the Recurrence Component: <br>
+<br>
+<img src="./Diagrams/Recurrence/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
+<br>
+For the reference fragment of 'load from storage', refer to [Storage component](#storage). <br>
 For the reference fragment of 'add recurring entry', refer to 
-[checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. </br>
+[checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
 
 
-#### How the Recurrence Component works:</br>
+#### How the Recurrence Component works:<br>
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
 `Wiagi` to retrieve past data.
 + Both list are then iterated through. Each member of the list is parsed through `Parser` which returns the type of 
-recurrence it is (eg. `DailyRecurrence`, `null`) which is encapsulated as a `Recurrence` object.
-+ If `Recurrence` is not `null` (ie. a recurring entry), it checks the entry and adds to the `SpendingList` and 
-`IncomeList` if needed. </br>
+recurrence it is (e.g. `DailyRecurrence`, `null`) which is encapsulated as a `Recurrence` object.
++ If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and 
+`IncomeList` if needed. <br>
 
 #### Implementation:
 #### Recurrence class
-The `Recurrence` class is a abstract class that provides the interface for checking `Income` and `Spending` and adding 
-recurring entries into the list. </br>
-The following are the abstract methods defined: </br>
+The `Recurrence` class is an abstract class that provides the interface for checking `Income` and `Spending` and adding 
+recurring entries into the list. <br>
+The following are the abstract methods defined: <br>
 + `checkSpendingRecurrence`
 + `checkIncomeRecurrence`
 
@@ -114,55 +151,55 @@ The following are child classes of `Recurrence`:
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
 ##### parseRecurrence method
-Class: `Parser` </br>
-Method Signature: </br>
+Class: `Parser` <br>
+Method Signature: <br>
 ```
 public static Recurrence parseRecurrence(Type entry)
 ```
-Functionality: </br>
-1. Takes in child class of `Type` (ie. `Spending`, `Income`)
+Functionality: <br>
+1. Takes in child class of `Type` (i.e. `Spending`, `Income`)
 2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
 3. Returns `DaillyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
 
 ##### checkIncomeRecurrence / checkSpendingRecurrence method
-Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` </br>
-Method Signature: </br>
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
+Method Signature: <br>
 ```
 @Override
 public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes)
 @Override
 public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings)
 ```
-Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram </br>
-</br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="700"/> </br>
-Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). </br>
+Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
+<br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
+Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
 for brevity.
 
-Functionality: </br>
+Functionality: <br>
 1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
 2. According to the type of recurrence, check if enough time has passed between the 2 dates
 3. Adds additional recurring entries into the `IncomeList`/`SpendingList` if needed.
 
 ##### updateRecurrence method
-Class: `SpendingList`, `IncomeList` </br>
+Class: `SpendingList`, `IncomeList` <br>
 Method Signature:
 ```
 public static Recurrence parseRecurrence(Type entry)
 ```
-Functionality: </br>
+Functionality: <br>
 1. Loops through its list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
 2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new 
 recurring entry is supposed to be added
 
 #### Here are some things to take note:
 + Entries are only added when user logs in, which is not determinable, thus many additional entries may be added at once
-(eg. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
+(e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
 will be backlogged and added). List is thus also sorted by date after recurrence is done.
 + Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
 added in the future
-+ Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is a example scenario: 
++ Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is an example scenario: 
   + Monthly recurring entry dated at 31st August
   + Since September ends on the 30th, recurring entry is added on the 30 September and `lastRecurred` is stored as 
   30th September
@@ -253,6 +290,42 @@ Use case ends.
 - 3a. The given index is invalid.
   - 3a1. Wiagi displays an error message.
 <br>Use case restarts at step 1.
+
+
+### Use case: Listing all Entries
+**MSS**
+1. User requests to list all entries.
+2. Wiagi shows a list of all incomes and spendings, including optional parameters such as tags.
+
+Use case ends.
+**Extensions**
+1. The list is empty.
+    - 1a. Wiagi displays incomes and spendings without entries (equal to 0).
+
+Use case of listing all spendings, incomes, tags is similar, omitted for brevity.
+
+
+### Use Case: Edit an Entry
+**Editing an existing income or spending entry**
+
+**MSS**
+
+1. User requests to list all incomes or spendings.
+2. Wiagi shows a list of all incomes or spendings.
+3. User takes note of the index of the entry to edit and requests to edit the entry by specifying the index and new details.
+4. Wiagi updates the entry with the new details.
+5. Wiagi displays a message to the user that the entry has been updated.
+
+Use case ends.  
+**Extensions**
+1. The list is empty.
+<br>Use case ends.
+2. The given index is invalid.
+    - 2a. Wiagi displays an error message.
+    Use case restarts at step 1.
+3. The new details are invalid.
+    - 3a. Wiagi displays an error message.
+    Use case restarts at step 1.
 
 ## Non-Functional Requirements
 

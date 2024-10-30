@@ -17,7 +17,7 @@ import seedu.recurrence.DailyRecurrence;
 import seedu.recurrence.MonthlyRecurrence;
 import seedu.recurrence.Recurrence;
 import seedu.recurrence.RecurrenceFrequency;
-import seedu.type.Type;
+import seedu.type.EntryType;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
@@ -70,7 +70,7 @@ public class Parser {
         }
     }
 
-    public static Recurrence parseRecurrence(Type entry) {
+    public static Recurrence parseRecurrence(EntryType entry) {
         RecurrenceFrequency frequency = entry.getRecurrenceFrequency();
 
         switch (frequency) {
