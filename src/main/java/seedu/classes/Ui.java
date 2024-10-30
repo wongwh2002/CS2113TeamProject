@@ -5,7 +5,7 @@ import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
-import seedu.type.Type;
+import seedu.type.EntryType;
 
 import java.io.ByteArrayInputStream;
 import java.time.DayOfWeek;
@@ -78,7 +78,7 @@ public class Ui {
                 spendings.getYearlySpending()));
     }
 
-    public static <T extends Type> void printArrList(ArrayList<T> arrList) {
+    public static <T extends EntryType> void printArrList(ArrayList<T> arrList) {
         String typeOfList;
         if (arrList instanceof SpendingList) {
             typeOfList = SPENDING;
@@ -102,7 +102,7 @@ public class Ui {
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            sumOfAmountInList += ((Type) arrList.get(indexInList)).getAmount();
+            sumOfAmountInList += ((EntryType) arrList.get(indexInList)).getAmount();
             Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
         return formatPrintDouble(sumOfAmountInList);
@@ -182,12 +182,12 @@ public class Ui {
     }
 
     //@@author wongwh2002
-    private static <T extends Type> int getTagsCount(ArrayList<T> arrList, String tag,
+    private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
                                         StringBuilder sb, String listName) {
         sb.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
-            Type listIndex = (Type) arrList.get(i);
+            EntryType listIndex = arrList.get(i);
             if (listIndex.getTag().equals(tag)) {
                 tagsCount++;
                 int oneIndexedI = i + 1;
@@ -203,7 +203,8 @@ public class Ui {
         Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
     }
 
-    public static <T extends Type> void printWeekly(ArrayList<T> arrList) {
+    //@@author wx-03
+    public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
@@ -217,7 +218,7 @@ public class Ui {
         printList(filteredList);
     }
 
-    public static <T extends Type> void printMonthly(ArrayList<T> arrList) {
+    public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
@@ -230,7 +231,7 @@ public class Ui {
         printList(filteredList);
     }
 
-    public static <T extends Type> void printBiweekly(ArrayList<T> arrList) {
+    public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
         ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
@@ -245,7 +246,7 @@ public class Ui {
     }
 
     //@@author wx-03
-    public static <T extends Type> boolean printListOfTimeRange(ArrayList<T> arrList) {
+    public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> arrList) {
         while (true) {
             Ui.printWithTab(TIME_RANGE_MESSAGE);
             String userInput = Ui.readCommand();

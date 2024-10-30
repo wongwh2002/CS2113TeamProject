@@ -4,7 +4,7 @@ import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
-import seedu.type.Type;
+import seedu.type.EntryType;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -16,7 +16,7 @@ public abstract class Recurrence {
         return date.atEndOfMonth().getDayOfMonth();
     }
 
-    protected <T extends Type> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
+    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
         int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);

@@ -188,7 +188,7 @@ public class SpendingList extends ArrayList<Spending> {
                 recurrence.checkSpendingRecurrence(spending, this);
             }
         }
-        this.sort(Comparator.comparing(Type::getDate));
+        this.sort(Comparator.comparing(EntryType::getDate));
     }
 
     public void checkOverspend() {
