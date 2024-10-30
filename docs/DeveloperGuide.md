@@ -12,7 +12,8 @@ original source as well}
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ## Overall Class Diagram
-![overallClass.jpg](./Diagrams/overallClass.jpg)
+![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+<br>
 On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
 new lists would be created
 Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
@@ -31,13 +32,14 @@ After the command bye is sent by the user, incomes and spendings will be seriali
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
 
-### adding of new entry
+### Adding of new entry
 ![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+<br>
 To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
 
-### deleting of entry, editing of entry
+### Deleting of entry, editing of entry
 The commands are similar where there would be a parsing of command to each of its individual classes.
 A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
 (deleting entry from list for delete and editing of entry from list for edit)
