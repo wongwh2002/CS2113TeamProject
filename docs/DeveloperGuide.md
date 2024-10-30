@@ -51,12 +51,12 @@ A similar validation process takes place and actions would be made on IncomeList
 
 Illustrated below is the class diagram for the Recurrence Component:</br>
 </br>
-<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="800"/>
+<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
 </br>
 </br>
 Illustrated below is the sequence diagram of the Recurrence Component: </br>
 </br>
-<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="700"/>
+<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
 </br>
 For the reference fragment of 'load from storage', refer to [Storage component](#storage). </br>
 For the reference fragment of 'add recurring entry', refer to 
@@ -106,7 +106,7 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram </br>
 </br>
-<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="700"/> </br>
+<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> </br>
 Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). </br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
 for brevity.
