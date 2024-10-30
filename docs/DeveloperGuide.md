@@ -50,8 +50,6 @@ income. This information was used by other classes to perform their component ta
 #### Spending class
 The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
 spending. This information was used by other classes to perform their component tasks.
- 
-## Design and Implementation
 
 ### Storage Component
 #### Motivation behind the component:
