@@ -18,7 +18,7 @@ On a high level, whenever Wiagi is started, it will load SpendingList and Income
 new lists would be created
 Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
 The related output is printed through the UI class.
-At the end of the run, or when the user exits the application, Wiagi will save the lists. Now lets delve deeper into 
+At the end of the run, or when the user exits the application, Wiagi will save the lists. Now let's delve deeper into 
 some of these classes used for the programme below.
 
 #### EntryType Class
@@ -27,7 +27,7 @@ contain the relevant information required by other classes to perform their comp
 
 The following are its attributes: <br>
 + `amount` (type `double`): stores the amount for the entry 
-+ `description (type `String`): stores the description of relating to the entry
++ `description` (type `String`): stores the description of relating to the entry
 + `date` (type `LocalDate`): stores the date of entry 
 + `tag` (type `String`): stores the tag name linked to the entry
 + `recurrenceFrequency` ([type `RecurrenceFrequency`](#recurrencefrequency-enumeration)): stores the frequency of 
@@ -44,17 +44,17 @@ The following are child classes of `EntryType`:
 + `Spending`: Stores entries that the user labels as spending
 
 #### Income class
-The `Income` class inherits from `EntryType` class and is used for storing relevant information for entries labelled as 
-income used by other classes to perform their component tasks.
+The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as 
+income. This information was used by other classes to perform their component tasks.
 
 #### Spending class
-The `Spending` class inherits from `EntryType` class and is used for storing relevant information for entries labelled 
-as spending used by other classes to perform their component tasks.
+The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
+spending. This information was used by other classes to perform their component tasks.
 
 ### Storage Component
 To load data from previous session:
 Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise it incomes and spendings
+password by de-serialising the text at their distinct file paths. Wiagi will then initialise its incomes and spendings
 based on the member in the Storage class.
 ![storageLoad.png](./Diagrams/storageLoad.png)
 
