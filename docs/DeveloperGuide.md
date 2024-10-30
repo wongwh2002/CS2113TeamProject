@@ -12,7 +12,8 @@ original source as well}
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ## Overall Class Diagram
-![overallClass.jpg](./Diagrams/overallClass.jpg)
+![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+<br>
 On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
 new lists would be created
 Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
@@ -31,8 +32,9 @@ After the command bye is sent by the user, incomes and spendings will be seriali
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
 
-### adding of new entry
+### Adding of new entry
 ![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+<br>
 To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
@@ -61,12 +63,12 @@ The sequence diagram below shows what happens when the user executes a `list spe
 
 Illustrated below is the class diagram for the Recurrence Component:<br>
 <br>
-<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="800"/>
+<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
 <br>
 <br>
 Illustrated below is the sequence diagram of the Recurrence Component: <br>
 <br>
-<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="700"/>
+<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
 <br>
 For the reference fragment of 'load from storage', refer to [Storage component](#storage). <br>
 For the reference fragment of 'add recurring entry', refer to 
@@ -116,7 +118,7 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
-<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="700"/> <br>
+<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
 Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
 for brevity.
