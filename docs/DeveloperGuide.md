@@ -14,18 +14,12 @@ original source as well}
 ## Overall Class Diagram
 ![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
 <br>
-On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
-new lists would be created
-Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
-The related output is printed through the UI class.
-At the end of the run, or when the user exits the application, Wiagi will save the lists.
+On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
+else, new lists would be created.
+`Wiagi` then takes in user input via the `UI` class, then parse and executes the command through the `Parser` class.
+The related output is printed through the `UI` class.
+At the end of the run, or when the user exits the application, `Wiagi` will save the lists.
 
-### Storage
-To load data from previous session:
-Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise it incomes and spendings
-based on the member in the Storage class.
-![storageLoad.png](./Diagrams/storageLoad.png)
 ### Storage Component
 #### Motivation behind the component:
 + Allows the user to save changes, so that they can resume where they left off.
