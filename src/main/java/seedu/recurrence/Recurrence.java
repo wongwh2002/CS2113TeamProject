@@ -26,7 +26,6 @@ public abstract class Recurrence {
         return date.atEndOfMonth().getDayOfMonth();
     }
 
-    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
     /**
      * Checks if date of recurrence entry is legitimate due to varying total days in months, causing actual date of
      * recurrence to be overwritten
@@ -34,6 +33,7 @@ public abstract class Recurrence {
      * @param newEntry New entry that is added to `SpendingList` or `IncomeList` from recurrence
      * @param checkDate Date to be checked if it is correct
      */
+    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
         int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);
