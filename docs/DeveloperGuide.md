@@ -12,7 +12,7 @@ original source as well}
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### Overall Class Diagram
-![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+![overallClass.drawio.png](./Diagrams/Overall/overallClass.drawio.png)
 <br>
 On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
 else, new lists would be created.
@@ -65,11 +65,6 @@ spending. This information was used by other classes to perform their component 
 + To save edited lists:
     + It is done when users type `bye`, which signals the end of the program.
     + The lists are serialised to a user-editable format in their respective files.
-To load data from previous session:
-Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise its incomes and spendings
-based on the member in the Storage class.
-![storageLoad.png](./Diagrams/storageLoad.png)
 
 + To load saved lists:
   + It is done upon program startup, when `Wiagi` is constructed.
@@ -119,7 +114,7 @@ and add it to the lists.
 ### Command handling component
 
 #### Adding of new entry
-![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
@@ -138,7 +133,7 @@ Since listing requires Wiagi to print items in the spendings and incomes list, t
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![listSpendingsCommandSequence.png](./Diagrams/listSpendingsCommandSequence.png)
+![listSpendingsCommandSequence.png](./Diagrams/Commands/listSpendingsCommandSequence.png)
 
 ### Recurrence Component
 
