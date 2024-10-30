@@ -11,19 +11,50 @@ original source as well}
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-## Overall Class Diagram
+### Overall Class Diagram
 ![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
 <br>
 On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
 new lists would be created
 Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
 The related output is printed through the UI class.
-At the end of the run, or when the user exits the application, Wiagi will save the lists.
+At the end of the run, or when the user exits the application, Wiagi will save the lists. Now let's delve deeper into 
+some of these classes used for the programme below.
 
-### Storage
+#### EntryType Class
+The `EntryType` class is a class that is used for storing different types of user entry such that the entries 
+contain the relevant information required by other classes to perform their component tasks. <br>
+
+The following are its attributes: <br>
++ `amount` (type `double`): stores the amount for the entry 
++ `description` (type `String`): stores the description of relating to the entry
++ `date` (type `LocalDate`): stores the date of entry 
++ `tag` (type `String`): stores the tag name linked to the entry
++ `recurrenceFrequency` ([type `RecurrenceFrequency`](#recurrencefrequency-enumeration)): stores the frequency of 
+recurrence for the entry
++ `lastRecurrence` (type `LocalDate`): stores the date the entry was last recurred for internal program checking usage
++ `dayOfRecurrence` (type `int`): stores the day of it own private attribute `date`, used for internal program checking
+usage
+
+The methods implemented in this class are a collection of getters and setters that allow other class types to access
+the information of the entry.
+
+The following are child classes of `EntryType`:
++ `Income`: Stores entries that the user labels as income
++ `Spending`: Stores entries that the user labels as spending
+
+#### Income class
+The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as 
+income. This information was used by other classes to perform their component tasks.
+
+#### Spending class
+The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
+spending. This information was used by other classes to perform their component tasks.
+
+### Storage Component
 To load data from previous session:
 Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise it incomes and spendings
+password by de-serialising the text at their distinct file paths. Wiagi will then initialise its incomes and spendings
 based on the member in the Storage class.
 ![storageLoad.png](./Diagrams/storageLoad.png)
 
@@ -32,19 +63,21 @@ After the command bye is sent by the user, incomes and spendings will be seriali
 their distinct file paths.
 ![storageSave.png](./Diagrams/storageSave.png)
 
-### Adding of new entry
+### Command handling component
+
+#### Adding of new entry
 ![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
 
-### Deleting of entry, editing of entry
+#### Deleting of entry, editing of entry
 The commands are similar where there would be a parsing of command to each of its individual classes.
 A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
 (deleting entry from list for delete and editing of entry from list for edit)
 
-### Listing entries
+#### Listing entries
 Since there are various list commands that the user can execute, the list commands are split into multiple classes.
 The parser then calls a separate function that will return the correct list command if the command word is `list`.
 
@@ -70,10 +103,9 @@ Illustrated below is the sequence diagram of the Recurrence Component: <br>
 <br>
 <img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
 <br>
-For the reference fragment of 'load from storage', refer to [Storage component](#storage). <br>
-For the reference fragment of 'add recurring entry', refer to 
+For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
+For the reference frame of 'add recurring entry', refer to 
 [checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
-
 
 #### How the Recurrence Component works:<br>
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
@@ -95,6 +127,15 @@ The following are child classes of `Recurrence`:
 + `DailyRecurrence`: Handles entries labelled as daily recurring events
 + `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
+
+##### RecurrenceFrequency enumeration
+The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
+classes <br>
+Enumeration constants:
++ `NONE`: Represents a none recurring entry
++ `DAILY`: Represents a daily recurring entry
++ `MONTHLY`: Represents a monthly recurring entry 
++ `YEARLY`: Represents a yearly recurring entry
 
 ##### parseRecurrence method
 Class: `Parser` <br>
