@@ -45,6 +45,7 @@ public class Ui {
     public static void printWithTab(String message) {
         System.out.println(TAB + message);
     }
+
     public static void printWithDoubleTab(String message) {
         System.out.println(TAB+TAB + message);
     }
@@ -196,44 +197,51 @@ public class Ui {
 
     //@@author wx-03
     public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
-        ArrayList<T> filteredList = new ArrayList<>();
+        StringBuilder filteredList = new StringBuilder();
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
-        for (T entry : arrList) {
-            LocalDate entryDate = entry.getDate();
-            if (isInRange(entryDate, monday, sunday)) {
-                filteredList.add(entry);
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
+            EntryType entry = arrList.get(indexInList);
+            int indexToUser = indexInList + 1;
+            if (isInRange(entry.getDate(), monday, sunday)) {
+                filteredList.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
             }
         }
-        printList(filteredList);
+        System.out.print(filteredList);
     }
 
     public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
-        ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
-        for (T entry : arrList) {
+        StringBuilder filteredList = new StringBuilder();
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
+            EntryType entry = arrList.get(indexInList);
+            int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
-                filteredList.add(entry);
+                filteredList.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
             }
         }
-        printList(filteredList);
+        System.out.print(filteredList);
     }
 
     public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
-        ArrayList<T> filteredList = new ArrayList<>();
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
-        for (T entry : arrList) {
-            LocalDate entryDate = entry.getDate();
-            if (isInRange(entryDate, start, end)) {
-                filteredList.add(entry);
+        StringBuilder filteredList = new StringBuilder();
+        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
+            EntryType entry = arrList.get(indexInList);
+            int indexToUser = indexInList + 1;
+            if (isInRange(entry.getDate(), start, end)) {
+                filteredList.append(TAB).append(indexToUser).append(". ")
+                        .append(entry).append(System.lineSeparator());
             }
         }
-        printList(filteredList);
+        System.out.print(filteredList);
     }
 
     //@@author wx-03
