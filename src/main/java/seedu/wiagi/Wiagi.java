@@ -2,6 +2,7 @@ package seedu.wiagi;
 
 import seedu.classes.Password;
 import seedu.classes.Parser;
+import seedu.classes.WiagiLogger;
 import seedu.storage.Storage;
 import seedu.commands.Command;
 import seedu.type.IncomeList;
@@ -23,6 +24,11 @@ public class Wiagi {
     }
 
     private void run() {
+        WiagiLogger.initLogger();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Ui.printWithTab("Saving data...");
+            storage.save(incomes, spendings);
+        }));
         Ui.welcome();
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;

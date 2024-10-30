@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
@@ -76,6 +77,9 @@ public class SpendingListStorage {
             }
         } catch (IOException e) {
             Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
+        } catch (NoSuchElementException e) {
+            File spendingFile = new File(SPENDINGS_FILE_PATH);
+            spendingFile.delete();
         }
     }
 }
