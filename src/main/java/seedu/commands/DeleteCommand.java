@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
+import seedu.classes.WiagiLogger;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
@@ -8,6 +9,7 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static seedu.classes.Constants.DELETE_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
@@ -38,6 +40,7 @@ public class DeleteCommand extends Command {
         try {
             handleCommand(incomes, spendings);
         } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
+            WiagiLogger.logger.log(Level.WARNING, "User input error", e);
             Ui.printWithTab(e.getMessage());
         }
     }

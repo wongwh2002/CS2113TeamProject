@@ -30,3 +30,5 @@ text-ui-test/spendings.txt
 /password.txt
 incomes.txt
 spendings.txt
+
+*.log
