@@ -21,6 +21,10 @@ public class Wiagi {
     }
 
     private void run() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Ui.printWithTab("Saving data...");
+            storage.save(incomes, spendings);
+        }));
         incomes.updateRecurrence();
         spendings.updateRecurrence();
         Ui.welcome();
