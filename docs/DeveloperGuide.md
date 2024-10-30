@@ -12,7 +12,7 @@ original source as well}
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ## Overall Class Diagram
-![overallClass.jpg](./Diagrams/overallClass.jpg)
+![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
 <br>
 On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
 new lists would be created
