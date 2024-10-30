@@ -25,7 +25,7 @@ import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-
+import static seedu.classes.Constants.VALID_TEST_DATE;
 
 
 class EditCommandTest {
@@ -37,14 +37,13 @@ class EditCommandTest {
 
     private final IncomeList incomes = new IncomeList();
     private final SpendingList spendings = new SpendingList();
-    private final LocalDate currentDate = LocalDate.now();
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(10, "girlfriends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
-        spendings.add(new Spending(10, "macdonalds", currentDate, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "savings", currentDate, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "dividends", currentDate, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "dividends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(10, "stocks", LocalDate.of(2024, 10, 10), "wronginput",
                 RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
@@ -117,7 +116,7 @@ class EditCommandTest {
         String userInout = "edit spending 1 amount 1.05";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + currentDate,
+        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + VALID_TEST_DATE,
                 spendings.get(0).toString());
     }
 
@@ -126,7 +125,7 @@ class EditCommandTest {
         String userInout = "edit income 1 amount 1";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + currentDate,
+        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
                 incomes.get(0).toString());
     }
 
@@ -155,7 +154,7 @@ class EditCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
-                        LIST_SEPARATOR + "investments",
+                        LIST_SEPARATOR + "Tag: investments",
                 incomes.get(2).toString());
     }
 }
