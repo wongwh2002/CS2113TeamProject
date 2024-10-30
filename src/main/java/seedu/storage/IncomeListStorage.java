@@ -68,7 +68,7 @@ public class IncomeListStorage {
         } catch (IOException e) {
             Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
         } catch (NoSuchElementException e) {
-            File incomeFile = new File(INCOME_FILE_PATH);
+            File incomeFile = new File(INCOMES_FILE_PATH);
             incomeFile.delete();
         }
     }
