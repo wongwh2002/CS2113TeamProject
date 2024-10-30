@@ -14,8 +14,8 @@ public class WiagiLogger {
         logger.setLevel(Level.ALL);
 
         try {
-            FileHandler fh = new FileHandler("logger.log");
-            logger.addHandler(fh);
+            FileHandler wiagiFileLoggingHandler = new FileHandler("logger.log");
+            logger.addHandler(wiagiFileLoggingHandler);
         } catch (IOException e) {
             Ui.printWithTab("Error loading file handler for logger");
         }
