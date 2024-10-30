@@ -151,7 +151,7 @@
         </mxCell>
         <mxCell id="FbUPuorxbrIiWv-NIlxl-10" value="1" style="resizable=0;align=right;verticalAlign=bottom;labelBackgroundColor=none;fontSize=12;" parent="FbUPuorxbrIiWv-NIlxl-8" connectable="0" vertex="1">
           <mxGeometry x="1" relative="1" as="geometry">
-            <mxPoint x="-7" y="4" as="offset" />
+            <mxPoint x="-7" y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="FbUPuorxbrIiWv-NIlxl-11" value="list storage" style="text;html=1;resizable=0;points=[];;align=center;verticalAlign=middle;labelBackgroundColor=none;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="FbUPuorxbrIiWv-NIlxl-8" vertex="1" connectable="0">
@@ -186,9 +186,9 @@
             <mxPoint x="410" y="42" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FbUPuorxbrIiWv-NIlxl-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.433;entryY=1.076;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=open;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" target="FbUPuorxbrIiWv-NIlxl-33" edge="1">
+        <mxCell id="FbUPuorxbrIiWv-NIlxl-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="556" y="340" as="targetPoint" />
+            <mxPoint x="448" y="520" as="targetPoint" />
             <Array as="points">
               <mxPoint x="448" y="597" />
             </Array>
@@ -291,8 +291,8 @@
         <mxCell id="FbUPuorxbrIiWv-NIlxl-110" value="many of the classes are omitted for conciseness" style="shape=note;size=20;whiteSpace=wrap;html=1;flipV=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="30" y="30" width="100" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="FbUPuorxbrIiWv-NIlxl-58" value="Class to handle reading of user input and printing, methods omitted for conciseness" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;flipV=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="1110" y="80" width="140" height="95" as="geometry" />
+        <mxCell id="FbUPuorxbrIiWv-NIlxl-58" value="Class to handle reading of user input and printing, methods omitted for conciseness" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=21;verticalAlign=top;align=center;flipV=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1110" y="80" width="140" height="100" as="geometry" />
         </mxCell>
         <mxCell id="FbUPuorxbrIiWv-NIlxl-105" value="this represents all the different types of commands, omitted for conciseness" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=20;verticalAlign=top;align=center;flipV=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="930" y="350" width="140" height="98" as="geometry" />
