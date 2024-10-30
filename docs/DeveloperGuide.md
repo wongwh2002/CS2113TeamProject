@@ -30,7 +30,8 @@ The following are its attributes: <br>
 + `description (type `String`): stores the description of relating to the entry
 + `date` (type `LocalDate`): stores the date of entry 
 + `tag` (type `String`): stores the tag name linked to the entry
-+ `recurrenceFrequency` (type `RecurrenceFrequency`): stores the frequency of recurrence for the entry
++ `recurrenceFrequency` ([type `RecurrenceFrequency`](#recurrencefrequency-enumeration)): stores the frequency of 
+recurrence for the entry
 + `lastRecurrence` (type `LocalDate`): stores the date the entry was last recurred for internal program checking usage
 + `dayOfRecurrence` (type `int`): stores the day of it own private attribute `date`, used for internal program checking
 usage
@@ -102,8 +103,8 @@ Illustrated below is the sequence diagram of the Recurrence Component: <br>
 <br>
 <img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
 <br>
-For the reference fragment of 'load from storage', refer to [Storage component](#storage). <br>
-For the reference fragment of 'add recurring entry', refer to 
+For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
+For the reference frame of 'add recurring entry', refer to 
 [checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
 
 #### How the Recurrence Component works:<br>
