@@ -199,9 +199,9 @@ public class Ui {
         return tagsCount;
     }
 
-    public static void printOverspendMessage(String budgetType, double overspendAmont) {
-        overspendAmont *= -1;
-        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
+    public static void printOverspendMessage(String budgetType, double overspendAmount) {
+        overspendAmount *= -1;
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmount + " !!!");
     }
 
     //@@author wx-03
