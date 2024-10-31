@@ -19,13 +19,13 @@ public class Wiagi {
     private static SpendingList spendings;
 
     private Wiagi() {
+        WiagiLogger.initLogger();
         storage = new Storage();
         incomes = Storage.getIncomes();
         spendings = Storage.getSpendings();
     }
 
     private void run() {
-        WiagiLogger.initLogger();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             Ui.printWithTab("Saving data...");
             storage.save(incomes, spendings);
