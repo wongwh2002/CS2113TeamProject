@@ -43,7 +43,7 @@ class BudgetCommandTest {
         int budget = 1321;
 
         String userInput = "budget daily " + budget;
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
 
         assertEquals("\tSuccessfully set daily budget of: " + budget + System.lineSeparator()
@@ -56,7 +56,7 @@ class BudgetCommandTest {
         int budget = 1321;
 
         String userInput = "budget monthly " + budget;
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
 
         assertEquals("\tSuccessfully set monthly budget of: " + budget + System.lineSeparator()
@@ -69,7 +69,7 @@ class BudgetCommandTest {
         int budget = 1321;
 
         String userInput = "budget yearly " + budget;
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
 
         assertEquals("\tSuccessfully set yearly budget of: " + budget + System.lineSeparator()
@@ -80,7 +80,7 @@ class BudgetCommandTest {
     @Test
     public void execute_invalidAmount_exceptionThrown() {
         String userInput = "budget yearly abc";
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
         assertEquals("\tInvalid amount! Please enter in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
                 , outContent.toString());
@@ -89,7 +89,7 @@ class BudgetCommandTest {
     @Test
     public void execute_invalidTimeFrame_exceptionThrown() {
         String userInput = "budget notatimeframe 1";
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
 
         assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
@@ -99,7 +99,7 @@ class BudgetCommandTest {
     @Test
     public void execute_tooFewInputs_exceptionThrown() {
         String userInput = "budget notenoughinputs";
-        Command command = Parser.parse(userInput);
+        Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
 
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT
