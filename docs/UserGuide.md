@@ -428,7 +428,14 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program is at.
+**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
+is at.
+
+**Q**: Why are the indices of the entries not in consecutive order when I list all entries of a particular tag 
+or when I list entries in a time range?
+
+**A**: Each index reflects the actual index of the item in the entire list so that you can edit or delete the 
+entry easily.
 
 ## Command Summary
 <table>
