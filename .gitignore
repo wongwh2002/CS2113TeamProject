@@ -31,5 +31,6 @@ text-ui-test/spendings.txt
 incomes.txt
 spendings.txt
 
+#logging files
 *.log
 *.log.lck
