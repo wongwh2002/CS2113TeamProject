@@ -35,7 +35,7 @@ public abstract class Recurrence {
      */
     protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
-        int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
+        int lastDayOfNewEntryMonth = getLastDayOfMonth(checkDate);
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);
         newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(actualDayToRecur));
         if (!newEntry.getDate().isAfter(LocalDate.now())) {
