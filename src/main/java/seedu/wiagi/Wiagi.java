@@ -9,6 +9,9 @@ import seedu.type.IncomeList;
 import seedu.classes.Ui;
 import seedu.type.SpendingList;
 
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
+
 public class Wiagi {
 
     private static Storage storage;
@@ -41,11 +44,15 @@ public class Wiagi {
 
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = Ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            c.execute(incomes, spendings);
-            isExit = c.isExit();
-            Ui.printSeparator();
+            try {
+                String fullCommand = Ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(incomes, spendings);
+                isExit = c.isExit();
+                Ui.printSeparator();
+            } catch (NoSuchElementException e) {
+                WiagiLogger.logger.log(Level.WARNING, "Nothing to read", e);
+            }
         }
         storage.save(incomes, spendings);
     }
