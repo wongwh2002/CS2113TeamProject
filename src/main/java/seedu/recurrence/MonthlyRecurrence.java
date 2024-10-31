@@ -7,6 +7,10 @@ import seedu.type.SpendingList;
 
 import java.time.LocalDate;
 
+/**
+ * Used to manage recurring entries labelled as monthly recurrence in the user's {@code IncomeList} and
+ * {@code SpendingList} and adds recurring entries when needed
+ */
 public class MonthlyRecurrence extends Recurrence {
     private static final int MONTHLY_FREQUENCY = 1;
 

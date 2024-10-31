@@ -7,6 +7,10 @@ import seedu.type.SpendingList;
 
 import java.time.LocalDate;
 
+/**
+ * Used to manage recurring entries labelled as yearly recurrence in the user's {@code IncomeList} and
+ * {@code SpendingList} and adds recurring entries when needed
+ */
 public class YearlyRecurrence extends Recurrence {
 
     @Override

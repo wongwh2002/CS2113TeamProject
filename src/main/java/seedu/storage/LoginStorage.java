@@ -10,10 +10,15 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+/**
+ * Handles the retrieval and storage of user password data
+ */
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
 
-
+    /**
+     * Retrieves the data of the user password from its data file into the program
+     */
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load password file...");
         try {
