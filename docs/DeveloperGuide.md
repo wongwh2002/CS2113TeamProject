@@ -157,10 +157,24 @@ Hence, the implementation of listing incomes is very similar to that of listing 
 given the option to list statistics if they choose to list all incomes. Hence the sequence diagram is ommitted for this
 command.
 
-##### Listing all tags
+##### Listing tags
 
-##### Listing all entries with a specific tag
+Listing all tags and listing all entries with a specific tag are grouped together into one command called 
+`ListTagsCommand`. When this command is executed, the number of words in the command is checked to determine if the user
+wants to list all tags or to list all entries with a specific tag, as shown in the sequence diagram below. 
 
+![executeListTags.png](./Diagrams/executeListTags.png)
+
+###### Listing all tags
+
+For listing all tags, the static method `printAllTags(...)` from the Ui class is called. This method simply loops 
+through all entries and gets an ArrayList of all the unique tags before printing them out. 
+
+###### Listing all entries with a specific tag
+
+For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
+method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
+entries with the specified tag to a String. This string is then printed out. 
 
 ### Recurrence Component
 
