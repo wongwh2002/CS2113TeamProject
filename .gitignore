@@ -32,3 +32,4 @@ incomes.txt
 spendings.txt
 
 *.log
+*.log.lck

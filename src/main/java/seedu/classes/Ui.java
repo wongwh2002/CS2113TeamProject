@@ -117,49 +117,6 @@ public class Ui {
     }
 
     //@@author wongwh2002
-    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tagName) {
-        StringBuilder sbIncome = new StringBuilder();
-        StringBuilder sbSpending = new StringBuilder();
-        assert tagName != null && !tagName.isEmpty() : "Tag is null or empty";
-
-        int incomeCount = getTagsCount(incomes, tagName, sbIncome, INCOME);
-        int spendingCount = getTagsCount(spendings, tagName, sbSpending, SPENDING);
-        int tagCount = incomeCount + spendingCount;
-
-        if (tagCount == 0) {
-            throw new WiagiInvalidInputException("No entries with tag: " + tagName + ". Please input tags first!");
-        }
-        assert tagCount > 0 : "No entries with tag: " + tagName;
-        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tagName;
-
-        Ui.printWithTab("Tag: " + tagName);
-        if (incomeCount > 0) {
-            Ui.printWithTab(sbIncome.toString().trim());
-        }
-        if (spendingCount > 0) {
-            Ui.printWithTab(sbSpending.toString().trim());
-        }
-    }
-
-    //@@author wongwh2002
-    private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
-                                                          StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
-        int tagsCount = 0;
-        int sizeOfArray = arrList.size();
-        for (int indexInList = 0; indexInList < sizeOfArray; indexInList++) {
-            EntryType entry = arrList.get(indexInList);
-            if (entry.getTag().equals(tag)) {
-                tagsCount++;
-                int indexToUser = indexInList + 1;
-                sb.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
-            }
-        }
-        return tagsCount;
-    }
-
-    //@@author wongwh2002
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
@@ -193,6 +150,58 @@ public class Ui {
         }
         tags.remove(EMPTY_STRING);
         return tags;
+    }
+
+    //@@author wongwh2002
+    public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
+        StringBuilder sbIncome = new StringBuilder();
+        StringBuilder sbSpending = new StringBuilder();
+        assert tag != null && !tag.isEmpty() : "Tag is null or empty";
+
+        int tagsCount;
+        int incomeCount;
+        int spendingCount;
+
+        incomeCount = getTagsCount(incomes, tag, sbIncome, INCOME);
+        spendingCount = getTagsCount(spendings, tag, sbSpending, SPENDING);
+        tagsCount = incomeCount + spendingCount;
+
+        if (tagsCount == 0) {
+            throw new WiagiInvalidInputException("No entries with tag: " + tag + ". Please input tags first!");
+        }
+
+        assert tagsCount > 0 : "No entries with tag: " + tag;
+        assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
+
+        Ui.printWithTab("Tag: " + tag);
+        if (incomeCount > 0) {
+            Ui.printWithTab(sbIncome.toString().trim());
+        }
+        if (spendingCount > 0) {
+            Ui.printWithTab(sbSpending.toString().trim());
+        }
+    }
+
+    //@@author wongwh2002
+    private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
+                                        StringBuilder sb, String listName) {
+        sb.append(listName).append(System.lineSeparator());
+        int tagsCount = 0;
+        for (int i = 0; i < arrList.size(); i++) {
+            EntryType listIndex = arrList.get(i);
+            if (listIndex.getTag().equals(tag)) {
+                tagsCount++;
+                int oneIndexedI = i + 1;
+                sb.append(TAB).append(oneIndexedI).append(". ")
+                        .append(listIndex).append(System.lineSeparator());
+            }
+        }
+        return tagsCount;
+    }
+
+    public static void printOverspendMessage(String budgetType, double overspendAmont) {
+        overspendAmont *= -1;
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
     }
 
     //@@author wx-03
