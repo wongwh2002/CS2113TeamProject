@@ -65,6 +65,20 @@ their distinct file paths.
 
 ### Command handling component
 
+![commandHandling.png](./Diagrams/commandHandling.png)
+
+User input is taken in through the `Ui.readCommand()` function that is called from the `Wiagi` class. This command is 
+then passed to the static function `parseUserInput()` in the `Parser` class. This function determines the command type 
+based on the command word, and returns a new instance of the respective command, as shown in the 
+sequence diagram above.
+
+Since there are various list commands that the user can execute, the list commands are split into multiple classes.
+The parser then calls a separate function that will return the correct list command if the command word is `list`.
+
+After the correct command is returned, it is executed by `Wiagi` by calling the `execute()` method of the command. 
+The referenced sequence diagrams for the execution of commands will be shown in the sections for 
+[adding a new entry](#adding-of-new-entry), [listing entries](#listing-entries), and editing entries.
+
 #### Adding of new entry
 ![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
 <br>
