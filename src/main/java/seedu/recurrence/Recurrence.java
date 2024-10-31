@@ -8,6 +8,7 @@ import seedu.type.EntryType;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 
 public abstract class Recurrence {
     protected int getLastDayOfMonth(LocalDate newEntry) {
@@ -15,11 +16,13 @@ public abstract class Recurrence {
         return date.atEndOfMonth().getDayOfMonth();
     }
 
-    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate) {
+    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
+        newEntry.editDateWithLocalDate(checkDate);
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
         int lastDayOfNewEntryMonth = getLastDayOfMonth(newEntry.getDate());
         newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(Math.min(dayOfSupposedRecurrence,
                 lastDayOfNewEntryMonth)));
+        list.add(newEntry);
     }
 
     public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes);

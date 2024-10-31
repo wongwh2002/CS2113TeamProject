@@ -12,32 +12,36 @@ public class DailyRecurrence extends Recurrence{
     @Override
     public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
-        Income copyEntry = new Income(recurringIncome);
+        assert lastRecurred != null : "should only be checking entries with recurrence, " +
+                "lastRecurred should be initialised";
         if (LocalDate.now().isAfter(lastRecurred)) {
-            LocalDate date = lastRecurred.plusDays(1);
-            for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
-                copyEntry.editDateWithLocalDate(date);
-                Income newEntry = new Income(copyEntry);
+            LocalDate checkDate = lastRecurred.plusDays(1);
+            for (; checkDate.isBefore(LocalDate.now().plusDays(1)); checkDate = checkDate.plusDays(1)) {
+                Income newEntry = new Income(recurringIncome);
+                newEntry.editDateWithLocalDate(checkDate);
                 incomes.add(newEntry);
             }
-            date = date.minusDays(1);
-            recurringIncome.editLastRecurrence(date);
+            checkDate = checkDate.minusDays(1);
+            assert checkDate.equals(LocalDate.now()) : "last recurred should be today";
+            recurringIncome.editLastRecurrence(checkDate);
         }
     }
 
     @Override
     public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings) {
         LocalDate lastRecurred = recurringSpending.getLastRecurrence();
-        Spending copyEntry = new Spending(recurringSpending);
+        assert lastRecurred != null : "should only be checking entries with recurrence, " +
+                "lastRecurred should be initialised";
         if (LocalDate.now().isAfter(lastRecurred)) {
-            LocalDate date = lastRecurred.plusDays(1);
-            for (; date.isBefore(LocalDate.now().plusDays(1)); date = date.plusDays(1)) {
-                copyEntry.editDateWithLocalDate(date);
-                Spending newEntry = new Spending(copyEntry);
+            LocalDate checkDate = lastRecurred.plusDays(1);
+            for (; checkDate.isBefore(LocalDate.now().plusDays(1)); checkDate = checkDate.plusDays(1)) {
+                Spending newEntry = new Spending(recurringSpending);
+                newEntry.editDateWithLocalDate(checkDate);
                 spendings.add(newEntry);
             }
-            date = date.minusDays(1);
-            recurringSpending.editLastRecurrence(date);
+            checkDate = checkDate.minusDays(1);
+            assert checkDate.equals(LocalDate.now()) : "last recurred should be today";
+            recurringSpending.editLastRecurrence(checkDate);
         }
     }
 }

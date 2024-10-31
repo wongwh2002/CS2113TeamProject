@@ -1,18 +1,21 @@
 package seedu.storage;
 
 import seedu.classes.Ui;
+import seedu.classes.WiagiLogger;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 public class LoginStorage {
     private static final String PASSWORD_FILE_PATH = "./password.txt";
 
 
     static void load() {
+        WiagiLogger.logger.log(Level.INFO, "Starting to load password file...");
         try {
             File file = new File(PASSWORD_FILE_PATH);
             boolean isFileCreated = file.exists();
@@ -24,15 +27,19 @@ public class LoginStorage {
                 createNewUser();
             }
         } catch (IOException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open password file", e);
             Ui.printWithTab(e.getMessage());
         } catch (NoSuchElementException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Password file was empty", e);
             File passwordFile = new File(PASSWORD_FILE_PATH);
             passwordFile.delete();
             createNewUser();
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish loading password file.");
     }
 
     private static void createNewUser() {
+        WiagiLogger.logger.log(Level.INFO, "Creating new user...");
         try {
             FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
             int passwordHash = getNewUserPassword();
@@ -40,8 +47,10 @@ public class LoginStorage {
             fw.close();
             Storage.password = passwordHash;
         } catch (IOException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open password file", e);
             Ui.printWithTab(e.getMessage());
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish creating new user");
     }
 
     private static int getNewUserPassword() {
