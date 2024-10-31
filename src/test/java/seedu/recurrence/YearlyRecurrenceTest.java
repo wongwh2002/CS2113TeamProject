@@ -45,11 +45,11 @@ public class YearlyRecurrenceTest {
                 VALID_TEST_DATE.minusYears(1), VALID_TEST_DATE.minusYears(1).getDayOfMonth()));
         spendings.updateRecurrence();
         String userInput = "list";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
-                        "\t1. food - 10 - " + VALID_TEST_DATE.minusYears(1) + System.lineSeparator() +
-                        "\t2. food - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
+                        "\t1. food - 10 - " + VALID_TEST_DATE.minusYears(1) + " - Recurring: YEARLY"
+                        + System.lineSeparator() + "\t2. food - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                         "\tTotal spendings: 20" + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +
                         "\tTotal incomes: 0" + System.lineSeparator(),
@@ -62,14 +62,14 @@ public class YearlyRecurrenceTest {
                 VALID_TEST_DATE.minusYears(1), VALID_TEST_DATE.minusYears(1).getDayOfMonth()));
         incomes.updateRecurrence();
         String userInput = "list";
-        Command c = Parser.parse(userInput);
+        Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\tTotal spendings: 0" + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +
-                        "\t1. salary - 100000 - " + VALID_TEST_DATE.minusYears(1) + System.lineSeparator() +
-                        "\t2. salary - 100000 - " + VALID_TEST_DATE + System.lineSeparator() +
-                        "\tTotal incomes: 200000" + System.lineSeparator(),
+                        "\t1. salary - 100000 - " + VALID_TEST_DATE.minusYears(1) +
+                        " - Recurring: YEARLY" + System.lineSeparator() + "\t2. salary - 100000 - " + VALID_TEST_DATE
+                        + System.lineSeparator() + "\tTotal incomes: 200000" + System.lineSeparator(),
                 outContent.toString());
     }
 }

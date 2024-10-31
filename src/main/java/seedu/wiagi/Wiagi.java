@@ -23,6 +23,8 @@ public class Wiagi {
         storage = new Storage();
         incomes = Storage.getIncomes();
         spendings = Storage.getSpendings();
+        incomes.updateRecurrence();
+        spendings.updateRecurrence();
     }
 
     private void run() {
@@ -30,8 +32,6 @@ public class Wiagi {
             Ui.printWithTab("Saving data...");
             storage.save(incomes, spendings);
         }));
-        incomes.updateRecurrence();
-        spendings.updateRecurrence();
         Ui.welcome();
         int password = Storage.getPassword();
         boolean isLoginSuccessful = false;
@@ -46,7 +46,7 @@ public class Wiagi {
         while (!isExit) {
             try {
                 String fullCommand = Ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parseUserInput(fullCommand);
                 c.execute(incomes, spendings);
                 isExit = c.isExit();
                 Ui.printSeparator();

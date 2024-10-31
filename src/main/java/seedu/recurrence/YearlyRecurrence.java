@@ -7,22 +7,26 @@ import seedu.type.SpendingList;
 
 import java.time.LocalDate;
 
+/**
+ * Used to manage recurring entries labelled as yearly recurrence in the user's {@code IncomeList} and
+ * {@code SpendingList} and adds recurring entries when needed
+ */
 public class YearlyRecurrence extends Recurrence {
 
     @Override
     public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes) {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
         Income copyEntry = new Income(recurringIncome);
+        copyEntry.setRecurrenceToNone();
+        if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
+            return;
+        }
         if (lastRecurred.getYear() < LocalDate.now().getYear()) {
-            if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
-                return;
-            }
             LocalDate checkDate = lastRecurred.plusYears(1);
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Income newEntry = new Income(copyEntry);
-                checkIfDateAltered(newEntry, checkDate);
-                incomes.add(newEntry);
+                checkIfDateAltered(newEntry, checkDate, incomes);
             }
             checkDate = checkDate.minusYears(1);
             recurringIncome.editLastRecurrence(checkDate);
@@ -33,16 +37,16 @@ public class YearlyRecurrence extends Recurrence {
     public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings) {
         LocalDate lastRecurred = recurringSpending.getLastRecurrence();
         Spending copyEntry = new Spending(recurringSpending);
+        copyEntry.setRecurrenceToNone();
+        if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
+            return;
+        }
         if (lastRecurred.getYear() < LocalDate.now().getYear()) {
-            if (lastRecurred.plusYears(1).isAfter(LocalDate.now())) {
-                return;
-            }
             LocalDate checkDate = lastRecurred.plusYears(1);
             for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusYears(1)) {
                 copyEntry.editDateWithLocalDate(checkDate);
                 Spending newEntry = new Spending(copyEntry);
-                checkIfDateAltered(newEntry, checkDate);
-                spendings.add(newEntry);
+                checkIfDateAltered(newEntry, checkDate, spendings);
             }
             checkDate = checkDate.minusYears(1);
             recurringSpending.editLastRecurrence(checkDate);

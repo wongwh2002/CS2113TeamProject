@@ -25,12 +25,12 @@ import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
-
     private static final int LIST_CATEGORY_INDEX = 1;
     private static final int LIST_ALL_COMMAND_LENGTH = 1;
+    private static final int COMMAND_WORD_ARGUMENT = 0;
 
-    public static Command parse(String fullCommand) {
-        String command = fullCommand.split(SPACE_REGEX)[0].toLowerCase();
+    public static Command parseUserInput(String fullCommand) {
+        String command = fullCommand.split(SPACE_REGEX)[COMMAND_WORD_ARGUMENT].toLowerCase();
 
         switch (command) {
         case ByeCommand.COMMAND_WORD:

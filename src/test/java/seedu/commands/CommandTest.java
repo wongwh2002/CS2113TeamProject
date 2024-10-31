@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CommandTest {
     @Test
     public void isExit_correctCommand_success() {
-        Command c = Parser.parse("bye");
+        Command c = Parser.parseUserInput("bye");
         assertTrue(c.isExit());
     }
 
     @Test
     public void isExit_wrongCommand_failure() {
-        Command c = Parser.parse("list");
+        Command c = Parser.parseUserInput("list");
         assertFalse(c.isExit());
     }
 }
