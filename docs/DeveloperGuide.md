@@ -63,12 +63,12 @@ spending. This information was used by other classes to perform their component 
     + `password` → `./password.txt`
 
 + To save edited lists:
-    + It is done when users type `bye`, which signals the end of the program.
-    + The lists are serialised to a user-editable format in their respective files.
+    + It is done when users type `bye` or after keyboard interrupts (i.e.Ctrl-c), which signals the end of the program.
+    + The lists are saved to a user-editable format in their respective files.
 
 + To load saved lists:
   + It is done upon program startup, when `Wiagi` is constructed.
-  + Within `Wiagi` constructor, it will create a new instance of `Storage`, which will then de-serialise the data at the 
+  + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
   `incomes` and `spendings` file paths to an `IncomeList` and `SpendingList` respectively.
   + `Wiagi` will then retrieve the lists in `Storage` to initialise its lists.
   + Data corruption in the file triggers an exception, often due to user-editing errors.
@@ -86,30 +86,30 @@ Upon instantiation, it will call `IncomeListStorage.load()`, `SpendingListStorag
 which will initialise the variables in `Storage` respectively.
 
 #### save method in `IncomeListStorage` `SpendingListStorage`
-Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details on the 
-first line.
+<img src="./Diagrams/Storage/saveStorageSequenceDiagram.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
+Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
+first line of its respective text file.
 + Format: `daily budget | monthly budget | yearly budget`
 + A for loop will loop through the list, and get each of the attributes of each entry within it and separate them by 
 `|`. Hence, each entry will be written line by line to the file.
 + Format: `amount | description | date | tag | recurrence frequency | last recurrence date | last recurrence day`
   + E.g. `add income 10 part time /2024-10-10/ *job* ~monthly~` will be stored as
-    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`<br>
-<img src="./Diagrams/Storage/saveStorageSequenceDiagram.png" alt="saveStorageSequenceDiagram" width="600" height="400"/>
+    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
+<img src="./Diagrams/Storage/loadStorageSequenceDiagram.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
 Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
 and add it to the lists.
-+ During the process, if a line is corrupted, an exception will be caught and user will be informed.<br>
-<img src="./Diagrams/Storage/loadStorageSequenceDiagram.png" alt="loadStorageSequenceDiagram" width="600" height="400"/>
++ During the process, if a line is corrupted, an exception will be caught and user will be informed.
 
 #### load method in `LoginStorage`
+<img src="./Diagrams/Storage/loginStorageSequenceDiagram.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
 + It first checks if the password file exists.
   + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
-  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.<br>
-<img src="./Diagrams/Storage/loginStorageSequenceDiagram.png" alt="loginStorageSequenceDiagram" width="450" height="300"/>
+  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
 
 ### Command handling component
 
