@@ -92,14 +92,12 @@ A similar validation process takes place and actions would be made on IncomeList
 (deleting entry from list for delete and editing of entry from list for edit)
 
 #### Listing entries
-Since there are various list commands that the user can execute, the list commands are split into multiple classes.
-The parser then calls a separate function that will return the correct list command if the command word is `list`.
 
-Since listing requires Wiagi to print items in the spendings and incomes list, these will be handled by the UI component.
+Since listing requires Wiagi to print items in the spendings and incomes list, these will be handled by the UI class.
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![listSpendingsCommandSequence.png](./Diagrams/listSpendingsCommandSequence.png)
+![executeListAllCommand.png](./Diagrams/executeListAllCommand.png)
 
 ### Recurrence Component
 

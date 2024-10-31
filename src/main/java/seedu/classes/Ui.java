@@ -218,7 +218,7 @@ public class Ui {
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredListString);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
@@ -234,7 +234,7 @@ public class Ui {
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredListString);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
@@ -250,7 +250,7 @@ public class Ui {
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredListString);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     //@@author wx-03
