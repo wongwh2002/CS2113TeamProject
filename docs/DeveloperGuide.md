@@ -72,7 +72,7 @@ spending. This information was used by other classes to perform their component 
   `incomes` and `spendings` file paths to an `IncomeList` and `SpendingList` respectively.
   + `Wiagi` will then retrieve the lists in `Storage` to initialise its lists.
   + Data corruption in the file triggers an exception, often due to user-editing errors.
-  + For missing files (e.g., new users), files are created and the initialised lists will be empty..
+  + For missing files (e.g., new users), files are created and the initialised lists will be empty.
 
 + To load password:
   + The hashed password will simply be loaded from the password file.
@@ -93,23 +93,23 @@ first line.
 `|`. Hence, each entry will be written line by line to the file.
 + Format: `amount | description | date | tag | recurrence frequency | last recurrence date | last recurrence day`
   + E.g. `add income 10 part time /2024-10-10/ *job* ~monthly~` will be stored as
-    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
-![storageSave.png](./Diagrams/Storage/saveStorageSequenceDiagram.drawio.png)
+    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`<br>
+<img src="./Diagrams/Storage/saveStorageSequenceDiagram.png" alt="saveStorageSequenceDiagram" width="600" height="400"/>
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
 Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
 and add it to the lists.
-+ During the process, if a line is corrupted, an exception will be caught and user will be informed.
-![storageLoad.png](./Diagrams/Storage/loadStorageSequenceDiagram.drawio.png)
++ During the process, if a line is corrupted, an exception will be caught and user will be informed.<br>
+<img src="./Diagrams/Storage/loadStorageSequenceDiagram.png" alt="loadStorageSequenceDiagram" width="600" height="400"/>
 
 #### load method in `LoginStorage`
 + It first checks if the password file exists.
   + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
-  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
-![storageLoad.png](./Diagrams/Storage/loginStorageSequenceDiagram.drawio.png)
+  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.<br>
+<img src="./Diagrams/Storage/loginStorageSequenceDiagram.png" alt="loginStorageSequenceDiagram" width="450" height="300"/>
 
 ### Command handling component
 
