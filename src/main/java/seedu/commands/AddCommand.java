@@ -2,6 +2,7 @@ package seedu.commands;
 import seedu.classes.Ui;
 import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.recurrence.Recurrence;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -92,6 +93,10 @@ public class AddCommand extends Command {
         try {
             Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
+            Recurrence recurrence = Recurrence.checkRecurrenceBackLog(toAdd);
+            if (recurrence != null) {
+                recurrence.checkSpendingRecurrence(toAdd, spendings);
+            }
             spendings.checkOverspend();
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
@@ -102,6 +107,10 @@ public class AddCommand extends Command {
         try {
             Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);
+            Recurrence recurrence = Recurrence.checkRecurrenceBackLog(toAdd);
+            if (recurrence != null) {
+                recurrence.checkIncomeRecurrence(toAdd, incomes);
+            }
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }

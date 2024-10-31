@@ -19,14 +19,16 @@ public class MonthlyRecurrence extends Recurrence {
         LocalDate lastRecurred = recurringIncome.getLastRecurrence();
         assert lastRecurred != null : "should only be checking entries with recurrence, " +
                 "lastRecurred should be initialised";
-        if (currentTotalMonth() > lastRecurredTotalMonth(lastRecurred)) {
+        if (isAbleToRecur(lastRecurred)) {
             LocalDate checkDate = lastRecurred.plusMonths(MONTHLY_FREQUENCY);
-            for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusMonths(MONTHLY_FREQUENCY)) {
+            while (!checkDate.isAfter(LocalDate.now())) {
                 Income newEntry = new Income(recurringIncome);
                 checkIfDateAltered(newEntry, checkDate, incomes);
+                checkDate = checkDate.plusMonths(MONTHLY_FREQUENCY);
             }
             checkDate = checkDate.minusMonths(MONTHLY_FREQUENCY);
-            assert !checkDate.isAfter(LocalDate.now()) && checkDate.plusMonths(1).isAfter(LocalDate.now())
+            assert !checkDate.isAfter(LocalDate.now()) &&
+                    checkDate.plusMonths(MONTHLY_FREQUENCY).isAfter(LocalDate.now())
                     : "last recurrence should be within one month";
             recurringIncome.editLastRecurrence(checkDate);
         }
@@ -37,14 +39,16 @@ public class MonthlyRecurrence extends Recurrence {
         LocalDate lastRecurred = recurringSpending.getLastRecurrence();
         assert lastRecurred != null : "should only be checking entries with recurrence, " +
                 "lastRecurred should be initialised";
-        if (currentTotalMonth() > lastRecurredTotalMonth(lastRecurred)) {
+        if (isAbleToRecur(lastRecurred)) {
             LocalDate checkDate = lastRecurred.plusMonths(MONTHLY_FREQUENCY);
-            for (; !checkDate.isAfter(LocalDate.now()); checkDate = checkDate.plusMonths(MONTHLY_FREQUENCY)) {
+            while (!checkDate.isAfter(LocalDate.now())) {
                 Spending newEntry = new Spending(recurringSpending);
                 checkIfDateAltered(newEntry, checkDate, spendings);
+                checkDate = checkDate.plusMonths(MONTHLY_FREQUENCY);
             }
             checkDate = checkDate.minusMonths(MONTHLY_FREQUENCY);
-            assert !checkDate.isAfter(LocalDate.now()) && checkDate.plusMonths(1).isAfter(LocalDate.now())
+            assert !checkDate.isAfter(LocalDate.now()) &&
+                    checkDate.plusMonths(MONTHLY_FREQUENCY).isAfter(LocalDate.now())
                     : "last recurrence should be within one month";
             recurringSpending.editLastRecurrence(checkDate);
         }
@@ -56,5 +60,9 @@ public class MonthlyRecurrence extends Recurrence {
 
     private int lastRecurredTotalMonth(LocalDate lastRecurred) {
         return lastRecurred.getYear() * 12 + lastRecurred.getMonthValue();
+    }
+
+    private boolean isAbleToRecur(LocalDate lastRecurred) {
+        return currentTotalMonth() > lastRecurredTotalMonth(lastRecurred);
     }
 }

@@ -1,5 +1,7 @@
 package seedu.recurrence;
 
+import seedu.classes.Parser;
+import seedu.classes.Ui;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -15,6 +17,41 @@ import java.util.ArrayList;
  * recurring entries in the user's {@code IncomeList} and {@code SpendingList} and add recurring entries when needed
  */
 public abstract class Recurrence {
+    private static <T extends EntryType> Recurrence recurrenceBacklog(Recurrence recurrence, T toAdd) {
+        boolean isCorrectInput = false;
+        while (!isCorrectInput) {
+            Ui.printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
+                    + LocalDate.now() + " if any? [Y/N]");
+            String userInput = Ui.readCommand().toLowerCase();
+            if (userInput.equals("y")) {
+                isCorrectInput = true;
+            } else if (userInput.equals("n")) {
+                isCorrectInput = true;
+                recurrence = null;
+            }
+        }
+        return recurrence;
+    }
+
+    /**
+     * Queries the user if backlog of recurring entries from {@code toAdd} entry date until current date are
+     * necessary.
+     *
+     * @param toAdd Entry to add into either {@code IncomeList} or {@code SpendingList}
+     * @return A recurrence child if user wishes to backlog, null otherwise
+     */
+    public static <T extends EntryType> Recurrence checkRecurrenceBackLog(T toAdd) {
+        if (toAdd.getRecurrenceFrequency() == RecurrenceFrequency.NONE) {
+            return null;
+        }
+        if (toAdd.getDate().isBefore(LocalDate.now())) {
+            Recurrence recurrence = Parser.parseRecurrence(toAdd);
+            recurrence = recurrenceBacklog(recurrence, toAdd);
+            return recurrence;
+        }
+        return null;
+    }
+
     /**
      * Retrieves the last day of the month, given the current month and year. Includes leap year as well.
      *

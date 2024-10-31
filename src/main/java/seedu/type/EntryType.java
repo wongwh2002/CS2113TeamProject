@@ -146,8 +146,8 @@ public class EntryType {
         }
     }
 
-    public void setRecurrenceToNone() {
-        this.recurrenceFrequency = RecurrenceFrequency.NONE;
+    public void editRecurrenceFrequency(String recurrenceFrequency) {
+        this.recurrenceFrequency = RecurrenceFrequency.valueOf(recurrenceFrequency.toUpperCase());
     }
 
     public void editDateWithLocalDate(LocalDate date) {
