@@ -33,4 +33,4 @@ spendings.txt
 
 #logging files
 *.log
-*.lck
+*.log.lck
