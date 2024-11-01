@@ -32,7 +32,6 @@ public class EditCommand extends Command {
     private static final String DESCRIPTION_CATEGORY = "description";
     private static final String DATE_CATEGORY = "date";
     private static final String TAG_CATEGORY = "tag";
-    private static final String RECURRENCE_CATEGORY = "recurrence";
 
     private final String fullCommand;
 
@@ -102,9 +101,6 @@ public class EditCommand extends Command {
             break;
         case TAG_CATEGORY:
             entryToEdit.editTag(newValue);
-            break;
-        case RECURRENCE_CATEGORY:
-            entryToEdit.editRecurrenceFrequency(newValue);
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);

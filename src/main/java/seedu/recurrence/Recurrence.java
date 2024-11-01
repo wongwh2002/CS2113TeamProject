@@ -17,39 +17,28 @@ import java.util.ArrayList;
  * recurring entries in the user's {@code IncomeList} and {@code SpendingList} and add recurring entries when needed
  */
 public abstract class Recurrence {
-    private static <T extends EntryType> Recurrence recurrenceBacklog(Recurrence recurrence, T toAdd) {
-        boolean isCorrectInput = false;
-        while (!isCorrectInput) {
-            Ui.printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
-                    + LocalDate.now() + " if any? [Y/N]");
-            String userInput = Ui.readCommand().toLowerCase();
-            if (userInput.equals("y")) {
-                isCorrectInput = true;
-            } else if (userInput.equals("n")) {
-                isCorrectInput = true;
-                recurrence = null;
-            }
-        }
-        return recurrence;
-    }
-
     /**
      * Queries the user if backlog of recurring entries from {@code toAdd} entry date until current date are
      * necessary.
      *
      * @param toAdd Entry to add into either {@code IncomeList} or {@code SpendingList}
-     * @return A recurrence child if user wishes to backlog, null otherwise
      */
-    public static <T extends EntryType> Recurrence checkRecurrenceBackLog(T toAdd) {
+    public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list) {
         if (toAdd.getRecurrenceFrequency() == RecurrenceFrequency.NONE) {
-            return null;
+            return;
         }
         if (toAdd.getDate().isBefore(LocalDate.now())) {
             Recurrence recurrence = Parser.parseRecurrence(toAdd);
-            recurrence = recurrenceBacklog(recurrence, toAdd);
-            return recurrence;
+            if (recurrence == null) {
+                return;
+            }
+            boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
+            if (toAdd instanceof Spending) {
+                recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
+            } else {
+                recurrence.checkIncomeRecurrence((Income)toAdd, (IncomeList)list, hasRecurrenceBacklog);
+            }
         }
-        return null;
     }
 
     /**
@@ -70,12 +59,13 @@ public abstract class Recurrence {
      * @param newEntry New entry that is added to `SpendingList` or `IncomeList` from recurrence
      * @param checkDate Date to be checked if it is correct
      */
-    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
+    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate,
+                ArrayList<T> list, boolean isAdding) {
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
         int lastDayOfNewEntryMonth = getLastDayOfMonth(checkDate);
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);
         newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(actualDayToRecur));
-        if (!newEntry.getDate().isAfter(LocalDate.now())) {
+        if (!newEntry.getDate().isAfter(LocalDate.now()) && isAdding) {
             list.add(newEntry);
         }
     }
@@ -87,7 +77,7 @@ public abstract class Recurrence {
      * @param recurringIncome {@code Income} entry to be checked
      * @param incomes {@code IncomeList} of the user
      */
-    public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes);
+    public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding);
 
     /**
      * Checks the {@code Spending} entry if there is a need to add a recurring{@code spending} entry to the user's
@@ -96,5 +86,5 @@ public abstract class Recurrence {
      * @param recurringSpending {@code Spending} entry to be checked
      * @param spendings {@code SpendingList} of the user
      */
-    public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings);
+    public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding);
 }

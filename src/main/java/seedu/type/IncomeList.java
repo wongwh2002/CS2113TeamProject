@@ -21,7 +21,7 @@ public class IncomeList extends ArrayList<Income> {
             Income income = this.get(i);
             Recurrence recurrence = Parser.parseRecurrence(income);
             if (recurrence != null) {
-                recurrence.checkIncomeRecurrence(income, this);
+                recurrence.checkIncomeRecurrence(income, this, true);
             }
         }
         this.sort(Comparator.comparing(EntryType::getDate));
