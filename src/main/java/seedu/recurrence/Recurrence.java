@@ -24,20 +24,18 @@ public abstract class Recurrence {
      * @param toAdd Entry to add into either {@code IncomeList} or {@code SpendingList}
      */
     public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list) {
-        if (toAdd.getRecurrenceFrequency() == RecurrenceFrequency.NONE) {
+        if (!isAbleToBacklog(toAdd)) {
             return;
         }
-        if (toAdd.getDate().isBefore(LocalDate.now())) {
-            Recurrence recurrence = Parser.parseRecurrence(toAdd);
-            if (recurrence == null) {
-                return;
-            }
-            boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
-            if (toAdd instanceof Spending) {
-                recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
-            } else {
-                recurrence.checkIncomeRecurrence((Income)toAdd, (IncomeList)list, hasRecurrenceBacklog);
-            }
+        Recurrence recurrence = Parser.parseRecurrence(toAdd);
+        if (recurrence == null) {
+            return;
+        }
+        boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
+        if (toAdd instanceof Spending) {
+            recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
+        } else {
+            recurrence.checkIncomeRecurrence((Income)toAdd, (IncomeList)list, hasRecurrenceBacklog);
         }
     }
 
@@ -87,4 +85,8 @@ public abstract class Recurrence {
      * @param spendings {@code SpendingList} of the user
      */
     public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding);
+
+    private static <T extends EntryType> boolean isAbleToBacklog(T toAdd) {
+        return toAdd.getRecurrenceFrequency() != RecurrenceFrequency.NONE && toAdd.getDate().isBefore(LocalDate.now());
+    }
 }
