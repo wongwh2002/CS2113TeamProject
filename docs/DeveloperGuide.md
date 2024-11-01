@@ -12,14 +12,14 @@ original source as well}
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### Overall Class Diagram
-![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+![overallClass.drawio.png](./Diagrams/Overall/overallClass.drawio.png)
 <br>
-On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
-new lists would be created
-Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
-The related output is printed through the UI class.
-At the end of the run, or when the user exits the application, Wiagi will save the lists. Now let's delve deeper into 
-some of these classes used for the programme below.
+On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
+else, new lists would be created.
+`Wiagi` then takes in user input via the `UI` class, then parse and executes the command through the `Parser` class.
+The related output is printed through the `UI` class.
+At the end of the run, or when the user exits the application, `Wiagi` will save the lists.
+Now let's delve deeper into some of these classes used for the program below
 
 #### EntryType Class
 The `EntryType` class is a class that is used for storing different types of user entry such that the entries 
@@ -52,21 +52,69 @@ The `Spending` class inherits from `EntryType` class. It is used to store releva
 spending. This information was used by other classes to perform their component tasks.
 
 ### Storage Component
-To load data from previous session:
-Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise its incomes and spendings
-based on the member in the Storage class.
-![storageLoad.png](./Diagrams/storageLoad.png)
+#### Motivation behind the component:
++ Allows the user to save changes, so that they can resume where they left off.
++ Allows advanced users to edit files directly, enabling fast, manual adjustments.
 
-To save data for current session:
-After the command bye is sent by the user, incomes and spendings will be serialised and overwrite texts in
-their distinct file paths.
-![storageSave.png](./Diagrams/storageSave.png)
+#### How the Storage Component works:
++ Variables and File Path:
+    + `incomes` → `./incomes.txt`
+    + `spendings` → `./spendings.txt`
+    + `password` → `./password.txt`
+
++ To save edited lists:
+    + It is done when users type `bye` or after keyboard interrupts (i.e.Ctrl-c), which signals the end of the program.
+    + The lists are saved to a user-editable format in their respective files.
+
++ To load saved lists:
+  + It is done upon program startup, when `Wiagi` is constructed.
+  + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
+  `incomes` and `spendings` file paths to an `IncomeList` and `SpendingList` respectively.
+  + `Wiagi` will then retrieve the lists in `Storage` to initialise its lists.
+  + Data corruption in the file triggers an exception, often due to user-editing errors.
+  + For missing files (e.g., new users), files are created and the initialised lists will be empty.
+
++ To load password:
+  + The hashed password will simply be loaded from the password file.
+  + For missing files (e.g., new users), users will be prompted to set a new password at the start of the
+  program. The entered password will then be hashed and stored in a newly created password file.
+
+#### Implementation:
+#### Storage class
+The `Storage` class is a class that stores `incomes`, `spendings` and `password`. 
+Upon instantiation, it will call `IncomeListStorage.load()`, `SpendingListStorage.load()` and `LoginStorage.load()`, 
+which will initialise the variables in `Storage` respectively.
+
+#### save method in `IncomeListStorage` `SpendingListStorage`
+<img src="./Diagrams/Storage/saveStorageSequenceDiagram.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
+Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
+first line of its respective text file.
++ Format: `daily budget | monthly budget | yearly budget`
++ A for loop will loop through the list, and get each of the attributes of each entry within it and separate them by 
+`|`. Hence, each entry will be written line by line to the file.
++ Format: `amount | description | date | tag | recurrence frequency | last recurrence date | last recurrence day`
+  + E.g. `add income 10 part time /2024-10-10/ *job* ~monthly~` will be stored as
+    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
+
+#### load method in `IncomeListStorage` `SpendingListStorage`
+<img src="./Diagrams/Storage/loadStorageSequenceDiagram.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
+Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
++ A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
++ It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
+and add it to the lists.
++ During the process, if a line is corrupted, an exception will be caught and user will be informed.
+
+#### load method in `LoginStorage`
+<img src="./Diagrams/Storage/loginStorageSequenceDiagram.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
++ It first checks if the password file exists.
+  + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
+  + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
+  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
 
 ### Command handling component
 
 #### Adding of new entry
-![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
@@ -85,7 +133,7 @@ Since listing requires Wiagi to print items in the spendings and incomes list, t
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![listSpendingsCommandSequence.png](./Diagrams/listSpendingsCommandSequence.png)
+![listSpendingsCommandSequence.png](./Diagrams/Commands/listSpendingsCommandSequence.png)
 
 ### Recurrence Component
 
@@ -96,12 +144,12 @@ The sequence diagram below shows what happens when the user executes a `list spe
 
 Illustrated below is the class diagram for the Recurrence Component:<br>
 <br>
-<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
+<img src="./Diagrams/Recurrence/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
 <br>
 <br>
 Illustrated below is the sequence diagram of the Recurrence Component: <br>
 <br>
-<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
+<img src="./Diagrams/Recurrence/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
 <br>
 For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
 For the reference frame of 'add recurring entry', refer to 
@@ -159,7 +207,7 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
-<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
 Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
 for brevity.
