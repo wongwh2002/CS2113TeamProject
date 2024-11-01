@@ -1,6 +1,6 @@
-<mxfile host="drawio-plugin" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" modified="2024-10-31T18:07:48.579Z" version="22.1.22" etag="2HyXxWVnDao3s3bQnEe8" type="embed" pages="3">
+<mxfile host="drawio-plugin" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" modified="2024-11-01T05:11:10.640Z" etag="fNBABdCgifT2D17ZxIn4" version="22.1.22" type="embed" pages="3">
   <diagram name="load()" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
-    <mxGraphModel dx="1230" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="861" dy="440" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -68,7 +68,7 @@
             <mxPoint x="489.5" y="286" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7baba1c4bc27f4b0-3" value=":IncomeListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+        <mxCell id="7baba1c4bc27f4b0-3" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:IncomeListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
           <mxGeometry x="390" y="80" width="130" height="560" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
@@ -103,13 +103,13 @@
             <mxPoint x="160" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PVHJ7KxA7nmS4XBwmIQY-17" value=":SpendingListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+        <mxCell id="PVHJ7KxA7nmS4XBwmIQY-17" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:SpendingListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
           <mxGeometry x="530" y="80" width="140" height="560" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-19" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="PVHJ7KxA7nmS4XBwmIQY-17" vertex="1">
           <mxGeometry x="65" y="190" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="PVHJ7KxA7nmS4XBwmIQY-21" value=":LoginStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+        <mxCell id="PVHJ7KxA7nmS4XBwmIQY-21" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:LoginStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
           <mxGeometry x="680" y="80" width="140" height="560" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-22" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="PVHJ7KxA7nmS4XBwmIQY-21" vertex="1">
@@ -231,7 +231,7 @@
             <mxPoint x="65" y="280" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KUTcS2s6ScAVzmex-uaR-1" value=":IncomeListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="5LU0Q3dUXCaiztFAGEs7-6" vertex="1">
+        <mxCell id="KUTcS2s6ScAVzmex-uaR-1" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:IncomeListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="5LU0Q3dUXCaiztFAGEs7-6" vertex="1">
           <mxGeometry width="130" height="520" as="geometry" />
         </mxCell>
         <mxCell id="KUTcS2s6ScAVzmex-uaR-2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="KUTcS2s6ScAVzmex-uaR-1" vertex="1">
@@ -246,7 +246,7 @@
             <mxPoint x="65" y="280" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="5LU0Q3dUXCaiztFAGEs7-9" value=":SpendingListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+        <mxCell id="5LU0Q3dUXCaiztFAGEs7-9" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:SpendingListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
           <mxGeometry x="1390" y="160" width="140" height="520" as="geometry" />
         </mxCell>
         <mxCell id="Ljx_quWKq2piyPzTlaEf-5" value="FileWriter(INCOMES_FILE_PATH)" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1.071;exitY=0.13;exitDx=0;exitDy=0;exitPerimeter=0;" parent="5LU0Q3dUXCaiztFAGEs7-9" edge="1">
@@ -427,7 +427,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="MxgjOGMUbtU3rlj31D9p-1" value=":LoginStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+        <mxCell id="MxgjOGMUbtU3rlj31D9p-1" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:LoginStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
           <mxGeometry x="1960" y="100" width="100" height="440" as="geometry" />
         </mxCell>
         <mxCell id="MxgjOGMUbtU3rlj31D9p-2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="MxgjOGMUbtU3rlj31D9p-1" vertex="1">
