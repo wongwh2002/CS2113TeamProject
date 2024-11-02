@@ -141,20 +141,21 @@ The sequence diagram below shows what happens when the user executes a `list spe
 + Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
   application
 + Users may have differing frequencies for recurring events thus application gives them a few common options
++ Users may also want to add multiple older recurring entries that have been missed out 
 
 Illustrated below is the class diagram for the Recurrence Component:<br>
 <br>
-<img src="./Diagrams/Recurrence/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
 <br>
 <br>
 Recurrence happens during 2 use cases:
 + Updating existing entries upon start up
 + Backlogging recurring entries when a past entry with recurrence is added
 
-#### Recurrence Updating
+### Recurrence Updating
 Illustrated below is the sequence diagram of how Recurrence updates: <br>
 <br>
-<img src="./Diagrams/Recurrence/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
+<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
 <br>
 For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
 For the reference frame of 'add recurring entry', refer to 
@@ -197,10 +198,19 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
 Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
 for brevity.
+
+Functionality: <br>
+1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
+2. According to the type of recurrence, check if enough time has passed between the 2 dates
+3. Adds additional recurring entries into the `IncomeList`/`SpendingList` if needed.
+
+Note: <br>
+Parameter `isAdding` is illustrated in the sequence diagram above in the opt condition. It allows the method to add 
+entries to list if set to `true`, it may be set to false when used for backlogging
 
 ##### RecurrenceFrequency enumeration
 The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
@@ -215,18 +225,12 @@ Enumeration constants:
 Class: `Parser` <br>
 Method Signature: <br>
 ```
-public static Recurrence parseRecurrence(Type entry)
+public static Recurrence parseRecurrence(EntryType entry)
 ```
 Functionality: <br>
-1. Takes in child class of `Type` (i.e. `Spending`, `Income`)
+1. Takes in child class of `EntryType` (i.e. `Spending`, `Income`)
 2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
-3. Returns `DaillyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
-
-
-Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
-2. According to the type of recurrence, check if enough time has passed between the 2 dates
-3. Adds additional recurring entries into the `IncomeList`/`SpendingList` if needed.
+3. Returns `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
 
 ##### updateRecurrence method
 Class: `SpendingList`, `IncomeList` <br>
@@ -239,10 +243,22 @@ Functionality: <br>
 2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new 
 recurring entry is supposed to be added
 
-#### Recurrence backlogging
+#### checkIfDateAltered method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence`
+Method Signature:
+```
+protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, 
+ArrayList<T> list, boolean isAdding)
+```
+Functionality: <br>
+1. Get the actual day (eg. 31st) of supposed recurrence from first date of entry
+2. Get the last day of the current month
+3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
+
+### Recurrence backlogging
 Illustrated below is the sequence diagram of recurrence backlogging when past entries with recurrence is added <br>
 
-{add recurrence backlogging sequence diagram}
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
 
 #### Implementation
 The following are notable methods used to achieve backlogging in the recurrence component
@@ -258,14 +274,26 @@ Functionality:
 2. Ask if user wishes to backlog all the past entries from specified date of entry to current date via 
 `Ui#hasRecurrenceBacklog`
 3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and updates
-`IncomeList` or `SpendingList` user wants to backlog
+`IncomeList` or `SpendingList` if user wants to backlog via [`Recurrence#checkIncomeRecurrence` and 
+`Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
 
-#### Here are some things to take note:
+#### hasRecurrenceBackLog method
+Class: `Ui` <br>
+Method Signature:
+```
+public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
+```
+Functionality:
+1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
+2. Returns `true` if yes and `false` otherwise
+
+### Here are some things to take note for the component:
 + Entries are only added when user logs in, which is not determinable, thus many additional entries may be added at once
 (e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
 will be added). List is thus also sorted by date after recurrence is done.
 + Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
 added in the future
++ Editing entries with recurrence to an older date does not invoke backlogging option
 + Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is an example scenario: 
   + Monthly recurring entry dated at 31st August
   + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as 

@@ -47,8 +47,4 @@ public class YearlyRecurrence extends Recurrence {
                 : "last recurrence should be within one year";
         recurringSpending.editLastRecurrence(checkDate);
     }
-
-    private boolean isAbleToRecur(LocalDate lastRecurred) {
-        return lastRecurred.getYear() < LocalDate.now().getYear();
-    }
 }
