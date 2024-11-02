@@ -51,6 +51,14 @@ income. This information was used by other classes to perform their component ta
 The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
 spending. This information was used by other classes to perform their component tasks.
 
+#### IncomeList class
+The `IncomeList` class inherits from the `ArrayList` class. It is used to store all of the `Income` objects used in the
+program.
+
+#### SpendingList class
+THe `SpendingList` class inherits from the `ArrayList` class. It is used to store all of the `Spending` objects used in
+the program. Additionally, it stores the budgets that are set by the user.
+
 ### Storage Component
 #### Motivation behind the component:
 + Allows the user to save changes, so that they can resume where they left off.
@@ -134,10 +142,20 @@ To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
 
-#### Deleting of entry, editing of entry
-The commands are similar where there would be a parsing of command to each of its individual classes.
-A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
-(deleting entry from list for delete and editing of entry from list for edit)
+#### Editing entries
+The EditCommand validates and parses the given input to determine if it is editing a spending or an income. It then
+extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
+determine which attribute to edit and sets this attribute of the extracted entry to the new value.
+
+![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
+
+#### Deleting entries
+The DeleteCommand validates and parses the given input to determine if it is deleting a spending or an income. It then
+deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
+
+#### Creating a budget
+The BudgetCommand first validates and parses the given input. It then determines whether the user wants to add a daily,
+monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 #### Listing entries
 
