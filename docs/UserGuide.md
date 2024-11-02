@@ -329,6 +329,11 @@ Run the [`list spendings`](#listing-all-spendings) command to check the index of
     ____________________________________________________________
 ```
 
+### Getting user instructions
+The `help` command allows the user to see a quick summary of the commands.
+
+**Format:** `help`
+
 ### Setting a Budget
 
 The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
