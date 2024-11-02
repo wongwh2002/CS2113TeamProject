@@ -4,7 +4,9 @@ import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
+import seedu.type.Income;
 import seedu.type.IncomeList;
+import seedu.type.Spending;
 import seedu.type.SpendingList;
 import seedu.type.EntryType;
 
@@ -61,15 +63,14 @@ public class FindCommand extends Command {
         if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + FIND_COMMAND_FORMAT);
         }
-        List<? extends EntryType> findResults;
         switch (typeOfList) {
         case INCOME:
-            findResults = findList(arguments, incomes);
-            Ui.printFindResults(findResults, incomes);
+            List<Income> incomeFindResults = findList(arguments, incomes);
+            Ui.printFindResults(incomeFindResults, incomes);
             break;
         case SPENDING:
-            findResults = findList(arguments, spendings);
-            Ui.printFindResults(findResults, spendings);
+            List<Spending> spendingFindResults = findList(arguments, spendings);
+            Ui.printFindResults(spendingFindResults, spendings);
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_CATEGORY + FIND_COMMAND_FORMAT);
@@ -84,7 +85,7 @@ public class FindCommand extends Command {
         return arguments;
     }
 
-    private <T extends ArrayList<? extends EntryType>> List<? extends EntryType> findList(String[] arguments, T list) {
+    private <T extends EntryType> List<T> findList(String[] arguments, ArrayList<T> list) {
         String findValue = arguments[VALUE_TO_FIND_INDEX];
         String field = arguments[FIELD_INDEX];
         switch (field) {

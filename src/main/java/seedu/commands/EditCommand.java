@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         return arguments;
     }
 
-    private <T extends ArrayList<? extends EntryType>> void editList(String[] arguments, T list)
+    private <T extends EntryType> void editList(String[] arguments, ArrayList<T> list)
             throws WiagiInvalidIndexException {
         String index = arguments[INDEX_OF_ENTRY_INDEX];
         EntryType entryToEdit = extractEntry(list, index);
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         Ui.printWithTab("Edit Successful!");
     }
 
-    private <T extends ArrayList<? extends EntryType>> EntryType extractEntry(T list, String stringIndex)
+    private <T extends EntryType> EntryType extractEntry(ArrayList<T> list, String stringIndex)
             throws WiagiInvalidIndexException {
         try {
             int index = Integer.parseInt(stringIndex) - 1;

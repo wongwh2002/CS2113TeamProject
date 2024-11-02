@@ -331,8 +331,7 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
-    public static <T extends ArrayList<? extends EntryType>> void printFindResults(
-            List<? extends EntryType> findResults, T list) {
+    public static <T extends EntryType> void printFindResults(List<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
             Ui.printWithTab("No entries found match the criteria.");
         } else {
