@@ -26,11 +26,11 @@ import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
 public class IncomeListStorage {
-    private static final String INCOME_FILE_PATH = "./incomes.txt";
+    private static final String INCOMES_FILE_PATH = "./incomes.txt";
 
     static void save(IncomeList incomes) {
         try {
-            FileWriter fw = new FileWriter(INCOME_FILE_PATH);
+            FileWriter fw = new FileWriter(INCOMES_FILE_PATH);
             for (Income income : incomes) {
                 String incomeEntry = income.getAmount() + STORAGE_SEPARATOR + income.getDescription() +
                         STORAGE_SEPARATOR + income.getDate() + STORAGE_SEPARATOR + income.getTag() + STORAGE_SEPARATOR +
@@ -46,10 +46,10 @@ public class IncomeListStorage {
 
     static void load() {
         try {
-            if (new File(INCOME_FILE_PATH).createNewFile()) {
+            if (new File(INCOMES_FILE_PATH).createNewFile()) {
                 return;
             }
-            File incomeFile = new File(INCOME_FILE_PATH);
+            File incomeFile = new File(INCOMES_FILE_PATH);
             Scanner incomeReader = new Scanner(incomeFile);
             while (incomeReader.hasNext()) {
                 String newEntry = incomeReader.nextLine();
@@ -68,7 +68,7 @@ public class IncomeListStorage {
         } catch (IOException e) {
             Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
         } catch (NoSuchElementException e) {
-            File incomeFile = new File(INCOME_FILE_PATH);
+            File incomeFile = new File(INCOMES_FILE_PATH);
             incomeFile.delete();
         }
     }

@@ -185,7 +185,7 @@ public class SpendingList extends ArrayList<Spending> {
             Spending spending = this.get(i);
             Recurrence recurrence = Parser.parseRecurrence(spending);
             if (recurrence != null) {
-                recurrence.checkSpendingRecurrence(spending, this);
+                recurrence.checkSpendingRecurrence(spending, this, true);
             }
         }
         this.sort(Comparator.comparing(EntryType::getDate));
