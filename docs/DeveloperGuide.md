@@ -129,10 +129,11 @@ Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
 
 #### Editing entries
-The DeleteCommand validates and parses the given input to determine if it is editing a spending or an income. It then
-uses the parsed input to determine which index of the SpendingList or IncomeList is to be edited, and extracts this 
-entry from the list. Finally, it uses the parsed input to determine which attribute to edit and sets this attribute
-of the extracted entry to the new value.
+The EditCommand validates and parses the given input to determine if it is editing a spending or an income. It then
+extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
+determine which attribute to edit and sets this attribute of the extracted entry to the new value.
+
+![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
 
 #### Deleting entries
 The DeleteCommand validates and parses the given input to determine if it is deleting a spending or an income. It then
