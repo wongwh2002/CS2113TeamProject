@@ -139,23 +139,28 @@ The referenced sequence diagrams for the execution of commands will be shown in 
 ![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
-Wiagi will then parse the command to the AddCommand class.
-The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
+Wiagi will then parse the command to the `AddCommand` class.
+The `AddCommand` class will then validate the user's input and add the input to IncomeList or SpendingList
 
 #### Editing entries
-The EditCommand validates and parses the given input to determine if it is editing a spending or an income. It then
+`EditCommand` validates and parses the given input to determine if it is editing a spending or an income. It then
 extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
 determine which attribute to edit and sets this attribute of the extracted entry to the new value.
 
 ![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
 
+#### Finding entries
+`FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 
+`IncomeList`. It then searches through the list based on specified fields (`amount`, `description`, or `date`) 
+to display matching results.
+
 #### Deleting entries
-The DeleteCommand validates and parses the given input to determine if it is deleting a spending or an income. It then
+`DeleteCommand` validates and parses the given input to determine if it is deleting a spending or an income. It then
 deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
 
 #### Creating a budget
-The BudgetCommand first validates and parses the given input. It then determines whether the user wants to add a daily,
-monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
+The `BudgetCommand` first validates and parses the given input. It then determines whether the user wants to add a daily
+, monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 #### Listing entries
 
