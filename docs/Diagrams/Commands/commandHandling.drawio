@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
-    <mxGraphModel dx="794" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="1134" dy="867" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -47,7 +47,7 @@
             <mxPoint x="271" y="202" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ckLyhrDvlLfpHV3zjBn--3" value="XYZListCommand" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;dashed=1;" parent="1" edge="1">
+        <mxCell id="ckLyhrDvlLfpHV3zjBn--3" value=":XYZListCommand" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;dashed=1;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="271" y="328" as="sourcePoint" />
             <Array as="points">
@@ -95,6 +95,11 @@
             <mxPoint x="455" y="661" as="sourcePoint" />
             <mxPoint x="95" y="661" as="targetPoint" />
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WHbYDqlN71XQacUm0mTV-1" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="ckLyhrDvlLfpHV3zjBn--83">
+          <mxGeometry x="0.4907" y="-2" relative="1" as="geometry">
+            <mxPoint x="-57" y="-9" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NoPfLGf-hVdP6wL_0lK0-2" value="[User sent a list command]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
@@ -163,7 +168,7 @@
             <mxPoint x="255" y="360" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NoPfLGf-hVdP6wL_0lK0-14" value="Return new XYZCommand" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;dashed=1;" parent="1" edge="1">
+        <mxCell id="NoPfLGf-hVdP6wL_0lK0-14" value="return new XYZCommand" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;dashed=1;" parent="1" edge="1">
           <mxGeometry x="0.4516" width="80" relative="1" as="geometry">
             <mxPoint x="575" y="483" as="sourcePoint" />
             <mxPoint x="265" y="483" as="targetPoint" />
@@ -191,6 +196,11 @@
             <mxPoint x="575" y="789.5000000000002" as="sourcePoint" />
             <mxPoint x="95" y="789.5000000000002" as="targetPoint" />
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WHbYDqlN71XQacUm0mTV-2" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="NoPfLGf-hVdP6wL_0lK0-21">
+          <mxGeometry x="0.6639" y="1" relative="1" as="geometry">
+            <mxPoint x="-46" y="-10" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NoPfLGf-hVdP6wL_0lK0-28" value="XYZListCommand refers to any list command, such as ListAllCommand, ListSpendingsCommand, ListTagsCommand, etc." style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;flipV=1;" parent="1" vertex="1">
