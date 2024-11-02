@@ -113,7 +113,7 @@ and add it to the lists.
 
 ### Command handling component
 
-![commandHandling.png](./Diagrams/commandHandling.png)
+![commandHandling.png](./Diagrams/Commands/commandHandling.png)
 
 User input is taken in through the `Ui.readCommand()` method that is called from the `Wiagi` class. This command is 
 then passed to the static method `parseUserInput(...)` in the `Parser` class. This method determines the command type 
@@ -174,7 +174,7 @@ statistics, which consist of:
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![executeListSpendingsCommand.png](./Diagrams/executeListSpendingsCommand.png)
+![executeListSpendingsCommand.png](./Diagrams/Commands/executeListSpendingsCommand.png)
 
 As shown in the diagram, when the command is executed, a `handleCommand(...)` method is first called to verify the user 
 input and handle the command. 
@@ -186,7 +186,7 @@ called to allow the user to choose whether to show all spending statistics and p
 
 The sequence diagram below shows what happens when the user chooses to show their weekly spendings.
 
-![printWeekly.png](./Diagrams/printWeekly.png)
+![printWeekly.png](./Diagrams/Commands/printWeekly.png)
 
 As shown in the diagram, the program gets the dates of the Monday and Sunday of the current week. It then loops through
 the spending list. For every entry in the spending list, it checks whether the date of the entry is between the Monday
@@ -211,7 +211,7 @@ Listing all tags and listing all entries with a specific tag are grouped togethe
 `ListTagsCommand`. When this command is executed, the number of words in the command is checked to determine if the user
 wants to list all tags or to list all entries with a specific tag, as shown in the sequence diagram below. 
 
-![executeListTags.png](./Diagrams/executeListTags.png)
+![executeListTags.png](./Diagrams/Commands/executeListTags.png)
 
 ###### Listing all tags
 
