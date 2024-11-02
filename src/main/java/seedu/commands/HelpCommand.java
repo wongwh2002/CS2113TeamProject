@@ -26,9 +26,11 @@ public class HelpCommand extends Command {
     }
 
     private void appendAddCommandHelp(StringBuilder helpText) {
-        helpText.append("Adding Entries:").append(System.lineSeparator())
-                .append("\tadd income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]").append(System.lineSeparator())
-                .append("\tadd spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]").append(System.lineSeparator())
+        helpText.append(System.lineSeparator()).append("Adding Entries:").append(System.lineSeparator())
+                .append("\tadd income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
+                .append(System.lineSeparator())
+                .append("\tadd spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
+                .append(System.lineSeparator())
                 .append("\te.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~").append(System.lineSeparator())
                 .append("\te.g., add spending 50 Lunch /2024-03-15/ *food*").append(System.lineSeparator())
                 .append(System.lineSeparator());
