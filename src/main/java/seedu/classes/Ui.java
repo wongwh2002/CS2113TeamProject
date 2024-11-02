@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static seedu.classes.Constants.ALL_TIME_OPTION;
@@ -331,7 +330,7 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
-    public static <T extends EntryType> void printFindResults(List<T> findResults, ArrayList<T> list) {
+    public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
             Ui.printWithTab("No entries found match the criteria.");
         } else {

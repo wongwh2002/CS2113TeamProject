@@ -12,7 +12,7 @@ import seedu.type.EntryType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCOME;
@@ -65,11 +65,11 @@ public class FindCommand extends Command {
         }
         switch (typeOfList) {
         case INCOME:
-            List<Income> incomeFindResults = findList(arguments, incomes);
+            ArrayList<Income> incomeFindResults = findList(arguments, incomes);
             Ui.printFindResults(incomeFindResults, incomes);
             break;
         case SPENDING:
-            List<Spending> spendingFindResults = findList(arguments, spendings);
+            ArrayList<Spending> spendingFindResults = findList(arguments, spendings);
             Ui.printFindResults(spendingFindResults, spendings);
             break;
         default:
@@ -78,14 +78,14 @@ public class FindCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
-        String[] arguments = fullCommand.split(SPACE_REGEX, FIND_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.trim().split(SPACE_REGEX, FIND_ARGUMENTS_LENGTH);
         if (arguments.length < FIND_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + FIND_COMMAND_FORMAT);
         }
         return arguments;
     }
 
-    private <T extends EntryType> List<T> findList(String[] arguments, ArrayList<T> list) {
+    private <T extends EntryType> ArrayList<T> findList(String[] arguments, ArrayList<T> list) {
         String findValue = arguments[VALUE_TO_FIND_INDEX];
         String field = arguments[FIELD_INDEX];
         switch (field) {
@@ -93,17 +93,17 @@ public class FindCommand extends Command {
             double findAmount = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
             return list.stream()
                     .filter(entry -> entry.getAmount() == findAmount)
-                    .toList();
+                    .collect(Collectors.toCollection(ArrayList::new));
         case DESCRIPTION_FIELD:
             String findDescription = findValue.trim();
             return list.stream()
                     .filter(entry -> entry.getDescription().contains(findDescription))
-                    .toList();
+                    .collect(Collectors.toCollection(ArrayList::new));
         case DATE_FIELD:
             LocalDate findDate = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
             return list.stream()
                     .filter(entry -> entry.getDate().equals(findDate))
-                    .toList();
+                    .collect(Collectors.toCollection(ArrayList::new));
         default:
             throw new WiagiInvalidInputException(INVALID_FIELD + FIND_COMMAND_FORMAT);
         }
