@@ -37,7 +37,7 @@ public class Ui {
         String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
-        return line;
+        return line.trim();
     }
 
     public static void printSeparator() {

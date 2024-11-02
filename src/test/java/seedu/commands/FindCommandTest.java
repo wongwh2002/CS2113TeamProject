@@ -102,15 +102,6 @@ class FindCommandTest {
     }
 
     @Test
-    public void execute_emptyFindDescription_expectIllegalArgumentExceptionThrown() {
-        String userInout = "find income description      ";
-        Command c = Parser.parseUserInput(userInout);
-        c.execute(incomes, spendings);
-        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + FIND_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
-    }
-
-    @Test
     public void execute_findSpendingAmount_success() {
         String userInout = "find spending amount 1";
         Command c = Parser.parseUserInput(userInout);

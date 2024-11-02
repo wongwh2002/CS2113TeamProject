@@ -78,7 +78,7 @@ public class FindCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
-        String[] arguments = fullCommand.trim().split(SPACE_REGEX, FIND_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(SPACE_REGEX, FIND_ARGUMENTS_LENGTH);
         if (arguments.length < FIND_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + FIND_COMMAND_FORMAT);
         }
@@ -87,6 +87,7 @@ public class FindCommand extends Command {
 
     private <T extends EntryType> ArrayList<T> findList(String[] arguments, ArrayList<T> list) {
         String findValue = arguments[VALUE_TO_FIND_INDEX];
+        assert !findValue.isEmpty() : "Find value should not be empty";
         String field = arguments[FIELD_INDEX];
         switch (field) {
         case AMOUNT_FIELD:
