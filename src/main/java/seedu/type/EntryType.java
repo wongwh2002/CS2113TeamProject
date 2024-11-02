@@ -37,10 +37,8 @@ public class EntryType {
         this.tag = extractTag(optionalArguments);
         assert tag != null : "Tag should not be null";
         this.recurrenceFrequency = extractRecurrenceFrequency(optionalArguments);
-        this.lastRecurrence = checkRecurrence(this.recurrenceFrequency);
-        if (lastRecurrence != null) {
-            this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
-        }
+        this.lastRecurrence = this.date;
+        this.dayOfRecurrence = lastRecurrence.getDayOfMonth();
         Ui.printWithTab("Entry successfully added!");
     }
 
@@ -144,10 +142,6 @@ public class EntryType {
         } catch (Exception e) {
             throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + EDIT_COMMAND_FORMAT);
         }
-    }
-
-    public void setRecurrenceToNone() {
-        this.recurrenceFrequency = RecurrenceFrequency.NONE;
     }
 
     public void editDateWithLocalDate(LocalDate date) {
