@@ -1,5 +1,7 @@
 package seedu.recurrence;
 
+import seedu.classes.Parser;
+import seedu.classes.Ui;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -15,6 +17,28 @@ import java.util.ArrayList;
  * recurring entries in the user's {@code IncomeList} and {@code SpendingList} and add recurring entries when needed
  */
 public abstract class Recurrence {
+    /**
+     * Queries the user if backlog of recurring entries from {@code toAdd} entry date until current date are
+     * necessary.
+     *
+     * @param toAdd Entry to add into either {@code IncomeList} or {@code SpendingList}
+     */
+    public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list) {
+        if (!isAbleToBacklog(toAdd)) {
+            return;
+        }
+        Recurrence recurrence = Parser.parseRecurrence(toAdd);
+        if (recurrence == null) {
+            return;
+        }
+        boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
+        if (toAdd instanceof Spending) {
+            recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
+        } else {
+            recurrence.checkIncomeRecurrence((Income)toAdd, (IncomeList)list, hasRecurrenceBacklog);
+        }
+    }
+
     /**
      * Retrieves the last day of the month, given the current month and year. Includes leap year as well.
      *
@@ -33,12 +57,13 @@ public abstract class Recurrence {
      * @param newEntry New entry that is added to `SpendingList` or `IncomeList` from recurrence
      * @param checkDate Date to be checked if it is correct
      */
-    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, ArrayList<T> list) {
+    protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate,
+                ArrayList<T> list, boolean isAdding) {
         int dayOfSupposedRecurrence = newEntry.getDayOfRecurrence();
         int lastDayOfNewEntryMonth = getLastDayOfMonth(checkDate);
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);
         newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(actualDayToRecur));
-        if (!newEntry.getDate().isAfter(LocalDate.now())) {
+        if (!newEntry.getDate().isAfter(LocalDate.now()) && isAdding) {
             list.add(newEntry);
         }
     }
@@ -50,7 +75,7 @@ public abstract class Recurrence {
      * @param recurringIncome {@code Income} entry to be checked
      * @param incomes {@code IncomeList} of the user
      */
-    public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes);
+    public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding);
 
     /**
      * Checks the {@code Spending} entry if there is a need to add a recurring{@code spending} entry to the user's
@@ -59,5 +84,9 @@ public abstract class Recurrence {
      * @param recurringSpending {@code Spending} entry to be checked
      * @param spendings {@code SpendingList} of the user
      */
-    public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings);
+    public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding);
+
+    private static <T extends EntryType> boolean isAbleToBacklog(T toAdd) {
+        return toAdd.getRecurrenceFrequency() != RecurrenceFrequency.NONE && toAdd.getDate().isBefore(LocalDate.now());
+    }
 }

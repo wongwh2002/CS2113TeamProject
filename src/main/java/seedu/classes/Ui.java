@@ -294,6 +294,22 @@ public class Ui {
         }
     }
 
+    public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
+        Ui.printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
+                + LocalDate.now() + " if any? [Y/N]");
+        while (true) {
+            String userInput = Ui.readCommand().toLowerCase();
+            switch (userInput) {
+            case "y":
+                return true;
+            case "n":
+                return false;
+            default:
+                Ui.printWithTab("Not a valid input. Please enter [Y/N]");
+            }
+        }
+    }
+
     private static LocalDate getMondayDate(LocalDate currDate) {
         while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
             currDate = currDate.minusDays(1);
