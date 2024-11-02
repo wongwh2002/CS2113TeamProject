@@ -23,6 +23,7 @@ and investment analysis.
     - [Deleting a spending](#deleting-a-spending)
   - [Setting a budget](#setting-a-budget)
   - [Editing an entry](#editing-an-entry)
+  - [Finding an entry](#finding-an-entry)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -360,14 +361,51 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
+  - Note: There are restrictions for the find value in these fields:
+    - amount: positive numerical value.
+    - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
 `edit spending 1 amount 100`
+`edit spending 1 description macdonalds`
+`edit spending 1 tag food`
+`edit spending 1 date 2024-10-10`
 
 **Example output**:
 ```
     ____________________________________________________________
     Edit Successful!
+    ____________________________________________________________
+```
+
+### Finding an Entry
+
+The `find` command allows you to find entries with a specified amount or date or description with certain keyword.
+
+**Format:** `find {$TYPE} {$FIELD} {$FIND_VALUE}`
+
+- `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
+- `{$FIND_VALUE}`: The value to find for the specified field.
+  - Note: There are restrictions for the find value in these fields:
+    - amount: positive numerical value.
+    - date: YYYY-MM-DD format, eg.`2023-01-21`.
+
+**Example input:**<br>
+- `find spending amount 100`
+- `find spending description macdonalds`
+- `find spending date 2024-10-10`
+
+**Example output**:
+```
+    ____________________________________________________________
+    No entries found match the criteria.
+    ____________________________________________________________
+```
+```
+    ____________________________________________________________
+    Here are the matching results:
+    1. macdonalds - 10 - 2024-10-10
     ____________________________________________________________
 ```
 
