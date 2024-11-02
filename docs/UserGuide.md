@@ -139,27 +139,24 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 ### Listing all entries:
 
-Lists all the entries in the user's spending or income list. </br>
+Lists all the entries in the user's spending or income list. <br>
 **Format:** `list`
 
 **Example input:** <br>
 `list`
 
-**Example output:** {to update}
+**Example output:**
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - food
-	2. flights - 10 - 2024-10-17 - travel
-	3. girlfriends - 10 - 2024-10-17 - personal
-	4. macdonalds - 10 - 2024-10-10 - food
+	1. techno - 10 - 2024-10-17 - Tag: food
+	2. flights - 10 - 2024-10-17 - Tag: travel
+	3. girlfriends - 10 - 2024-10-17 - Tag: personal
+	4. macdonalds - 10 - 2024-10-10 - Tag: food
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
 	Incomes
-	1. mcd - 100 - 2024-11-11 - personal
-	2. dividends - 10 - 2024-10-17 - investment
+	1. mcd - 100 - 2024-11-11 - Tag: personal
+	2. dividends - 10 - 2024-10-17 - Tag: investment
 	Total incomes: 110
 	____________________________________________________________
 ```
@@ -173,12 +170,9 @@ The user will then be prompted to select a time range.
 Only entries that are within the time range will be displayed.
 If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed.
 
-**Example**
+**Example Input and Output**
 
 **Input:** `list spendings`
-
-**Output:**
-
 ```
 	____________________________________________________________
 	Select time range:
@@ -187,37 +181,50 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 	[3] Biweekly
 	[4] Monthly
 ```
-**Input:** `1`
-
-**Output:**
-```
-	____________________________________________________________
-	List all statistics? [Y/N]:
-```
-
-**Input:** `y`
-
-**Output:**
-```
-	____________________________________________________________
-	Spendings
-	1. macdonalds - 10 - 2024-10-10 - food
-	2. techno - 10 - 2024-10-17 - food
-	3. flights - 10 - 2024-10-17 - travel
-	4. girlfriends - 10 - 2024-10-17 - personal
-	Total spendings: 40
-		Daily spendings: 0
-		Daily Budget: 0
-		Daily budget left: 0
-		Monthly spendings: 40
-		Monthly Budget: 0
-		Monthly budget left: -40
-		Yearly spendings: 40
-		Yearly Budget: 0
-		Yearly budget left: -40
-	____________________________________________________________
-
-```
+- **Input:** `1`
+  ```
+	 ____________________________________________________________
+	 List all statistics? [Y/N]:
+  ```
+    - **Input:** `y`
+    ```
+        ____________________________________________________________
+        Spendings
+        1. macdonalds - 10 - 2024-10-10 - food
+        2. techno - 10 - 2024-10-17 - food
+        3. flights - 10 - 2024-11-01 - travel
+        4. girlfriends - 10 - 2024-11-17 - personal
+        Total spendings: 40
+            Daily spendings: 0
+            Daily Budget: 0
+            Daily budget left: 0
+            Monthly spendings: 40
+            Monthly Budget: 0
+            Monthly budget left: -40
+            Yearly spendings: 40
+            Yearly Budget: 0
+            Yearly budget left: -40
+        ____________________________________________________________
+    ```
+    - **Input:** `n`
+    ```
+        ____________________________________________________________
+        Spendings
+        1. macdonalds - 10 - 2024-10-10 - food
+        2. techno - 10 - 2024-10-17 - food
+        3. flights - 10 - 2024-11-01 - travel
+        4. girlfriends - 10 - 2024-11-17 - personal
+        Total spendings: 40
+        ____________________________________________________________
+    ```
+- **Input:** `4` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Spendings
+      3. flights - 10 - 2024-11-01 - travel
+      4. girlfriends - 10 - 2024-11-17 - personal
+      ____________________________________________________________
+  ```
 
 #### Listing all incomes:
 
@@ -228,11 +235,9 @@ Lists all the entries in the user's income list.
 The user will then be prompted to select a time range. 
 Only entries that are within the time range will be displayed.
 
-**Example**
+**Example Input and Output**
 
-**Input:** `list incomes` 
-
-**Output:**
+**Input:** `list incomes`
 ```
 	____________________________________________________________
 	Select time range:
@@ -242,18 +247,23 @@ Only entries that are within the time range will be displayed.
 	[4] Monthly 
 
 ```
-**Input:**
-`1`
+- **Input:** `1`
+  ```
+      ____________________________________________________________
+      Incomes
+      1. mcd - 100 - 2024-11-15 - FastFood
+      2. dividends - 10 - 2024-10-17 - investment
+      Total incomes: 110
+      ____________________________________________________________
+  ```
 
-**Output:**
-```
-	____________________________________________________________
-	Incomes
-	1. mcd - 100 - 2024-11-11 - FastFood
-	2. dividends - 10 - 2024-10-17 - investment
-	Total incomes: 110
-	____________________________________________________________
-```
+- **Input:** `2` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Incomes
+      1. mcd - 100 - 2024-11-15 - FastFood
+      ____________________________________________________________
+  ```
 
 #### Listing all tags:
 
@@ -525,6 +535,17 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         <tr>
             <td>Yearly</td>
             <td></td>
+        </tr>
+        <tr>
+            <td rowspan="2">Finding entries</td>
+            <td>Income</td>
+            <td>find income {$FIELD} {$FIND_VALUE}</td>
+            <td>find income description salary</td>
+        </tr>
+        <tr>
+            <td>Spending</td>
+            <td>find spending {$FIELD} {$FIND_VALUE}</td>
+            <td>find spending description macdonald</td>
         </tr>
     </tbody>
 </table>
