@@ -15,15 +15,16 @@ import java.util.Scanner;
 
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.SEPARATOR;
+import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
-    public static final String EMPTY_STRING = "";
-    public static final String TAB = "\t";
-    public static final String INCOME = "Incomes";
-    public static final String SPENDING = "Spendings";
+    private static final String INCOME = "Incomes";
+    private static final String SPENDING = "Spendings";
     private static Scanner scanner = new Scanner(System.in);
 
     public static void userInputForTest(String data) {
@@ -36,11 +37,11 @@ public class Ui {
         String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
-        return line;
+        return line.trim();
     }
 
     public static void printSeparator() {
-        printWithTab(Constants.SEPARATOR);
+        printWithTab(SEPARATOR);
     }
     public static void printWithTab(String message) {
         System.out.println(TAB + message);
@@ -329,5 +330,13 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
+    public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
+        if (findResults.isEmpty()) {
+            Ui.printWithTab("No entries found match the criteria.");
+        } else {
+            Ui.printWithTab("Here are the matching results:");
+            findResults.forEach(entry -> Ui.printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
+        }
+    }
 }
 
