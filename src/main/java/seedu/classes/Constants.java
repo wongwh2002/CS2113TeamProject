@@ -6,6 +6,7 @@ public class Constants {
 
     // Strings
     public static final String SEPARATOR = "____________________________________________________________";
+    public static final String EMPTY_STRING = "";
     public static final String LIST_SEPARATOR = " - ";
     public static final String STORAGE_SEPARATOR = "|";
     public static final String STORAGE_LOAD_SEPARATOR = "\\|";
@@ -22,6 +23,8 @@ public class Constants {
     public static final String BUDGET_COMMAND_FORMAT = "Please enter in the form: budget {$PERIOD} {$AMOUNT}";
     public static final String EDIT_COMMAND_FORMAT = "Please enter in the form: edit {$CATEGORY} {$INDEX} {$FIELD} " +
             "{$NEW_VALUE}";
+    public static final String FIND_COMMAND_FORMAT = "Please enter in the form: find {$CATEGORY} {$FIELD} " +
+            "{$FIND_VALUE}";
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
             "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]";
