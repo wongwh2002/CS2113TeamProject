@@ -16,15 +16,16 @@ import java.util.Scanner;
 
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.SEPARATOR;
+import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
-    public static final String EMPTY_STRING = "";
-    public static final String TAB = "\t";
-    public static final String INCOME = "Incomes";
-    public static final String SPENDING = "Spendings";
+    private static final String INCOME = "Incomes";
+    private static final String SPENDING = "Spendings";
     private static Scanner scanner = new Scanner(System.in);
 
     public static void userInputForTest(String data) {
@@ -41,7 +42,7 @@ public class Ui {
     }
 
     public static void printSeparator() {
-        printWithTab(Constants.SEPARATOR);
+        printWithTab(SEPARATOR);
     }
     public static void printWithTab(String message) {
         System.out.println(TAB + message);

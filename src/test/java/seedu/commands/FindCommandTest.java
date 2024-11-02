@@ -15,7 +15,15 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.classes.Constants.*;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
+import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.LIST_SEPARATOR;
+import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.VALID_TEST_DATE;
 
 
 class FindCommandTest {

@@ -6,6 +6,7 @@ public class Constants {
 
     // Strings
     public static final String SEPARATOR = "____________________________________________________________";
+    public static final String EMPTY_STRING = "";
     public static final String LIST_SEPARATOR = " - ";
     public static final String STORAGE_SEPARATOR = "|";
     public static final String STORAGE_LOAD_SEPARATOR = "\\|";

@@ -12,7 +12,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static seedu.classes.Constants.*;
+import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCOME;
+import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.SPENDING;
 
 public class FindCommand extends Command {
 

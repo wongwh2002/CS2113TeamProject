@@ -4,8 +4,9 @@ import seedu.exception.WiagiInvalidInputException;
 
 import java.time.LocalDate;
 
-import static seedu.classes.Constants.*;
-import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_AMOUNT;
 
 public class CommandUtils {
 
