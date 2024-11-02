@@ -169,6 +169,8 @@ recurrence it is (e.g. `DailyRecurrence`, `null`) which is encapsulated as a `Re
 `IncomeList` if needed. <br>
 
 #### Implementation:
+The following are notable classes and methods used to achieve updating in the recurrence component.
+
 ##### Recurrence class
 The `Recurrence` class is an abstract class that provides the interface for checking `Income` and `Spending` and adding 
 recurring entries into the list. <br>
@@ -183,6 +185,22 @@ The following are child classes of `Recurrence`:
 + `DailyRecurrence`: Handles entries labelled as daily recurring events
 + `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
+
+##### checkIncomeRecurrence / checkSpendingRecurrence method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
+Method Signature: <br>
+```
+@Override
+public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
+@Override
+public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
+```
+Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
+<br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
+Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
+Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
+for brevity.
 
 ##### RecurrenceFrequency enumeration
 The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
@@ -204,21 +222,6 @@ Functionality: <br>
 2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
 3. Returns `DaillyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
 
-##### checkIncomeRecurrence / checkSpendingRecurrence method
-Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
-Method Signature: <br>
-```
-@Override
-public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
-@Override
-public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
-```
-Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
-<br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
-Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
-Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
-for brevity.
 
 Functionality: <br>
 1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
@@ -242,6 +245,8 @@ Illustrated below is the sequence diagram of recurrence backlogging when past en
 {add recurrence backlogging sequence diagram}
 
 #### Implementation
+The following are notable methods used to achieve backlogging in the recurrence component
+
 ##### checkRecurrenceBacklog method
 Class: `Recurrence` <br>
 Method Signature: <br>
