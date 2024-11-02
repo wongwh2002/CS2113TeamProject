@@ -33,10 +33,10 @@ public class ListTagsCommand extends Command {
     private void handleCommand(IncomeList incomes, SpendingList spendings) throws WiagiMissingParamsException {
         if (arguments.length < LIST_SPECIFIC_TAG_LENGTH) {
             Ui.printAllTags(incomes, spendings);
-            return;
+        } else {
+            String tagName = arguments[LIST_TAG_NAME_INDEX];
+            assert tagName != null : "tag name should not be null";
+            Ui.printSpecificTag(incomes, spendings, tagName);
         }
-        String tagName = arguments[LIST_TAG_NAME_INDEX];
-        assert tagName != null : "tag name should not be null";
-        Ui.printSpecificTag(incomes, spendings, tagName);
     }
 }
