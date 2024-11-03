@@ -117,7 +117,7 @@ Upon instantiation, it will call `IncomeListStorage.load()`, `SpendingListStorag
 which will initialise the variables in `Storage` respectively.
 
 #### save method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/saveStorageSequenceDiagram.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
+<img src="./Diagrams/Storage/saveStorageSD.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
 Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
 first line of its respective text file.
 + Format: `daily budget | monthly budget | yearly budget`
@@ -128,7 +128,7 @@ first line of its respective text file.
     `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/loadStorageSequenceDiagram.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
+<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
 Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
@@ -136,7 +136,7 @@ and add it to the lists.
 + During the process, if a line is corrupted, an exception will be caught and user will be informed.
 
 #### load method in `LoginStorage`
-<img src="./Diagrams/Storage/loginStorageSequenceDiagram.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
+<img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
 + It first checks if the password file exists.
   + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
