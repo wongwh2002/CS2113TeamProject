@@ -388,12 +388,10 @@ The income or spending will be deleted from its corresponding list using its ind
 
 ## Product scope
 ### Target user profile
-
-{Describe the target user profile}
+1. prefer desktop apps over other types
 
 ### Value proposition
-
-{Describe the value proposition: what problem does it solve?}
+1. An app that help students to manage their financials faster than a typical mouse/GUI driven app.
 
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
@@ -414,6 +412,7 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
 | **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
 | *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
+| *        | user     | find my entry with keywords                          | retrieve its relevant information easily         |
 
 
 ## Use cases
@@ -497,14 +496,48 @@ Use case ends.
     - 3a. Wiagi displays an error message.
     Use case restarts at step 1.
 
+### Use Case: Find an Entry
+**Finding an existing income or spending entry with certain information**
+
+**MSS**
+
+1. User requests to find a specific entry in incomes or spendings with its relevant details.
+2. Wiagi shows a list of all incomes or spendings that contains that detail.
+
+Use case ends. 
+
+**Extensions**
+1. The list is empty.
+   <br>Use case ends.
+2. No entries contain that detail.
+    - 2a. Wiagi displays a message saying nothing is found.
+      Use case restarts at step 1.
+3. The details are invalid.
+    - 3a. Wiagi displays an error message.
+      Use case restarts at step 1.
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
 
+1. A user should be alerted of the correct command format whenever an invalid command is encountered.
+
 ## Glossary
 
 * *glossary item* - Definition
+* Mainstream OS: Windows, Linux, Unix, MacOS
 
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Finding an entry
+Prerequisites: Add multiple entries to either incomes or spendings.
+1. Test case: `find income description a`
+   - Expected: Lists all income entries with `a` in the description.
+2. Test case: `find spending amount 10`
+    - Expected: Lists all spending entries that has an amount of 10.
+3. Test case: `find spending date 2024-11-11`
+    - Expected: Lists all spending entries that has a date of 2024-11-11.
+4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
+    - Expected: Nothing is listed. Error details printed to the user.
