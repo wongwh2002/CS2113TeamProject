@@ -114,6 +114,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the specified month.
      */
     public double getMonthlySpending(LocalDate currentDate){
+        assert currentDate != null : "Current date cannot be null";
         double spendingTotal = 0;
         for (Spending spending : this) {
             if (isThisMonth(spending.getDate(), currentDate)) {
@@ -139,6 +140,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the specified day.
      */
     public double getDailySpending(LocalDate currentDate){
+        assert currentDate != null : "Current date cannot be null";
         LOGGER.log(Level.INFO, "Calculating daily spending for date: {0}", currentDate);
         double spendingTotal = 0;
         for (Spending spending : this) {
@@ -171,6 +173,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the specified year.
      */
     public double getYearlySpending(LocalDate currentDate){
+        assert currentDate != null : "Current date cannot be null";
         LOGGER.log(Level.INFO, "Calculating yearly spending for year: {0}", 
             currentDate.getYear());
         double spendingTotal = 0;

@@ -41,6 +41,8 @@ public class EditCommand extends Command {
     private final String fullCommand;
 
     public EditCommand(String fullCommand) {
+        assert fullCommand != null : "Full command cannot be null";
+        assert fullCommand.trim().length() > 0 : "Full command cannot be empty";
         LOGGER.log(Level.INFO, "Creating new EditCommand with command: {0}", fullCommand);
         this.fullCommand = fullCommand;
     }
@@ -53,6 +55,8 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
+        assert incomes != null : "Income list cannot be null";
+        assert spendings != null : "Spending list cannot be null";
         LOGGER.log(Level.INFO, "Executing edit command");
         try {
             handleCommand(incomes, spendings);
@@ -127,6 +131,8 @@ public class EditCommand extends Command {
 
     private <T extends EntryType> EntryType extractEntry(ArrayList<T> list, String stringIndex)
             throws WiagiInvalidIndexException {
+        assert list != null : "List cannot be null";
+        assert stringIndex != null : "String index cannot be null";
         try {
             int index = Integer.parseInt(stringIndex) - 1;
             return list.get(index);

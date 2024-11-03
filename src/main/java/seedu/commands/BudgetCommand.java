@@ -39,6 +39,8 @@ public class BudgetCommand extends Command {
      * @param fullCommand The full command string.
      */
     public BudgetCommand(String fullCommand) {
+        assert fullCommand != null : "Full command cannot be null";
+        assert fullCommand.trim().length() > 0 : "Full command cannot be empty";
         LOGGER.log(Level.INFO, "Creating new BudgetCommand with command: {0}", fullCommand);
         this.fullCommand = fullCommand;
     }
@@ -51,6 +53,8 @@ public class BudgetCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
+        assert incomes != null : "Income list cannot be null";
+        assert spendings != null : "Spending list cannot be null";
         LOGGER.log(Level.INFO, "Executing budget command");
         try {
             handleCommand(spendings);
@@ -59,10 +63,10 @@ public class BudgetCommand extends Command {
             LOGGER.log(Level.WARNING, "Missing parameters in budget command", e);
             Ui.printWithTab(e.getMessage());
         } catch (WiagiInvalidInputException e) {
-            LOGGER.log(Level.WARNING, "Invalid category in budget command", e);
+            LOGGER.log(Level.WARNING, "Invalid input in budget command", e);
             Ui.printWithTab(e.getMessage());
         } catch (NumberFormatException e) {
-            LOGGER.log(Level.WARNING, "Invalid amount format in budget command", e);
+            LOGGER.log(Level.WARNING, "Invalid number format in budget command", e);
             Ui.printWithTab(e.getMessage());
         }
     }
@@ -73,7 +77,7 @@ public class BudgetCommand extends Command {
         int budget = formatBudget(stringBudget);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
 
-        LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[] { timeRange, budget });
+        LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
         addBudget(spendings, budget, timeRange);
     }
 
