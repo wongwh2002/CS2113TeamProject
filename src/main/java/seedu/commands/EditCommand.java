@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import seedu.classes.Ui;
+import seedu.classes.WiagiLogger;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
@@ -9,6 +10,8 @@ import seedu.type.SpendingList;
 import seedu.type.EntryType;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
@@ -21,6 +24,8 @@ import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
 
 public class EditCommand extends Command {
+
+    private static final Logger LOGGER = WiagiLogger.logger;
 
     public static final String COMMAND_WORD = "edit";
     private static final int TYPE_INDEX = 1;
@@ -36,6 +41,7 @@ public class EditCommand extends Command {
     private final String fullCommand;
 
     public EditCommand(String fullCommand) {
+        LOGGER.log(Level.INFO, "Creating new EditCommand with command: {0}", fullCommand);
         this.fullCommand = fullCommand;
     }
 
@@ -47,12 +53,22 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert incomes != null;
-        assert spendings != null;
+        LOGGER.log(Level.INFO, "Executing edit command");
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiMissingParamsException | WiagiInvalidInputException | WiagiInvalidIndexException e) {
-            Ui.printWithTab(e.getMessage());
+            LOGGER.log(Level.INFO, "Edit command executed successfully");
+        } catch (WiagiMissingParamsException e) {
+            LOGGER.log(Level.WARNING, "Missing parameters in edit command", e);
+            Ui.printWithTab(INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT);
+        } catch (WiagiInvalidInputException e) {
+            LOGGER.log(Level.WARNING, "Invalid input in edit command", e);
+            Ui.printWithTab(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
+        } catch (WiagiInvalidIndexException e) {
+            LOGGER.log(Level.WARNING, "Invalid index in edit command", e);
+            Ui.printWithTab(INDEX_OUT_OF_BOUNDS + EDIT_COMMAND_FORMAT);
+        } catch (NumberFormatException e) {
+            LOGGER.log(Level.WARNING, "Invalid number format in edit command", e);
+            Ui.printWithTab(INDEX_NOT_INTEGER + EDIT_COMMAND_FORMAT);
         }
     }
 
@@ -76,6 +92,7 @@ public class EditCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
+        LOGGER.log(Level.FINE, "Extracting arguments from command: {0}", fullCommand);
         String[] arguments = fullCommand.split(SPACE_REGEX, EDIT_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length < EDIT_COMPULSORY_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT);

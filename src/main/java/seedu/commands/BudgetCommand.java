@@ -5,6 +5,10 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
+import seedu.classes.WiagiLogger;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
@@ -17,6 +21,8 @@ import static seedu.classes.Constants.SPACE_REGEX;
  */
 public class BudgetCommand extends Command {
 
+    private static final Logger LOGGER = WiagiLogger.logger;
+    
     public static final String COMMAND_WORD = "budget";
     private static final int TIME_RANGE_INDEX = 1;
     private static final int BUDGET_AMOUNT_INDEX = 2;
@@ -33,6 +39,7 @@ public class BudgetCommand extends Command {
      * @param fullCommand The full command string.
      */
     public BudgetCommand(String fullCommand) {
+        LOGGER.log(Level.INFO, "Creating new BudgetCommand with command: {0}", fullCommand);
         this.fullCommand = fullCommand;
     }
 
@@ -44,24 +51,37 @@ public class BudgetCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
+        LOGGER.log(Level.INFO, "Executing budget command");
         try {
             handleCommand(spendings);
-        } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
-            Ui.printWithTab(e.getMessage());
+            LOGGER.log(Level.INFO, "Budget command executed successfully");
+        } catch (WiagiMissingParamsException e) {
+            LOGGER.log(Level.WARNING, "Missing parameters in budget command", e);
+            Ui.printWithTab(INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT);
+        } catch (WiagiInvalidInputException e) {
+            LOGGER.log(Level.WARNING, "Invalid category in budget command", e);
+            Ui.printWithTab(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+        } catch (NumberFormatException e) {
+            LOGGER.log(Level.WARNING, "Invalid amount format in budget command", e);
+            Ui.printWithTab(INVALID_AMOUNT + BUDGET_COMMAND_FORMAT);
         }
     }
 
-    private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
+    private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException, WiagiInvalidInputException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
         int budget = formatBudget(stringBudget);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
+        
+        LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
         addBudget(spendings, budget, timeRange);
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
+        LOGGER.log(Level.FINE, "Extracting arguments from command: {0}", fullCommand);
         String[] arguments = fullCommand.split(SPACE_REGEX, BUDGET_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length != BUDGET_COMPULSORY_ARGUMENTS_LENGTH) {
+            LOGGER.log(Level.WARNING, "Invalid number of arguments: {0}", arguments.length);
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT);
         }
         return arguments;

@@ -3,6 +3,9 @@ package seedu.type;
 import seedu.classes.Parser;
 import seedu.classes.Ui;
 import seedu.recurrence.Recurrence;
+import seedu.classes.WiagiLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +15,9 @@ import java.util.Comparator;
  * Represents a list of spendings with budget settings.
  */
 public class SpendingList extends ArrayList<Spending> {
+
+    private static final Logger LOGGER = WiagiLogger.logger;
+
     private double dailyBudget;
     private double monthlyBudget;
     private double yearlyBudget;
@@ -133,12 +139,16 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the specified day.
      */
     public double getDailySpending(LocalDate currentDate){
+        LOGGER.log(Level.INFO, "Calculating daily spending for date: {0}", currentDate);
         double spendingTotal = 0;
         for (Spending spending : this) {
             if (spending.getDate().isEqual(currentDate)) {
-                spendingTotal = spendingTotal + spending.getAmount();
+                spendingTotal += spending.getAmount();
+                LOGGER.log(Level.FINE, "Added spending: {0}, new total: {1}", 
+                    new Object[]{spending.getAmount(), spendingTotal});
             }
         }
+        LOGGER.log(Level.INFO, "Total daily spending: {0}", spendingTotal);
         return spendingTotal;
     }
 
@@ -148,7 +158,10 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the current year.
      */
     public double getYearlySpending() {
-        return getYearlySpending(LocalDate.now());
+        LocalDate currentDate = LocalDate.now();
+        LOGGER.log(Level.INFO, "Calculating yearly spending for current year: {0}", 
+            currentDate.getYear());
+        return getYearlySpending(currentDate);
     }
 
     /**
@@ -158,12 +171,17 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the specified year.
      */
     public double getYearlySpending(LocalDate currentDate){
+        LOGGER.log(Level.INFO, "Calculating yearly spending for year: {0}", 
+            currentDate.getYear());
         double spendingTotal = 0;
         for (Spending spending : this) {
             if (isThisYear(spending.getDate(), currentDate)) {
-                spendingTotal = spendingTotal + spending.getAmount();
+                spendingTotal += spending.getAmount();
+                LOGGER.log(Level.FINE, "Added spending: {0}, new total: {1}", 
+                    new Object[]{spending.getAmount(), spendingTotal});
             }
         }
+        LOGGER.log(Level.INFO, "Total yearly spending: {0}", spendingTotal);
         return spendingTotal;
     }
 
