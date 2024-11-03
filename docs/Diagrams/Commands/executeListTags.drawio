@@ -10,7 +10,7 @@
             <mxPoint x="220" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-tokIjTfclb8eiRB36Tb-8" value=":ListSpendingsCommand" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+        <mxCell id="-tokIjTfclb8eiRB36Tb-8" value="c:ListTagsCommand" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};rounded=1;" parent="1" vertex="1">
           <mxGeometry x="300" y="160" width="160" height="460" as="geometry" />
         </mxCell>
         <mxCell id="-tokIjTfclb8eiRB36Tb-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="-tokIjTfclb8eiRB36Tb-8" vertex="1">
@@ -52,7 +52,12 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-tokIjTfclb8eiRB36Tb-20" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;div&gt;:Ui&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+        <mxCell id="_VLLp_RYDMONeOvb9VeY-3" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="-tokIjTfclb8eiRB36Tb-19" vertex="1" connectable="0">
+          <mxGeometry x="-0.0794" relative="1" as="geometry">
+            <mxPoint x="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-tokIjTfclb8eiRB36Tb-20" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;div&gt;:Ui&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};rounded=1;" parent="1" vertex="1">
           <mxGeometry x="617" y="160" width="100" height="460" as="geometry" />
         </mxCell>
         <mxCell id="-tokIjTfclb8eiRB36Tb-22" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="-tokIjTfclb8eiRB36Tb-20" vertex="1">
@@ -65,6 +70,11 @@
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="360" y="1000" as="sourcePoint" />
             <mxPoint x="220" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_VLLp_RYDMONeOvb9VeY-4" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="-tokIjTfclb8eiRB36Tb-66" vertex="1" connectable="0">
+          <mxGeometry x="-0.4452" y="-4" relative="1" as="geometry">
+            <mxPoint x="-82" y="-6" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="-tokIjTfclb8eiRB36Tb-67" value="&lt;b&gt;sd&lt;/b&gt;&amp;nbsp;execute list command" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=170;height=40;" parent="1" vertex="1">
@@ -111,6 +121,11 @@
             <mxPoint x="70" y="170" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="_VLLp_RYDMONeOvb9VeY-2" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="dKQU-OC4QD5xdhrdrmRR-14" vertex="1" connectable="0">
+          <mxGeometry x="0.2794" y="-1" relative="1" as="geometry">
+            <mxPoint x="-68" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="dKQU-OC4QD5xdhrdrmRR-3" value="Implies command is &quot;list tags&quot;" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=16;verticalAlign=top;align=center;flipV=1;" parent="1" vertex="1">
           <mxGeometry x="490" y="170" width="120" height="70" as="geometry" />
         </mxCell>
@@ -124,6 +139,11 @@
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="662" y="369.4999999999999" as="sourcePoint" />
             <mxPoint x="390" y="369.4999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_VLLp_RYDMONeOvb9VeY-1" value="return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="dKQU-OC4QD5xdhrdrmRR-9" vertex="1" connectable="0">
+          <mxGeometry x="0.2794" y="-2" relative="1" as="geometry">
+            <mxPoint x="-68" y="-7" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
