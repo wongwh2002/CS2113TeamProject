@@ -22,7 +22,7 @@ import static seedu.classes.Constants.SPACE_REGEX;
 public class BudgetCommand extends Command {
 
     private static final Logger LOGGER = WiagiLogger.logger;
-    
+
     public static final String COMMAND_WORD = "budget";
     private static final int TIME_RANGE_INDEX = 1;
     private static final int BUDGET_AMOUNT_INDEX = 2;
@@ -57,13 +57,13 @@ public class BudgetCommand extends Command {
             LOGGER.log(Level.INFO, "Budget command executed successfully");
         } catch (WiagiMissingParamsException e) {
             LOGGER.log(Level.WARNING, "Missing parameters in budget command", e);
-            Ui.printWithTab(INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         } catch (WiagiInvalidInputException e) {
             LOGGER.log(Level.WARNING, "Invalid category in budget command", e);
-            Ui.printWithTab(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         } catch (NumberFormatException e) {
             LOGGER.log(Level.WARNING, "Invalid amount format in budget command", e);
-            Ui.printWithTab(INVALID_AMOUNT + BUDGET_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         }
     }
 
@@ -72,8 +72,8 @@ public class BudgetCommand extends Command {
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
         int budget = formatBudget(stringBudget);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
-        
-        LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
+
+        LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[] { timeRange, budget });
         addBudget(spendings, budget, timeRange);
     }
 
@@ -97,21 +97,20 @@ public class BudgetCommand extends Command {
 
     private void addBudget(SpendingList spendings, int budget, String timeRange) {
         switch (timeRange) {
-        case DAILY:
-            spendings.setDailyBudget(budget);
-            Ui.printWithTab("Successfully set daily budget of: " + budget);
-            break;
-        case MONTHLY:
-            spendings.setMonthlyBudget(budget);
-            Ui.printWithTab("Successfully set monthly budget of: " + budget);
-            break;
-        case YEARLY:
-            spendings.setYearlyBudget(budget);
-            Ui.printWithTab("Successfully set yearly budget of: " + budget);
-            break;
-        default:
-            throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+            case DAILY:
+                spendings.setDailyBudget(budget);
+                Ui.printWithTab("Successfully set daily budget of: " + budget);
+                break;
+            case MONTHLY:
+                spendings.setMonthlyBudget(budget);
+                Ui.printWithTab("Successfully set monthly budget of: " + budget);
+                break;
+            case YEARLY:
+                spendings.setYearlyBudget(budget);
+                Ui.printWithTab("Successfully set yearly budget of: " + budget);
+                break;
+            default:
+                throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
         }
     }
 }
-
