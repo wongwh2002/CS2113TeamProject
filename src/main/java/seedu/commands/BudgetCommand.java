@@ -81,7 +81,6 @@ public class BudgetCommand extends Command {
         LOGGER.log(Level.FINE, "Extracting arguments from command: {0}", fullCommand);
         String[] arguments = fullCommand.split(SPACE_REGEX, BUDGET_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length != BUDGET_COMPULSORY_ARGUMENTS_LENGTH) {
-            LOGGER.log(Level.WARNING, "Invalid number of arguments: {0}", arguments.length);
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT);
         }
         return arguments;
