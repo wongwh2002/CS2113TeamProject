@@ -330,9 +330,56 @@ Run the [`list spendings`](#listing-all-spendings) command to check the index of
 ```
 
 ### Getting user instructions
+
 The `help` command allows the user to see a quick summary of the commands.
 
 **Format:** `help`
+
+**Example input:**<br>
+`
+help
+`
+
+**Example output**:
+```
+Notes about the command format:
+Words in {$UPPER_CASE} are the parameters to be supplied by the user.
+e.g., in add spending {$AMOUNT} {$DESCRIPTION}, {$AMOUNT} and {$DESCRIPTION}
+are parameters which can be used as add spending 4 dinner.
+Items in square brackets are optional.
+e.g. add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] can be used as
+add spending 4 lunch or add spending 4 lunch /2024-10-20/.
+
+Adding Entries:
+	add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]
+	add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]
+	e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~
+	e.g., add spending 50 Lunch /2024-03-15/ *food*
+
+Listing Entries:
+	list - shows all entries
+	list incomes - shows all income entries
+	list spendings - shows all spending entries
+	list tags {$TAG} - shows entries with specific tag
+
+Editing Entries:
+	edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}
+	e.g., edit spending 1 amount 100
+	e.g., edit income 2 description Bonus
+
+Deleting Entries:
+	delete {$TYPE} {$INDEX}
+	e.g., delete spending 1
+
+Setting Budget:
+	budget {$PERIOD} {$AMOUNT}
+	e.g., budget daily 50
+	e.g., budget monthly 1500
+
+Other Commands:
+	help - shows this help message
+	bye - exits the application
+```
 
 ### Setting a Budget
 
