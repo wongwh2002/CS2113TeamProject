@@ -51,6 +51,14 @@ income. This information was used by other classes to perform their component ta
 The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
 spending. This information was used by other classes to perform their component tasks.
 
+#### IncomeList class
+The `IncomeList` class inherits from the `ArrayList` class. It is used to store all of the `Income` objects used in the
+program.
+
+#### SpendingList class
+THe `SpendingList` class inherits from the `ArrayList` class. It is used to store all of the `Spending` objects used in
+the program. Additionally, it stores the budgets that are set by the user.
+
 ### Storage Component
 #### Motivation behind the component:
 + Allows the user to save changes, so that they can resume where they left off.
@@ -113,6 +121,20 @@ and add it to the lists.
 
 ### Command handling component
 
+![commandHandling.png](./Diagrams/Commands/commandHandling.png)
+
+User input is taken in through the `Ui.readCommand()` method that is called from the `Wiagi` class. This command is 
+then passed to the static method `parseUserInput(...)` in the `Parser` class. This method determines the command type 
+based on the command word, and returns a new instance of the respective command, as shown in the 
+sequence diagram above.
+
+Since there are various list commands that the user can execute, the list commands are split into multiple classes.
+If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
+
+After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
+The referenced sequence diagrams for the execution of commands will be shown in the sections for 
+[adding a new entry](#adding-of-new-entry), [listing entries](#listing-entries), and editing entries.
+
 #### Adding of new entry
 ![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
@@ -120,20 +142,105 @@ To add new entries, user will have to input the related commands.
 Wiagi will then parse the command to the AddCommand class.
 The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
 
-#### Deleting of entry, editing of entry
-The commands are similar where there would be a parsing of command to each of its individual classes.
-A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
-(deleting entry from list for delete and editing of entry from list for edit)
+#### Editing entries
+The EditCommand validates and parses the given input to determine if it is editing a spending or an income. It then
+extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
+determine which attribute to edit and sets this attribute of the extracted entry to the new value.
+
+![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
+
+#### Deleting entries
+The DeleteCommand validates and parses the given input to determine if it is deleting a spending or an income. It then
+deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
+
+#### Creating a budget
+The BudgetCommand first validates and parses the given input. It then determines whether the user wants to add a daily,
+monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 #### Listing entries
-Since there are various list commands that the user can execute, the list commands are split into multiple classes.
-The parser then calls a separate function that will return the correct list command if the command word is `list`.
 
-Since listing requires Wiagi to print items in the spendings and incomes list, these will be handled by the UI component.
+Since listing requires Wiagi to print items in the spendings and incomes list, the printing will be handled by the UI 
+class.
+
+##### Listing all entries
+
+When the user requests to list all entries, the program prints all entries in both `incomes` and 
+`spendings` by looping through both lists and printing them out with their index.
+
+##### Listing spendings
+
+When users request to list all spendings, they are given the option to choose a time range from the following options:
+- All
+- Weekly
+- Biweekly
+- Monthly
+
+By selecting the weekly, biweekly, or monthly options, only the spending entries 
+that are dated within the current week, current 2 weeks, or current month will be displayed.
+
+If the user chooses to list all spendings, they are then given the option to display all
+statistics, which consist of:
+- Daily spendings
+- Daily budget
+- Daily budget left
+- Monthly spendings
+- Monthly budget
+- Monthly budget left
+- Yearly spendings
+- Yearly budget
+- Yearly budget left
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![listSpendingsCommandSequence.png](./Diagrams/Commands/listSpendingsCommandSequence.png)
+![executeListSpendingsCommand.png](./Diagrams/Commands/executeListSpendingsCommand.png)
+
+As shown in the diagram, when the command is executed, a `handleCommand(...)` method is first called to verify the user 
+input and handle the command. 
+
+Within this method, a static method `printListofTimeRange` is called to 
+allow the user to select a time range. This method returns a boolean value that is true if the user has selected to list 
+all spendings and false otherwise. If this returned value is true, another static method `printStatisticsIfRequired` is 
+called to allow the user to choose whether to show all spending statistics and print the list accordingly.
+
+The sequence diagram below shows what happens when the user chooses to show their weekly spendings.
+
+![printWeekly.png](./Diagrams/Commands/printWeekly.png)
+
+As shown in the diagram, the program gets the dates of the Monday and Sunday of the current week. It then loops through
+the spending list. For every entry in the spending list, it checks whether the date of the entry is between the Monday
+and the Sunday of the current week (inclusive), and if it is, the entry will be appended to a string along with its 
+index. Finally, the string is printed. 
+
+##### Listing incomes
+
+When users request to list incomes, they are also given the option to choose from the same 4 time ranges:
+- All
+- Weekly
+- Biweekly
+- Monthly
+
+Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
+given the option to list statistics if they choose to list all incomes. Hence the sequence diagram is ommitted for this
+command.
+
+##### Listing tags
+
+Listing all tags and listing all entries with a specific tag are grouped together into one command called 
+`ListTagsCommand`. When this command is executed, the number of words in the command is checked to determine if the user
+wants to list all tags or to list all entries with a specific tag, as shown in the sequence diagram below. 
+
+![executeListTags.png](./Diagrams/Commands/executeListTags.png)
+
+###### Listing all tags
+
+For listing all tags, the static method `printAllTags(...)` from the Ui class is called. This method simply loops 
+through all entries and gets an ArrayList of all the unique tags before printing them out. 
+
+###### Listing all entries with a specific tag
+
+For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
+method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
+entries with the specified tag to a String. This string is then printed out. 
 
 ### Recurrence Component
 

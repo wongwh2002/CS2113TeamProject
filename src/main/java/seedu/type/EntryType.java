@@ -136,12 +136,8 @@ public class EntryType {
         this.description = newDescription;
     }
 
-    public void editDate(String date) throws WiagiInvalidInputException{
-        try {
-            this.date = LocalDate.parse(date);
-        } catch (Exception e) {
-            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + EDIT_COMMAND_FORMAT);
-        }
+    public void editDate(String newDate) throws WiagiInvalidInputException{
+        this.date = CommandUtils.formatDate(newDate, EDIT_COMMAND_FORMAT);
     }
 
     public void editDateWithLocalDate(LocalDate date) {

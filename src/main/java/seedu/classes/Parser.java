@@ -1,11 +1,12 @@
 package seedu.classes;
 
 import seedu.commands.AddCommand;
+import seedu.commands.BudgetCommand;
 import seedu.commands.ByeCommand;
 import seedu.commands.Command;
 import seedu.commands.DeleteCommand;
 import seedu.commands.EditCommand;
-import seedu.commands.BudgetCommand;
+import seedu.commands.FindCommand;
 import seedu.commands.UnknownCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.listcommands.InvalidListCommand;
@@ -48,6 +49,8 @@ public class Parser {
             return new BudgetCommand(fullCommand);
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(fullCommand);
         default:
             return new UnknownCommand();
         }
