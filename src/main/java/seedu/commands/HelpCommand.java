@@ -16,6 +16,7 @@ public class HelpCommand extends Command {
         assert incomes != null;
         assert spendings != null;
         StringBuilder helpText = new StringBuilder();
+        appendCommandDescription(helpText);
         appendAddCommandHelp(helpText);
         appendListCommandHelp(helpText);
         appendEditCommandHelp(helpText);
@@ -25,8 +26,21 @@ public class HelpCommand extends Command {
         Ui.printWithTab(helpText.toString());
     }
 
+    private void appendCommandDescription(StringBuilder helpText) {
+        helpText.append(System.lineSeparator()).append("Notes about the command format:").append(System.lineSeparator())
+                .append("Words in {$UPPER_CASE} are the parameters to be supplied by the user.")
+                .append(System.lineSeparator())
+                .append("e.g., in add spending {$AMOUNT} {$DESCRIPTION}, {$AMOUNT} and {$DESCRIPTION}")
+                .append(System.lineSeparator()).append("are parameters which can be used as add spending 4 dinner.")
+                .append(System.lineSeparator())
+                .append("Items in square brackets are optional.").append(System.lineSeparator())
+                .append("e.g. add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] can be used as")
+                .append(System.lineSeparator()).append("add spending 4 lunch or add spending 4 lunch /2024-10-20/.")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+    }
+
     private void appendAddCommandHelp(StringBuilder helpText) {
-        helpText.append(System.lineSeparator()).append("Adding Entries:").append(System.lineSeparator())
+        helpText.append("Adding Entries:").append(System.lineSeparator())
                 .append("\tadd income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
                 .append(System.lineSeparator())
                 .append("\tadd spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
