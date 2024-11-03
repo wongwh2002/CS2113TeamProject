@@ -59,16 +59,16 @@ public class EditCommand extends Command {
             LOGGER.log(Level.INFO, "Edit command executed successfully");
         } catch (WiagiMissingParamsException e) {
             LOGGER.log(Level.WARNING, "Missing parameters in edit command", e);
-            Ui.printWithTab(INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         } catch (WiagiInvalidInputException e) {
             LOGGER.log(Level.WARNING, "Invalid input in edit command", e);
-            Ui.printWithTab(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         } catch (WiagiInvalidIndexException e) {
             LOGGER.log(Level.WARNING, "Invalid index in edit command", e);
-            Ui.printWithTab(INDEX_OUT_OF_BOUNDS + EDIT_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         } catch (NumberFormatException e) {
             LOGGER.log(Level.WARNING, "Invalid number format in edit command", e);
-            Ui.printWithTab(INDEX_NOT_INTEGER + EDIT_COMMAND_FORMAT);
+            Ui.printWithTab(e.getMessage());
         }
     }
 
