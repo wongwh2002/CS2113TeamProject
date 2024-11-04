@@ -3,8 +3,6 @@ package seedu.recurrence;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.classes.Parser;
-import seedu.commands.Command;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;

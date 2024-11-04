@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Parser;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Income;
 import seedu.type.IncomeList;
