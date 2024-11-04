@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
@@ -95,6 +96,15 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + FIND_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_invalidDateFormat_expectIllegalInputExceptionThrown() {
+        String userInout = "find spending date 2024/10/10";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INCORRECT_DATE_FORMAT + FIND_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
