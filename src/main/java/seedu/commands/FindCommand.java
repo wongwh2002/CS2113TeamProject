@@ -66,9 +66,6 @@ public class FindCommand extends Command {
             throws WiagiMissingParamsException, WiagiInvalidIndexException {
         String[] arguments = extractArguments();
         String typeOfList = arguments[LIST_TYPE_INDEX];
-        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
-            throw new WiagiInvalidInputException(INVALID_CATEGORY + FIND_COMMAND_FORMAT);
-        }
         switch (typeOfList) {
         case INCOME:
             ArrayList<Income> incomeFindResults = findList(arguments, incomes);
@@ -111,7 +108,7 @@ public class FindCommand extends Command {
         double lower;
         double upper;
         if (findValue.contains("to")) { // range
-            String[] range = findValue.split("to");
+            String[] range = findValue.split(" to ");
             lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
         } else { // exact
@@ -132,7 +129,7 @@ public class FindCommand extends Command {
         LocalDate lower;
         LocalDate upper;
         if (findValue.contains("to")) {
-            String[] range = findValue.split("to");
+            String[] range = findValue.split(" to ");
             lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
         } else {
