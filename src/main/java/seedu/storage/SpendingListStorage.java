@@ -30,9 +30,17 @@ import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
+/**
+ * Manages saving and loading of spending data to and from a file.
+ */
 public class SpendingListStorage {
     private static final String SPENDINGS_FILE_PATH = "./spendings.txt";
 
+    /**
+     * Saves the spending list, including each spending entry and budget details, to a file.
+     *
+     * @param spendings the SpendingList to be saved.
+     */
     static void save(SpendingList spendings) {
         WiagiLogger.logger.log(Level.INFO, "Starting to save spendings...");
         try {
@@ -48,13 +56,17 @@ public class SpendingListStorage {
                 fw.write(singleEntry + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to save spendings file", e);
             Ui.printWithTab(SAVE_SPENDING_FILE_ERROR);
         }
         WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
+    /**
+     * Loads the spending data from a file into the application's spending list.
+     * If no file exists, a new one is created.
+     */
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         try {
@@ -75,7 +87,7 @@ public class SpendingListStorage {
                 if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
                     lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
                 }
-                Spending nextEntry =  new Spending(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
+                Spending nextEntry = new Spending(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
                         entryData[LOAD_DESCRIPTION_INDEX], date, entryData[LOAD_TAG_INDEX],
                         RecurrenceFrequency.valueOf(entryData[LOAD_RECURRENCE_INDEX]),
                         lastRecurred, Integer.parseInt(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]));

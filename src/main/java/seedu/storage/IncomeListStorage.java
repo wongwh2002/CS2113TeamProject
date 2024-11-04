@@ -27,9 +27,17 @@ import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
+/**
+ * Manages saving and loading of income data to and from a file.
+ */
 public class IncomeListStorage {
     private static final String INCOMES_FILE_PATH = "./incomes.txt";
 
+    /**
+     * Saves the income list, including each income entry, to a file.
+     *
+     * @param incomes the IncomeList to be saved.
+     */
     static void save(IncomeList incomes) {
         try {
             WiagiLogger.logger.log(Level.INFO, "Starting to save incomes...");
@@ -42,13 +50,17 @@ public class IncomeListStorage {
                 fw.write(incomeEntry + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to save incomes file", e);
             Ui.printWithTab(SAVE_INCOME_FILE_ERROR);
         }
         WiagiLogger.logger.log(Level.INFO, "Finish saving incomes file");
     }
 
+    /**
+     * Loads the income data from a file into the application's income list.
+     * If no file exists, a new one is created.
+     */
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
         try {
