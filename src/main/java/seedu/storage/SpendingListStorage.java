@@ -1,5 +1,6 @@
 package seedu.storage;
 
+import seedu.classes.WiagiLogger;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
@@ -32,6 +34,7 @@ public class SpendingListStorage {
     private static final String SPENDINGS_FILE_PATH = "./spendings.txt";
 
     static void save(SpendingList spendings) {
+        WiagiLogger.logger.log(Level.INFO, "Starting to save spendings...");
         try {
             FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
             String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
@@ -46,11 +49,14 @@ public class SpendingListStorage {
             }
             fw.close();
         } catch (IOException e){
+            WiagiLogger.logger.log(Level.WARNING, "Unable to save spendings file", e);
             Ui.printWithTab(SAVE_SPENDING_FILE_ERROR);
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
     static void load() {
+        WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         try {
             if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
                 return;
@@ -76,10 +82,13 @@ public class SpendingListStorage {
                 Storage.spendings.add(nextEntry);
             }
         } catch (IOException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open spendings file", e);
             Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         } catch (NoSuchElementException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Spendings file is empty", e);
             File spendingFile = new File(SPENDINGS_FILE_PATH);
             spendingFile.delete();
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 }
