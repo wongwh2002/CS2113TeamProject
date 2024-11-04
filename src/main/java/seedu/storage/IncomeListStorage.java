@@ -25,9 +25,17 @@ import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
+/**
+ * Manages saving and loading of income data to and from a file.
+ */
 public class IncomeListStorage {
     private static final String INCOMES_FILE_PATH = "./incomes.txt";
 
+    /**
+     * Saves the income list, including each income entry, to a file.
+     *
+     * @param incomes the IncomeList to be saved.
+     */
     static void save(IncomeList incomes) {
         try {
             FileWriter fw = new FileWriter(INCOMES_FILE_PATH);
@@ -39,11 +47,15 @@ public class IncomeListStorage {
                 fw.write(incomeEntry + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             Ui.printWithTab(SAVE_INCOME_FILE_ERROR);
         }
     }
 
+    /**
+     * Loads the income data from a file into the application's income list.
+     * If no file exists, a new one is created.
+     */
     static void load() {
         try {
             if (new File(INCOMES_FILE_PATH).createNewFile()) {

@@ -12,6 +12,11 @@ import seedu.type.SpendingList;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 
+
+/**
+ * Main application class for Wiagi, a financial tracking application.
+ * Initializes the application and manages the execution flow.
+ */
 public class Wiagi {
 
     private static Storage storage;
@@ -57,6 +62,11 @@ public class Wiagi {
         storage.save(incomes, spendings);
     }
 
+    /**
+     * Main entry point for the Wiagi application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Wiagi().run();
     }
