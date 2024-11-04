@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
+import static seedu.classes.Constants.FIND_RANGE_DIVIDER;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
@@ -109,8 +110,8 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingAmount(String findValue, ArrayList<T> list) {
         double lower;
         double upper;
-        if (findValue.contains("to")) { // range
-            String[] range = findValue.split(" to ");
+        if (findValue.contains(FIND_RANGE_DIVIDER)) { // range
+            String[] range = findValue.split(FIND_RANGE_DIVIDER);
             lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
             if (upper < lower) {
@@ -133,8 +134,8 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingDate(String findValue, ArrayList<T> list) {
         LocalDate lower;
         LocalDate upper;
-        if (findValue.contains("to")) {
-            String[] range = findValue.split(" to ");
+        if (findValue.contains(FIND_RANGE_DIVIDER)) {
+            String[] range = findValue.split(FIND_RANGE_DIVIDER);
             lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
             if (lower.isAfter(upper)) {
