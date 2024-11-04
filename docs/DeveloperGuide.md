@@ -607,9 +607,7 @@ Use case ends.
 ## Non-Functional Requirements
 
 1. The system should be able to run on Windows, macOS, and Linux 
-
-
-1. A user should be alerted of the correct command format whenever an invalid command is encountered.
+2. A user should be alerted of the correct command format whenever an invalid command is encountered.
 
 ## Glossary
 * *glossary item* - Definition
@@ -633,3 +631,32 @@ Prerequisites: Add multiple entries to either incomes or spendings.
     - Expected: Lists all spending entries that has a date of 2024-11-11.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
+
+### Editing an Entry
+Prerequisites: Add multiple entries to either incomes or spendings.
+1. Test case: `edit spending 1 amount 100`
+   - Expected: The amount of the first spending entry is updated to 100. Confirmation message is shown.
+2. Test case: `edit income 2 description Salary`
+   - Expected: The description of the second income entry is updated to "Salary". Confirmation message is shown.
+3. Test case: `edit spending 3 date 2024-10-20`
+   - Expected: The date of the third spending entry is updated to 2024-10-20. Confirmation message is shown.
+4. Test case: `edit income 1 tag work`
+   - Expected: The tag of the first income entry is updated to "work". Confirmation message is shown.
+5. Test case: `edit spending 1 amount not-an-amount`, `edit income 2 date invalid-date`
+   - Expected: Error message is shown indicating invalid input.
+
+### Showing help
+Prerequisites: None.
+1. Test case: `help`
+   - Expected: Displays a list of all available commands along with their usage instructions.
+
+## Setting a Budget
+Prerequisites: None.
+1. Test case: `budget daily 50`
+   - Expected: Sets the daily budget to 50. Confirmation message is shown.
+2. Test case: `budget monthly 1500`
+   - Expected: Sets the monthly budget to 1500. Confirmation message is shown.
+3. Test case: `budget yearly 20000`
+   - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
+4. Test case: `budget weekly 500`
+   - Expected: Error message is shown indicating invalid time range.
