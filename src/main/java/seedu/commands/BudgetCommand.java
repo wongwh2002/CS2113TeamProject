@@ -30,6 +30,9 @@ public class BudgetCommand extends Command {
     private static final String DAILY = "daily";
     private static final String MONTHLY = "monthly";
     private static final String YEARLY = "yearly";
+    private static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
+    private static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
+    private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
 
     private final String fullCommand;
 
@@ -100,20 +103,20 @@ public class BudgetCommand extends Command {
 
     private void addBudget(SpendingList spendings, int budget, String timeRange) {
         switch (timeRange) {
-            case DAILY:
-                spendings.setDailyBudget(budget);
-                Ui.printWithTab("Successfully set daily budget of: " + budget);
-                break;
-            case MONTHLY:
-                spendings.setMonthlyBudget(budget);
-                Ui.printWithTab("Successfully set monthly budget of: " + budget);
-                break;
-            case YEARLY:
-                spendings.setYearlyBudget(budget);
-                Ui.printWithTab("Successfully set yearly budget of: " + budget);
-                break;
-            default:
-                throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+        case DAILY:
+            spendings.setDailyBudget(budget);
+            Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + budget);
+            break;
+        case MONTHLY:
+            spendings.setMonthlyBudget(budget);
+            Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + budget);
+            break;
+        case YEARLY:
+            spendings.setYearlyBudget(budget);
+            Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + budget);
+            break;
+        default:
+            throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
         }
     }
 }
