@@ -19,7 +19,7 @@ import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.SPENDING;
 
 public class FindCommand extends Command {
@@ -78,7 +78,7 @@ public class FindCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
-        String[] arguments = fullCommand.split(SPACE_REGEX, FIND_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(WHITESPACE, FIND_ARGUMENTS_LENGTH);
         if (arguments.length < FIND_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + FIND_COMMAND_FORMAT);
         }
@@ -91,22 +91,50 @@ public class FindCommand extends Command {
         String field = arguments[FIELD_INDEX];
         switch (field) {
         case AMOUNT_FIELD:
-            double findAmount = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
-            return list.stream()
-                    .filter(entry -> entry.getAmount() == findAmount)
-                    .collect(Collectors.toCollection(ArrayList::new));
+            return getMatchingAmount(findValue, list);
         case DESCRIPTION_FIELD:
-            String findDescription = findValue.trim();
-            return list.stream()
-                    .filter(entry -> entry.getDescription().contains(findDescription))
-                    .collect(Collectors.toCollection(ArrayList::new));
+            return getMatchingDescription(findValue, list);
         case DATE_FIELD:
-            LocalDate findDate = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
-            return list.stream()
-                    .filter(entry -> entry.getDate().equals(findDate))
-                    .collect(Collectors.toCollection(ArrayList::new));
+            return getMatchingDate(findValue, list);
         default:
             throw new WiagiInvalidInputException(INVALID_FIELD + FIND_COMMAND_FORMAT);
         }
+    }
+
+    private <T extends EntryType> ArrayList<T> getMatchingAmount(String findValue, ArrayList<T> list) {
+        double lower;
+        double upper;
+        if (findValue.contains("to")) { // range
+            String[] range = findValue.split("to");
+            lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
+        } else { // exact
+            lower = upper = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
+        }
+        return list.stream()
+                .filter(entry -> entry.getAmount() >= lower && entry.getAmount() <= upper)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private <T extends EntryType> ArrayList<T> getMatchingDescription(String findValue, ArrayList<T> list) {
+        return list.stream()
+                .filter(entry -> entry.getDescription().contains(findValue))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private <T extends EntryType> ArrayList<T> getMatchingDate(String findValue, ArrayList<T> list) {
+        LocalDate lower;
+        LocalDate upper;
+        if (findValue.contains("to")) {
+            String[] range = findValue.split("to");
+            lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
+        } else {
+            lower = upper = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
+        }
+        return list.stream()
+                .filter(entry -> entry.getDate().isAfter(lower.minusDays(1))
+                        && entry.getDate().isBefore(upper.plusDays(1)))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

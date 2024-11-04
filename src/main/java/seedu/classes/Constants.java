@@ -12,6 +12,7 @@ public class Constants {
     public static final String STORAGE_LOAD_SEPARATOR = "\\|";
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
+    public static final String WHITESPACE= " ";
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
     public static final String DAILY_RECURRENCE = "daily";

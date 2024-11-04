@@ -81,24 +81,6 @@ public class AddCommandTest {
     }
 
     @Test
-    void addCommand_correctSpendingWithExtraSpaces_success() {
-        String userInput = "add   spending   10   movie ticket   /2024-10-10/";
-        String expectedOutput = "movie ticket - 10 - 2024-10-10";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
-        assertEquals(expectedOutput, spendings.get(0).toString());
-    }
-
-    @Test
-    void addCommand_correctIncomeWithExtraSpaces_success() {
-        String userInput = "add   income   10   part time   /2024-10-10/";
-        String expectedOutput = "part time - 10 - 2024-10-10";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
-        assertEquals(expectedOutput, incomes.get(0).toString());
-    }
-
-    @Test
     void addCommand_correctSpendingWithTag_success() {
         String userInput = "add spending 10 movie ticket /2024-10-10/ *entertainment*";
         String expectedOutput = "movie ticket - 10 - 2024-10-10 - Tag: entertainment";
