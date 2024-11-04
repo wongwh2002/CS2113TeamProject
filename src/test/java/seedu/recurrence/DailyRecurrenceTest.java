@@ -15,6 +15,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Ui.commandInputForTest;
 
 public class DailyRecurrenceTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -44,9 +45,7 @@ public class DailyRecurrenceTest {
         spendings.add(new Spending(10, "food", VALID_TEST_DATE.minusDays(1), "", RecurrenceFrequency.DAILY,
                 VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
         spendings.updateRecurrence();
-        String userInput = "list";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
+        commandInputForTest("list", incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\t1. food - 10 - " + VALID_TEST_DATE.minusDays(1) + " - Recurring: DAILY"
                         + System.lineSeparator() + "\t2. food - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
@@ -61,9 +60,7 @@ public class DailyRecurrenceTest {
         incomes.add(new Income(10, "tip", VALID_TEST_DATE.minusDays(1), "", RecurrenceFrequency.DAILY,
                 VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
         incomes.updateRecurrence();
-        String userInput = "list";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
+        commandInputForTest("list", incomes, spendings);
         assertEquals("\tSpendings" + System.lineSeparator() +
                         "\tTotal spendings: 0" + System.lineSeparator() +
                         "\tIncomes" + System.lineSeparator() +

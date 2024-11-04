@@ -17,6 +17,7 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Ui.commandInputForTest;
 
 class DeleteCommandTest {
     private final PrintStream standardOut = System.out;
@@ -36,24 +37,21 @@ class DeleteCommandTest {
 
     @Test
     void execute_missingArg_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
     }
 
     @Test
     void execute_validInput_successfullyDeleted() {
-        DeleteCommand c = new DeleteCommand("delete income 1");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete income 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(0, incomes.size());
     }
 
     @Test
     void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete income a");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete income a", incomes, spendings);
         assertEquals(TAB + INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
@@ -61,8 +59,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_indexOutOfBounds_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete income 10");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete income 10", incomes, spendings);
         assertEquals(INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
         assertEquals(1, incomes.size());
     }

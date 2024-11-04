@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         String optionalString = splitCommand(fullCommand)[1];
 
         // Split compulsory arguments into array of max size 4 with whitespace as delimiter
-        // [add] [type] [amount] [description]
+        // [add] [type] [amount] [description...]
         String[] compulsoryArguments = extractArguments(compulsoryString);
 
         // Check that category is correct
@@ -63,7 +63,7 @@ public class AddCommand extends Command {
             throw new WiagiInvalidInputException(INVALID_CATEGORY + ADD_COMMAND_FORMAT);
         }
 
-        // Check that amount, desc are present
+        // Check that amount, description are present
         if (compulsoryArguments.length == AMOUNT_INDEX) {
             // Command is "add {$TYPE}"
             throw new WiagiInvalidInputException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
@@ -76,7 +76,6 @@ public class AddCommand extends Command {
             }
         }
 
-        // compulsoryArguments.length > 3;
         double amount;
         if (isDouble(compulsoryArguments[AMOUNT_INDEX])) {
             amount = CommandUtils.formatAmount(compulsoryArguments[AMOUNT_INDEX], ADD_COMMAND_FORMAT);
@@ -84,7 +83,6 @@ public class AddCommand extends Command {
             // Wrong format
             throw new WiagiInvalidInputException(ADD_COMMAND_FORMAT);
         } else {
-            // Missing amount
             throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         }
 
