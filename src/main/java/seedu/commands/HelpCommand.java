@@ -48,7 +48,8 @@ public class HelpCommand extends Command {
                 .append(System.lineSeparator())
                 .append(TAB + "add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
                 .append(System.lineSeparator())
-                .append(TAB + "e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~").append(System.lineSeparator())
+                .append(TAB + "e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~")
+                .append(System.lineSeparator())
                 .append(TAB + "e.g., add spending 50 Lunch /2024-03-15/ *food*").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
