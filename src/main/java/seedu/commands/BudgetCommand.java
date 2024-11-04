@@ -5,6 +5,7 @@ import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
+import seedu.commands.CommandUtils;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
@@ -57,7 +58,7 @@ public class BudgetCommand extends Command {
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        int budget = formatBudget(stringBudget);
+        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
         addBudget(spendings, budget, timeRange);
     }
@@ -78,7 +79,7 @@ public class BudgetCommand extends Command {
         }
     }
 
-    private void addBudget(SpendingList spendings, int budget, String timeRange) {
+    private void addBudget(SpendingList spendings, double budget, String timeRange) {
         switch (timeRange) {
         case DAILY:
             spendings.setDailyBudget(budget);
