@@ -22,6 +22,7 @@ public class HelpCommand extends Command {
         appendEditCommandHelp(helpText);
         appendDeleteCommandHelp(helpText);
         appendBudgetCommandHelp(helpText);
+        appendFindCommandHelp(helpText);
         appendOtherCommandsHelp(helpText);
         Ui.printWithTab(helpText.toString());
     }
@@ -79,6 +80,17 @@ public class HelpCommand extends Command {
                 .append("\tbudget {$PERIOD} {$AMOUNT}").append(System.lineSeparator())
                 .append("\te.g., budget daily 50").append(System.lineSeparator())
                 .append("\te.g., budget monthly 1500").append(System.lineSeparator())
+                .append(System.lineSeparator());
+    }
+
+    private void appendFindCommandHelp(StringBuilder helpText) {
+        helpText.append("Finding entries:").append(System.lineSeparator())
+                .append("\tfind {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]")
+                .append(System.lineSeparator())
+                .append("\t-note that [to $ANOTHER_FIND_VALUE] only works for amount and date field")
+                .append(System.lineSeparator())
+                .append("\te.g., find income amount 10").append(System.lineSeparator())
+                .append("\te.g., find spending date 2024-01-01 to 2024-12-31").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 

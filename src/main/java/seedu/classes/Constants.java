@@ -12,6 +12,8 @@ public class Constants {
     public static final String STORAGE_LOAD_SEPARATOR = "\\|";
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
+    public static final String WHITESPACE= " ";
+    public static final String FIND_RANGE_DIVIDER = " to ";
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
     public static final String DAILY_RECURRENCE = "daily";
@@ -24,7 +26,7 @@ public class Constants {
     public static final String EDIT_COMMAND_FORMAT = "Please enter in the form: edit {$CATEGORY} {$INDEX} {$FIELD} " +
             "{$NEW_VALUE}";
     public static final String FIND_COMMAND_FORMAT = "Please enter in the form: find {$CATEGORY} {$FIELD} " +
-            "{$FIND_VALUE}";
+            "{$FIND_VALUE} [to $ANOTHER_FIND_VALUE]";
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
             "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]";
@@ -39,6 +41,8 @@ public class Constants {
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
     public static final String MISSING_AMOUNT = "No amount found! ";
+    public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
+    public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
             "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
             "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
