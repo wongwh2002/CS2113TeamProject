@@ -12,7 +12,6 @@ import seedu.type.SpendingList;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 
-
 /**
  * Main application class for Wiagi, a financial tracking application.
  * Initializes the application and manages the execution flow.
