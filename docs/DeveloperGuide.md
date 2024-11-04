@@ -19,7 +19,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 #### Main components of the architecture
 1. `Wiagi`: The command executor and brain of the program.
-   - At program launch, it initializes components, like `WiagiLogger` and `Storage`, ensuring that the user data is
+   - At program launch, it initializes components, such as `WiagiLogger` and `Storage`, ensuring that the user data is
           loaded securely.
    - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
      with `Command`.
@@ -248,7 +248,7 @@ When users request to list incomes, they are also given the option to choose fro
 - Monthly
 
 Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
-given the option to list statistics if they choose to list all incomes. Hence the sequence diagram is ommitted for this
+given the option to list statistics if they choose to list all incomes. Hence, the sequence diagram is omitted for this
 command.
 
 ##### Listing tags
@@ -340,7 +340,7 @@ Since checkSpendingRecurrence method follows the same sequence as checkIncomeRec
 for conciseness.
 
 Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(ie. entry to check) against the current date
+1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
 via `LocalDate.now()`
 2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
 3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past. 
@@ -387,7 +387,7 @@ protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate ch
 ArrayList<T> list, boolean isAdding)
 ```
 Functionality: <br>
-1. Get the actual day (eg. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
+1. Get the actual day (e.g. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
 2. Get the last day of the current month
 3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
 
@@ -596,7 +596,7 @@ Use case ends.
 ## Glossary
 
 * *glossary item* - Definition
-* Mainstream OS: Windows, Linux, Unix, MacOS
+* Mainstream OS: Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
 
