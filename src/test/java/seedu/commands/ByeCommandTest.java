@@ -38,7 +38,7 @@ public class ByeCommandTest {
     }
 
     @Test
-    void execute_missingArg_expectIllegalArgumentExceptionMessage() {
+    void execute_exitProgram_printByeMessage() {
         ByeCommand c = new ByeCommand();
         c.execute(incomes, spendings);
         assertEquals(TAB + "Bye. Hope to see you again soon!"
