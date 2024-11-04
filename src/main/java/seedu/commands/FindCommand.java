@@ -35,12 +35,18 @@ public class FindCommand extends Command {
 
     private final String fullCommand;
 
+    /**
+     * Represents a command to find entries in the financial records.
+     * This command allows users to search for specific entries in either
+     * the IncomeList or SpendingList based on a specified field (amount, description, or date)
+     * and a value to find.
+     */
     public FindCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
     /**
-     * Execute editing with the given arguments
+     * Execute finding with the given arguments
      *
      * @param incomes   list of incomes in the application
      * @param spendings list of spendings in the application
