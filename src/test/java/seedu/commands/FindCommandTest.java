@@ -20,7 +20,9 @@ import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
@@ -151,6 +153,14 @@ class FindCommandTest {
     }
 
     @Test
+    public void execute_invalidAmountRange_expectIllegalInputExceptionThrown() {
+        String userInout = "find income amount 2 to 1";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT_RANGE + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     public void execute_findSpendingDescription_success() {
         String userInout = "find spending description macdonalds";
         Command c = Parser.parseUserInput(userInout);
@@ -212,6 +222,13 @@ class FindCommandTest {
                 outContent.toString());
     }
 
+    @Test
+    public void execute_invalidDateRange_expectIllegalInputExceptionThrown() {
+        String userInout = "find income date 2024-10-10 to 2024-10-09";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_DATE_RANGE + System.lineSeparator(), outContent.toString());
+    }
 
     @Test
     public void execute_findIncomeWithNoMatch_success() {

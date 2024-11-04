@@ -17,7 +17,9 @@ import java.util.stream.Collectors;
 import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.SPENDING;
@@ -111,6 +113,9 @@ public class FindCommand extends Command {
             String[] range = findValue.split(" to ");
             lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
+            if (upper < lower) {
+                throw new WiagiInvalidInputException(INVALID_AMOUNT_RANGE);
+            }
         } else { // exact
             lower = upper = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
         }
@@ -132,6 +137,9 @@ public class FindCommand extends Command {
             String[] range = findValue.split(" to ");
             lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
+            if (lower.isAfter(upper)) {
+                throw new WiagiInvalidInputException(INVALID_DATE_RANGE);
+            }
         } else {
             lower = upper = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
         }

@@ -40,6 +40,8 @@ public class Constants {
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
     public static final String MISSING_AMOUNT = "No amount found! ";
+    public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
+    public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
             "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
             "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
