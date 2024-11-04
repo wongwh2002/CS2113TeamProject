@@ -111,9 +111,11 @@ public class Ui {
     }
 
     private static String formatPrintDouble(double sum) {
-        if (sum % 1 == 0) {
+        if (sum % 1 == 0) { //it is an integer
             return String.valueOf((int) sum);
         }
+        // not integer
+        sum = Math.round(sum * 100.0) / 100.0;
         return String.valueOf(sum);
     }
 
@@ -202,7 +204,8 @@ public class Ui {
 
     public static void printOverspendMessage(String budgetType, double overspendAmount) {
         overspendAmount *= -1;
-        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmount + " !!!");
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " +
+                formatPrintDouble(overspendAmount) + " !!!");
     }
 
     //@@author wx-03
