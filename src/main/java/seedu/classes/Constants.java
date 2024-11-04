@@ -29,7 +29,7 @@ public class Constants {
             "{$FIND_VALUE} [to $ANOTHER_FIND_VALUE]";
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
-            "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]";
+            "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]";
     public static final String INCORRECT_PARAMS_NUMBER = "Incorrect number of parameters! ";
     public static final String INVALID_CATEGORY = "No such category exists! ";
     public static final String INVALID_FIELD = "No such field exists! ";

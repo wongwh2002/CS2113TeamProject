@@ -67,8 +67,7 @@ public class AddCommand extends Command {
         if (compulsoryArguments.length == AMOUNT_INDEX) {
             // Command is "add {$TYPE}"
             throw new WiagiInvalidInputException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
-        }
-        else if (compulsoryArguments.length == DESCRIPTION_INDEX) {
+        } else if (compulsoryArguments.length == DESCRIPTION_INDEX) {
             // Either amount or description is missing
             if (isDouble(compulsoryArguments[AMOUNT_INDEX])) {
                 throw new WiagiInvalidInputException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
