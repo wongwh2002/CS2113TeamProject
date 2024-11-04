@@ -117,7 +117,7 @@ public class EntryType {
 
     @Override
     public String toString() {
-        String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.valueOf(amount);
+        String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.format("%.02f", amount);
         String returnString = description + LIST_SEPARATOR + amountString + LIST_SEPARATOR + date;
         if (!tag.isEmpty()) {
             returnString += LIST_SEPARATOR + "Tag: " + tag;

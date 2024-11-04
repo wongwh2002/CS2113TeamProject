@@ -211,6 +211,8 @@ public class SpendingList extends ArrayList<Spending> {
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;
     }
+
+    
 }
 
 

@@ -115,8 +115,9 @@ public class Ui {
             return String.valueOf((int) sum);
         }
         // not integer
+
         sum = Math.round(sum * 100.0) / 100.0;
-        return String.valueOf(sum);
+        return String.format("%.02f", sum);
     }
 
     //@@author wongwh2002
