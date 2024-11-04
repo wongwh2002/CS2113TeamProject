@@ -4,6 +4,8 @@ import seedu.classes.Ui;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
+import static seedu.classes.Constants.TAB;
+
 /**
  * Represents a command that displays usage instructions for the application.
  */
@@ -42,61 +44,61 @@ public class HelpCommand extends Command {
 
     private void appendAddCommandHelp(StringBuilder helpText) {
         helpText.append("Adding Entries:").append(System.lineSeparator())
-                .append("\tadd income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
+                .append(TAB + "add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
                 .append(System.lineSeparator())
-                .append("\tadd spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
+                .append(TAB + "add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
                 .append(System.lineSeparator())
-                .append("\te.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~").append(System.lineSeparator())
-                .append("\te.g., add spending 50 Lunch /2024-03-15/ *food*").append(System.lineSeparator())
+                .append(TAB + "e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~").append(System.lineSeparator())
+                .append(TAB + "e.g., add spending 50 Lunch /2024-03-15/ *food*").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendListCommandHelp(StringBuilder helpText) {
         helpText.append("Listing Entries:").append(System.lineSeparator())
-                .append("\tlist - shows all entries").append(System.lineSeparator())
-                .append("\tlist incomes - shows all income entries").append(System.lineSeparator())
-                .append("\tlist spendings - shows all spending entries").append(System.lineSeparator())
-                .append("\tlist tags {$TAG} - shows entries with specific tag").append(System.lineSeparator())
+                .append(TAB + "list - shows all entries").append(System.lineSeparator())
+                .append(TAB + "list incomes - shows all income entries").append(System.lineSeparator())
+                .append(TAB + "list spendings - shows all spending entries").append(System.lineSeparator())
+                .append(TAB + "list tags {$TAG} - shows entries with specific tag").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendEditCommandHelp(StringBuilder helpText) {
         helpText.append("Editing Entries:").append(System.lineSeparator())
-                .append("\tedit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}").append(System.lineSeparator())
-                .append("\te.g., edit spending 1 amount 100").append(System.lineSeparator())
-                .append("\te.g., edit income 2 description Bonus").append(System.lineSeparator())
+                .append(TAB + "edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}").append(System.lineSeparator())
+                .append(TAB + "e.g., edit spending 1 amount 100").append(System.lineSeparator())
+                .append(TAB + "e.g., edit income 2 description Bonus").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendDeleteCommandHelp(StringBuilder helpText) {
         helpText.append("Deleting Entries:").append(System.lineSeparator())
-                .append("\tdelete {$TYPE} {$INDEX}").append(System.lineSeparator())
-                .append("\te.g., delete spending 1").append(System.lineSeparator())
+                .append(TAB + "delete {$TYPE} {$INDEX}").append(System.lineSeparator())
+                .append(TAB + "e.g., delete spending 1").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendBudgetCommandHelp(StringBuilder helpText) {
         helpText.append("Setting Budget:").append(System.lineSeparator())
-                .append("\tbudget {$PERIOD} {$AMOUNT}").append(System.lineSeparator())
-                .append("\te.g., budget daily 50").append(System.lineSeparator())
-                .append("\te.g., budget monthly 1500").append(System.lineSeparator())
+                .append(TAB + "budget {$PERIOD} {$AMOUNT}").append(System.lineSeparator())
+                .append(TAB + "e.g., budget daily 50").append(System.lineSeparator())
+                .append(TAB + "e.g., budget monthly 1500").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendFindCommandHelp(StringBuilder helpText) {
         helpText.append("Finding entries:").append(System.lineSeparator())
-                .append("\tfind {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]")
+                .append(TAB + "find {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]")
                 .append(System.lineSeparator())
-                .append("\t-note that [to $ANOTHER_FIND_VALUE] only works for amount and date field")
+                .append(TAB + "-note that [to $ANOTHER_FIND_VALUE] only works for amount and date field")
                 .append(System.lineSeparator())
-                .append("\te.g., find income amount 10").append(System.lineSeparator())
-                .append("\te.g., find spending date 2024-01-01 to 2024-12-31").append(System.lineSeparator())
+                .append(TAB + "e.g., find income amount 10").append(System.lineSeparator())
+                .append(TAB + "e.g., find spending date 2024-01-01 to 2024-12-31").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
 
     private void appendOtherCommandsHelp(StringBuilder helpText) {
         helpText.append("Other Commands:").append(System.lineSeparator())
-                .append("\thelp - shows this help message").append(System.lineSeparator())
-                .append("\tbye - exits the application").append(System.lineSeparator());
+                .append(TAB + "help - shows this help message").append(System.lineSeparator())
+                .append(TAB + "bye - exits the application").append(System.lineSeparator());
     }
 }
