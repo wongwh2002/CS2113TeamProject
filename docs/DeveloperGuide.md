@@ -540,13 +540,38 @@ Use case ends.
     - 3a. Wiagi displays an error message.
     Use case restarts at step 1.
 
+### Use Case: Adding a Budget
+
+**MSS**
+
+1. User requests to set a specified time range's budget to a specified amount.
+2. Wiagi sets the budget.
+3. Wiagi displays a message to the user that the budget has been updated.
+
+Use case ends.
+**Extensions**
+1. The given time range is invalid.
+    - 1a. Wiagi displays an error message.
+    Use case restarts at step 1.
+2. The given budget is invalid.
+    - 2b. Wiagi displays an error message.
+    Use case restarts at step 1.
+
+
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. The system should be able to run on Windows, macOS, and Linux 
+
 
 ## Glossary
 
-* *glossary item* - Definition
+* *backlogging* - The process of retroactively adding recurring entries from a past date to the current date
+
+* *budget* - A financial limit set by the user for daily, monthly or yearly spending
+
+* *command* - A text instruction entered by the user to perform an action in the application
+
+* *validation* - The process of checking if user input meets the required format and constraints
 
 ## Instructions for manual testing
 
