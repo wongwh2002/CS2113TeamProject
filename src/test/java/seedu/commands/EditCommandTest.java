@@ -138,6 +138,23 @@ class EditCommandTest {
                 incomes.get(0).toString());
     }
 
+    @Test
+    public void execute_editSpendingDescription_success() {
+        String userInout = "edit spending 1 description test";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+                spendings.get(0).toString());
+    }
+
+    @Test
+    public void execute_editIncomeDescription_success() {
+        String userInout = "edit income 1 description test";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+                incomes.get(0).toString());
+    }
 
     @Test
     public void execute_editIncomeDate_success() {

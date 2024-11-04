@@ -45,8 +45,6 @@ public class AddCommandTest {
         System.setErr(originalErr);
     }
 
-
-
     @Test
     void addCommand_correctSpendingWithoutDateInput_success() {
         String userInput = "add spending 10 macs";
