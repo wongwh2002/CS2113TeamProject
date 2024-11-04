@@ -5,10 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
-import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
+import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
@@ -103,7 +103,7 @@ public class AddCommandTest {
         String userInput = "add spending";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -112,7 +112,7 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT +
+        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT +
                         System.lineSeparator(), outContent.toString());
     }
 
@@ -130,7 +130,7 @@ public class AddCommandTest {
         String userInput = "add income";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT
                         + System.lineSeparator(), outContent.toString());
     }
 
@@ -139,7 +139,7 @@ public class AddCommandTest {
         String userInput = "add income randomNum salary";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT
+        assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
