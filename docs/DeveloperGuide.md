@@ -459,10 +459,12 @@ The income or spending will be deleted from its corresponding list using its ind
 
 ## Product scope
 ### Target user profile
-1. prefer desktop apps over other types
+1. Prefer desktop apps over other types
+2. Prefer typing
 
 ### Value proposition
 1. An app that help students to manage their financials faster than a typical mouse/GUI driven app.
+2. Cross-platform compatibility (Windos, macOS, Linux)
 
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
