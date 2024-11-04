@@ -43,11 +43,19 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_validInput_successfullyDeleted() {
+    void execute_validIncomeInput_successfullyDeleted() {
         DeleteCommand c = new DeleteCommand("delete income 1");
         c.execute(incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(0, incomes.size());
+    }
+
+    @Test
+    void execute_validSpendingInput_successfullyDeleted() {
+        DeleteCommand c = new DeleteCommand("delete spending 1");
+        c.execute(incomes, spendings);
+        assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
+        assertEquals(1, spendings.size());
     }
 
     @Test

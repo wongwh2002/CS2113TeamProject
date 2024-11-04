@@ -1,6 +1,5 @@
 package seedu.commands;
 import seedu.classes.Ui;
-import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 import seedu.type.Income;
@@ -39,13 +38,13 @@ public class AddCommand extends Command {
         assert spendings != null;
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+        } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
     private void handleCommand(IncomeList incomes, SpendingList spendings)
-            throws WiagiInvalidInputException, WiagiEmptyDescriptionException {
+            throws WiagiInvalidInputException {
 
         String[] arguments = extractArguments(); // [add] [type] [amount] [others]
         String typeOfList = arguments[LIST_TYPE_INDEX];
