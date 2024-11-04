@@ -8,6 +8,7 @@ import seedu.commands.DeleteCommand;
 import seedu.commands.EditCommand;
 import seedu.commands.FindCommand;
 import seedu.commands.UnknownCommand;
+import seedu.commands.HelpCommand;
 import seedu.commands.listcommands.InvalidListCommand;
 import seedu.commands.listcommands.ListAllCommand;
 import seedu.commands.listcommands.ListIncomesCommand;
@@ -46,6 +47,8 @@ public class Parser {
             return new EditCommand(fullCommand);
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommand(fullCommand);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         case FindCommand.COMMAND_WORD:
             return new FindCommand(fullCommand);
         default:

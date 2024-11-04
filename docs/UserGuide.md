@@ -23,6 +23,7 @@ and investment analysis.
     - [Deleting a spending](#deleting-a-spending)
   - [Setting a budget](#setting-a-budget)
   - [Editing an entry](#editing-an-entry)
+  - [Finding an entry](#finding-an-entry)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -138,27 +139,24 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 ### Listing all entries:
 
-Lists all the entries in the user's spending or income list. </br>
+Lists all the entries in the user's spending or income list. <br>
 **Format:** `list`
 
 **Example input:** <br>
 `list`
 
-**Example output:** {to update}
+**Example output:**
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - food
-	2. flights - 10 - 2024-10-17 - travel
-	3. girlfriends - 10 - 2024-10-17 - personal
-	4. macdonalds - 10 - 2024-10-10 - food
+	1. techno - 10 - 2024-10-17 - Tag: food
+	2. flights - 10 - 2024-10-17 - Tag: travel
+	3. girlfriends - 10 - 2024-10-17 - Tag: personal
+	4. macdonalds - 10 - 2024-10-10 - Tag: food
 	Total spendings: 40
-	Daily spendings: 0 Daily Budget: 15
-	Monthly spendings: 40 Monthly Budget: 100
-	Yearly spendings: 40 Yearly Budget: 1000
 	Incomes
-	1. mcd - 100 - 2024-11-11 - personal
-	2. dividends - 10 - 2024-10-17 - investment
+	1. mcd - 100 - 2024-11-11 - Tag: personal
+	2. dividends - 10 - 2024-10-17 - Tag: investment
 	Total incomes: 110
 	____________________________________________________________
 ```
@@ -172,12 +170,9 @@ The user will then be prompted to select a time range.
 Only entries that are within the time range will be displayed.
 If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed.
 
-**Example**
+**Example Input and Output**
 
 **Input:** `list spendings`
-
-**Output:**
-
 ```
 	____________________________________________________________
 	Select time range:
@@ -186,37 +181,50 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 	[3] Biweekly
 	[4] Monthly
 ```
-**Input:** `1`
-
-**Output:**
-```
-	____________________________________________________________
-	List all statistics? [Y/N]:
-```
-
-**Input:** `y`
-
-**Output:**
-```
-	____________________________________________________________
-	Spendings
-	1. macdonalds - 10 - 2024-10-10 - food
-	2. techno - 10 - 2024-10-17 - food
-	3. flights - 10 - 2024-10-17 - travel
-	4. girlfriends - 10 - 2024-10-17 - personal
-	Total spendings: 40
-		Daily spendings: 0
-		Daily Budget: 0
-		Daily budget left: 0
-		Monthly spendings: 40
-		Monthly Budget: 0
-		Monthly budget left: -40
-		Yearly spendings: 40
-		Yearly Budget: 0
-		Yearly budget left: -40
-	____________________________________________________________
-
-```
+- **Input:** `1`
+  ```
+	 ____________________________________________________________
+	 List all statistics? [Y/N]:
+  ```
+    - **Input:** `y`
+    ```
+        ____________________________________________________________
+        Spendings
+        1. macdonalds - 10 - 2024-10-10 - food
+        2. techno - 10 - 2024-10-17 - food
+        3. flights - 10 - 2024-11-01 - travel
+        4. girlfriends - 10 - 2024-11-17 - personal
+        Total spendings: 40
+            Daily spendings: 0
+            Daily Budget: 0
+            Daily budget left: 0
+            Monthly spendings: 40
+            Monthly Budget: 0
+            Monthly budget left: -40
+            Yearly spendings: 40
+            Yearly Budget: 0
+            Yearly budget left: -40
+        ____________________________________________________________
+    ```
+    - **Input:** `n`
+    ```
+        ____________________________________________________________
+        Spendings
+        1. macdonalds - 10 - 2024-10-10 - food
+        2. techno - 10 - 2024-10-17 - food
+        3. flights - 10 - 2024-11-01 - travel
+        4. girlfriends - 10 - 2024-11-17 - personal
+        Total spendings: 40
+        ____________________________________________________________
+    ```
+- **Input:** `4` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Spendings
+      3. flights - 10 - 2024-11-01 - travel
+      4. girlfriends - 10 - 2024-11-17 - personal
+      ____________________________________________________________
+  ```
 
 #### Listing all incomes:
 
@@ -227,11 +235,9 @@ Lists all the entries in the user's income list.
 The user will then be prompted to select a time range. 
 Only entries that are within the time range will be displayed.
 
-**Example**
+**Example Input and Output**
 
-**Input:** `list incomes` 
-
-**Output:**
+**Input:** `list incomes`
 ```
 	____________________________________________________________
 	Select time range:
@@ -241,18 +247,23 @@ Only entries that are within the time range will be displayed.
 	[4] Monthly 
 
 ```
-**Input:**
-`1`
+- **Input:** `1`
+  ```
+      ____________________________________________________________
+      Incomes
+      1. mcd - 100 - 2024-11-15 - FastFood
+      2. dividends - 10 - 2024-10-17 - investment
+      Total incomes: 110
+      ____________________________________________________________
+  ```
 
-**Output:**
-```
-	____________________________________________________________
-	Incomes
-	1. mcd - 100 - 2024-11-11 - FastFood
-	2. dividends - 10 - 2024-10-17 - investment
-	Total incomes: 110
-	____________________________________________________________
-```
+- **Input:** `2` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Incomes
+      1. mcd - 100 - 2024-11-15 - FastFood
+      ____________________________________________________________
+  ```
 
 #### Listing all tags:
 
@@ -329,6 +340,58 @@ Run the [`list spendings`](#listing-all-spendings) command to check the index of
     ____________________________________________________________
 ```
 
+### Getting user instructions
+
+The `help` command allows the user to see a quick summary of the commands.
+
+**Format:** `help`
+
+**Example input:**<br>
+`
+help
+`
+
+**Example output**:
+```
+Notes about the command format:
+Words in {$UPPER_CASE} are the parameters to be supplied by the user.
+e.g., in add spending {$AMOUNT} {$DESCRIPTION}, {$AMOUNT} and {$DESCRIPTION}
+are parameters which can be used as add spending 4 dinner.
+Items in square brackets are optional.
+e.g. add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] can be used as
+add spending 4 lunch or add spending 4 lunch /2024-10-20/.
+
+Adding Entries:
+	add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]
+	add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]
+	e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~
+	e.g., add spending 50 Lunch /2024-03-15/ *food*
+
+Listing Entries:
+	list - shows all entries
+	list incomes - shows all income entries
+	list spendings - shows all spending entries
+	list tags {$TAG} - shows entries with specific tag
+
+Editing Entries:
+	edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}
+	e.g., edit spending 1 amount 100
+	e.g., edit income 2 description Bonus
+
+Deleting Entries:
+	delete {$TYPE} {$INDEX}
+	e.g., delete spending 1
+
+Setting Budget:
+	budget {$PERIOD} {$AMOUNT}
+	e.g., budget daily 50
+	e.g., budget monthly 1500
+
+Other Commands:
+	help - shows this help message
+	bye - exits the application
+```
+
 ### Setting a Budget
 
 The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
@@ -360,14 +423,51 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
+  - Note: There are restrictions for the find value in these fields:
+    - amount: positive numerical value.
+    - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
 `edit spending 1 amount 100`
+`edit spending 1 description macdonalds`
+`edit spending 1 tag food`
+`edit spending 1 date 2024-10-10`
 
 **Example output**:
 ```
     ____________________________________________________________
     Edit Successful!
+    ____________________________________________________________
+```
+
+### Finding an Entry
+
+The `find` command allows you to find entries with a specified amount or date or description with certain keyword.
+
+**Format:** `find {$TYPE} {$FIELD} {$FIND_VALUE}`
+
+- `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
+- `{$FIND_VALUE}`: The value to find for the specified field.
+  - Note: There are restrictions for the find value in these fields:
+    - amount: positive numerical value.
+    - date: YYYY-MM-DD format, eg.`2023-01-21`.
+
+**Example input:**<br>
+- `find spending amount 100`
+- `find spending description macdonalds`
+- `find spending date 2024-10-10`
+
+**Example output**:
+```
+    ____________________________________________________________
+    No entries found match the criteria.
+    ____________________________________________________________
+```
+```
+    ____________________________________________________________
+    Here are the matching results:
+    1. macdonalds - 10 - 2024-10-10
     ____________________________________________________________
 ```
 
@@ -487,6 +587,17 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         <tr>
             <td>Yearly</td>
             <td></td>
+        </tr>
+        <tr>
+            <td rowspan="2">Finding entries</td>
+            <td>Income</td>
+            <td>find income {$FIELD} {$FIND_VALUE}</td>
+            <td>find income description salary</td>
+        </tr>
+        <tr>
+            <td>Spending</td>
+            <td>find spending {$FIELD} {$FIND_VALUE}</td>
+            <td>find spending description macdonald</td>
         </tr>
     </tbody>
 </table>

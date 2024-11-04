@@ -28,9 +28,7 @@ public abstract class Recurrence {
             return;
         }
         Recurrence recurrence = Parser.parseRecurrence(toAdd);
-        if (recurrence == null) {
-            return;
-        }
+        assert recurrence != null : "previously checked that recurrence frequency is not NONE";
         boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
         if (toAdd instanceof Spending) {
             recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
