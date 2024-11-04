@@ -25,9 +25,8 @@ import static seedu.classes.Constants.SPENDING;
 
 public class EditCommand extends Command {
 
-    private static final Logger LOGGER = WiagiLogger.logger;
-
     public static final String COMMAND_WORD = "edit";
+    private static final Logger LOGGER = WiagiLogger.logger;
     private static final int TYPE_INDEX = 1;
     private static final int INDEX_OF_ENTRY_INDEX = 2;
     private static final int CATEGORY_INDEX = 3;

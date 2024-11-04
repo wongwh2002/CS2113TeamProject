@@ -21,9 +21,8 @@ import static seedu.classes.Constants.WHITESPACE;
  */
 public class BudgetCommand extends Command {
 
-    private static final Logger LOGGER = WiagiLogger.logger;
-
     public static final String COMMAND_WORD = "budget";
+    private static final Logger LOGGER = WiagiLogger.logger;
     private static final int TIME_RANGE_INDEX = 1;
     private static final int BUDGET_AMOUNT_INDEX = 2;
     private static final int BUDGET_COMPULSORY_ARGUMENTS_LENGTH = 3;
@@ -43,7 +42,7 @@ public class BudgetCommand extends Command {
      */
     public BudgetCommand(String fullCommand) {
         assert fullCommand != null : "Full command cannot be null";
-        assert fullCommand.trim().length() > 0 : "Full command cannot be empty";
+        assert !fullCommand.trim().isEmpty() : "Full command cannot be empty";
         LOGGER.log(Level.INFO, "Creating new BudgetCommand with command: {0}", fullCommand);
         this.fullCommand = fullCommand;
     }
