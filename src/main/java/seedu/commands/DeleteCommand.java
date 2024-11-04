@@ -16,7 +16,7 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
 
@@ -65,7 +65,7 @@ public class DeleteCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
-        String[] arguments = fullCommand.split(SPACE_REGEX, DELETE_COMPULSORY_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(WHITESPACE, DELETE_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length < DELETE_COMPULSORY_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER
                     + DELETE_COMMAND_FORMAT);

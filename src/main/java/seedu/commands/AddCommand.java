@@ -15,7 +15,7 @@ import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
 
@@ -71,7 +71,7 @@ public class AddCommand extends Command {
     }
 
     private String[] extractArguments() {
-        String[] arguments = fullCommand.split(SPACE_REGEX, ADD_COMPULSORY_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(WHITESPACE, ADD_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length == AMOUNT_INDEX) {
             throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         } else if (arguments.length == DESCRIPTION_INDEX) {

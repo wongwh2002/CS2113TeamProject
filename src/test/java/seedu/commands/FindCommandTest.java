@@ -17,11 +17,13 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.FIND_COMMAND_FORMAT;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
-import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 
@@ -42,8 +44,6 @@ class FindCommandTest {
         spendings.add(new Spending(2, "macdonalds", LocalDate.of(2024, 10, 10), "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(1, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(2, "dividends", LocalDate.of(2024, 10, 10), "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(3, "stocks", VALID_TEST_DATE, "wronginput",
-                RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
@@ -102,12 +102,22 @@ class FindCommandTest {
     }
 
     @Test
+    public void execute_invalidDateFormat_expectIllegalInputExceptionThrown() {
+        String userInout = "find spending date 2024/10/10";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INCORRECT_DATE_FORMAT + FIND_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     public void execute_findSpendingAmount_success() {
         String userInout = "find spending amount 1";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
-                spendings.get(0).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
@@ -115,8 +125,39 @@ class FindCommandTest {
         String userInout = "find income amount 1";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
-                incomes.get(0).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_findSpendingAmountRange_success() {
+        String userInout = "find spending amount 1 to 2";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator()
+                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_findIncomeAmountRange_success() {
+        String userInout = "find income amount 1 to 2";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator()
+                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_invalidAmountRange_expectIllegalInputExceptionThrown() {
+        String userInout = "find income amount 2 to 1";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT_RANGE + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -124,8 +165,9 @@ class FindCommandTest {
         String userInout = "find spending description macdonalds";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("macdonalds" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                spendings.get(1).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
@@ -133,8 +175,9 @@ class FindCommandTest {
         String userInout = "find income description dividends";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("dividends" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
@@ -142,8 +185,9 @@ class FindCommandTest {
         String userInout = "find spending date 2024-10-10";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("macdonalds" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                spendings.get(1).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
     }
 
     @Test
@@ -151,8 +195,39 @@ class FindCommandTest {
         String userInout = "find income date 2024-10-10";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("dividends" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_findSpendingDateRange_success() {
+        String userInout = "find spending date 2024-10-10 to " + VALID_TEST_DATE;
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator()
+                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_findIncomeDateRange_success() {
+        String userInout = "find income date 2024-10-10 to " + VALID_TEST_DATE;
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
+                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator()
+                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void execute_invalidDateRange_expectIllegalInputExceptionThrown() {
+        String userInout = "find income date 2024-10-10 to 2024-10-09";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_DATE_RANGE + System.lineSeparator(), outContent.toString());
     }
 
     @Test

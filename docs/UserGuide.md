@@ -423,7 +423,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
-  - Note: There are restrictions for the find value in these fields:
+  - Note: There are restrictions for the new value in these fields:
     - amount: positive numerical value.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
@@ -442,21 +442,25 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 
 ### Finding an Entry
 
-The `find` command allows you to find entries with a specified amount or date or description with certain keyword.
+The `find` command allows you to find entries within a range of amount or date. 
+It also allows you to find entries with a specific keyword in the description.
 
 **Format:** `find {$TYPE} {$FIELD} {$FIND_VALUE}`
 
 - `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
 - `{$FIND_VALUE}`: The value to find for the specified field.
-  - Note: There are restrictions for the find value in these fields:
+- `[to $ANOTHER_FIND_VALUE]`: The upper limit of the search result.
+  - Note: Range search is only available for the `amount` and `date` fields.
+    - It will be seen as part of the description keyword for the `description` field
+  - Note: There are restrictions for the find values in these fields:
     - amount: positive numerical value.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
-- `find spending amount 100`
+- `find income amount 100`
 - `find spending description macdonalds`
-- `find spending date 2024-10-10`
+- `find spending date 2024-10-10 to 2024-12-12`
 
 **Example output**:
 ```
@@ -591,13 +595,13 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         <tr>
             <td rowspan="2">Finding entries</td>
             <td>Income</td>
-            <td>find income {$FIELD} {$FIND_VALUE}</td>
+            <td>find income {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]</td>
             <td>find income description salary</td>
         </tr>
         <tr>
             <td>Spending</td>
-            <td>find spending {$FIELD} {$FIND_VALUE}</td>
-            <td>find spending description macdonald</td>
+            <td>find spending {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]</td>
+            <td>find spending amount 10 to 100</td>
         </tr>
     </tbody>
 </table>
