@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
@@ -82,6 +83,14 @@ class EditCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_invalidStringIndex_expectIndexOutOfBoundsException() {
+        String userInout = "edit spending string amount 1";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INDEX_NOT_INTEGER + System.lineSeparator(), outContent.toString());
     }
 
     @Test

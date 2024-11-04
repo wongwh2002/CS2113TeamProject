@@ -60,9 +60,6 @@ public class FindCommand extends Command {
             throws WiagiMissingParamsException, WiagiInvalidIndexException {
         String[] arguments = extractArguments();
         String typeOfList = arguments[LIST_TYPE_INDEX];
-        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
-            throw new WiagiInvalidInputException(INVALID_CATEGORY + FIND_COMMAND_FORMAT);
-        }
         switch (typeOfList) {
         case INCOME:
             ArrayList<Income> incomeFindResults = findList(arguments, incomes);

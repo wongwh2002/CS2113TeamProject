@@ -137,8 +137,18 @@ class ListCommandTest {
     }
 
     @Test
-    public void execute_tooManyInputs_expectWiagiInvalidInputException() {
+    public void execute_tooManySpendingsInputs_expectWiagiInvalidInputException() {
         String userInout = "list spendings incomes";
+        Command c = Parser.parseUserInput(userInout);
+        c.execute(incomes, spendings);
+
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_tooManyIncomesInputs_expectWiagiInvalidInputException() {
+        String userInout = "list incomes spendings";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
 
