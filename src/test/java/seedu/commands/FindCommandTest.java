@@ -116,7 +116,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
+                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -126,7 +126,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
+                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -166,7 +166,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -176,7 +176,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -186,7 +186,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -196,7 +196,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 

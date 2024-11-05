@@ -151,7 +151,8 @@ class EditCommandTest {
         String userInout = "edit income 1 description test";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR +
+                        VALID_TEST_DATE.minusDays(7),
                 incomes.get(0).toString());
     }
 
