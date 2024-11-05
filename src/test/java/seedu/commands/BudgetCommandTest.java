@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
@@ -40,7 +41,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setDailyBudget_success() {
-        int budget = 1321;
+        double budget = 1321;
 
         String userInput = "budget daily " + budget;
         Command command = Parser.parseUserInput(userInput);
@@ -53,7 +54,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setMonthlyBudget_success() {
-        int budget = 1321;
+        double budget = 1321;
 
         String userInput = "budget monthly " + budget;
         Command command = Parser.parseUserInput(userInput);
@@ -66,7 +67,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setYearlyBudget_success() {
-        int budget = 1321;
+        double budget = 1321;
 
         String userInput = "budget yearly " + budget;
         Command command = Parser.parseUserInput(userInput);
@@ -82,8 +83,8 @@ class BudgetCommandTest {
         String userInput = "budget yearly abc";
         Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
-        assertEquals("\tInvalid amount! Please enter in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + BUDGET_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test

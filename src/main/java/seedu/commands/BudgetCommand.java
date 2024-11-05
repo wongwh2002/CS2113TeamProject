@@ -10,7 +10,6 @@ import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.BUDGET_INITIALISE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 
 /**
@@ -32,11 +31,6 @@ public class BudgetCommand extends Command {
 
     private final String fullCommand;
 
-    public static void initialiseBudget(SpendingList spendings) {
-        initialiseDailyBudget(spendings);
-        initialiseMonthlyBudget(spendings);
-        initialiseYearlyBudget(spendings);
-    }
 
     /**
      * Constructs a BudgetCommand with the specified full command.
@@ -60,6 +54,12 @@ public class BudgetCommand extends Command {
         } catch (WiagiMissingParamsException | WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
+    }
+
+    public static void initialiseBudget(SpendingList spendings) {
+        initialiseDailyBudget(spendings);
+        initialiseMonthlyBudget(spendings);
+        initialiseYearlyBudget(spendings);
     }
 
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
@@ -118,7 +118,7 @@ public class BudgetCommand extends Command {
                 amount = CommandUtils.formatAmount(Ui.readCommand(), BUDGET_INITIALISE_FORMAT);
                 spendings.setMonthlyBudget(amount);
             } catch (WiagiInvalidInputException e){
-               Ui.printWithTab(e.getMessage());
+                Ui.printWithTab(e.getMessage());
             }
         }
     }

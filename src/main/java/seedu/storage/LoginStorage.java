@@ -11,6 +11,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+import static seedu.storage.IncomeListStorage.INCOMES_FILE_PATH;
+import static seedu.storage.SpendingListStorage.SPENDINGS_FILE_PATH;
+
 /**
  * Handles the retrieval and storage of user password data
  */
@@ -37,8 +40,10 @@ public class LoginStorage {
             Ui.printWithTab(e.getMessage());
         } catch (NoSuchElementException e) {
             WiagiLogger.logger.log(Level.WARNING, "Password file was empty", e);
-            File passwordFile = new File(PASSWORD_FILE_PATH);
-            passwordFile.delete();
+            Ui.errorLoadingPasswordMessage();
+            new File(PASSWORD_FILE_PATH).delete();
+            new File(SPENDINGS_FILE_PATH).delete();
+            new File(INCOMES_FILE_PATH).delete();
             createNewUser();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading password file.");

@@ -361,5 +361,9 @@ public class Ui {
     public static void errorLoadingBudgetMessage() {
         Ui.printWithTab("Hmmmm, seems to have some issues loading your budgets, please re-enter them :(");
     }
+
+    public static void errorLoadingPasswordMessage() {
+        Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
+    }
 }
 
