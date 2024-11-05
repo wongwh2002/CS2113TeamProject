@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.classes.Parser;
+import seedu.classes.Ui;
 import seedu.commands.Command;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -72,6 +73,24 @@ public class MonthlyRecurrenceTest {
                         VALID_TEST_DATE.minusMonths(1).plusMonths(1) + System.lineSeparator()
                         + "\tTotal incomes: 2000" + System.lineSeparator(),
                 outContent.toString());
+    }
+
+    @Test
+    public void checkSpendingRecurrence_addPastMonthlyEntryNoBacklogging_noEntryAdded() {
+        spendings.add(new Spending(10, "food", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        Ui.userInputForTest("n");
+        Recurrence.checkRecurrenceBackLog(spendings.get(0), spendings);
+        assertEquals(1, spendings.size());
+    }
+
+    @Test
+    public void checkIncomeRecurrence_addPastMonthlyEntryNoBacklogging_noEntryAdded() {
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        Ui.userInputForTest("n");
+        Recurrence.checkRecurrenceBackLog(incomes.get(0), incomes);
+        assertEquals(1, incomes.size());
     }
 }
 
