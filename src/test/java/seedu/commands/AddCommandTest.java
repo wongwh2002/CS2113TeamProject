@@ -89,35 +89,35 @@ public class AddCommandTest {
     void execute_invalidCategorySpendingInput_expectIllegalInputExceptionThrown() {
         commandInputForTest("add invalidCategory 1 s", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_missingAmountSpendingInput_noSpendingAdded() {
         commandInputForTest("add spending", incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_stringAmountSpendingInput_noSpendingAdded() {
         commandInputForTest("add spending randomPrice macs", incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT + ADD_COMMAND_FORMAT +
-                        System.lineSeparator(), outContent.toString());
+                System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_negativeAmountSpendingInput_noSpendingAdded() {
         commandInputForTest("add spending -1 macs", incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_missingAmountIncomeInput_noIncomeAdded(){
         commandInputForTest("add income", incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -131,28 +131,28 @@ public class AddCommandTest {
     void execute_missingDescriptionSpendingInput_noSpendingAdded(){
         commandInputForTest("add spending 1000", incomes, spendings);
         assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_missingDescriptionIncomeInput_noIncomeAdded(){
         commandInputForTest("add income 1000", incomes, spendings);
         assertEquals(TAB + MISSING_DESCRIPTION + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_invalidDateInput_noIncomeAdded() {
         commandInputForTest("add income 1000 part-time /2024/10/10", incomes, spendings);
         assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     void execute_invalidDateInput_noSpendingAdded() {
         commandInputForTest("add spending 1000 ipad /2024/10/10", incomes, spendings);
         assertEquals(TAB + INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT
-                        + System.lineSeparator(), outContent.toString());
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
