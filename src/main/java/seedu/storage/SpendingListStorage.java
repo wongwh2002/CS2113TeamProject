@@ -1,6 +1,7 @@
 package seedu.storage;
 
 import seedu.classes.WiagiLogger;
+import seedu.commands.BudgetCommand;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
@@ -29,6 +30,7 @@ import static seedu.classes.Constants.LOAD_LAST_RECURRED_INDEX;
 import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
+import static seedu.storage.LoginStorage.PASSWORD_FILE_PATH;
 
 /**
  * Manages saving and loading of spending data to and from a file.
@@ -71,14 +73,13 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         try {
             if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
+                emptyFileErrorHandling();
                 return;
             }
             File spendingFile = new File(SPENDINGS_FILE_PATH);
             Scanner spendingReader = new Scanner(spendingFile);
             String[] budgetDetails = spendingReader.nextLine().split(STORAGE_LOAD_SEPARATOR);
-            Storage.spendings.setDailyBudget(Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]));
-            Storage.spendings.setMonthlyBudget(Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]));
-            Storage.spendings.setYearlyBudget(Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]));
+            loadBudgets(budgetDetails);
             while (spendingReader.hasNext()) {
                 String newEntry = spendingReader.nextLine();
                 String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
@@ -98,9 +99,23 @@ public class SpendingListStorage {
             Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         } catch (NoSuchElementException e) {
             WiagiLogger.logger.log(Level.WARNING, "Spendings file is empty", e);
-            File spendingFile = new File(SPENDINGS_FILE_PATH);
-            spendingFile.delete();
+            emptyFileErrorHandling();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
+    }
+
+    private static void loadBudgets(String[] budgetDetails) {
+        Storage.spendings.setDailyBudget(Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]));
+        Storage.spendings.setMonthlyBudget(Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]));
+        Storage.spendings.setYearlyBudget(Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]));
+    }
+
+    private static void emptyFileErrorHandling() {
+        File spendingFile = new File(SPENDINGS_FILE_PATH);
+        spendingFile.delete();
+        if (new File(PASSWORD_FILE_PATH).exists()) {
+            Ui.errorLoadingBudgetMessage();
+            BudgetCommand.initialiseBudget(Storage.spendings);
+        }
     }
 }

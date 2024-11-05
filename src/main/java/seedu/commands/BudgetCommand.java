@@ -7,6 +7,7 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.BUDGET_INITIALISE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_AMOUNT;
@@ -27,8 +28,15 @@ public class BudgetCommand extends Command {
     private static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
     private static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
     private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
+    private static final double UNINITIALISED_BUDGET = 0.0;
 
     private final String fullCommand;
+
+    public static void initialiseBudget(SpendingList spendings) {
+        initialiseDailyBudget(spendings);
+        initialiseMonthlyBudget(spendings);
+        initialiseYearlyBudget(spendings);
+    }
 
     /**
      * Constructs a BudgetCommand with the specified full command.
@@ -57,7 +65,7 @@ public class BudgetCommand extends Command {
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        int budget = formatBudget(stringBudget);
+        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
         addBudget(spendings, budget, timeRange);
     }
@@ -70,15 +78,7 @@ public class BudgetCommand extends Command {
         return arguments;
     }
 
-    private int formatBudget(String stringBudget) {
-        try {
-            return Integer.parseInt(stringBudget);
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT + BUDGET_COMMAND_FORMAT);
-        }
-    }
-
-    private void addBudget(SpendingList spendings, int budget, String timeRange) {
+    private void addBudget(SpendingList spendings, double budget, String timeRange) {
         switch (timeRange) {
         case DAILY:
             spendings.setDailyBudget(budget);
@@ -94,6 +94,45 @@ public class BudgetCommand extends Command {
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+        }
+    }
+
+    private static void initialiseDailyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseDailyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                amount = CommandUtils.formatAmount(Ui.readCommand(), BUDGET_INITIALISE_FORMAT);
+                spendings.setDailyBudget(amount);
+            } catch (WiagiInvalidInputException e) {
+                Ui.printWithTab(e.getMessage());
+            }
+        }
+    }
+
+    private static void initialiseMonthlyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseMonthlyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                amount = CommandUtils.formatAmount(Ui.readCommand(), BUDGET_INITIALISE_FORMAT);
+                spendings.setMonthlyBudget(amount);
+            } catch (WiagiInvalidInputException e){
+               Ui.printWithTab(e.getMessage());
+            }
+        }
+    }
+
+    private static void initialiseYearlyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseYearlyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                amount = CommandUtils.formatAmount(Ui.readCommand(), BUDGET_INITIALISE_FORMAT);
+                spendings.setYearlyBudget(amount);
+            } catch (WiagiInvalidInputException e) {
+                Ui.printWithTab(e.getMessage());
+            }
         }
     }
 }

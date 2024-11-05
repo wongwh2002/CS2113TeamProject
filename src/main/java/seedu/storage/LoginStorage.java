@@ -2,6 +2,7 @@ package seedu.storage;
 
 import seedu.classes.Ui;
 import seedu.classes.WiagiLogger;
+import seedu.commands.BudgetCommand;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +15,7 @@ import java.util.logging.Level;
  * Handles the retrieval and storage of user password data
  */
 public class LoginStorage {
-    private static final String PASSWORD_FILE_PATH = "./password.txt";
+    static final String PASSWORD_FILE_PATH = "./password.txt";
 
     /**
      * Retrieves the data of the user password from its data file into the program
@@ -51,6 +52,8 @@ public class LoginStorage {
             fw.write(Integer.toString(passwordHash));
             fw.close();
             Storage.password = passwordHash;
+            Ui.newUserBudgetMessage();
+            BudgetCommand.initialiseBudget(Storage.spendings);
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to open password file", e);
             Ui.printWithTab(e.getMessage());
