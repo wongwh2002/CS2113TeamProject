@@ -82,7 +82,8 @@ class BudgetCommandTest {
         String userInput = "budget yearly abc";
         Command command = Parser.parseUserInput(userInput);
         command.execute(incomes, spendings);
-        assertEquals("\tInvalid amount! Please enter in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
+        assertEquals("\tPlease enter a number for the amount! Please enter " +
+                        "in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
                 , outContent.toString());
     }
 

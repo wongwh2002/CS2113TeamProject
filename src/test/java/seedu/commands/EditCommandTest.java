@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,9 +41,9 @@ class EditCommandTest {
     public void setUp() {
         spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "dividends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "stocks", LocalDate.of(2024, 10, 10), "wronginput",
+        incomes.add(new Income(10, "savings", VALID_TEST_DATE.minusDays(7), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "dividends", VALID_TEST_DATE.minusDays(6), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "stocks", VALID_TEST_DATE.minusDays(5), "wronginput",
                 RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -125,10 +124,9 @@ class EditCommandTest {
         String userInout = "edit income 1 amount 1";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(7),
                 incomes.get(0).toString());
     }
-
 
     @Test
     public void execute_editIncomeDate_success() {
@@ -153,7 +151,7 @@ class EditCommandTest {
         String userInout = "edit income 3 tag investments";
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
-        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
+        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(5) +
                         LIST_SEPARATOR + "Tag: investments",
                 incomes.get(2).toString());
     }

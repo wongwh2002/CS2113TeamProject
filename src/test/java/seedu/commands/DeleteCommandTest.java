@@ -17,20 +17,21 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.VALID_TEST_DATE;
 
 class DeleteCommandTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    private IncomeList incomes = new IncomeList();
-    private SpendingList spendings = new SpendingList();
+    private final IncomeList incomes = new IncomeList();
+    private final SpendingList spendings = new SpendingList();
 
     // @@author wx-03
     @BeforeEach
     void setUp() {
-        incomes.add(new Income(1000, "salary", null, null, null, null, 0));
-        spendings.add(new Spending(4, "dinner", null, null, null, null, 0));
-        spendings.add(new Spending(5, "lunch", null, null, null, null, 0));
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE, null, null, null, 0));
+        spendings.add(new Spending(4, "dinner", VALID_TEST_DATE, null, null, null, 0));
+        spendings.add(new Spending(5, "lunch", VALID_TEST_DATE, null, null, null, 0));
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 

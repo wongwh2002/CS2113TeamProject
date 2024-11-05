@@ -107,7 +107,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("girlfriends" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
-                spendings.get(0).toString());
+                spendings.get(1).toString());
     }
 
     @Test
@@ -116,7 +116,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
-                incomes.get(0).toString());
+                incomes.get(1).toString());
     }
 
     @Test
@@ -125,7 +125,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("macdonalds" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                spendings.get(1).toString());
+                spendings.get(0).toString());
     }
 
     @Test
@@ -134,7 +134,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("dividends" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
+                incomes.get(0).toString());
     }
 
     @Test
@@ -143,7 +143,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("macdonalds" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                spendings.get(1).toString());
+                spendings.get(0).toString());
     }
 
     @Test
@@ -152,7 +152,7 @@ class FindCommandTest {
         Command c = Parser.parseUserInput(userInout);
         c.execute(incomes, spendings);
         assertEquals("dividends" + LIST_SEPARATOR + "2" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
+                incomes.get(0).toString());
     }
 
     @Test

@@ -211,9 +211,9 @@ public class AddCommandTest {
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
         assertEquals(TAB + "Entry successfully added!" + System.lineSeparator()
-                + TAB + "!!! You have overspent your daily by: 10.0 !!!" + System.lineSeparator()
-                + TAB + "!!! You have overspent your monthly by: 10.0 !!!" + System.lineSeparator()
-                + TAB + "!!! You have overspent your yearly by: 10.0 !!!" + System.lineSeparator(),
+                + TAB + "!!! You have overspent your daily by: 10 !!!" + System.lineSeparator()
+                + TAB + "!!! You have overspent your monthly by: 10 !!!" + System.lineSeparator()
+                + TAB + "!!! You have overspent your yearly by: 10 !!!" + System.lineSeparator(),
                 outContent.toString());
     }
 }

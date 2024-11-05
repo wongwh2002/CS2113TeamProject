@@ -110,7 +110,7 @@ public class Ui {
         return formatPrintDouble(sumOfAmountInList);
     }
 
-    private static String formatPrintDouble(double sum) {
+    public static String formatPrintDouble(double sum) {
         if (sum % 1 == 0) { //it is an integer
             return String.valueOf((int) sum);
         }
