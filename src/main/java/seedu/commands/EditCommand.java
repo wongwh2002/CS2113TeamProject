@@ -60,9 +60,6 @@ public class EditCommand extends Command {
             throws WiagiMissingParamsException, WiagiInvalidIndexException {
         String[] arguments = extractArguments();
         String typeOfList = arguments[TYPE_INDEX];
-        if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {
-            throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
-        }
         switch (typeOfList) {
         case INCOME:
             editList(arguments, incomes);

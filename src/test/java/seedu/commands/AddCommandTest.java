@@ -8,6 +8,7 @@ import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.TAB;
@@ -43,8 +44,6 @@ public class AddCommandTest {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }
-
-
 
     @Test
     void addCommand_correctSpendingWithoutDateInput_success() {
@@ -99,6 +98,15 @@ public class AddCommandTest {
     }
 
     @Test
+    void addCommand_invalidCategorySpendingInput_expectIllegalInputExceptionThrown() {
+        String userInput = "add invalidCategory 1 s";
+        Command c = Parser.parseUserInput(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_CATEGORY + ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     void addCommand_missingAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending";
         Command c = Parser.parseUserInput(userInput);
@@ -112,8 +120,8 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT +
-                        System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
