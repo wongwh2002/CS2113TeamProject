@@ -1,12 +1,14 @@
 package seedu.classes;
 
 import seedu.commands.AddCommand;
+import seedu.commands.BudgetCommand;
 import seedu.commands.ByeCommand;
 import seedu.commands.Command;
 import seedu.commands.DeleteCommand;
 import seedu.commands.EditCommand;
-import seedu.commands.BudgetCommand;
+import seedu.commands.FindCommand;
 import seedu.commands.UnknownCommand;
+import seedu.commands.HelpCommand;
 import seedu.commands.listcommands.InvalidListCommand;
 import seedu.commands.listcommands.ListAllCommand;
 import seedu.commands.listcommands.ListIncomesCommand;
@@ -21,7 +23,7 @@ import seedu.type.EntryType;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
@@ -30,7 +32,7 @@ public class Parser {
     private static final int COMMAND_WORD_ARGUMENT = 0;
 
     public static Command parseUserInput(String fullCommand) {
-        String command = fullCommand.split(SPACE_REGEX)[COMMAND_WORD_ARGUMENT].toLowerCase();
+        String command = fullCommand.split(WHITESPACE)[COMMAND_WORD_ARGUMENT].toLowerCase();
 
         switch (command) {
         case ByeCommand.COMMAND_WORD:
@@ -45,13 +47,17 @@ public class Parser {
             return new EditCommand(fullCommand);
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommand(fullCommand);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(fullCommand);
         default:
             return new UnknownCommand();
         }
     }
 
     private static Command parseListCommand(String fullCommand) {
-        String[] arguments = fullCommand.split(SPACE_REGEX);
+        String[] arguments = fullCommand.split(WHITESPACE);
         int commandSize = arguments.length;
         assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {

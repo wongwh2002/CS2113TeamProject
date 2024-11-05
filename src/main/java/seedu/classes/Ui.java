@@ -15,15 +15,17 @@ import java.util.Scanner;
 
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.SEPARATOR;
+import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
-    public static final String EMPTY_STRING = "";
-    public static final String TAB = "\t";
-    public static final String INCOME = "Incomes";
-    public static final String SPENDING = "Spendings";
+    private static final String INCOME = "Incomes";
+    private static final String SPENDING = "Spendings";
     private static Scanner scanner = new Scanner(System.in);
 
     public static void userInputForTest(String data) {
@@ -36,11 +38,12 @@ public class Ui {
         String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
-        return line;
+        // replace whitespaces to a single whitespace and remove trailing spaces
+        return line.replaceAll(SPACE_REGEX, " ").trim();
     }
 
     public static void printSeparator() {
-        printWithTab(Constants.SEPARATOR);
+        printWithTab(SEPARATOR);
     }
     public static void printWithTab(String message) {
         System.out.println(TAB + message);
@@ -199,14 +202,14 @@ public class Ui {
         return tagsCount;
     }
 
-    public static void printOverspendMessage(String budgetType, double overspendAmont) {
-        overspendAmont *= -1;
-        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmont + " !!!");
+    public static void printOverspendMessage(String budgetType, double overspendAmount) {
+        overspendAmount *= -1;
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmount + " !!!");
     }
 
     //@@author wx-03
     public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
-        StringBuilder filteredList = new StringBuilder();
+        StringBuilder filteredListString = new StringBuilder();
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
@@ -214,43 +217,43 @@ public class Ui {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monday, sunday)) {
-                filteredList.append(TAB).append(indexToUser).append(". ")
+                filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredList);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
         LocalDate currDate = LocalDate.now();
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
-        StringBuilder filteredList = new StringBuilder();
+        StringBuilder filteredListString = new StringBuilder();
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
-                filteredList.append(TAB).append(indexToUser).append(". ")
+                filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredList);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
-        StringBuilder filteredList = new StringBuilder();
+        StringBuilder filteredListString = new StringBuilder();
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), start, end)) {
-                filteredList.append(TAB).append(indexToUser).append(". ")
+                filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
             }
         }
-        System.out.print(filteredList);
+        Ui.printWithTab(filteredListString.toString().strip());
     }
 
     //@@author wx-03
@@ -294,6 +297,22 @@ public class Ui {
         }
     }
 
+    public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
+        Ui.printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
+                + LocalDate.now() + " if any? [Y/N]");
+        while (true) {
+            String userInput = Ui.readCommand().toLowerCase();
+            switch (userInput) {
+            case "y":
+                return true;
+            case "n":
+                return false;
+            default:
+                Ui.printWithTab("Not a valid input. Please enter [Y/N]");
+            }
+        }
+    }
+
     private static LocalDate getMondayDate(LocalDate currDate) {
         while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
             currDate = currDate.minusDays(1);
@@ -313,5 +332,13 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
+    public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
+        if (findResults.isEmpty()) {
+            Ui.printWithTab("No entries found match the criteria.");
+        } else {
+            Ui.printWithTab("Here are the matching results:");
+            findResults.forEach(entry -> Ui.printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
+        }
+    }
 }
 

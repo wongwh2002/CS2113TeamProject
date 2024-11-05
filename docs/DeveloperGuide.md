@@ -11,15 +11,38 @@ original source as well}
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Architecture Diagram
+<img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="350" height="300"/><br>
+The Architecture Diagram given above explains the high-level design of the program.
+
+Given below is a quick overview of main components and how they interact with each other.
+
+#### Main components of the architecture
+1. `Wiagi`: The command executor and brain of the program.
+   - At program launch, it initializes components, such as `WiagiLogger` and `Storage`, ensuring that the user data is
+          loaded securely.
+   - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
+     with `Command`.
+   - When a shut-down command is initiated by the user, it saves all changes made to `Storage`
+2. `UI`: Takes in user input and prints output of the program.
+   - Provides a wide variety of output formats, enabling it to work with different components. 
+3. `Parser`:  Breaks down user input to deduce their intended command.
+   - Returns a `Command` object to `Wiagi` based on the user input.
+4. `Command`: Represents a collection of command classes with different functionalities.
+5. `Storage`: Reads data from, and writes data to, the hard disk.
+6. `WiagiLogger`: Tracks events that happened when the program runs.
+7. `Commons`: Represents a collection of classes used by multiple other components.
+
+
 ### Overall Class Diagram
-![overallClass.drawio.png](./Diagrams/overallClass.drawio.png)
+![overallClass.png](./Diagrams/Overall/overallClass.drawio.png)
 <br>
-On a high level, whenever Wiagi is started, it will load SpendingList and IncomeList from Storage if it exists, else, 
-new lists would be created
-Wiagi then takes in user input via the UI class, then parse and executes the command through the parser class.
-The related output is printed through the UI class.
-At the end of the run, or when the user exits the application, Wiagi will save the lists. Now let's delve deeper into 
-some of these classes used for the programme below.
+On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
+else, new lists would be created.
+`Wiagi` then takes in user input via the `UI` class, then parse and executes the command through the `Parser` class.
+The related output is printed through the `UI` class.
+At the end of the run, or when the user exits the application, `Wiagi` will save the lists.
+Now let's delve deeper into some of these classes used for the program below
 
 #### EntryType Class
 The `EntryType` class is a class that is used for storing different types of user entry such that the entries 
@@ -45,47 +68,207 @@ The following are child classes of `EntryType`:
 
 #### Income class
 The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as 
-income. This information was used by other classes to perform their component tasks.
+income. This information is used by other classes to perform their component tasks.
 
 #### Spending class
 The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
-spending. This information was used by other classes to perform their component tasks.
+spending. This information is used by other classes to perform their component tasks.
+
+#### IncomeList class
+The `IncomeList` class inherits from the `ArrayList` class. It is used to store all of the `Income` objects used in the
+program.
+
+#### SpendingList class
+THe `SpendingList` class inherits from the `ArrayList` class. It is used to store all of the `Spending` objects used in
+the program. Additionally, it stores the budgets that are set by the user.
 
 ### Storage Component
-To load data from previous session:
-Within Wiagi constructor, Storage class is constructed, which will load and initialise incomes, spendings and
-password by de-serialising the text at their distinct file paths. Wiagi will then initialise its incomes and spendings
-based on the member in the Storage class.
-![storageLoad.png](./Diagrams/storageLoad.png)
+#### Motivation behind the component:
++ Allows the user to save changes, so that they can resume where they left off.
++ Allows advanced users to edit files directly, enabling fast, manual adjustments.
 
-To save data for current session:
-After the command bye is sent by the user, incomes and spendings will be serialised and overwrite texts in
-their distinct file paths.
-![storageSave.png](./Diagrams/storageSave.png)
+#### How the Storage Component works:
++ Variables and File Path:
+    + `incomes` → `./incomes.txt`
+    + `spendings` → `./spendings.txt`
+    + `password` → `./password.txt`
+
++ To save edited lists:
+    + It is done when users type `bye` or after keyboard interrupts (i.e.Ctrl-c), which signals the end of the program.
+    + The lists are saved to a user-editable format in their respective files.
+
++ To load saved lists:
+  + It is done upon program startup, when `Wiagi` is constructed.
+  + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
+  `incomes` and `spendings` file paths to an `IncomeList` and `SpendingList` respectively.
+  + `Wiagi` will then retrieve the lists in `Storage` to initialise its lists.
+  + Data corruption in the file triggers an exception, often due to user-editing errors.
+  + For missing files (e.g., new users), files are created and the initialised lists will be empty.
+
++ To load password:
+  + The hashed password will simply be loaded from the password file.
+  + For missing files (e.g., new users), users will be prompted to set a new password at the start of the
+  program. The entered password will then be hashed and stored in a newly created password file.
+
+#### Implementation:
+#### Storage class
+The `Storage` class is a class that stores `incomes`, `spendings` and `password`. 
+Upon instantiation, it will call `IncomeListStorage.load()`, `SpendingListStorage.load()` and `LoginStorage.load()`, 
+which will initialise the variables in `Storage` respectively.
+
+#### save method in `IncomeListStorage` `SpendingListStorage`
+<img src="./Diagrams/Storage/saveStorageSD.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
+Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
+first line of its respective text file.
++ Format: `daily budget | monthly budget | yearly budget`
++ A for loop will loop through the list, and get each of the attributes of each entry within it and separate them by 
+`|`. Hence, each entry will be written line by line to the file.
++ Format: `amount | description | date | tag | recurrence frequency | last recurrence date | last recurrence day`
+  + E.g. `add income 10 part time /2024-10-10/ *job* ~monthly~` will be stored as
+    `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
+
+#### load method in `IncomeListStorage` `SpendingListStorage`
+<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
+Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
++ A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
++ It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
+and add it to the lists.
++ During the process, if a line is corrupted, an exception will be caught and user will be informed.
+
+#### load method in `LoginStorage`
+<img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
++ It first checks if the password file exists.
+  + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
+  + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
+  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
 
 ### Command handling component
 
+![commandHandling.png](./Diagrams/Commands/commandHandling.png)
+
+User input is taken in through the `Ui.readCommand()` method that is called from the `Wiagi` class. This command is 
+then passed to the static method `parseUserInput(...)` in the `Parser` class. This method determines the command type 
+based on the command word, and returns a new instance of the respective command, as shown in the 
+sequence diagram above.
+
+Since there are various list commands that the user can execute, the list commands are split into multiple classes.
+If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
+
+After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
+The referenced sequence diagrams for the execution of commands will be shown in the sections for 
+[adding a new entry](#adding-of-new-entry), [listing entries](#listing-entries), and editing entries.
+
 #### Adding of new entry
-![addCommandSequence.jpg](./Diagrams/addCommandSequence.jpg)
+![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
-Wiagi will then parse the command to the AddCommand class.
-The AddCommand class will then validate the user's input and add the input to IncomeList or SpendingList
+Wiagi will then parse the command to the `AddCommand` class.
+The `AddCommand` class will then validate the user's input and add the input to IncomeList or SpendingList
 
-#### Deleting of entry, editing of entry
-The commands are similar where there would be a parsing of command to each of its individual classes.
-A similar validation process takes place and actions would be made on IncomeList or SpendingList accordingly
-(deleting entry from list for delete and editing of entry from list for edit)
+#### Editing entries
+`EditCommand` validates and parses the given input to determine if it is editing a spending or an income. It then
+extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
+determine which attribute to edit and sets this attribute of the extracted entry to the new value.
+
+![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
+
+#### Finding entries
+`FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 
+`IncomeList`. It then searches through the list based on specified fields (`amount`, `description`, or `date`) 
+to display matching results.
+
+#### Deleting entries
+`DeleteCommand` validates and parses the given input to determine if it is deleting a spending or an income. It then
+deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
+
+#### Creating a budget
+The `BudgetCommand` first validates and parses the given input. It then determines whether the user wants to add a daily
+, monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 #### Listing entries
-Since there are various list commands that the user can execute, the list commands are split into multiple classes.
-The parser then calls a separate function that will return the correct list command if the command word is `list`.
 
-Since listing requires Wiagi to print items in the spendings and incomes list, these will be handled by the UI component.
+Since listing requires Wiagi to print items in the spendings and incomes list, the printing will be handled by the UI 
+class.
+
+##### Listing all entries
+
+When the user requests to list all entries, the program prints all entries in both `incomes` and 
+`spendings` by looping through both lists and printing them out with their index.
+
+##### Listing spendings
+
+When users request to list all spendings, they are given the option to choose a time range from the following options:
+- All
+- Weekly
+- Biweekly
+- Monthly
+
+By selecting the weekly, biweekly, or monthly options, only the spending entries 
+that are dated within the current week, current 2 weeks, or current month will be displayed.
+
+If the user chooses to list all spendings, they are then given the option to display all
+statistics, which consist of:
+- Daily spendings
+- Daily budget
+- Daily budget left
+- Monthly spendings
+- Monthly budget
+- Monthly budget left
+- Yearly spendings
+- Yearly budget
+- Yearly budget left
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![listSpendingsCommandSequence.png](./Diagrams/listSpendingsCommandSequence.png)
+![executeListSpendingsCommand.png](./Diagrams/Commands/executeListSpendingsCommand.png)
+
+As shown in the diagram, when the command is executed, a `handleCommand(...)` method is first called to verify the user 
+input and handle the command. 
+
+Within this method, a static method `printListofTimeRange` is called to 
+allow the user to select a time range. This method returns a boolean value that is true if the user has selected to list 
+all spendings and false otherwise. If this returned value is true, another static method `printStatisticsIfRequired` is 
+called to allow the user to choose whether to show all spending statistics and print the list accordingly.
+
+The sequence diagram below shows what happens when the user chooses to show their weekly spendings.
+
+![printWeekly.png](./Diagrams/Commands/printWeekly.png)
+
+As shown in the diagram, the program gets the dates of the Monday and Sunday of the current week. It then loops through
+the spending list. For every entry in the spending list, it checks whether the date of the entry is between the Monday
+and the Sunday of the current week (inclusive), and if it is, the entry will be appended to a string along with its 
+index. Finally, the string is printed. 
+
+##### Listing incomes
+
+When users request to list incomes, they are also given the option to choose from the same 4 time ranges:
+- All
+- Weekly
+- Biweekly
+- Monthly
+
+Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
+given the option to list statistics if they choose to list all incomes. Hence, the sequence diagram is omitted for this
+command.
+
+##### Listing tags
+
+Listing all tags and listing all entries with a specific tag are grouped together into one command called 
+`ListTagsCommand`. When this command is executed, the number of words in the command is checked to determine if the user
+wants to list all tags or to list all entries with a specific tag, as shown in the sequence diagram below. 
+
+![executeListTags.png](./Diagrams/Commands/executeListTags.png)
+
+###### Listing all tags
+
+For listing all tags, the static method `printAllTags(...)` from the Ui class is called. This method simply loops 
+through all entries and gets an ArrayList of all the unique tags before printing them out. 
+
+###### Listing all entries with a specific tag
+
+For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
+method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
+entries with the specified tag to a String. This string is then printed out. 
 
 ### Recurrence Component
 
@@ -93,46 +276,83 @@ The sequence diagram below shows what happens when the user executes a `list spe
 + Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
   application
 + Users may have differing frequencies for recurring events thus application gives them a few common options
++ Users may also want to add multiple older recurring entries that have been missed out for a while
 
 Illustrated below is the class diagram for the Recurrence Component:<br>
 <br>
-<img src="./Diagrams/recurrenceClassDiagram.png" alt="recurrenceClassDiagram" width="950"/>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
 <br>
 <br>
-Illustrated below is the sequence diagram of the Recurrence Component: <br>
+Recurrence happens during 2 use cases:
++ Recurrence updating of existing entries upon start up
++ Recurrence backlogging when an entry with recurrence dated to the past is added
+
+### Recurrence Updating
+Illustrated below is the sequence diagram of recurrence updating: <br>
 <br>
-<img src="./Diagrams/recurrenceSequenceDiagram.png" alt="recurrenceSequenceDiagram" width="800"/>
+<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
 <br>
 For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
 For the reference frame of 'add recurring entry', refer to 
 [checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
 
-#### How the Recurrence Component works:<br>
+#### How the recurrence updating works:<br>
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
 `Wiagi` to retrieve past data.
-+ Both list are then iterated through. Each member of the list is parsed through `Parser` which returns the type of 
-recurrence it is (e.g. `DailyRecurrence`, `null`) which is encapsulated as a `Recurrence` object.
++ `updateRecurrence()` is called
++ Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through 
+`Parser#parseRecurrence` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`) 
+which is encapsulated as a `Recurrence` object.
 + If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and 
-`IncomeList` if needed. <br>
+`IncomeList` if needed via `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence`. <br>
 
 #### Implementation:
-#### Recurrence class
+The following are notable classes and methods used to achieve recurrence updating.
+
+##### Recurrence class
 The `Recurrence` class is an abstract class that provides the interface for checking `Income` and `Spending` and adding 
 recurring entries into the list. <br>
 The following are the abstract methods defined: <br>
-+ `checkSpendingRecurrence`
-+ `checkIncomeRecurrence`
++ `checkSpendingRecurrence(...)`
++ `checkIncomeRecurrence(...)`
+
+The following are the used methods in `Recurrence`:
++ `checkIfDateAltered(...)`
 
 The following are child classes of `Recurrence`:
 + `DailyRecurrence`: Handles entries labelled as daily recurring events
 + `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
+##### checkIncomeRecurrence / checkSpendingRecurrence method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
+Method Signature: <br>
+```
+@Override
+public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
+@Override
+public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
+```
+Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
+<br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
+Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
+for conciseness.
+
+Functionality: <br>
+1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
+via `LocalDate.now()`
+2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
+3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past. 
+4. isAdding is set to `true` for recurrence updating to allow adding of entries, it may be set to `false` for 
+backlogging as seen later to only update `lastRecurred` attribute to the latest possible recurring date to 
+be checked against in the future for recurrence updating
+
 ##### RecurrenceFrequency enumeration
 The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
-classes <br>
+classes, stored in the `recurrenceFrequency` attribute <br>
 Enumeration constants:
-+ `NONE`: Represents a none recurring entry
++ `NONE`: Represents not recurring entry
 + `DAILY`: Represents a daily recurring entry
 + `MONTHLY`: Represents a monthly recurring entry 
 + `YEARLY`: Represents a yearly recurring entry
@@ -141,54 +361,88 @@ Enumeration constants:
 Class: `Parser` <br>
 Method Signature: <br>
 ```
-public static Recurrence parseRecurrence(Type entry)
+public static Recurrence parseRecurrence(EntryType entry)
 ```
 Functionality: <br>
-1. Takes in child class of `Type` (i.e. `Spending`, `Income`)
+1. Takes in child class of `EntryType` (i.e. `Spending`, `Income`)
 2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
-3. Returns `DaillyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry).
-
-##### checkIncomeRecurrence / checkSpendingRecurrence method
-Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
-Method Signature: <br>
-```
-@Override
-public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes)
-@Override
-public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings)
-```
-Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
-<br>
-<img src="./Diagrams/addRecurrenceEntry.png" alt="addRecurrenceEntry" width="800"/> <br>
-Note that recurrence frequency is either 1 day (daily), 1 month (monthly) or 1 year (yearly). <br>
-Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted 
-for brevity.
-
-Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending` against the current date via `LocalDate.now`
-2. According to the type of recurrence, check if enough time has passed between the 2 dates
-3. Adds additional recurring entries into the `IncomeList`/`SpendingList` if needed.
+3. Returns `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry) accordingly.
 
 ##### updateRecurrence method
 Class: `SpendingList`, `IncomeList` <br>
 Method Signature:
 ```
-public static Recurrence parseRecurrence(Type entry)
+public void updateRecurrence()
 ```
 Functionality: <br>
-1. Loops through its list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
+1. Loops through the list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
 2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new 
 recurring entry is supposed to be added
 
-#### Here are some things to take note:
+#### checkIfDateAltered method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence`
+Method Signature:
+```
+protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, 
+ArrayList<T> list, boolean isAdding)
+```
+Functionality: <br>
+1. Get the actual day (e.g. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
+2. Get the last day of the current month
+3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
+
+### Recurrence backlogging
+The sequence diagram below illustrates the process of backlogging when a recurring entry dated before the current
+day is added <br>
+
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
+
+#### How the recurrence backlogging works
++ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog` method will be called to get
+user input on whether to backlog
++ According to the user input, `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence` will be
+called to update the `lastRecurred` attribute of the entry as well as add recurring entries from the entry date to
+current date if user wishes to
+
+#### Implementation
+The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence`, 
+`Recurrence#checkSpendingRecurrence` and `Parser#parseRecurrence` explained in updating recurrence above is re-used 
+thus omitted below for conciseness
+
+##### checkRecurrenceBacklog method
+Class: `Recurrence` <br>
+Method Signature: <br>
+```
+public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
+```
+Functionality:
+1. Calls upon the `Parser#parseRecurrence` method to determine the type fo recurrence
+2. Ask if user wishes to backlog all the past entries from date of entry to current date via 
+`Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
+3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and if boolean is true, 
+also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and 
+`Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
+
+#### hasRecurrenceBackLog method
+Class: `Ui` <br>
+Method Signature:
+```
+public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
+```
+Functionality:
+1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
+2. Returns `true` if yes and `false` otherwise
+
+### Here are some things to take note for the component:
 + Entries are only added when user logs in, which is not determinable, thus many additional entries may be added at once
 (e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
-will be backlogged and added). List is thus also sorted by date after recurrence is done.
+will be added). List is thus also sorted by date after recurrence is done.
 + Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
 added in the future
++ Editing entries with recurrence to an older date does not invoke backlogging option
 + Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is an example scenario: 
   + Monthly recurring entry dated at 31st August
-  + Since September ends on the 30th, recurring entry is added on the 30 September and `lastRecurred` is stored as 
+  + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as 
   30th September
   + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
 
@@ -205,12 +459,10 @@ The income or spending will be deleted from its corresponding list using its ind
 
 ## Product scope
 ### Target user profile
-
-{Describe the target user profile}
+1. prefer desktop apps over other types
 
 ### Value proposition
-
-{Describe the value proposition: what problem does it solve?}
+1. An app that help students to manage their financials faster than a typical mouse/GUI driven app.
 
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
@@ -231,6 +483,7 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
 | **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
 | *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
+| *        | user     | find my entry with keywords                          | retrieve its relevant information easily         |
 
 
 ## Use cases
@@ -314,14 +567,48 @@ Use case ends.
     - 3a. Wiagi displays an error message.
     Use case restarts at step 1.
 
+### Use Case: Find an Entry
+**Finding an existing income or spending entry with certain information**
+
+**MSS**
+
+1. User requests to find a specific entry in incomes or spendings with its relevant details.
+2. Wiagi shows a list of all incomes or spendings that contains that detail.
+
+Use case ends. 
+
+**Extensions**
+1. The list is empty.
+   <br>Use case ends.
+2. No entries contain that detail.
+    - 2a. Wiagi displays a message saying nothing is found.
+      Use case restarts at step 1.
+3. The details are invalid.
+    - 3a. Wiagi displays an error message.
+      Use case restarts at step 1.
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
 
+1. A user should be alerted of the correct command format whenever an invalid command is encountered.
+
 ## Glossary
 
 * *glossary item* - Definition
+* Mainstream OS: Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Finding an entry
+Prerequisites: Add multiple entries to either incomes or spendings.
+1. Test case: `find income description a`
+   - Expected: Lists all income entries with `a` in the description.
+2. Test case: `find spending amount 10`
+    - Expected: Lists all spending entries that has an amount of 10.
+3. Test case: `find spending date 2024-11-11`
+    - Expected: Lists all spending entries that has a date of 2024-11-11.
+4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
+    - Expected: Nothing is listed. Error details printed to the user.

@@ -2,8 +2,11 @@ package seedu.commands;
 
 import seedu.exception.WiagiInvalidInputException;
 
-import static seedu.classes.Constants.INVALID_AMOUNT;
+import java.time.LocalDate;
+
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
+import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_AMOUNT;
 
 public class CommandUtils {
 
@@ -16,6 +19,14 @@ public class CommandUtils {
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException nfe) {
             throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
+    }
+
+    public static LocalDate formatDate(String stringDate, String commandFormat) {
+        try {
+            return LocalDate.parse(stringDate);
+        } catch (Exception e) {
+            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + commandFormat);
         }
     }
 }
