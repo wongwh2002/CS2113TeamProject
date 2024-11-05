@@ -152,7 +152,7 @@ class EditCommandTest {
     public void execute_editTag_success() {
         commandInputForTest("edit income 3 tag investments", incomes, spendings);
         assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
-                        LIST_SEPARATOR + "Tag: investments",
+                LIST_SEPARATOR + "Tag: investments",
                 incomes.get(2).toString());
     }
 }
