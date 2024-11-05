@@ -4,6 +4,10 @@ import seedu.recurrence.RecurrenceFrequency;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a spending entry with specific details such as amount, description, date, tag, and recurrence frequency.
+ * This class extends {@link EntryType} and inherits its properties.
+ */
 public class Spending extends EntryType {
     public Spending(double amount, String description, LocalDate date, String tag,
                     RecurrenceFrequency recurrenceFrequency, LocalDate lastRecurrence, int dayOfRecurrence) {

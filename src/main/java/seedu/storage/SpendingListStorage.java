@@ -1,5 +1,6 @@
 package seedu.storage;
 
+import seedu.classes.WiagiLogger;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
@@ -28,10 +30,19 @@ import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 
+/**
+ * Manages saving and loading of spending data to and from a file.
+ */
 public class SpendingListStorage {
     private static final String SPENDINGS_FILE_PATH = "./spendings.txt";
 
+    /**
+     * Saves the spending list, including each spending entry and budget details, to a file.
+     *
+     * @param spendings the SpendingList to be saved.
+     */
     static void save(SpendingList spendings) {
+        WiagiLogger.logger.log(Level.INFO, "Starting to save spendings...");
         try {
             FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
             String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
@@ -45,12 +56,19 @@ public class SpendingListStorage {
                 fw.write(singleEntry + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Unable to save spendings file", e);
             Ui.printWithTab(SAVE_SPENDING_FILE_ERROR);
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
+    /**
+     * Loads the spending data from a file into the application's spending list.
+     * If no file exists, a new one is created.
+     */
     static void load() {
+        WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         try {
             if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
                 return;
@@ -69,17 +87,20 @@ public class SpendingListStorage {
                 if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
                     lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
                 }
-                Spending nextEntry =  new Spending(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
+                Spending nextEntry = new Spending(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
                         entryData[LOAD_DESCRIPTION_INDEX], date, entryData[LOAD_TAG_INDEX],
                         RecurrenceFrequency.valueOf(entryData[LOAD_RECURRENCE_INDEX]),
                         lastRecurred, Integer.parseInt(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]));
                 Storage.spendings.add(nextEntry);
             }
         } catch (IOException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open spendings file", e);
             Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         } catch (NoSuchElementException e) {
+            WiagiLogger.logger.log(Level.WARNING, "Spendings file is empty", e);
             File spendingFile = new File(SPENDINGS_FILE_PATH);
             spendingFile.delete();
         }
+        WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 }

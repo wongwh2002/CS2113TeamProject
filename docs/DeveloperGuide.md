@@ -175,7 +175,8 @@ determine which attribute to edit and sets this attribute of the extracted entry
 #### Finding entries
 `FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 
 `IncomeList`. It then searches through the list based on specified fields (`amount`, `description`, or `date`) 
-to display matching results.
+to display matching results. For `amount` and `description`, it can be a range, but for `description`, it is only a 
+single keyword search
 
 #### Deleting entries
 `DeleteCommand` validates and parses the given input to determine if it is deleting a spending or an income. It then
@@ -608,7 +609,7 @@ Prerequisites: Add multiple entries to either incomes or spendings.
    - Expected: Lists all income entries with `a` in the description.
 2. Test case: `find spending amount 10`
     - Expected: Lists all spending entries that has an amount of 10.
-3. Test case: `find spending date 2024-11-11`
-    - Expected: Lists all spending entries that has a date of 2024-11-11.
+3. Test case: `find spending date 2024-11-11 to 2024-12-12`
+    - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
