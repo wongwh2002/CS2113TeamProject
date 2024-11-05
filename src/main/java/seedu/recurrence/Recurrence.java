@@ -56,7 +56,7 @@ public abstract class Recurrence {
      * @param checkDate Date to be checked if it is correct
      * @param list {@code SpendingList} or {@code IncomeList} to add entry to
      * @param isAdding Set to true to allow adding of backlog entries, otherwise to only update {@code lastRecurred}
-     * attribute of entry
+     *      attribute of entry
      */
     protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate,
                 ArrayList<T> list, boolean isAdding) {
@@ -76,7 +76,7 @@ public abstract class Recurrence {
      * @param recurringIncome {@code Income} entry to be checked
      * @param incomes {@code IncomeList} of the user
      * @param isAdding Set to true to allow adding of backlog entries, otherwise to only update {@code lastRecurred}
-     * attribute of entry
+     *      attribute of entry
      */
     public abstract void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding);
 
@@ -87,7 +87,7 @@ public abstract class Recurrence {
      * @param recurringSpending {@code Spending} entry to be checked
      * @param spendings {@code SpendingList} of the user
      * @param isAdding Set to true to allow adding of backlog entries, otherwise to only update {@code lastRecurred}
-     * attribute of entry
+     *      attribute of entry
      */
     public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding);
 
