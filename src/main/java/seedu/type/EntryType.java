@@ -17,6 +17,10 @@ import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 
+/**
+ * Represents an entry with details such as amount, description, date, tag, and recurrence frequency.
+ * Provides functionality to create, edit, and retrieve details of an entry.
+ */
 public class EntryType {
     private double amount;
     private String description;

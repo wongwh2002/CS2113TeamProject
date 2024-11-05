@@ -23,7 +23,7 @@ import seedu.type.EntryType;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
@@ -32,7 +32,7 @@ public class Parser {
     private static final int COMMAND_WORD_ARGUMENT = 0;
 
     public static Command parseUserInput(String fullCommand) {
-        String command = fullCommand.split(SPACE_REGEX)[COMMAND_WORD_ARGUMENT].toLowerCase();
+        String command = fullCommand.split(WHITESPACE)[COMMAND_WORD_ARGUMENT].toLowerCase();
 
         switch (command) {
         case ByeCommand.COMMAND_WORD:
@@ -57,7 +57,7 @@ public class Parser {
     }
 
     private static Command parseListCommand(String fullCommand) {
-        String[] arguments = fullCommand.split(SPACE_REGEX);
+        String[] arguments = fullCommand.split(WHITESPACE);
         int commandSize = arguments.length;
         assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {

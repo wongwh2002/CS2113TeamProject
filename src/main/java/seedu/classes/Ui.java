@@ -18,6 +18,7 @@ import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.SEPARATOR;
+import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.WEEKLY_OPTION;
@@ -37,7 +38,8 @@ public class Ui {
         String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
         Ui.printSeparator();
-        return line.trim();
+        // replace whitespaces to a single whitespace and remove trailing spaces
+        return line.replaceAll(SPACE_REGEX, " ").trim();
     }
 
     public static void printSeparator() {

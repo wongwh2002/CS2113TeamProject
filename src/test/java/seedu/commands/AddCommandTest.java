@@ -8,6 +8,7 @@ import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.TAB;
@@ -44,8 +45,6 @@ public class AddCommandTest {
         System.setErr(originalErr);
     }
 
-
-
     @Test
     void addCommand_correctSpendingWithoutDateInput_success() {
         String userInput = "add spending 10 macs";
@@ -81,24 +80,6 @@ public class AddCommandTest {
     }
 
     @Test
-    void addCommand_correctSpendingWithExtraSpaces_success() {
-        String userInput = "add   spending   10   movie ticket   /2024-10-10/";
-        String expectedOutput = "movie ticket - 10 - 2024-10-10";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
-        assertEquals(expectedOutput, spendings.get(0).toString());
-    }
-
-    @Test
-    void addCommand_correctIncomeWithExtraSpaces_success() {
-        String userInput = "add   income   10   part time   /2024-10-10/";
-        String expectedOutput = "part time - 10 - 2024-10-10";
-        Command c = Parser.parseUserInput(userInput);
-        c.execute(incomes, spendings);
-        assertEquals(expectedOutput, incomes.get(0).toString());
-    }
-
-    @Test
     void addCommand_correctSpendingWithTag_success() {
         String userInput = "add spending 10 movie ticket /2024-10-10/ *entertainment*";
         String expectedOutput = "movie ticket - 10 - 2024-10-10 - Tag: entertainment";
@@ -117,6 +98,15 @@ public class AddCommandTest {
     }
 
     @Test
+    void addCommand_invalidCategorySpendingInput_expectIllegalInputExceptionThrown() {
+        String userInput = "add invalidCategory 1 s";
+        Command c = Parser.parseUserInput(userInput);
+        c.execute(incomes, spendings);
+        assertEquals(TAB + INVALID_CATEGORY + ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     void addCommand_missingAmountSpendingInput_noSpendingAdded() {
         String userInput = "add spending";
         Command c = Parser.parseUserInput(userInput);
@@ -130,8 +120,8 @@ public class AddCommandTest {
         String userInput = "add spending randomPrice macs";
         Command c = Parser.parseUserInput(userInput);
         c.execute(incomes, spendings);
-        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT +
-                        System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test

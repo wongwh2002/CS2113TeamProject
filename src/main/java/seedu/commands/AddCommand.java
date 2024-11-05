@@ -1,6 +1,5 @@
 package seedu.commands;
 import seedu.classes.Ui;
-import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 import seedu.type.Income;
@@ -15,7 +14,7 @@ import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
 
@@ -39,13 +38,13 @@ public class AddCommand extends Command {
         assert spendings != null;
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+        } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
     private void handleCommand(IncomeList incomes, SpendingList spendings)
-            throws WiagiInvalidInputException, WiagiEmptyDescriptionException {
+            throws WiagiInvalidInputException {
 
         String[] arguments = extractArguments(); // [add] [type] [amount] [others]
         String typeOfList = arguments[LIST_TYPE_INDEX];
@@ -71,7 +70,7 @@ public class AddCommand extends Command {
     }
 
     private String[] extractArguments() {
-        String[] arguments = fullCommand.split(SPACE_REGEX, ADD_COMPULSORY_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(WHITESPACE, ADD_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length == AMOUNT_INDEX) {
             throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         } else if (arguments.length == DESCRIPTION_INDEX) {

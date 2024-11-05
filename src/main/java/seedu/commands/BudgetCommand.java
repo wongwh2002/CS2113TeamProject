@@ -9,7 +9,7 @@ import seedu.type.SpendingList;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.SPACE_REGEX;
+import static seedu.classes.Constants.WHITESPACE;
 
 /**
  * Represents a command to set a budget.
@@ -62,7 +62,7 @@ public class BudgetCommand extends Command {
     }
 
     private String[] extractArguments() throws WiagiMissingParamsException {
-        String[] arguments = fullCommand.split(SPACE_REGEX, BUDGET_COMPULSORY_ARGUMENTS_LENGTH);
+        String[] arguments = fullCommand.split(WHITESPACE, BUDGET_COMPULSORY_ARGUMENTS_LENGTH);
         if (arguments.length != BUDGET_COMPULSORY_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT);
         }

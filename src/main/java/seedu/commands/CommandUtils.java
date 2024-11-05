@@ -3,6 +3,7 @@ package seedu.commands;
 import seedu.exception.WiagiInvalidInputException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
@@ -30,7 +31,7 @@ public class CommandUtils {
     public static LocalDate formatDate(String stringDate, String commandFormat) {
         try {
             return LocalDate.parse(stringDate);
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + commandFormat);
         }
     }
