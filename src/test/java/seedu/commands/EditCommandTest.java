@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
@@ -79,6 +80,12 @@ class EditCommandTest {
     }
 
     @Test
+    public void execute_invalidStringIndex_expectIndexOutOfBoundsException() {
+        commandInputForTest("edit spending string amount 1", incomes, spendings);
+        assertEquals(TAB + INDEX_NOT_INTEGER + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     public void execute_invalidEditType_expectIllegalArgumentException() {
         commandInputForTest("edit spending 1 notamountdescription 1", incomes, spendings);
         assertEquals(TAB + INVALID_FIELD + EDIT_COMMAND_FORMAT
@@ -113,6 +120,19 @@ class EditCommandTest {
                 incomes.get(0).toString());
     }
 
+    @Test
+    public void execute_editSpendingDescription_success() {
+        commandInputForTest("edit spending 1 description test", incomes, spendings);
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+                spendings.get(0).toString());
+    }
+
+    @Test
+    public void execute_editIncomeDescription_success() {
+        commandInputForTest("edit income 1 description test", incomes, spendings);
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+                incomes.get(0).toString());
+    }
 
     @Test
     public void execute_editIncomeDate_success() {

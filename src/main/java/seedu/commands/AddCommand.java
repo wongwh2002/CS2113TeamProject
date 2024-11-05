@@ -1,6 +1,5 @@
 package seedu.commands;
 import seedu.classes.Ui;
-import seedu.exception.WiagiEmptyDescriptionException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 import seedu.type.Income;
@@ -41,13 +40,13 @@ public class AddCommand extends Command {
         assert spendings != null;
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiInvalidInputException | WiagiEmptyDescriptionException e) {
+        } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
     private void handleCommand(IncomeList incomes, SpendingList spendings)
-            throws WiagiInvalidInputException, WiagiEmptyDescriptionException {
+            throws WiagiInvalidInputException {
 
         // Split full command into compulsory and optional strings
         String compulsoryString = splitCommand(fullCommand)[0];

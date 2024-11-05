@@ -16,6 +16,7 @@ import static seedu.classes.Constants.DELETE_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -47,6 +48,21 @@ class DeleteCommandTest {
         commandInputForTest("delete income 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(0, incomes.size());
+    }
+
+    @Test
+    void execute_validSpendingInput_successfullyDeleted() {
+        commandInputForTest("delete spending 1", incomes, spendings);
+        assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
+        assertEquals(1, spendings.size());
+    }
+
+    @Test
+    void execute_invalidCategory_expectIllegalInputExceptionMessage() {
+        commandInputForTest("delete invalidCategory a", incomes, spendings);
+        assertEquals(TAB + INVALID_CATEGORY + DELETE_COMMAND_FORMAT
+                + System.lineSeparator(), outputStreamCaptor.toString());
+        assertEquals(1, incomes.size());
     }
 
     @Test

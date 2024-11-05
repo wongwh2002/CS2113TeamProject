@@ -45,8 +45,6 @@ public class AddCommandTest {
         System.setErr(originalErr);
     }
 
-
-
     @Test
     void execute_correctSpendingWithoutDateInput_success() {
         String expectedOutput = "macs - 10 - " + VALID_TEST_DATE;
@@ -85,6 +83,13 @@ public class AddCommandTest {
         String expectedOutput = "part time - 10 - 2024-10-10 - Tag: job";
         commandInputForTest("add income 10 part time /2024-10-10/ *job*", incomes, spendings);
         assertEquals(expectedOutput, incomes.get(0).toString());
+    }
+
+    @Test
+    void execute_invalidCategorySpendingInput_expectIllegalInputExceptionThrown() {
+        commandInputForTest("add invalidCategory 1 s", incomes, spendings);
+        assertEquals(TAB + INVALID_CATEGORY + ADD_COMMAND_FORMAT
+                        + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -165,7 +170,7 @@ public class AddCommandTest {
                 + TAB + "!!! You have overspent your yearly by: 10.0 !!!" + System.lineSeparator(),
                 outContent.toString());
     }
-    
+
     @Test
     void execute_invalidCategory_invalidCategoryMessage() {
         commandInputForTest("add spendings 10 lunch", incomes, spendings);

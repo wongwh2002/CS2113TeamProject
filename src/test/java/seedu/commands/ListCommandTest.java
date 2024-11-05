@@ -124,8 +124,15 @@ class ListCommandTest {
     }
 
     @Test
-    public void execute_tooManyInputs_expectWiagiInvalidInputException() {
+    public void execute_tooManySpendingsInputs_expectWiagiInvalidInputException() {
         commandInputForTest("list spendings incomes", incomes, spendings);
+        assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_tooManyIncomesInputs_expectWiagiInvalidInputException() {
+        commandInputForTest("list incomes spendings", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
