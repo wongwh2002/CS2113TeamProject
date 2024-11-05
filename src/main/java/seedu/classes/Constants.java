@@ -30,7 +30,7 @@ public class Constants {
             "{$FIND_VALUE} [to $ANOTHER_FIND_VALUE]";
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
-            "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$Frequency~]";
+            "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]";
     public static final String INCORRECT_PARAMS_NUMBER = "Incorrect number of parameters! ";
     public static final String INVALID_CATEGORY = "No such category exists! ";
     public static final String INVALID_FIELD = "No such field exists! ";
@@ -42,6 +42,7 @@ public class Constants {
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
     public static final String MISSING_AMOUNT = "No amount found! ";
+    public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +

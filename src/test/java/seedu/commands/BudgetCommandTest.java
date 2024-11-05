@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 import org.junit.jupiter.api.AfterEach;
@@ -16,6 +15,7 @@ import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Ui.commandInputForTest;
 
 class BudgetCommandTest {
 
@@ -44,8 +44,7 @@ class BudgetCommandTest {
         double budget = 1321;
 
         String userInput = "budget daily " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
         assertEquals("\tSuccessfully set daily budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
@@ -55,10 +54,8 @@ class BudgetCommandTest {
     @Test
     public void execute_setMonthlyBudget_success() {
         double budget = 1321;
-
         String userInput = "budget monthly " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
         assertEquals("\tSuccessfully set monthly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
@@ -68,10 +65,8 @@ class BudgetCommandTest {
     @Test
     public void execute_setYearlyBudget_success() {
         double budget = 1321;
-
         String userInput = "budget yearly " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
         assertEquals("\tSuccessfully set yearly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
@@ -80,29 +75,21 @@ class BudgetCommandTest {
 
     @Test
     public void execute_invalidAmount_exceptionThrown() {
-        String userInput = "budget yearly abc";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest("budget yearly abc", incomes, spendings);
         assertEquals(TAB + AMOUNT_NOT_NUMBER + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_invalidTimeFrame_exceptionThrown() {
-        String userInput = "budget notatimeframe 1";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
-
+        commandInputForTest("budget notatimeframe 1", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_tooFewInputs_exceptionThrown() {
-        String userInput = "budget notenoughinputs";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
-
+        commandInputForTest("budget notenoughinputs", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }

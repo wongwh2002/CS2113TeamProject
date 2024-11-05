@@ -1,5 +1,6 @@
 package seedu.classes;
 
+import seedu.commands.Command;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -32,6 +33,11 @@ public class Ui {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
         System.setIn(testIn);
         scanner = new Scanner(System.in);
+    }
+
+    public static void commandInputForTest(String userCommand, IncomeList incomes, SpendingList spendings) {
+        Command c = Parser.parseUserInput(userCommand);
+        c.execute(incomes, spendings);
     }
 
     public static String readCommand() {
