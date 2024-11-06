@@ -52,7 +52,7 @@ public class AddCommand extends Command {
 
         // Split full command into compulsory and optional strings
         String compulsoryString = splitCommand(fullCommand)[0];
-        String optionalString = splitCommand(fullCommand)[1];
+        String optionalString = splitCommand(fullCommand)[1].trim().concat(WHITESPACE);
 
         // Split compulsory arguments into array of max size 4 with whitespace as delimiter
         // [add] [type] [amount] [description...]

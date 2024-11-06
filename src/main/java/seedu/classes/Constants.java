@@ -40,6 +40,9 @@ public class Constants {
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
             "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]";
+    public static final String DATE_NOT_ENCLOSED = "Date is not properly enclosed with \"/\"! ";
+    public static final String TAG_NOT_ENCLOSED = "Tag is not properly enclosed with \"*\"! ";
+    public static final String RECURRENCE_NOT_ENCLOSED = "Recurrence is not properly enclosed with \"~\"! ";
     public static final String INCORRECT_PARAMS_NUMBER = "Incorrect number of parameters! ";
     public static final String INVALID_CATEGORY = "No such category exists! ";
     public static final String INVALID_FIELD = "No such field exists! ";
