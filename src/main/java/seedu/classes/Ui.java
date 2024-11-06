@@ -75,15 +75,15 @@ public class Ui {
 
     public static void printSpendingStatistics(SpendingList spendings) {
         Ui.printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
-        Ui.printWithDoubleTab("Daily Budget: " + spendings.getDailyBudget());
+        Ui.printWithDoubleTab("Daily Budget: " + formatPrintDouble(spendings.getDailyBudget()));
         Ui.printWithDoubleTab("Daily budget left: " + formatPrintDouble(spendings.getDailyBudget() -
                 spendings.getDailySpending()));
         Ui.printWithDoubleTab("Monthly spendings: " + formatPrintDouble(spendings.getMonthlySpending()));
-        Ui.printWithDoubleTab("Monthly Budget: " + spendings.getMonthlyBudget());
+        Ui.printWithDoubleTab("Monthly Budget: " + formatPrintDouble(spendings.getMonthlyBudget()));
         Ui.printWithDoubleTab("Monthly budget left: " +
                 formatPrintDouble(spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
         Ui.printWithDoubleTab("Yearly spendings: " + formatPrintDouble(spendings.getYearlySpending()));
-        Ui.printWithDoubleTab("Yearly Budget: " + spendings.getYearlyBudget());
+        Ui.printWithDoubleTab("Yearly Budget: " + formatPrintDouble(spendings.getYearlyBudget()));
         Ui.printWithDoubleTab("Yearly budget left: " + formatPrintDouble(spendings.getYearlyBudget() -
                 spendings.getYearlySpending()));
     }
@@ -118,11 +118,14 @@ public class Ui {
         return formatPrintDouble(sumOfAmountInList);
     }
 
-    private static String formatPrintDouble(double sum) {
-        if (sum % 1 == 0) {
+    public static String formatPrintDouble(double sum) {
+        if (sum % 1 == 0) { //it is an integer
             return String.valueOf((int) sum);
         }
-        return String.valueOf(sum);
+        // not integer
+
+        sum = Math.round(sum * 100.0) / 100.0;
+        return String.format("%.02f", sum);
     }
 
     //@@author wongwh2002
@@ -210,7 +213,8 @@ public class Ui {
 
     public static void printOverspendMessage(String budgetType, double overspendAmount) {
         overspendAmount *= -1;
-        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " + overspendAmount + " !!!");
+        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " +
+                formatPrintDouble(overspendAmount) + " !!!");
     }
 
     //@@author wx-03

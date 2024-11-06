@@ -9,7 +9,6 @@ import seedu.type.SpendingList;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 
 /**
@@ -57,7 +56,7 @@ public class BudgetCommand extends Command {
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        int budget = formatBudget(stringBudget);
+        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
         addBudget(spendings, budget, timeRange);
     }
@@ -70,27 +69,20 @@ public class BudgetCommand extends Command {
         return arguments;
     }
 
-    private int formatBudget(String stringBudget) {
-        try {
-            return Integer.parseInt(stringBudget);
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT + BUDGET_COMMAND_FORMAT);
-        }
-    }
-
-    private void addBudget(SpendingList spendings, int budget, String timeRange) {
+    private void addBudget(SpendingList spendings, double budget, String timeRange) {
+        String formatedBudget = Ui.formatPrintDouble(budget);
         switch (timeRange) {
         case DAILY:
             spendings.setDailyBudget(budget);
-            Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case MONTHLY:
             spendings.setMonthlyBudget(budget);
-            Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case YEARLY:
             spendings.setYearlyBudget(budget);
-            Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);

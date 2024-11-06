@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,9 +42,9 @@ class EditCommandTest {
     public void setUp() {
         spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
         spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "dividends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "stocks", LocalDate.of(2024, 10, 10), "wronginput",
+        incomes.add(new Income(10, "savings", VALID_TEST_DATE.minusDays(7), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "dividends", VALID_TEST_DATE.minusDays(6), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "stocks", VALID_TEST_DATE.minusDays(5), "wronginput",
                 RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -116,7 +115,7 @@ class EditCommandTest {
     @Test
     public void execute_editIncomeAmount_success() {
         commandInputForTest("edit income 1 amount 1", incomes, spendings);
-        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(7),
                 incomes.get(0).toString());
     }
 
@@ -130,7 +129,8 @@ class EditCommandTest {
     @Test
     public void execute_editIncomeDescription_success() {
         commandInputForTest("edit income 1 description test", incomes, spendings);
-        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR +
+                VALID_TEST_DATE.minusDays(7),
                 incomes.get(0).toString());
     }
 
@@ -151,7 +151,7 @@ class EditCommandTest {
     @Test
     public void execute_editTag_success() {
         commandInputForTest("edit income 3 tag investments", incomes, spendings);
-        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10" +
+        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(5) +
                 LIST_SEPARATOR + "Tag: investments",
                 incomes.get(2).toString());
     }

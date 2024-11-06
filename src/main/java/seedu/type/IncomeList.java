@@ -33,6 +33,12 @@ public class IncomeList extends ArrayList<Income> {
                 recurrence.checkIncomeRecurrence(income, this, true);
             }
         }
+    }
+
+    @Override
+    public boolean add(Income income) {
+        super.add(income);
         this.sort(Comparator.comparing(EntryType::getDate));
+        return true;
     }
 }

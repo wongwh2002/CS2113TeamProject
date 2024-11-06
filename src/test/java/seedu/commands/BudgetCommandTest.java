@@ -75,7 +75,8 @@ class BudgetCommandTest {
     @Test
     public void execute_invalidAmount_exceptionThrown() {
         commandInputForTest("budget yearly abc", incomes, spendings);
-        assertEquals("\tInvalid amount! Please enter in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
+        assertEquals("\tPlease enter a number for the amount! Please enter " +
+                "in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
                 , outContent.toString());
     }
 
