@@ -37,13 +37,15 @@ public abstract class Recurrence {
         boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
         long numOfRecur = getNumberOfRecurringEntries(recurrence, toAdd);
         if (toAdd instanceof Spending) {
-            SpendingList spendingList = (SpendingList) list;
-            throwExceptionIfTotalExceeded(numOfRecur, spendingList.getTotal(), toAdd.getAmount());
-            recurrence.checkSpendingRecurrence((Spending)toAdd, spendingList, hasRecurrenceBacklog);
+            SpendingList spendings = (SpendingList) list;
+            throwExceptionIfTotalExceeded(numOfRecur, spendings.getTotal(), toAdd.getAmount());
+            recurrence.checkSpendingRecurrence((Spending)toAdd, spendings, hasRecurrenceBacklog);
+            assert spendings.getTotal() < MAX_LIST_TOTAL_AMOUNT;
         } else {
-            IncomeList incomeList = (IncomeList) list;
-            throwExceptionIfTotalExceeded(numOfRecur, incomeList.getTotal(), toAdd.getAmount());
-            recurrence.checkIncomeRecurrence((Income)toAdd, incomeList, hasRecurrenceBacklog);
+            IncomeList incomes = (IncomeList) list;
+            throwExceptionIfTotalExceeded(numOfRecur, incomes.getTotal(), toAdd.getAmount());
+            recurrence.checkIncomeRecurrence((Income)toAdd, incomes, hasRecurrenceBacklog);
+            assert incomes.getTotal() < MAX_LIST_TOTAL_AMOUNT;
         }
         Ui.printWithTab("All entries to recur are added!");
     }

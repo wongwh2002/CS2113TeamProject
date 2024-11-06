@@ -132,6 +132,7 @@ public class AddCommand extends Command {
             }
             Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
+            assert spendings.getTotal() < MAX_LIST_TOTAL_AMOUNT;
             Recurrence.checkRecurrenceBackLog(toAdd, spendings);
             spendings.checkOverspend();
         } catch (WiagiInvalidInputException e) {
@@ -146,6 +147,7 @@ public class AddCommand extends Command {
             }
             Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);
+            assert incomes.getTotal() < MAX_LIST_TOTAL_AMOUNT;
             Recurrence.checkRecurrenceBackLog(toAdd, incomes);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
