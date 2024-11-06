@@ -300,7 +300,7 @@ single keyword search
 deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
 
 ### Creating a budget
-The `BudgetCommand` first validates and parses the given input. It then determines whether the user wants to add a daily
+`BudgetCommand` first validates and parses the given input. It then determines whether the user wants to add a daily
 , monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 ### Listing entries
@@ -338,7 +338,7 @@ statistics, which consist of:
 
 The sequence diagram below shows what happens when the user executes a `list spendings` command.
 
-![executeListSpendingsCommand.png](./Diagrams/Commands/executeListSpendingsCommand.png)
+<img src="./Diagrams/Commands/executeListSpendingsCommand.png" alt="executeListSpendingsCommand.png" width="750">
 
 As shown in the diagram, when the command is executed, a `handleCommand(...)` method is first called to verify the user 
 input and handle the command. 
@@ -350,7 +350,7 @@ called to allow the user to choose whether to show all spending statistics and p
 
 The sequence diagram below shows what happens when the user chooses to show their weekly spendings.
 
-![printWeekly.png](./Diagrams/Commands/printWeekly.png)
+<img src="./Diagrams/Commands/printWeekly.png" alt="printWeekly.png" width="500">
 
 As shown in the diagram, the program gets the dates of the Monday and Sunday of the current week. It then loops through
 the spending list. For every entry in the spending list, it checks whether the date of the entry is between the Monday
@@ -375,7 +375,7 @@ Listing all tags and listing all entries with a specific tag are grouped togethe
 `ListTagsCommand`. When this command is executed, the number of words in the command is checked to determine if the user
 wants to list all tags or to list all entries with a specific tag, as shown in the sequence diagram below. 
 
-![executeListTags.png](./Diagrams/Commands/executeListTags.png)
+<img src="./Diagrams/Commands/executeListTags.png" alt="executeListTags.png" width="550">
 
 ##### Listing all tags
 
