@@ -38,16 +38,17 @@ public abstract class Recurrence {
         long numOfRecur = getNumberOfRecurringEntries(recurrence, toAdd);
         if (toAdd instanceof Spending) {
             SpendingList spendingList = (SpendingList) list;
-            checkIfTotalExceeded(numOfRecur, spendingList.getTotal(), toAdd.getAmount());
+            throwExceptionIfTotalExceeded(numOfRecur, spendingList.getTotal(), toAdd.getAmount());
             recurrence.checkSpendingRecurrence((Spending)toAdd, spendingList, hasRecurrenceBacklog);
         } else {
             IncomeList incomeList = (IncomeList) list;
-            checkIfTotalExceeded(numOfRecur, incomeList.getTotal(), toAdd.getAmount());
+            throwExceptionIfTotalExceeded(numOfRecur, incomeList.getTotal(), toAdd.getAmount());
             recurrence.checkIncomeRecurrence((Income)toAdd, incomeList, hasRecurrenceBacklog);
         }
+        Ui.printWithTab("All entries to recur are added!");
     }
 
-    private static void checkIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
+    private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
         double amountToBeAdded = (numOfRecur * addAmount) + currListTotal;
         if (amountToBeAdded > MAX_LIST_TOTAL_AMOUNT) {
             throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE);
