@@ -238,8 +238,8 @@ class ListCommandTest {
         commandInputForTest("list spendings", incomes, spendings);
         assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
                 "\t" + SEPARATOR + System.lineSeparator() +
-                "\t1. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator(),
+                "\t2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
+                "\t3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator(),
                 outContent.toString());
         spendings.remove(2);
     }
