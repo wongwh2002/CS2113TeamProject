@@ -647,6 +647,13 @@ Use case ends.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
 able to accomplish most of the tasks faster using commands than using the mouse.
 
+## Future plans
+1. Implement editing of recurrence type of entries
+   - Add field of recurrence to edit command
+   - Allow entry to backlog recurrence from edited date 
+2. Set up database to store all of user's data 
+3. Create GUI interface to the program to increase aesthetics
+
 ## Glossary
 
 * *glossary item* - Definition
