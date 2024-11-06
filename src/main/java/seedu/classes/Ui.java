@@ -350,5 +350,30 @@ public class Ui {
             findResults.forEach(entry -> Ui.printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
         }
     }
+
+    public static void newUserBudgetMessage() {
+        Ui.printWithTab("Hello! So happy you took this first step of financial management.");
+        Ui.printWithTab("Let's first set your budgets!");
+    }
+
+    public static void initialiseDailyBudgetMessage() {
+        Ui.printWithTab("Please enter a daily budget you have in mind:");
+    }
+
+    public static void initialiseMonthlyBudgetMessage() {
+        Ui.printWithTab("Next, please enter a monthly budget you have in mind:");
+    }
+
+    public static void initialiseYearlyBudgetMessage() {
+        Ui.printWithTab("Last one! Please enter a yearly budget you have in mind:");
+    }
+
+    public static void errorLoadingBudgetMessage() {
+        Ui.printWithTab("Hmmmm, seems to have some issues loading your budgets, please re-enter them :(");
+    }
+
+    public static void errorLoadingPasswordMessage() {
+        Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
+    }
 }
 

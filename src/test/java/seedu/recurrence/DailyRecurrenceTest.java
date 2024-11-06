@@ -3,6 +3,7 @@ package seedu.recurrence;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.classes.Ui;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -66,5 +67,23 @@ public class DailyRecurrenceTest {
                 System.lineSeparator() + "\t2. tip - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 "\tTotal incomes: 20" + System.lineSeparator(),
                 outContent.toString());
+    }
+
+    @Test
+    public void checkSpendingRecurrence_addPastDailyEntryNoBacklogging_noEntryAdded() {
+        spendings.add(new Spending(10, "food", VALID_TEST_DATE.minusDays(1), "", RecurrenceFrequency.DAILY,
+                VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
+        Ui.userInputForTest("n");
+        Recurrence.checkRecurrenceBackLog(spendings.get(0), spendings);
+        assertEquals(1, spendings.size());
+    }
+
+    @Test
+    public void checkIncomeRecurrence_addPastDailyEntryNoBacklogging_noEntryAdded() {
+        incomes.add(new Income(10, "tip", VALID_TEST_DATE.minusDays(1), "", RecurrenceFrequency.DAILY,
+                VALID_TEST_DATE.minusDays(1), VALID_TEST_DATE.minusDays(1).getDayOfMonth()));
+        Ui.userInputForTest("n");
+        Recurrence.checkRecurrenceBackLog(incomes.get(0), incomes);
+        assertEquals(1, incomes.size());
     }
 }

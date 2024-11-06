@@ -31,7 +31,7 @@ import static seedu.classes.Constants.NO_RECURRENCE;
  * Manages saving and loading of income data to and from a file.
  */
 public class IncomeListStorage {
-    private static final String INCOMES_FILE_PATH = "./incomes.txt";
+    static final String INCOMES_FILE_PATH = "./incomes.txt";
 
     /**
      * Saves the income list, including each income entry, to a file.
@@ -71,17 +71,7 @@ public class IncomeListStorage {
             Scanner incomeReader = new Scanner(incomeFile);
             while (incomeReader.hasNext()) {
                 String newEntry = incomeReader.nextLine();
-                String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
-                LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
-                LocalDate lastRecurred = null;
-                if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
-                    lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
-                }
-                Income nextEntry = new Income(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
-                        entryData[LOAD_DESCRIPTION_INDEX], date, entryData[LOAD_TAG_INDEX],
-                        RecurrenceFrequency.valueOf(entryData[LOAD_RECURRENCE_INDEX]),
-                        lastRecurred, Integer.parseInt(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]));
-                Storage.incomes.add(nextEntry);
+                addLoadingEntry(newEntry);
             }
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
@@ -92,5 +82,19 @@ public class IncomeListStorage {
             incomeFile.delete();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");
+    }
+
+    private static void addLoadingEntry(String newEntry) {
+        String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
+        LocalDate date = LocalDate.parse(entryData[LOAD_DATE_INDEX]);
+        LocalDate lastRecurred = null;
+        if (!entryData[LOAD_LAST_RECURRED_INDEX].equals(NO_RECURRENCE)) {
+            lastRecurred = LocalDate.parse(entryData[LOAD_LAST_RECURRED_INDEX]);
+        }
+        Income nextEntry = new Income(Double.parseDouble(entryData[LOAD_AMOUNT_INDEX]),
+                entryData[LOAD_DESCRIPTION_INDEX], date, entryData[LOAD_TAG_INDEX],
+                RecurrenceFrequency.valueOf(entryData[LOAD_RECURRENCE_INDEX]),
+                lastRecurred, Integer.parseInt(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]));
+        Storage.incomes.add(nextEntry);
     }
 }

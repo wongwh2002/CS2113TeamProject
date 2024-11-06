@@ -20,6 +20,7 @@ public class Constants {
     public static final String MONTHLY_RECURRENCE = "monthly";
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
+    public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
             "[$CATEGORY]/[tags [$TAG_NAME]]";
     public static final String BUDGET_COMMAND_FORMAT = "Please enter in the form: budget {$PERIOD} {$AMOUNT}";

@@ -10,9 +10,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -75,15 +76,14 @@ class BudgetCommandTest {
     @Test
     public void execute_invalidAmount_exceptionThrown() {
         commandInputForTest("budget yearly abc", incomes, spendings);
-        assertEquals("\tPlease enter a number for the amount! Please enter " +
-                "in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
-                , outContent.toString());
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + BUDGET_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_invalidTimeFrame_exceptionThrown() {
         commandInputForTest("budget notatimeframe 1", incomes, spendings);
-        assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_FIELD + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
