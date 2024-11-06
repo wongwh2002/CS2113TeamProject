@@ -19,6 +19,7 @@ public class Constants {
     public static final String DAILY_RECURRENCE = "daily";
     public static final String MONTHLY_RECURRENCE = "monthly";
     public static final String YEARLY_RECURRENCE = "yearly";
+    public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
     public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
@@ -37,8 +38,8 @@ public class Constants {
     public static final String INDEX_OUT_OF_BOUNDS = "Not a valid index!";
     public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String AMOUNT_NOT_NUMBER = "Please enter a number for the amount! ";
-    public static final String INVALID_AMOUNT = "Invalid amount! ";
-    public static final String INVALID_AMOUNT_ZERO = "Invalid amount! Amount cannot be 0 (rounded to 2dp)! ";
+    public static final String INVALID_AMOUNT = "Invalid amount! Amount must be greater than 0 (rounded to 2dp)! ";
+    public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million! ";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
