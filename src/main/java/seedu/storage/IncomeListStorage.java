@@ -9,11 +9,9 @@ import seedu.exception.WiagiStorageCorruptedException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
@@ -79,7 +77,7 @@ public class IncomeListStorage {
             WiagiLogger.logger.log(Level.INFO, "Successfully loaded incomes from file");
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
-            Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
+            Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
         }
         assert Storage.incomes.size() > 0 : "Incomes list should not be empty after loading";
         WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");

@@ -18,7 +18,6 @@ import java.util.Scanner;
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
-import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
