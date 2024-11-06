@@ -21,6 +21,7 @@ public class Constants {
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
+    public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million!";
     public static final String MAX_LIST_AMOUNT_EXCEEDED = "The total amount will exceed the limit! Entry rejected!";
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount after recurrence will " +
             "exceed the limit! Recurrence rejected!";
@@ -43,7 +44,6 @@ public class Constants {
     public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String AMOUNT_NOT_NUMBER = "Please enter a number for the amount! ";
     public static final String INVALID_AMOUNT = "Invalid amount! Amount must be greater than 0 (rounded to 2dp)! ";
-    public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million! ";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";

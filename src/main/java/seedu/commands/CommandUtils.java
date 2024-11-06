@@ -21,7 +21,7 @@ public class CommandUtils {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT + commandFormat);
             }
             if (newAmount > MAX_ENTRY_AMOUNT) {
-                throw new WiagiInvalidInputException(INVALID_AMOUNT_MAX + commandFormat);
+                throw new WiagiInvalidInputException(INVALID_AMOUNT_MAX);
             }
             return newAmount;
         } catch (NumberFormatException nfe) {
