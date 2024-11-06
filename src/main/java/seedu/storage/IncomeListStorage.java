@@ -128,18 +128,7 @@ public class IncomeListStorage {
     }
 
     private static void addLoadingEntry(String newEntry) {
-        String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
-        storageUtils.validateEntryDataLength(entryData);
-
-        double amount = storageUtils.parseAmount(entryData[LOAD_AMOUNT_INDEX]);
-        String description = storageUtils.validateDescription(entryData[LOAD_DESCRIPTION_INDEX]);
-        LocalDate date = storageUtils.parseDate(entryData[LOAD_DATE_INDEX]);
-        String tag = storageUtils.validateTag(entryData[LOAD_TAG_INDEX]);
-        RecurrenceFrequency recurrenceFrequency = storageUtils.parseRecurrenceFrequency(entryData[LOAD_RECURRENCE_INDEX]);
-        LocalDate lastRecurred = storageUtils.parseLastRecurredDate(entryData[LOAD_LAST_RECURRED_INDEX], recurrenceFrequency);
-        int dayOfRecurrence = storageUtils.parseDayOfRecurrence(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]);
-
-        Income nextEntry = new Income(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
+        Income nextEntry = (Income) storageUtils.parseEntry(newEntry);
         Storage.incomes.add(nextEntry);
     }
 }

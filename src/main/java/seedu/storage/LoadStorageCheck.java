@@ -6,6 +6,7 @@ import seedu.exception.WiagiStorageCorruptedException;
 import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.EntryType;
 import seedu.type.Income;
+import seedu.type.Spending;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -29,7 +30,6 @@ public class LoadStorageCheck {
         this.storageType = storageType;
     }
 
-
     public EntryType parseEntry(String newEntry) {
         String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
         validateEntryDataLength(entryData);
@@ -41,21 +41,10 @@ public class LoadStorageCheck {
         RecurrenceFrequency recurrenceFrequency = parseRecurrenceFrequency(entryData[LOAD_RECURRENCE_INDEX]);
         LocalDate lastRecurred = parseLastRecurredDate(entryData[LOAD_LAST_RECURRED_INDEX], recurrenceFrequency);
         int dayOfRecurrence = parseDayOfRecurrence(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]);
-
-        return new EntryType(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
-    }
-
-    public EntryType parseEntry1(String entry) {
-        String[] entryData = entry.split("");
-        validateEntryDataLength(entryData);
-        double amount = parseAmount(entryData[0]);
-        String description = validateDescription(entryData[1]);
-        LocalDate date = parseDate(entryData[2]);
-        String tag = validateTag(entryData[3]);
-        RecurrenceFrequency recurrenceFrequency = parseRecurrenceFrequency(entryData[4]);
-        LocalDate lastRecurred = parseLastRecurredDate(entryData[5], recurrenceFrequency);
-        int dayOfRecurrence = parseDayOfRecurrence(entryData[6]);
-        return new EntryType (amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
+        if (this.storageType.equals("income")) {
+            return new Income(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
+        }
+        return new Spending(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
     }
 
     private static void validateEntryDataLength(String[] entryData) {
@@ -128,3 +117,4 @@ public class LoadStorageCheck {
         }
         return dayOfRecurrence;
     }
+}
