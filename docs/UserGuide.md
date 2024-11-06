@@ -1,5 +1,4 @@
 # User Guide
-
 ## Introduction
 
 Wiagi is a simple command line application that helps students who are beginning their financial
@@ -21,11 +20,15 @@ and investment analysis.
   - [Deleting an entry](#deleting-an-entry)
     - [Deleting an income](#deleting-an-income)
     - [Deleting a spending](#deleting-a-spending)
+  - [Getting user instructions](#getting-user-instructions)
   - [Setting a budget](#setting-a-budget)
   - [Editing an entry](#editing-an-entry)
   - [Finding an entry](#finding-an-entry)
-  - [Saving the data](#saving-the-data-)
+  - [Exiting the program](#exiting-the-program)
+  - [Saving the data](#saving-the-data)
   - [Editing the data file](#editing-the-data-file)
+    - [Format of data storage for password](#format-of-data-storage-for-password)
+    - [Format of data storage for income and spending](#format-of-data-storage-for-income-and-spending)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -439,7 +442,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 
 - `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
-- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
     - amount: positive numerical value.
@@ -521,7 +524,7 @@ There is no need to save manually.
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
 - spendings.txt: `[JARFILE LOCATION]/spendings.txt`, stores all the user spending data
-- incomes.txt: `[JARFILE LOCATION}/incomes.txt`, stores all the user income data
+- incomes.txt: `[JARFILE LOCATION]/incomes.txt`, stores all the user income data
 
 #### Format of data storage for password:
 For security purposes the method of storage will not be discussed. <span style="color:#f5220d">DO NOT</span> 
@@ -550,7 +553,23 @@ should match `[$DATE_OF_ENTRY]` and last possible recurred date before current d
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program is at.
+**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
+is at.
+
+**Q**: Why are the indices of the entries not in consecutive order when I list all entries of a particular tag 
+or when I list entries in a time range?
+
+**A**: Each index reflects the actual index of the item in the entire list so that you can edit or delete the 
+entry easily.
+
+**Q**: What happens if I edit the date of a recurring entry to an earlier date?
+
+**A**: The date of the entry will be changed, but no additional entries will be created between the new date and the 
+current date.
+
+**Q**: What happends if I add a recurring entry with an earlier date?
+
+**A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
 
 ## Command Summary
 <table>
