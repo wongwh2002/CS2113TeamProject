@@ -51,8 +51,8 @@ public abstract class Recurrence {
     }
 
     private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
-        double amountToBeAdded = (numOfRecur * addAmount) + currListTotal;
-        if (amountToBeAdded > MAX_LIST_TOTAL_AMOUNT) {
+        double totalAmountAfterRecur = (numOfRecur * addAmount) + currListTotal;
+        if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
             throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE);
         }
     }

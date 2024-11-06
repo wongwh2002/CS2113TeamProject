@@ -1,20 +1,17 @@
 package seedu.type;
 
 import seedu.classes.Parser;
-import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED;
-import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 
 /**
  * Represents a list of {@link Income} entries.
  * Provides methods to manage and update income recurrence.
  */
 public class IncomeList extends ArrayList<Income> {
+
 
     private double total;
 
@@ -25,6 +22,10 @@ public class IncomeList extends ArrayList<Income> {
 
     public double getTotal() {
         return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     /**

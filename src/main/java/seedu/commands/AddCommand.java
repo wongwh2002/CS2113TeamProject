@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED;
+import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
@@ -128,7 +128,7 @@ public class AddCommand extends Command {
     private void addSpending(SpendingList spendings, double amount, String description, String optionalArguments) {
         try {
             if (amount + spendings.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
-                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED);
+                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
             }
             Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
@@ -143,7 +143,7 @@ public class AddCommand extends Command {
     private void addIncome(IncomeList incomes, double amount, String description, String optionalArguments) {
         try {
             if (amount + incomes.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
-                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED);
+                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
             }
             Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);

@@ -9,7 +9,6 @@ import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;

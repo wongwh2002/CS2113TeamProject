@@ -2,15 +2,11 @@ package seedu.type;
 
 import seedu.classes.Parser;
 import seedu.classes.Ui;
-import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED;
-import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 
 /**
  * Represents a list of spendings with budget settings.
@@ -34,6 +30,10 @@ public class SpendingList extends ArrayList<Spending> {
 
     public double getTotal() {
         return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     /**
