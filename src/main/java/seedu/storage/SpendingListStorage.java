@@ -3,7 +3,6 @@ package seedu.storage;
 import seedu.classes.WiagiLogger;
 import seedu.commands.BudgetCommand;
 import seedu.exception.WiagiStorageCorruptedException;
-import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Spending;
 import seedu.type.SpendingList;
 import seedu.classes.Ui;
@@ -11,7 +10,6 @@ import seedu.classes.Ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -68,7 +66,7 @@ public class SpendingListStorage {
      * If no file exists, a new one is created.
      */
     static void load() {
-        WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
+        WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         long counter = 0;
         try {
             if (createNewFileIfNotExists()) return;
@@ -82,14 +80,14 @@ public class SpendingListStorage {
                 processEntry(newEntry, counter);
             }
             spendingReader.close();
-            WiagiLogger.logger.log(Level.INFO, "Successfully loaded incomes from file");
+            WiagiLogger.logger.log(Level.INFO, "Successfully loaded spendings from file");
         } catch (IOException e) {
             handleIOException(e);
         } catch (NoSuchElementException e) {
-            handleNoSuchElementException(e);
+            emptyFileErrorHandling();
         }
-        assert Storage.spendings.size() > 0 : "Incomes list should not be empty after loading";
-        WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");
+        assert Storage.spendings.size() > 0 : "Spendings list should not be empty after loading";
+        WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 
     private static boolean createNewFileIfNotExists() throws IOException {
@@ -129,17 +127,10 @@ public class SpendingListStorage {
         Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
     }
 
-    private static void handleNoSuchElementException(NoSuchElementException e) {
-        WiagiLogger.logger.log(Level.WARNING, "Spendings file is empty", e);
-        File spendingFile = new File(SPENDINGS_FILE_PATH);
-        spendingFile.delete();
-    }
-
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
         Ui.printWithTab(e.getMessage());
         Ui.printWithTab("Detected at line " + counter + " in the spendings file.");
         Ui.printWithTab("Deleting corrupted entry...");
     }
-
 }
