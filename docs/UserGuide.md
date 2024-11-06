@@ -594,11 +594,13 @@ current date.
         <tr>
             <td rowspan="2">Deleting entries</td>
             <td>Income</td>
-            <td></td>
+            <td>delete income {$INDEX}</td>
+            <td>delete income 1</td>
         </tr>
         <tr>
             <td>Spending</td>
-            <td></td>
+            <td>delete spending {$INDEX}</td>
+            <td>delete spending 1</td>
         </tr>
         <tr>
             <td rowspan="3">Setting budget</td>
