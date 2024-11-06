@@ -21,7 +21,6 @@ import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
-import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 
 
