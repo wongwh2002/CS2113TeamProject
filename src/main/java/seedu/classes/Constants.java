@@ -13,6 +13,9 @@ public class Constants {
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
     public static final String WHITESPACE= " ";
+    public static final String TAG_IDENTIFIER = "\\*";
+    public static final String DATE_IDENTIFIER = "/";
+    public static final String RECURRENCE_IDENTIFIER = "~";
     public static final String FIND_RANGE_DIVIDER = " to ";
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
@@ -73,6 +76,7 @@ public class Constants {
     public static final String LOAD_SPENDING_FILE_ERROR = "An error has occurred when loading spending file!";
     public static final String SAVE_SPENDING_FILE_ERROR = "An error has occurred when saving spending file!";
     public static final String NO_RECURRENCE = "null";
+
     public static final int LOAD_AMOUNT_INDEX = 0;
     public static final int LOAD_DESCRIPTION_INDEX = 1;
     public static final int LOAD_DATE_INDEX = 2;

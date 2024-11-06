@@ -2,6 +2,7 @@ package seedu.classes;
 
 import seedu.commands.Command;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiStorageCorruptedException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -375,5 +376,10 @@ public class Ui {
     public static void errorLoadingPasswordMessage() {
         Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
     }
-}
 
+    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
+        Ui.printWithTab(e.getMessage());
+        Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
+        Ui.printWithTab("Deleting corrupted entry...");
+    }
+}

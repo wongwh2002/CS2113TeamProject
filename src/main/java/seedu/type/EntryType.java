@@ -10,15 +10,20 @@ import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
 import static seedu.classes.Constants.INVALID_FREQUENCY;
+import static seedu.classes.Constants.LIST_SEPARATOR;
+import static seedu.classes.Constants.RECURRENCE_IDENTIFIER;
+import static seedu.classes.Constants.TAG_IDENTIFIER;
+import static seedu.classes.Constants.DATE_IDENTIFIER;
+import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
-import static seedu.classes.Constants.DAILY_RECURRENCE;
-import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
-import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
-import static seedu.classes.Constants.LIST_SEPARATOR;
+import static seedu.classes.Constants.INVALID_FREQUENCY;
+import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+
 
 /**
  * Represents an entry with details such as amount, description, date, tag, and recurrence frequency.
@@ -72,7 +77,7 @@ public class EntryType {
     }
 
     private String extractTag(String optionalArguments) {
-        String[] commandAndTag = optionalArguments.split("\\*");
+        String[] commandAndTag = optionalArguments.split(TAG_IDENTIFIER);
         switch (commandAndTag.length) {
         case 1:
             return "";
@@ -88,7 +93,7 @@ public class EntryType {
     }
 
     private LocalDate extractDate(String optionalArguments) throws WiagiInvalidInputException {
-        String[] commandAndDate = optionalArguments.split("/");
+        String[] commandAndDate = optionalArguments.split(DATE_IDENTIFIER);
         switch (commandAndDate.length) {
         case 1:
             return LocalDate.now();
@@ -105,7 +110,7 @@ public class EntryType {
 
     private RecurrenceFrequency extractRecurrenceFrequency(String optionalArguments)
             throws WiagiInvalidInputException {
-        String[] commandAndFrequency = optionalArguments.split("~");
+        String[] commandAndFrequency = optionalArguments.split(RECURRENCE_IDENTIFIER);
         String frequency;
         switch (commandAndFrequency.length) {
         case 1:
