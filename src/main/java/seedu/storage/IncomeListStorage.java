@@ -1,7 +1,6 @@
 package seedu.storage;
 
 import seedu.classes.WiagiLogger;
-import seedu.recurrence.RecurrenceFrequency;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.classes.Ui;
@@ -10,22 +9,13 @@ import seedu.exception.WiagiStorageCorruptedException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-import static seedu.classes.Constants.LOAD_AMOUNT_INDEX;
-import static seedu.classes.Constants.LOAD_DAY_OF_RECURRENCE_INDEX;
-import static seedu.classes.Constants.LOAD_DESCRIPTION_INDEX;
-import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
-import static seedu.classes.Constants.LOAD_TAG_INDEX;
-import static seedu.classes.Constants.LOAD_DATE_INDEX;
-import static seedu.classes.Constants.LOAD_LAST_RECURRED_INDEX;
 import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
-import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 
 /**
  * Manages saving and loading of income data to and from a file.
@@ -103,7 +93,8 @@ public class IncomeListStorage {
 
     private static void processEntry(String newEntry, long counter) {
         try {
-            addLoadingEntry(newEntry);
+            Income nextEntry = (Income) storageUtils.parseEntry(newEntry);
+            Storage.incomes.add(nextEntry);
         } catch (WiagiStorageCorruptedException e) {
             handleCorruptedEntry(e, counter);
         }
@@ -125,10 +116,5 @@ public class IncomeListStorage {
         Ui.printWithTab(e.getMessage());
         Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
         Ui.printWithTab("Deleting corrupted entry...");
-    }
-
-    private static void addLoadingEntry(String newEntry) {
-        Income nextEntry = (Income) storageUtils.parseEntry(newEntry);
-        Storage.incomes.add(nextEntry);
     }
 }
