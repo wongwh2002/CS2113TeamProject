@@ -2,6 +2,7 @@ package seedu.classes;
 
 import seedu.commands.Command;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiStorageCorruptedException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -17,6 +18,7 @@ import java.util.Scanner;
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
+import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
@@ -375,5 +377,10 @@ public class Ui {
     public static void errorLoadingPasswordMessage() {
         Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
     }
-}
 
+    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
+        Ui.printWithTab(e.getMessage());
+        Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
+        Ui.printWithTab("Deleting corrupted entry...");
+    }
+}

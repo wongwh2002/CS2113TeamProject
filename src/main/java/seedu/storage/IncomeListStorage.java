@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
@@ -33,8 +34,8 @@ public class IncomeListStorage {
         assert incomes != null : "IncomeList should not be null";
         try {
             WiagiLogger.logger.log(Level.INFO, "Starting to save incomes...");
-            FileWriter fw = getFileWriter(incomes);
-            fw.close();
+            handleWriteFile(incomes);
+
             WiagiLogger.logger.log(Level.INFO, "Successfully saved incomes to file");
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to save incomes file", e);
@@ -44,7 +45,7 @@ public class IncomeListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish saving incomes file");
     }
 
-    private static FileWriter getFileWriter(IncomeList incomes) throws IOException {
+    private static void handleWriteFile(IncomeList incomes) throws IOException {
         FileWriter fw = new FileWriter(INCOMES_FILE_PATH);
         for (Income income : incomes) {
             String incomeEntry = income.getAmount() + STORAGE_SEPARATOR + income.getDescription() +
@@ -53,7 +54,7 @@ public class IncomeListStorage {
                     STORAGE_SEPARATOR + income.getDayOfRecurrence();
             fw.write(incomeEntry + System.lineSeparator());
         }
-        return fw;
+        fw.close();
     }
 
     /**
@@ -64,7 +65,7 @@ public class IncomeListStorage {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
         long counter = 0;
         try {
-            if (createNewFileIfNotExists()) {
+            if (new File(INCOMES_FILE_PATH).createNewFile()) {
                 return;
             }
             File incomeFile = new File(INCOMES_FILE_PATH);
@@ -77,20 +78,11 @@ public class IncomeListStorage {
             incomeReader.close();
             WiagiLogger.logger.log(Level.INFO, "Successfully loaded incomes from file");
         } catch (IOException e) {
-            handleIOException(e);
-        } catch (NoSuchElementException e) {
-            handleNoSuchElementException(e);
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
+            Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         }
         assert Storage.incomes.size() > 0 : "Incomes list should not be empty after loading";
         WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");
-    }
-
-    private static boolean createNewFileIfNotExists() throws IOException {
-        if (new File(INCOMES_FILE_PATH).createNewFile()) {
-            WiagiLogger.logger.log(Level.INFO, "Incomes file does not exist, created a new file");
-            return true;
-        }
-        return false;
     }
 
     private static void processEntry(String newEntry, long counter) {
@@ -102,21 +94,8 @@ public class IncomeListStorage {
         }
     }
 
-    private static void handleIOException(IOException e) {
-        WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
-        Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
-    }
-
-    private static void handleNoSuchElementException(NoSuchElementException e) {
-        WiagiLogger.logger.log(Level.WARNING, "Incomes file is empty", e);
-        File incomeFile = new File(INCOMES_FILE_PATH);
-        incomeFile.delete();
-    }
-
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted income entry detected at line " + counter, e);
-        Ui.printWithTab(e.getMessage());
-        Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
-        Ui.printWithTab("Deleting corrupted entry...");
+        Ui.handleCorruptedEntry(e, counter);
     }
 }

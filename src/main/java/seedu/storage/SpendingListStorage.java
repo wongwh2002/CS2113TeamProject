@@ -37,8 +37,7 @@ public class SpendingListStorage {
     static void save(SpendingList spendings) {
         WiagiLogger.logger.log(Level.INFO, "Starting to save spendings...");
         try {
-            FileWriter fw = getFileWriter(spendings);
-            fw.close();
+            handleWriteFile(spendings);
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to save spendings file", e);
             Ui.printWithTab(SAVE_SPENDING_FILE_ERROR);
@@ -46,7 +45,7 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
-    private static FileWriter getFileWriter(SpendingList spendings) throws IOException {
+    private static void handleWriteFile(SpendingList spendings) throws IOException {
         FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
                 spendings.getMonthlyBudget() + STORAGE_SEPARATOR + spendings.getYearlyBudget();
@@ -58,7 +57,7 @@ public class SpendingListStorage {
                     spending.getLastRecurrence() + STORAGE_SEPARATOR + spending.getDayOfRecurrence();
             fw.write(singleEntry + System.lineSeparator());
         }
-        return fw;
+        fw.close();
     }
 
     /**
@@ -69,7 +68,8 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         long counter = 0;
         try {
-            if (createNewFileIfNotExists()) {
+            if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
+                emptyFileErrorHandling();
                 return;
             }
             File spendingFile = new File(SPENDINGS_FILE_PATH);
@@ -84,19 +84,12 @@ public class SpendingListStorage {
             spendingReader.close();
             WiagiLogger.logger.log(Level.INFO, "Successfully loaded spendings from file");
         } catch (IOException e) {
-            handleIOException(e);
+            WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
+            Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
         } catch (NoSuchElementException e) {
             emptyFileErrorHandling();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
-    }
-
-    private static boolean createNewFileIfNotExists() throws IOException {
-        if (new File(SPENDINGS_FILE_PATH).createNewFile()) {
-            WiagiLogger.logger.log(Level.INFO, "Spending file does not exist, created a new file");
-            return true;
-        }
-        return false;
     }
 
     private static void loadBudgets(String[] budgetDetails) throws NoSuchElementException {
@@ -128,15 +121,8 @@ public class SpendingListStorage {
         }
     }
 
-    private static void handleIOException(IOException e) {
-        WiagiLogger.logger.log(Level.WARNING, "Unable to open spendings file", e);
-        Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
-    }
-
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
-        Ui.printWithTab(e.getMessage());
-        Ui.printWithTab("Detected at line " + counter + " in the spendings file.");
-        Ui.printWithTab("Deleting corrupted entry...");
+        Ui.handleCorruptedEntry(e, counter);
     }
 }
