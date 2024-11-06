@@ -85,12 +85,16 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending, up to 2 decimal places will be taken.
+  - 0 > amount => 1 million.
+  - Adding of that entry must not result to the total spending to be more than 10 million.
 - `{$DESCRIPTION}`: Name of the spending.
+  - Must be free of /, * and ~ characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
+  - Must be free of /, * and ~ characters.
   - Enclosed in asterisks. 
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
@@ -117,12 +121,16 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
+  - 0 > amount => 1 million. 
+  - Adding of that entry must not result to the total income to be more than 10 million.
 - `{$DESCRIPTION}`: Name of the income.
+  - Must be free of /, * and ~ characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
+  - Must be free of /, * and ~ characters.
   - Enclosed in asterisks.
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
@@ -430,7 +438,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
     - description, tag: free of /, * and ~ characters.
-    - amount: positive numerical value.
+    - amount: 0 > amount => 1 million, while total <= 10 million.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
