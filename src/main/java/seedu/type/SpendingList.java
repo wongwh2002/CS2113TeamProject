@@ -2,11 +2,15 @@ package seedu.type;
 
 import seedu.classes.Parser;
 import seedu.classes.Ui;
+import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.Recurrence;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 
 /**
  * Represents a list of spendings with budget settings.
@@ -15,6 +19,7 @@ public class SpendingList extends ArrayList<Spending> {
     private double dailyBudget;
     private double monthlyBudget;
     private double yearlyBudget;
+    private double total;
 
     /**
      * Constructs an empty SpendingList with default budget values.
@@ -24,18 +29,11 @@ public class SpendingList extends ArrayList<Spending> {
         dailyBudget = 0;
         monthlyBudget = 0;
         yearlyBudget = 0;
+        total = 0;
     }
 
-    /**
-     * Constructs a SpendingList initialized with the data from another SpendingList.
-     *
-     * @param spendings The SpendingList to copy data from.
-     */
-    public SpendingList(SpendingList spendings) {
-        super(spendings);  // Initialise with data in storage
-        dailyBudget = 0;
-        monthlyBudget = 0;
-        yearlyBudget = 0;
+    public double getTotal() {
+        return total;
     }
 
     /**
@@ -207,6 +205,11 @@ public class SpendingList extends ArrayList<Spending> {
 
     @Override
     public boolean add(Spending spending) {
+        double addAmount = spending.getAmount();
+        if (addAmount + total > MAX_LIST_TOTAL_AMOUNT) {
+            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED);
+        }
+        total += addAmount;
         super.add(spending);
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;

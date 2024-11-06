@@ -90,13 +90,17 @@ public class Ui {
 
     public static <T extends EntryType> void printArrList(ArrayList<T> arrList) {
         String typeOfList;
+        double total;
         if (arrList instanceof SpendingList) {
             typeOfList = SPENDING;
+            total = ((SpendingList) arrList).getTotal();
         } else {
             typeOfList = INCOME;
+            total = ((IncomeList) arrList).getTotal();
         }
         Ui.printWithTab(typeOfList);
-        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
+        printList(arrList);
+        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + formatPrintDouble(total));
 
     }
 
@@ -105,17 +109,13 @@ public class Ui {
      *
      * @param <T>     The type of elements in the ArrayList, which must extend the Type class.
      * @param arrList The ArrayList containing elements to be printed and summed.
-     * @return The sum of the amounts of the elements in the ArrayList as a String.
      */
-    public static <T> String printList(ArrayList<T> arrList) {
-        double sumOfAmountInList = 0;
+    public static <T extends EntryType> void printList(ArrayList<T> arrList) {
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            sumOfAmountInList += ((EntryType) arrList.get(indexInList)).getAmount();
             Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
-        return formatPrintDouble(sumOfAmountInList);
     }
 
     public static String formatPrintDouble(double sum) {
