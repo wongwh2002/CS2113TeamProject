@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -41,7 +41,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setDailyBudget_success() {
-        double budget = 1321;
+        int budget = 1321;
 
         String userInput = "budget daily " + budget;
         commandInputForTest(userInput, incomes, spendings);
@@ -53,7 +53,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setMonthlyBudget_success() {
-        double budget = 1321;
+        int budget = 1321;
         String userInput = "budget monthly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
@@ -64,7 +64,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_setYearlyBudget_success() {
-        double budget = 1321;
+        int budget = 1321;
         String userInput = "budget yearly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
@@ -83,7 +83,7 @@ class BudgetCommandTest {
     @Test
     public void execute_invalidTimeFrame_exceptionThrown() {
         commandInputForTest("budget notatimeframe 1", incomes, spendings);
-        assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
+        assertEquals(TAB + INVALID_FIELD + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 

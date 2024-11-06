@@ -188,7 +188,6 @@ public class SpendingList extends ArrayList<Spending> {
                 recurrence.checkSpendingRecurrence(spending, this, true);
             }
         }
-        this.sort(Comparator.comparing(EntryType::getDate));
     }
 
     public void checkOverspend() {
@@ -204,6 +203,13 @@ public class SpendingList extends ArrayList<Spending> {
         if (yearlyBudgetLeft  < 0) {
             Ui.printOverspendMessage("yearly", yearlyBudgetLeft);
         }
+    }
+
+    @Override
+    public boolean add(Spending spending) {
+        super.add(spending);
+        this.sort(Comparator.comparing(EntryType::getDate));
+        return true;
     }
 }
 
