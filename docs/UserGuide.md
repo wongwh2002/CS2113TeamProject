@@ -553,8 +553,7 @@ current date.
 
 **Q**: What happends if I add a recurring entry with an earlier date?
 
-**A**: You will have the option to select whether you would like to add the additional entries between the date and the 
-current date.
+**A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
 
 ## Command Summary
 <table>
