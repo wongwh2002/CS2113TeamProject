@@ -125,7 +125,7 @@ If the command word is `list`, the parser will call a separate method `parseList
 
 After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
 The referenced sequence diagrams for the execution of commands will be shown in the sections for 
-[adding a new entry](#adding-of-new-entry), [listing entries](#listing-entries), and editing entries.
+[adding a new entry](#adding-a-new-entry), [listing entries](#listing-entries), and editing entries.
 
 The diagram below shows the class diagram for a command.
 
@@ -230,7 +230,7 @@ user logs in, 4 days of entries will be added). List is thus also sorted by date
 <!-- Overall command CD and sequence -->
 <!-- Save storage -->
 
-### Add command <!-- not sure how you want to name this -->
+### Adding a new entry 
 <!-- diagram and implementation -->
 ![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
@@ -503,10 +503,6 @@ Daily, monthly, and yearly spending totals are calculated everytime a ListComman
 iterating through each of the spendings stored in SpendingList and comparing their dates to the respective daily,
 monthly, and yearly dates.
 
-### Deleting an entry
-The user deletes an entry by sending a delete command which specifies the index of the income/spending to be deleted. 
-The income or spending will be deleted from its corresponding list using its index. 
-
 <!-- Below this to keep -->
 
 ==============================================================================================================
@@ -523,23 +519,26 @@ An app that help students to manage their financials faster than a typical mouse
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority | As a ... | I want to ...                                        | So that I can ...                                |
-|----------|----------|------------------------------------------------------|--------------------------------------------------|
-| ***      | user     | start and close the application                      | use it only when needed                          |
-| ***      | user     | add my financial transactions                        | track the flow of my money                       |
-| ***      | user     | categorise my entries as income and spendings        | better understand my financials                  |
-| ***      | user     | add income and expenditure categories                | see my overall net gain or loss                  |
-| ***      | user     | see all my spendings                                 | know what I spent on                             |
-| ***      | user     | delete my entries                                    | correct my mistakes                              |
-| ***      | user     | have a password to my account                        | protect my account information                   |
-| **       | user     | edit my incomes and spendings                        | correct my mistakes                              |
-| **       | user     | categorise my expenses                               | see what I spend on                              |
-| **       | user     | categorise my incomes                                | see where my savings come from                   |
-| **       | user     | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
-| **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
-| **       | user     | set budgets for each category of expense             | make better financial decisions                  |
-| *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
-| *        | user     | find my entry with keywords                          | retrieve its relevant information easily         |
+| Priority | As a ...                                          | I want to ...                                                                  | So that I can ...                                        |
+|----------|---------------------------------------------------|--------------------------------------------------------------------------------|----------------------------------------------------------|
+| ***      | user                                              | start and close the application                                                | use it only when needed                                  |
+| ***      | user                                              | add my financial transactions                                                  | track the flow of my money                               |
+| ***      | user                                              | categorise my entries as income and spendings                                  | better understand my financials                          |
+| ***      | user                                              | add income and expenditure categories                                          | see my overall net gain or loss                          |
+| ***      | user                                              | see all my spendings                                                           | know what I spent on                                     |
+| ***      | user                                              | delete my entries                                                              | correct my mistakes                                      |
+| ***      | user                                              | have a password to my account                                                  | protect my account information                           |
+| **       | user                                              | edit my incomes and spendings                                                  | correct my mistakes                                      |
+| **       | user                                              | categorise my expenses                                                         | see what I spend on                                      |
+| **       | user                                              | categorise my incomes                                                          | see where my savings come from                           |
+| **       | user                                              | read the amount of money left in my allocated budget                           | gauge how much to spend for the remaining period         |
+| **       | user                                              | set expenses and incomes as recurring                                          | do not need to manually add them each time               |
+| **       | user                                              | set budgets for each category of expense                                       | make better financial decisions                          |
+| **       | user                                              | view my expenses in different time ranges such as weekly, biweekly, or monthly | better analyse my spendings                              |
+| **       | user subscribed to multiple subscription services | set expenses as recurring                                                      | automate the process of adding entries each month        |
+| **       | new user                                          | view usage instructions                                                        | refer to them when I forget how to use the application   |
+| *        | user                                              | be alerted when I overspend my budget                                          | try to curb my spendings                                 |
+| *        | user                                              | find my entry with keywords                                                    | retrieve its relevant information easily                 |
 
 
 ## Use cases
