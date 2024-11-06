@@ -21,7 +21,9 @@ public class Constants {
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
-    public static final String MAX_LIST_AMOUNT_EXCEEDED = "The total amount has exceeded the limit!";
+    public static final String MAX_LIST_AMOUNT_EXCEEDED = "The total amount will exceed the limit! Entry rejected!";
+    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount after recurrence will " +
+            "exceed the limit! Recurrence rejected!";
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
     public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +

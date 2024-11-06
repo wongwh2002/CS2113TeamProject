@@ -45,11 +45,7 @@ public class IncomeList extends ArrayList<Income> {
 
     @Override
     public boolean add(Income income) {
-        double addAmount = income.getAmount();
-        if (addAmount + total > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED);
-        }
-        total += addAmount;
+        total += income.getAmount();
         super.add(income);
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;

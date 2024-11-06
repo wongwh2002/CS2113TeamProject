@@ -205,11 +205,7 @@ public class SpendingList extends ArrayList<Spending> {
 
     @Override
     public boolean add(Spending spending) {
-        double addAmount = spending.getAmount();
-        if (addAmount + total > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED);
-        }
-        total += addAmount;
+        total += spending.getAmount();
         super.add(spending);
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;
