@@ -24,6 +24,8 @@ and investment analysis.
   - [Setting a budget](#setting-a-budget)
   - [Editing an entry](#editing-an-entry)
   - [Finding an entry](#finding-an-entry)
+  - [Saving the data](#saving-the-data-)
+  - [Editing the data file](#editing-the-data-file)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -57,12 +59,23 @@ Expected display for first time users:
 	Hi! You seem to be new, are you ready?!
 	Please enter your new account password:
 ```
-To help users manage their finances well, users are also prompted to enter budgets with the following 3 outputs <br>
+To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
+users should enter valid amounts for each budget type <br>
 Expected display:
 ```
-
+	Hello! So happy you took this first step of financial management.
+	Let's first set your budgets!
+	Please enter a daily budget you have in mind:
 ```
-Expected output after successfully creating password: <br>
+```
+	____________________________________________________________
+	Next, please enter a monthly budget you have in mind:
+```
+```
+	____________________________________________________________
+	Last one! Please enter a yearly budget you have in mind:
+```
+Expected output after successfully creating new user: <br>
 ```
 	____________________________________________________________
 	Hello from
@@ -513,7 +526,7 @@ User data is stored into 3 text files, namely
 #### Format of data storage for password:
 For security purposes the method of storage will not be discussed. <span style="color:#f5220d">DO NOT</span> 
 alter this file, simply delete the file if you have forgotten you password and create a new password upon being 
-prompt when start up.
+prompt when start up. Note that this will cause a hard reset to the application and erase all data.
 
 #### Format of data storage for income and spending:
 Data are stored with `|` used as delimiter. Each line in the text file represents one entry. <br>
@@ -530,8 +543,8 @@ Important data representation to note:
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
 - `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`
 
-We recommend not to edit `[$LAST_RECURRENCE]`. If manually adding new entries with recurrence, `[$LAST_RECURRENCE]`
-should match `[$DATE_OF_ENTRY]`, "null" otherwise.
+We recommend not to edit `[$LAST_RECURRENCE]`. Adding or editing entries with recurrence, `[$LAST_RECURRENCE]`
+should match `[$DATE_OF_ENTRY]` and last possible recurred date before current date respectively, "null" otherwise.
 
 ## FAQ
 
@@ -610,7 +623,3 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         </tr>
     </tbody>
 </table>
-
-
-[//]: # ({Give a 'cheat sheet' of commands here})
-[//]: # (* Add todo `todo n/TODO_NAME d/DEADLINE`)
