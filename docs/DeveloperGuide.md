@@ -510,9 +510,11 @@ The income or spending will be deleted from its corresponding list using its ind
 ## Product scope
 ### Target user profile
 1. prefer desktop apps over other types
+2. is reasonably comfortable using CLI apps
+3. wants to manage their own finances better
 
 ### Value proposition
-1. An app that help students to manage their financials faster than a typical mouse/GUI driven app.
+An app that help students to manage their financials faster than a typical mouse/GUI driven app.
 
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
@@ -531,7 +533,7 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | **       | user     | categorise my incomes                                | see where my savings come from                   |
 | **       | user     | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
 | **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
-| **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
+| **       | user     | set budgets for each category of expense             | make better financial decisions                  |
 | *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
 | *        | user     | find my entry with keywords                          | retrieve its relevant information easily         |
 
@@ -642,6 +644,8 @@ Use case ends.
 {Give non-functional requirements}
 
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
+able to accomplish most of the tasks faster using commands than using the mouse.
 
 ## Glossary
 
@@ -651,6 +655,12 @@ Use case ends.
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Creating a new user
+Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
+is located
+1. Test case: Start up the program
+    - Expected: Program prompts user to create new password and accepts user password input
 
 ### Finding an entry
 Prerequisites: Add multiple entries to either incomes or spendings.
@@ -662,3 +672,7 @@ Prerequisites: Add multiple entries to either incomes or spendings.
     - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
+
+### Exiting the program
+1. Test case: `bye`
+    - Expected: Program exits
