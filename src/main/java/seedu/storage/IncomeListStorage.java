@@ -64,7 +64,9 @@ public class IncomeListStorage {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
         long counter = 0;
         try {
-            if (createNewFileIfNotExists()) return;
+            if (createNewFileIfNotExists()) {
+                return;
+            }
             File incomeFile = new File(INCOMES_FILE_PATH);
             Scanner incomeReader = new Scanner(incomeFile);
             while (incomeReader.hasNext()) {

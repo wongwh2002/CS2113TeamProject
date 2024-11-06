@@ -69,7 +69,9 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         long counter = 0;
         try {
-            if (createNewFileIfNotExists()) return;
+            if (createNewFileIfNotExists()) {
+                return;
+            }
             File spendingFile = new File(SPENDINGS_FILE_PATH);
             Scanner spendingReader = new Scanner(spendingFile);
             String[] budgetDetails = spendingReader.nextLine().split(STORAGE_LOAD_SEPARATOR);
@@ -86,7 +88,6 @@ public class SpendingListStorage {
         } catch (NoSuchElementException e) {
             emptyFileErrorHandling();
         }
-        assert Storage.spendings.size() > 0 : "Spendings list should not be empty after loading";
         WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 
@@ -98,7 +99,12 @@ public class SpendingListStorage {
         return false;
     }
 
-    private static void loadBudgets(String[] budgetDetails) {
+    private static void loadBudgets(String[] budgetDetails) throws NoSuchElementException {
+        if (budgetDetails.length != 3) {
+            WiagiLogger.logger.log(Level.WARNING, "Corrupted budget details found in spendings file");
+            Ui.printWithTab(LOAD_SPENDING_FILE_ERROR);
+            throw new NoSuchElementException("Corrupted spending file, error with budget details");
+        }
         Storage.spendings.setDailyBudget(Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]));
         Storage.spendings.setMonthlyBudget(Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]));
         Storage.spendings.setYearlyBudget(Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]));

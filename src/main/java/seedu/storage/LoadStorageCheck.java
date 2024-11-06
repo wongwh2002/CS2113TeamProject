@@ -23,19 +23,20 @@ import static seedu.classes.Constants.NO_RECURRENCE;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 
 public class LoadStorageCheck {
-    private static final Logger logger = Logger.getLogger(LoadStorageCheck.class.getName());
     public static final String STORAGE_LAST_RECURRED_DATE = "last recurred date!";
     public static final String STORAGE_RECURRENCE_FREQUENCY = "recurrence frequency!";
     public static final String STORAGE_DAY_RECURRENCE = "day of recurrence!";
     public static final String STORAGE_VALID_DAY_RECURRENCE = "day of recurrence between 1 and 31!";
-    public String storageType;
-    public final String CORRUPTED_ERROR_MESSAGE;
-    public final String STORAGE_ERROR_MESSAGE;
+    public static final String STORAGE_COMPULSORY_SIZE = "supposed to have 7 parameters!";
+    public String storageType = "";
+    public String corruptedErrorMessage;
+    public String storageErrorMessage;
+    private final Logger logger = Logger.getLogger(LoadStorageCheck.class.getName());
 
     public LoadStorageCheck(String storageType) {
         this.storageType = storageType;
-        this.CORRUPTED_ERROR_MESSAGE = "Corrupted " + storageType + " entry detected, ";
-        this.STORAGE_ERROR_MESSAGE = CORRUPTED_ERROR_MESSAGE + "error with ";
+        this.corruptedErrorMessage = "Corrupted " + storageType + " entry detected, ";
+        this.storageErrorMessage = corruptedErrorMessage + "error with ";
     }
 
     public EntryType parseEntry(String newEntry) {
@@ -55,7 +56,7 @@ public class LoadStorageCheck {
         assert date != null : "Date should not be null";
         assert tag != null : "Tag should not be null";
         assert recurrenceFrequency != null : "Recurrence frequency should not be null";
-        assert recurrenceFrequency != RecurrenceFrequency.NONE || lastRecurred != null :
+        assert recurrenceFrequency == RecurrenceFrequency.NONE || lastRecurred != null :
                 "Last recurred date should not be null if recurrence frequency is not NONE";
         assert dayOfRecurrence >= 1 && dayOfRecurrence <= 31 : "Day of recurrence should be between 1 and 31";
 
@@ -67,10 +68,10 @@ public class LoadStorageCheck {
 
     private void validateEntryDataLength(String[] entryData) {
         if (entryData.length != 7) {
-            logger.log(Level.WARNING, CORRUPTED_ERROR_MESSAGE + "supposed to have 7 parameters!");
-            throw new WiagiStorageCorruptedException(CORRUPTED_ERROR_MESSAGE + "supposed to have 7 parameters!");
+            logger.log(Level.WARNING, corruptedErrorMessage + STORAGE_COMPULSORY_SIZE);
+            throw new WiagiStorageCorruptedException(corruptedErrorMessage + STORAGE_COMPULSORY_SIZE);
         }
-        assert entryData.length == 7 : CORRUPTED_ERROR_MESSAGE + "supposed to have 7 parameters";
+        assert entryData.length == 7 : corruptedErrorMessage + "supposed to have 7 parameters";
     }
 
     private double parseAmount(String amountStr) {
@@ -79,15 +80,15 @@ public class LoadStorageCheck {
             assert amount > 0 : "Amount should be greater than 0";
             return amount;
         } catch (WiagiInvalidInputException e) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + "amount", e);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + "amount");
+            logger.log(Level.WARNING, storageErrorMessage + "amount", e);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + "amount");
         }
     }
 
     private String validateDescription(String description) {
         if (description == null || description.isEmpty()) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + "description!");
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + "description!");
+            logger.log(Level.WARNING, storageErrorMessage + "description!");
+            throw new WiagiStorageCorruptedException(storageErrorMessage + "description!");
         }
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
         return description;
@@ -99,15 +100,15 @@ public class LoadStorageCheck {
             assert date != null : "Date should not be null";
             return date;
         } catch (Exception e) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + "date!", e);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + "date!");
+            logger.log(Level.WARNING, storageErrorMessage + "date!", e);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + "date!");
         }
     }
 
     private String validateTag(String tag) {
         if (tag == null) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + "tag!");
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + "tag!");
+            logger.log(Level.WARNING, storageErrorMessage + "tag!");
+            throw new WiagiStorageCorruptedException(storageErrorMessage + "tag!");
         }
         assert tag != null : "Tag should not be null";
         return tag;
@@ -119,8 +120,8 @@ public class LoadStorageCheck {
             assert recurrenceFrequency != null : "Recurrence frequency should not be null";
             return recurrenceFrequency;
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + STORAGE_RECURRENCE_FREQUENCY, e);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + STORAGE_RECURRENCE_FREQUENCY);
+            logger.log(Level.WARNING, storageErrorMessage + STORAGE_RECURRENCE_FREQUENCY, e);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + STORAGE_RECURRENCE_FREQUENCY);
         }
     }
 
@@ -131,10 +132,10 @@ public class LoadStorageCheck {
         }
 
         if (recurrenceFrequency != RecurrenceFrequency.NONE && lastRecurred == null) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + STORAGE_LAST_RECURRED_DATE);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + STORAGE_LAST_RECURRED_DATE);
+            logger.log(Level.WARNING, storageErrorMessage + STORAGE_LAST_RECURRED_DATE);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + STORAGE_LAST_RECURRED_DATE);
         }
-        assert recurrenceFrequency != RecurrenceFrequency.NONE || lastRecurred != null :
+        assert recurrenceFrequency == RecurrenceFrequency.NONE || lastRecurred != null :
                 "Corrupted income entry detected, error with recurred date";
         return lastRecurred;
     }
@@ -144,12 +145,12 @@ public class LoadStorageCheck {
         try {
             dayOfRecurrence = Integer.parseInt(dayOfRecurrenceStr);
         } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + STORAGE_DAY_RECURRENCE, e);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + STORAGE_DAY_RECURRENCE);
+            logger.log(Level.WARNING, storageErrorMessage + STORAGE_DAY_RECURRENCE, e);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + STORAGE_DAY_RECURRENCE);
         }
         if (dayOfRecurrence < 1 || dayOfRecurrence > 31) {
-            logger.log(Level.WARNING, STORAGE_ERROR_MESSAGE + STORAGE_VALID_DAY_RECURRENCE);
-            throw new WiagiStorageCorruptedException(STORAGE_ERROR_MESSAGE + STORAGE_VALID_DAY_RECURRENCE);
+            logger.log(Level.WARNING, storageErrorMessage + STORAGE_VALID_DAY_RECURRENCE);
+            throw new WiagiStorageCorruptedException(storageErrorMessage + STORAGE_VALID_DAY_RECURRENCE);
         }
         assert dayOfRecurrence >= 1 && dayOfRecurrence <= 31 : "Day of recurrence should be between 1 and 31";
         return dayOfRecurrence;
