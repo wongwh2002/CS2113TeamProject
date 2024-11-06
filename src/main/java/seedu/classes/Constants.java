@@ -14,6 +14,7 @@ public class Constants {
     public static final String SPACE_REGEX = "\\s+";
     public static final String WHITESPACE= " ";
     public static final String TAG_IDENTIFIER = "\\*";
+    public static final String ATTRIBUTE_IDENTIFIER = ".*[*/~].*";
     public static final String DATE_IDENTIFIER = "/";
     public static final String RECURRENCE_IDENTIFIER = "~";
     public static final String FIND_RANGE_DIVIDER = " to ";
@@ -53,6 +54,8 @@ public class Constants {
     public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String AMOUNT_NOT_NUMBER = "Please enter a number for the amount! ";
     public static final String INVALID_AMOUNT = "Invalid amount! Amount must be greater than 0 (rounded to 2dp)! ";
+    public static final String INVALID_DESCRIPTION_CHARACTERS = "Invalid characters in description. Edit unsuccessful.";
+    public static final String INVALID_TAG_CHARACTERS = "Invalid characters in description. Edit unsuccessful.";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";

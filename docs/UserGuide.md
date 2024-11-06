@@ -429,6 +429,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
+    - description, tag: free of /, * and ~ characters.
     - amount: positive numerical value.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
@@ -525,6 +526,7 @@ For spending.txt, the first line of entry stores the budgets of the user.</br>
 Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` </br>
 </br>
 Important data representation to note:
+- `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, * and ~ characters.
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
 - `[$DATE_OF_ENTRY]`: In the format of `YYYY-MM-DD`
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
