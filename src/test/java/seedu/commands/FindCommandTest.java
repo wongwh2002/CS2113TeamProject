@@ -102,7 +102,7 @@ class FindCommandTest {
     public void execute_findSpendingAmount_success() {
         commandInputForTest("find spending amount 1", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
+                + TAB + "2: " + spendings.get(1).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -110,7 +110,7 @@ class FindCommandTest {
     public void execute_findIncomeAmount_success() {
         commandInputForTest("find income amount 1", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
+                + TAB + "2: " + incomes.get(1).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -142,7 +142,7 @@ class FindCommandTest {
     public void execute_findSpendingDescription_success() {
         commandInputForTest("find spending description macdonalds", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
+                + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -150,7 +150,7 @@ class FindCommandTest {
     public void execute_findIncomeDescription_success() {
         commandInputForTest("find income description dividends", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
+                + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -158,7 +158,7 @@ class FindCommandTest {
     public void execute_findSpendingDate_success() {
         commandInputForTest("find spending date 2024-10-10", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
+                + TAB + "1: " + spendings.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
@@ -166,7 +166,7 @@ class FindCommandTest {
     public void execute_findIncomeDate_success() {
         commandInputForTest("find income date 2024-10-10", incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + System.lineSeparator()
-                        + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
+                + TAB + "1: " + incomes.get(0).toString() + System.lineSeparator(),
                 outContent.toString());
     }
 
