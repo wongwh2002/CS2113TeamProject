@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Parser;
 import seedu.classes.Ui;
 import seedu.classes.WiagiLogger;
 import seedu.exception.WiagiInvalidIndexException;
