@@ -57,6 +57,11 @@ Expected display for first time users:
 	Hi! You seem to be new, are you ready?!
 	Please enter your new account password:
 ```
+To help users manage their finances well, users are also prompted to enter budgets with the following 3 outputs <br>
+Expected display:
+```
+
+```
 Expected output after successfully creating password: <br>
 ```
 	____________________________________________________________
@@ -92,11 +97,11 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example inputs:** <br>
-- `add spending 100 telegram premium` </br>
-- `add spending 100 telegram premium /2024-10-20/` </br>
-- `add spending 100 telegram premium *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` </br>
+- `add spending 100 telegram premium` <br>
+- `add spending 100 telegram premium /2024-10-20/` <br>
+- `add spending 100 telegram premium *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` <br>
 
 **Expected output:**
 ```
@@ -124,11 +129,11 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example input:** <br>
-- `add income 10000 commission` </br>
-- `add income 10000 commission /2024-01-01/` </br>
-- `add income 10000 commission *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` </br>
+- `add income 10000 commission` <br>
+- `add income 10000 commission /2024-01-01/` <br>
+- `add income 10000 commission *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` <br>
 
 **Expected output:**
 ```
@@ -496,9 +501,9 @@ All data previously inputted into the programme will be automatically saved upon
 There is no need to save manually.
 
 ### Editing the data file
-> <span style="color:#f5220d">WARNING</span> </br>
+> <span style="color:#f5220d">WARNING</span> <br>
 > This section is dedicated to advanced users who are confident in updating the data file manually. Failure 
-> to do so correctly can lead to data corruption and having possibly all previous information wiped out. </br>
+> to do so correctly can lead to data corruption and having possibly all previous information wiped out. <br>
 
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
@@ -511,14 +516,14 @@ alter this file, simply delete the file if you have forgotten you password and c
 prompt when start up.
 
 #### Format of data storage for income and spending:
-Data are stored with `|` used as delimiter. Each line in the text file represents one entry. </br>
+Data are stored with `|` used as delimiter. Each line in the text file represents one entry. <br>
 Format: 
 `[$AMOUNT]|[$DESCRIPTION]|[$DATE_OF_ENTRY]|[TAG_NAME]|[RECURRENCE_FREQUENCY]|[LAST_RECURRENCE]|[DAY_OF_RECURRENCE]`
-</br>
-</br>
-For spending.txt, the first line of entry stores the budgets of the user.</br>
-Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` </br>
-</br>
+<br>
+<br>
+For spending.txt, the first line of entry stores the budgets of the user.<br>
+Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
+<br>
 Important data representation to note:
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
 - `[$DATE_OF_ENTRY]`: In the format of `YYYY-MM-DD`
