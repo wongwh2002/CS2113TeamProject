@@ -75,15 +75,15 @@ public class Ui {
 
     public static void printSpendingStatistics(SpendingList spendings) {
         Ui.printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
-        Ui.printWithDoubleTab("Daily Budget: " + spendings.getDailyBudget());
+        Ui.printWithDoubleTab("Daily Budget: " + formatPrintDouble(spendings.getDailyBudget()));
         Ui.printWithDoubleTab("Daily budget left: " + formatPrintDouble(spendings.getDailyBudget() -
                 spendings.getDailySpending()));
         Ui.printWithDoubleTab("Monthly spendings: " + formatPrintDouble(spendings.getMonthlySpending()));
-        Ui.printWithDoubleTab("Monthly Budget: " + spendings.getMonthlyBudget());
+        Ui.printWithDoubleTab("Monthly Budget: " + formatPrintDouble(spendings.getMonthlyBudget()));
         Ui.printWithDoubleTab("Monthly budget left: " +
                 formatPrintDouble(spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
         Ui.printWithDoubleTab("Yearly spendings: " + formatPrintDouble(spendings.getYearlySpending()));
-        Ui.printWithDoubleTab("Yearly Budget: " + spendings.getYearlyBudget());
+        Ui.printWithDoubleTab("Yearly Budget: " + formatPrintDouble(spendings.getYearlyBudget()));
         Ui.printWithDoubleTab("Yearly budget left: " + formatPrintDouble(spendings.getYearlyBudget() -
                 spendings.getYearlySpending()));
     }
