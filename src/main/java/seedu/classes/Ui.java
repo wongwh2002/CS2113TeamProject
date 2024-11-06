@@ -105,10 +105,10 @@ public class Ui {
     }
 
     /**
-     * Prints the elements of the given ArrayList and calculates the sum of their amounts.
+     * Prints the elements of the given ArrayList
      *
-     * @param <T>     The type of elements in the ArrayList, which must extend the Type class.
-     * @param arrList The ArrayList containing elements to be printed and summed.
+     * @param <T>     The type of elements in the ArrayList, which must extend the EntryType class.
+     * @param arrList The ArrayList containing elements to be printed and the total.
      */
     public static <T extends EntryType> void printList(ArrayList<T> arrList) {
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
