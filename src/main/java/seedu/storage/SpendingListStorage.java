@@ -48,18 +48,18 @@ public class SpendingListStorage {
     }
 
     private static void handleWriteFile(SpendingList spendings) throws IOException {
-        FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
+        FileWriter spendingFile = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
                 spendings.getMonthlyBudget() + STORAGE_SEPARATOR + spendings.getYearlyBudget();
-        fw.write(budgetDetails + System.lineSeparator());
+        spendingFile.write(budgetDetails + System.lineSeparator());
         for (Spending spending : spendings) {
             String singleEntry = spending.getAmount() + STORAGE_SEPARATOR + spending.getDescription() +
                     STORAGE_SEPARATOR + spending.getDate() + STORAGE_SEPARATOR + spending.getTag() +
                     STORAGE_SEPARATOR + spending.getRecurrenceFrequency() + STORAGE_SEPARATOR +
                     spending.getLastRecurrence() + STORAGE_SEPARATOR + spending.getDayOfRecurrence();
-            fw.write(singleEntry + System.lineSeparator());
+            spendingFile.write(singleEntry + System.lineSeparator());
         }
-        fw.close();
+        spendingFile.close();
     }
 
     /**
