@@ -33,7 +33,7 @@ public class SpendingList extends ArrayList<Spending> {
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total = Math.round(total * 100.0) / 100.0;
     }
 
     /**
