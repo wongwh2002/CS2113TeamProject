@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_AMOUNT_ZERO;
 
 public class CommandUtils {
 
@@ -17,7 +18,11 @@ public class CommandUtils {
             if (doubleAmount <= 0) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT + commandFormat);
             }
-            return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
+            double newAmount =  Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
+            if (newAmount <= 0) {
+                throw new WiagiInvalidInputException(INVALID_AMOUNT_ZERO + commandFormat);
+            }
+            return newAmount;
         } catch (NumberFormatException nfe) {
             throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
         }

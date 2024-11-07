@@ -13,6 +13,9 @@ public class Constants {
     public static final String TAB = "\t";
     public static final String SPACE_REGEX = "\\s+";
     public static final String WHITESPACE= " ";
+    public static final String TAG_IDENTIFIER = "\\*";
+    public static final String DATE_IDENTIFIER = "/";
+    public static final String RECURRENCE_IDENTIFIER = "~";
     public static final String FIND_RANGE_DIVIDER = " to ";
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
@@ -20,6 +23,7 @@ public class Constants {
     public static final String MONTHLY_RECURRENCE = "monthly";
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
+    public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
             "[$CATEGORY]/[tags [$TAG_NAME]]";
     public static final String BUDGET_COMMAND_FORMAT = "Please enter in the form: budget {$PERIOD} {$AMOUNT}";
@@ -37,6 +41,7 @@ public class Constants {
     public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String AMOUNT_NOT_NUMBER = "Please enter a number for the amount! ";
     public static final String INVALID_AMOUNT = "Invalid amount! ";
+    public static final String INVALID_AMOUNT_ZERO = "Invalid amount! Amount cannot be 0 (rounded to 2dp)! ";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
@@ -60,6 +65,7 @@ public class Constants {
     public static final String LOAD_SPENDING_FILE_ERROR = "An error has occurred when loading spending file!";
     public static final String SAVE_SPENDING_FILE_ERROR = "An error has occurred when saving spending file!";
     public static final String NO_RECURRENCE = "null";
+
     public static final int LOAD_AMOUNT_INDEX = 0;
     public static final int LOAD_DESCRIPTION_INDEX = 1;
     public static final int LOAD_DATE_INDEX = 2;

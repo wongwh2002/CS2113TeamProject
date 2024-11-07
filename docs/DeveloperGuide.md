@@ -1,15 +1,264 @@
-# Developer Guide
+<font size="6"> <strong> Developer Guide </strong> </font>
 
-## Acknowledgements
+# Introduction
+
+Wiagi is a simple command line application that helps students who are beginning their financial
+independence journey by offering a wide range of essential tools and features such as budgeting, saving,
+and investment analysis.
+
+<!-- TABLE OF CONTENTS -->
+
+# Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
 original source as well}
 
 [Original Source](https://github.com/nus-cs2113-AY2425S1/tp)
 
-## Design & implementation
+# Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+<!-- architecture diagram and explain component briefly -->
+
+<!-- Wiagi component -->
+<!-- general intro, convert overall cd to wiagi diagram -->
+
+## Data Types and Structure
+This section introduces the common classes used throughout the program their internal implementations and structure.
+
+### EntryType Class
+The `EntryType` class is a class that is used for storing different types of user entry such that the entries
+contain the relevant information required by other classes to perform their component tasks. <br>
+
+The following are its attributes: <br>
++ `amount` 
+  + type: `double`
+  + stores the amount for the entry
++ `description`
+  + type: `String`
+  + stores the description of relating to the entry
++ `date`
+  + type `LocalDate`
+  + stores the date of entry
++ `tag`
+  + type `String`
+  + stores the tag name linked to the entry
++ `recurrenceFrequency`
+  + type [`RecurrenceFrequency`](#recurrencefrequency-enumeration)
+  + stores the frequency of recurrence for the entry
++ `lastRecurrence`
+  + type `LocalDate`
+  + stores the date the entry was last recurred for internal program checking usage
++ `dayOfRecurrence`
+  + type `int`
+  + stores the day of it own private attribute `date`, used for internal program checking usage
+
+The methods implemented in this class are a collection of getters and setters that allow other class types to access
+the information of the entry.
+
+The following are child classes of `EntryType`:
++ `Income`: Stores entries that the user labels as income
++ `Spending`: Stores entries that the user labels as spending
+
+### Income class
+The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
+income. This information is used by other classes to perform their component tasks.
+
+### Spending class
+The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
+spending. This information is used by other classes to perform their component tasks.
+
+<!-- Add spendinglist, incomelist -->
+
+### Recurrence Class
+The purpose of the class are as follows:
++ Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
+  application
++ Users may have differing frequencies for recurring events thus application gives them a few common options
++ Users may also want to add multiple older recurring entries that have been missed out for a while
+
+Illustrated below is the class diagram for the Recurrence class:<br>
+<br>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
+<br>
+<br>
+
+The `Recurrence` class is an abstract class that provides the interface for checking `Income` and `Spending` and adding
+recurring entries into the list. <br>
+
+The following are child classes of `Recurrence`:
++ `DailyRecurrence`: Handles entries labelled as daily recurring events
++ `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
++ `YearlyRecurrence`: Handles entries labelled as yearly recurring events
+
+Recurrence happens during 2 use cases:
++ Recurrence updating of existing entries upon start up in [`Storage`](#storage-component)
++ Recurrence backlogging when an entry with recurrence dated to the past is added using [add command](<!-- to add -->)
+
+Method implementations will be explained in later parts, in their respective use cases
+
+### RecurrenceFrequency enumeration
+The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
+classes, stored in the `recurrenceFrequency` attribute <br>
+Enumeration constants:
++ `NONE`: Represents not recurring entry
++ `DAILY`: Represents a daily recurring entry
++ `MONTHLY`: Represents a monthly recurring entry
++ `YEARLY`: Represents a yearly recurring entry
+
+## Program start up
+<!-- Storage loading -->
+
+## Program run sequence
+<!-- Overall command handling sequence and explanation -->
+<!-- Storage saving -->
+
+### Recurrence Updating
+Below illustrates the reference frame of recurrence updating <br>
+<br>
+<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
+<br>
+For the reference frame of 'load from storage', it is as explained previously <br>
+For the reference frame of 'add recurring entry', refer to
+[checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
+
+#### How recurrence updating works: 
++ Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
+  `Wiagi` to retrieve past data.
++ `updateRecurrence()` is called
++ Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through
+  `Parser#parseRecurrence` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
+  which is encapsulated as a `Recurrence` object.
++ If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and
+  `IncomeList` if needed via `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence`. <br>
+
+#### Implementation:
+The following are notable classes and methods used to achieve recurrence updating.
+
+##### checkIncomeRecurrence / checkSpendingRecurrence method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
+Method Signature: <br>
+```
+@Override
+public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
+@Override
+public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
+```
+Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
+<br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
+Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
+for conciseness.
+
+Functionality: <br>
+1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
+   via `LocalDate.now()`
+2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
+3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past.
+4. isAdding is set to `true` for recurrence updating to allow adding of entries, it may be set to `false` for
+   backlogging as seen later to only update `lastRecurred` attribute to the latest possible recurring date to
+   be checked against in the future for recurrence updating
+
+##### parseRecurrence method
+Class: `Parser` <br>
+Method Signature: <br>
+```
+public static Recurrence parseRecurrence(EntryType entry)
+```
+Functionality: <br>
+1. Takes in child class of `EntryType` (i.e. `Spending`, `Income`)
+2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
+3. Returns `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry) accordingly.
+
+##### updateRecurrence method
+Class: `SpendingList`, `IncomeList` <br>
+Method Signature:
+```
+public void updateRecurrence()
+```
+Functionality: <br>
+1. Loops through the list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
+2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new
+   recurring entry is supposed to be added
+
+##### checkIfDateAltered method
+Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
+Method Signature:
+```
+protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, 
+ArrayList<T> list, boolean isAdding)
+```
+Functionality: <br>
+1. Get the actual day (e.g. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
+2. Get the last day of the current month
+3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
+
+
+#### Here are some things to take note:
++ Recurrence updating of entries is only added when user logs in, which is not determinable, thus many additional 
+entries may be added at once (e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the 
+user logs in, 4 days of entries will be added). List is thus also sorted by date after recurrence is done.
++ Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
+  added in the future
++ Here is a scenario of why `dayOfRecurrence` is tracked:
+    + Monthly recurring entry dated at 31st August
+    + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as
+      30th September
+    + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
+    + However, due to varying days in months, `checkIfDateAltered` is used to validate the date of entry
+
+<!-- Overall command CD and sequence -->
+<!-- Save storage -->
+
+### Add command <!-- not sure how you want to name this -->
+<!-- diagram and implementation -->
+
+### Recurrence backlogging
+Illustrated below is the reference frame recurrence backlogging when a recurring entry dated before the current
+day is added <br>
+
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
+
+#### How the recurrence backlogging works
++ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog` method will be called to get
+  user input on whether to backlog
++ According to the user input, `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence` will be
+  called to update the `lastRecurred` attribute of the entry as well as add recurring entries from the entry date to
+  current date if user wishes to
+
+#### Implementation
+The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence`,
+`Recurrence#checkSpendingRecurrence` and `Parser#parseRecurrence` explained in updating recurrence above is re-used
+thus omitted below for conciseness
+
+##### checkRecurrenceBacklog method
+Class: `Recurrence` <br>
+Method Signature: <br>
+```
+public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
+```
+Functionality:
+1. Calls upon the `Parser#parseRecurrence` method to determine the type fo recurrence
+2. Ask if user wishes to backlog all the past entries from date of entry to current date via
+   `Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
+3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
+   also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and
+   `Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
+
+#### hasRecurrenceBackLog method
+Class: `Ui` <br>
+Method Signature:
+```
+public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
+```
+Functionality:
+1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
+2. Returns `true` if yes and `false` otherwise
+<!-- the rest of the command -->
+
+<!-- All other commands -->
+
+===================================================================================================================
+<!-- Old version to refactor above this line -->
 
 ### Architecture Diagram
 <img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="350" height="300"/><br>
@@ -44,35 +293,6 @@ The related output is printed through the `UI` class.
 At the end of the run, or when the user exits the application, `Wiagi` will save the lists.
 Now let's delve deeper into some of these classes used for the program below
 
-#### EntryType Class
-The `EntryType` class is a class that is used for storing different types of user entry such that the entries 
-contain the relevant information required by other classes to perform their component tasks. <br>
-
-The following are its attributes: <br>
-+ `amount` (type `double`): stores the amount for the entry 
-+ `description` (type `String`): stores the description of relating to the entry
-+ `date` (type `LocalDate`): stores the date of entry 
-+ `tag` (type `String`): stores the tag name linked to the entry
-+ `recurrenceFrequency` ([type `RecurrenceFrequency`](#recurrencefrequency-enumeration)): stores the frequency of 
-recurrence for the entry
-+ `lastRecurrence` (type `LocalDate`): stores the date the entry was last recurred for internal program checking usage
-+ `dayOfRecurrence` (type `int`): stores the day of it own private attribute `date`, used for internal program checking
-usage
-
-The methods implemented in this class are a collection of getters and setters that allow other class types to access
-the information of the entry.
-
-The following are child classes of `EntryType`:
-+ `Income`: Stores entries that the user labels as income
-+ `Spending`: Stores entries that the user labels as spending
-
-#### Income class
-The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as 
-income. This information is used by other classes to perform their component tasks.
-
-#### Spending class
-The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
-spending. This information is used by other classes to perform their component tasks.
 
 #### IncomeList class
 The `IncomeList` class inherits from the `ArrayList` class. It is used to store all of the `Income` objects used in the
@@ -271,181 +491,8 @@ For listing entries with a specific tag, the static method `printSpecificTag(...
 method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
 entries with the specified tag to a String. This string is then printed out. 
 
-### Recurrence Component
 
-#### Motivation behind the component:<br>
-+ Allows the user to set specific expenditure and incomes as recurring events to increase efficiency when using the
-  application
-+ Users may have differing frequencies for recurring events thus application gives them a few common options
-+ Users may also want to add multiple older recurring entries that have been missed out for a while
 
-Illustrated below is the class diagram for the Recurrence Component:<br>
-<br>
-<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
-<br>
-<br>
-Recurrence happens during 2 use cases:
-+ Recurrence updating of existing entries upon start up
-+ Recurrence backlogging when an entry with recurrence dated to the past is added
-
-### Recurrence Updating
-Illustrated below is the sequence diagram of recurrence updating: <br>
-<br>
-<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
-<br>
-For the reference frame of 'load from storage', refer to [Storage component](#storage-component). <br>
-For the reference frame of 'add recurring entry', refer to 
-[checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
-
-#### How the recurrence updating works:<br>
-+ Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
-`Wiagi` to retrieve past data.
-+ `updateRecurrence()` is called
-+ Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through 
-`Parser#parseRecurrence` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`) 
-which is encapsulated as a `Recurrence` object.
-+ If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and 
-`IncomeList` if needed via `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence`. <br>
-
-#### Implementation:
-The following are notable classes and methods used to achieve recurrence updating.
-
-##### Recurrence class
-The `Recurrence` class is an abstract class that provides the interface for checking `Income` and `Spending` and adding 
-recurring entries into the list. <br>
-The following are the abstract methods defined: <br>
-+ `checkSpendingRecurrence(...)`
-+ `checkIncomeRecurrence(...)`
-
-The following are the used methods in `Recurrence`:
-+ `checkIfDateAltered(...)`
-
-The following are child classes of `Recurrence`:
-+ `DailyRecurrence`: Handles entries labelled as daily recurring events
-+ `MonthlyRecurrence`: Handles entries labelled as monthly recurring events
-+ `YearlyRecurrence`: Handles entries labelled as yearly recurring events
-
-##### checkIncomeRecurrence / checkSpendingRecurrence method
-Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
-Method Signature: <br>
-```
-@Override
-public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
-@Override
-public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
-```
-Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
-<br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
-Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
-for conciseness.
-
-Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
-via `LocalDate.now()`
-2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
-3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past. 
-4. isAdding is set to `true` for recurrence updating to allow adding of entries, it may be set to `false` for 
-backlogging as seen later to only update `lastRecurred` attribute to the latest possible recurring date to 
-be checked against in the future for recurrence updating
-
-##### RecurrenceFrequency enumeration
-The `RecurrenceFrequency` enumeration is used to determine the type of recurring entry of `EntryType` and its child
-classes, stored in the `recurrenceFrequency` attribute <br>
-Enumeration constants:
-+ `NONE`: Represents not recurring entry
-+ `DAILY`: Represents a daily recurring entry
-+ `MONTHLY`: Represents a monthly recurring entry 
-+ `YEARLY`: Represents a yearly recurring entry
-
-##### parseRecurrence method
-Class: `Parser` <br>
-Method Signature: <br>
-```
-public static Recurrence parseRecurrence(EntryType entry)
-```
-Functionality: <br>
-1. Takes in child class of `EntryType` (i.e. `Spending`, `Income`)
-2. Matches the `reccurenceFrequency` attribute with switch case to determine which `Recurrence` child to return
-3. Returns `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` or `null`(If not a recurring entry) accordingly.
-
-##### updateRecurrence method
-Class: `SpendingList`, `IncomeList` <br>
-Method Signature:
-```
-public void updateRecurrence()
-```
-Functionality: <br>
-1. Loops through the list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
-2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new 
-recurring entry is supposed to be added
-
-#### checkIfDateAltered method
-Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence`
-Method Signature:
-```
-protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, 
-ArrayList<T> list, boolean isAdding)
-```
-Functionality: <br>
-1. Get the actual day (e.g. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
-2. Get the last day of the current month
-3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
-
-### Recurrence backlogging
-The sequence diagram below illustrates the process of backlogging when a recurring entry dated before the current
-day is added <br>
-
-<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
-
-#### How the recurrence backlogging works
-+ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog` method will be called to get
-user input on whether to backlog
-+ According to the user input, `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence` will be
-called to update the `lastRecurred` attribute of the entry as well as add recurring entries from the entry date to
-current date if user wishes to
-
-#### Implementation
-The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence`, 
-`Recurrence#checkSpendingRecurrence` and `Parser#parseRecurrence` explained in updating recurrence above is re-used 
-thus omitted below for conciseness
-
-##### checkRecurrenceBacklog method
-Class: `Recurrence` <br>
-Method Signature: <br>
-```
-public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
-```
-Functionality:
-1. Calls upon the `Parser#parseRecurrence` method to determine the type fo recurrence
-2. Ask if user wishes to backlog all the past entries from date of entry to current date via 
-`Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
-3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and if boolean is true, 
-also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and 
-`Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
-
-#### hasRecurrenceBackLog method
-Class: `Ui` <br>
-Method Signature:
-```
-public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
-```
-Functionality:
-1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
-2. Returns `true` if yes and `false` otherwise
-
-### Here are some things to take note for the component:
-+ Entries are only added when user logs in, which is not determinable, thus many additional entries may be added at once
-(e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the user logs in, 4 days of entries
-will be added). List is thus also sorted by date after recurrence is done.
-+ Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
-added in the future
-+ Editing entries with recurrence to an older date does not invoke backlogging option
-+ Recurring entries stores `dayOfRecurrence` to counter varying days in months. Below is an example scenario: 
-  + Monthly recurring entry dated at 31st August
-  + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as 
-  30th September
-  + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
 
 ### Budgets
 Daily, monthly, and yearly spending totals are calculated everytime a ListCommand is received. This is done by
@@ -456,14 +503,18 @@ monthly, and yearly dates.
 The user deletes an entry by sending a delete command which specifies the index of the income/spending to be deleted. 
 The income or spending will be deleted from its corresponding list using its index. 
 
+<!-- Below this to keep -->
 
+==============================================================================================================
 
 ## Product scope
 ### Target user profile
 1. prefer desktop apps over other types
+2. is reasonably comfortable using CLI apps
+3. wants to manage their own finances better
 
 ### Value proposition
-1. An app that help students to manage their financials faster than a typical mouse/GUI driven app.
+An app that help students to manage their financials faster than a typical mouse/GUI driven app.
 
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
@@ -482,7 +533,7 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | **       | user     | categorise my incomes                                | see where my savings come from                   |
 | **       | user     | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period |
 | **       | user     | set expenses and incomes as recurring                | do not need to manually add them each time       |
-| **       | Student  | set budgets for each category of expense             | make better financial decisions                  |
+| **       | user     | set budgets for each category of expense             | make better financial decisions                  |
 | *        | user     | be alerted when I overspend my budget                | try to curb my spendings                         |
 | *        | user     | find my entry with keywords                          | retrieve its relevant information easily         |
 
@@ -593,6 +644,15 @@ Use case ends.
 {Give non-functional requirements}
 
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
+able to accomplish most of the tasks faster using commands than using the mouse.
+
+## Future plans
+1. Implement editing of recurrence type of entries
+   - Add field of recurrence to edit command
+   - Allow entry to backlog recurrence from edited date 
+2. Set up database to store all of user's data 
+3. Create GUI interface to the program to increase aesthetics
 
 ## Glossary
 
@@ -602,6 +662,12 @@ Use case ends.
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Creating a new user
+Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
+is located
+1. Test case: Start up the program
+    - Expected: Program prompts user to create new password and accepts user password input
 
 ### Finding an entry
 Prerequisites: Add multiple entries to either incomes or spendings.
@@ -613,3 +679,7 @@ Prerequisites: Add multiple entries to either incomes or spendings.
     - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
+
+### Exiting the program
+1. Test case: `bye`
+    - Expected: Program exits

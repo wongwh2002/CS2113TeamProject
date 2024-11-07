@@ -7,9 +7,9 @@ import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.BUDGET_INITIALISE_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.WHITESPACE;
 
 /**
@@ -27,8 +27,10 @@ public class BudgetCommand extends Command {
     private static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
     private static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
     private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
+    private static final double UNINITIALISED_BUDGET = 0.0;
 
     private final String fullCommand;
+
 
     /**
      * Constructs a BudgetCommand with the specified full command.
@@ -54,10 +56,16 @@ public class BudgetCommand extends Command {
         }
     }
 
+    public static void initialiseBudget(SpendingList spendings) {
+        initialiseDailyBudget(spendings);
+        initialiseMonthlyBudget(spendings);
+        initialiseYearlyBudget(spendings);
+    }
+
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        int budget = formatBudget(stringBudget);
+        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
         addBudget(spendings, budget, timeRange);
     }
@@ -70,30 +78,65 @@ public class BudgetCommand extends Command {
         return arguments;
     }
 
-    private int formatBudget(String stringBudget) {
-        try {
-            return Integer.parseInt(stringBudget);
-        } catch (NumberFormatException e) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT + BUDGET_COMMAND_FORMAT);
-        }
-    }
-
-    private void addBudget(SpendingList spendings, int budget, String timeRange) {
+    private void addBudget(SpendingList spendings, double budget, String timeRange) {
+        String formatedBudget = Ui.formatPrintDouble(budget);
         switch (timeRange) {
         case DAILY:
             spendings.setDailyBudget(budget);
-            Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case MONTHLY:
             spendings.setMonthlyBudget(budget);
-            Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case YEARLY:
             spendings.setYearlyBudget(budget);
-            Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + budget);
+            Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         default:
-            throw new WiagiInvalidInputException(INVALID_CATEGORY + BUDGET_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(INVALID_FIELD + BUDGET_COMMAND_FORMAT);
+        }
+    }
+
+    private static void initialiseDailyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseDailyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                String userDailyBudget = Ui.readCommand();
+                amount = CommandUtils.formatAmount(userDailyBudget, BUDGET_INITIALISE_FORMAT);
+                spendings.setDailyBudget(amount);
+            } catch (WiagiInvalidInputException e) {
+                Ui.printWithTab(e.getMessage());
+            }
+        }
+    }
+
+    private static void initialiseMonthlyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseMonthlyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                String userMonthlyBudget = Ui.readCommand();
+                amount = CommandUtils.formatAmount(userMonthlyBudget, BUDGET_INITIALISE_FORMAT);
+                spendings.setMonthlyBudget(amount);
+            } catch (WiagiInvalidInputException e){
+                Ui.printWithTab(e.getMessage());
+            }
+        }
+    }
+
+    private static void initialiseYearlyBudget(SpendingList spendings) {
+        double amount = UNINITIALISED_BUDGET;
+        Ui.initialiseYearlyBudgetMessage();
+        while (amount == UNINITIALISED_BUDGET) {
+            try {
+                String userYearlyBudget = Ui.readCommand();
+                amount = CommandUtils.formatAmount(userYearlyBudget, BUDGET_INITIALISE_FORMAT);
+                spendings.setYearlyBudget(amount);
+            } catch (WiagiInvalidInputException e) {
+                Ui.printWithTab(e.getMessage());
+            }
         }
     }
 }
