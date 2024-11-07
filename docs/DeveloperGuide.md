@@ -297,8 +297,10 @@ Since there are various list commands that the user can execute, the list comman
 If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
 
 After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
-The referenced sequence diagrams for the execution of commands will be shown in the sections for 
-[adding a new entry](#adding-a-new-entry), [listing entries](#listing-entries), and editing entries.
+The referenced sequence diagram for the execution of list commands will be shown in the section for [listing entries](#listing-entries),
+while the referenced sequence diagram for the execution of commands will be shown in the sections for 
+[adding a new entry](#adding-a-new-entry) and [editing entries](#editing-entries), which will serve as examples since the 
+execution of most commands will be similar.
 
 The diagram below shows the class diagram for a command.
 
@@ -322,7 +324,7 @@ first line of its respective text file.
     `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
 
 
-### Adding a new entry 
+### Adding a new entry
 ![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
 <br>
 To add new entries, user will have to input the related commands.
