@@ -486,7 +486,7 @@ entries with the specified tag to a String. This string is then printed out.
 
 ## Product scope
 ### Target user profile
-1. prefer desktop apps over other types
+1. prefer desktop apps over other types(i.e. online apps)
 2. is reasonably comfortable using CLI apps
 3. wants to manage their own finances better
 4. quick typer who prefers typing over using mouse
