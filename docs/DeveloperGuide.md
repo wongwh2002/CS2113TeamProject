@@ -159,6 +159,7 @@ Method implementations will be explained in later parts, in their respective use
 
 ### Loading storage
 
+<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="550" height="300"/><br>
 To load saved lists:
 + It is done upon program startup, when `Wiagi` is constructed.
 + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
@@ -173,12 +174,13 @@ To load password:
 
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
-Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
+<img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500" height="450"/><br>
++ Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
 and add it to the lists.
 + During the process, if a line is corrupted, an exception will be caught and user will be informed.
+
 
 #### load method in `LoginStorage`
 <img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
