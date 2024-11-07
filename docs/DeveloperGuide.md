@@ -129,7 +129,7 @@ The referenced sequence diagrams for the execution of commands will be shown in 
 
 The diagram below shows the class diagram for a command.
 
-<img src="./Diagrams/Commands/commandCD.png" width="550" alt="commandCD.png">
+<img src="./Diagrams/Commands/commandCD.png" width="800" alt="commandCD.png">
 
 <!-- Storage saving -->
 
