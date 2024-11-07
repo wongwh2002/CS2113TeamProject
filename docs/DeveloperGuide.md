@@ -40,7 +40,8 @@ Given below is a quick overview of main components and how they interact with ea
 7. `Commons`: Represents a collection of classes used by multiple other components.
 
 #### Wiagi class
-![overallClass.png](./Diagrams/Overall/overallClass.drawio.png)
+
+<img src="./Diagrams/Overall/overallClass.png" width="800" alt="overallClass.png">
 <br>
 On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
 else, new lists would be created.
@@ -322,12 +323,12 @@ first line of its respective text file.
     `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
 
 
-### Adding a new entry 
-![addCommandSequence.jpg](./Diagrams/Commands/addCommandSequence.jpg)
+### Adding a new entry
+<img src="./Diagrams/Commands/addCommandSequence.png" width="700" alt="addCommandSequence.png">
 <br>
-To add new entries, user will have to input the related commands.
-Wiagi will then parse the command to the `AddCommand` class.
-The `AddCommand` class will then validate the user's input and add the input to IncomeList or SpendingList
+To add new entries, user will have to input the related commands. The sequence diagram above shows the flow of adding a new entry.
+handleCommand method in addCommand class will be called to verify the user input and handle the command.
+The entries will be added to the respective list and the user will be informed that the entry has been added.
 
 #### Recurrence backlogging
 Illustrated below is the reference frame recurrence backlogging when a recurring entry dated before the current
@@ -476,6 +477,15 @@ through all entries and gets an ArrayList of all the unique tags before printing
 For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
 method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
 entries with the specified tag to a String. This string is then printed out. 
+
+### Help command
+
+When the user types `help`, the program will print out a list of commands that the user can use. 
+
+### Bye command
+
+When the user types `bye`, the program will exit the program.
+
 ***
 ## Product scope
 ### Target user profile

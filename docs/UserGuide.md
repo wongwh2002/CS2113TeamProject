@@ -80,6 +80,7 @@ Expected display:
 ```
 Expected output after successfully creating new user: <br>
 ```
+    ____________________________________________________________
 	____________________________________________________________
 	Hello from
 	__        __  ___      /\       ____   ___
@@ -92,6 +93,7 @@ Expected output after successfully creating new user: <br>
 	Please Enter Login Credentials:
 ```
 *Note that this is also the startup page for returning existing users
+
 ### Adding an entry
 #### Adding a spending:
 
@@ -121,7 +123,7 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 - `add spending 100 telegram premium /2024-10-20/` <br>
 - `add spending 100 telegram premium *personal expense*` <br>
 - `add spending 100 telegram premium /2024-10-20/ *personal expense*` <br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` <br>
+- `add spending 100 telegram premium /2023-01-23/ *personal expense* ~monthly~` <br>
 
 **Expected output:**
 ```
@@ -129,6 +131,28 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 	Entry successfully added!
 	____________________________________________________________
 ```
+If frequency and date of entry is set, and there is possible backlog recurrence entries,
+prompted to enter whether the user would like to add all the entries between the date of entry and the current date. <br>
+
+```
+	____________________________________________________________
+	Entry successfully added!
+	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if any? [Y/N]
+```
+If Y is entered, the output will be as follows:
+```
+	____________________________________________________________
+	All entries to recur are added!
+	____________________________________________________________
+```
+
+If no recurrence is set or there is no possible backlog, the output will be as follows:
+```
+	____________________________________________________________
+	Ok! The entry will not be backlogged
+	____________________________________________________________
+```
+
 
 #### Adding an income:
 
@@ -157,12 +181,33 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 - `add income 10000 commission /2024-01-01/` <br>
 - `add income 10000 commission *bonus*` <br>
 - `add income 10000 commission /2024-01-01/ *bonus*` <br>
-- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` <br>
+- `add income 10000 commission /2023-01-23/ *bonus* ~monthly~` <br>
 
 **Expected output:**
 ```
 	____________________________________________________________
 	Entry successfully added!
+	____________________________________________________________
+```
+If frequency and date of entry is set, and there is possible backlog recurrence entries,
+prompted to enter whether the user would like to add all the entries between the date of entry and the current date. <br>
+
+```
+	____________________________________________________________
+	Entry successfully added!
+	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if any? [Y/N]
+```
+If Y is entered, the output will be as follows:
+```
+	____________________________________________________________
+	All entries to recur are added!
+	____________________________________________________________
+```
+
+If no recurrence is set or there is no possible backlog, the output will be as follows:
+```
+	____________________________________________________________
+	Ok! The entry will not be backlogged
 	____________________________________________________________
 ```
 
