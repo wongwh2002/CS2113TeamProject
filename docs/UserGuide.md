@@ -1,5 +1,4 @@
 # User Guide
-
 ## Introduction
 
 Wiagi is a simple command line application that helps students who are beginning their financial
@@ -21,9 +20,15 @@ and investment analysis.
   - [Deleting an entry](#deleting-an-entry)
     - [Deleting an income](#deleting-an-income)
     - [Deleting a spending](#deleting-a-spending)
+  - [Getting user instructions](#getting-user-instructions)
   - [Setting a budget](#setting-a-budget)
   - [Editing an entry](#editing-an-entry)
   - [Finding an entry](#finding-an-entry)
+  - [Exiting the program](#exiting-the-program)
+  - [Saving the data](#saving-the-data)
+  - [Editing the data file](#editing-the-data-file)
+    - [Format of data storage for password](#format-of-data-storage-for-password)
+    - [Format of data storage for income and spending](#format-of-data-storage-for-income-and-spending)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -57,7 +62,23 @@ Expected display for first time users:
 	Hi! You seem to be new, are you ready?!
 	Please enter your new account password:
 ```
-Expected output after successfully creating password: <br>
+To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
+users should enter valid amounts (eg. An integer or number with decimals) for each budget type <br>
+Expected display:
+```
+	Hello! So happy you took this first step of financial management.
+	Let's first set your budgets!
+	Please enter a daily budget you have in mind:
+```
+```
+	____________________________________________________________
+	Next, please enter a monthly budget you have in mind:
+```
+```
+	____________________________________________________________
+	Last one! Please enter a yearly budget you have in mind:
+```
+Expected output after successfully creating new user: <br>
 ```
 	____________________________________________________________
 	Hello from
@@ -80,23 +101,27 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending, up to 2 decimal places will be taken.
+  - 0 > amount => 1 million.
+  - Adding of that entry must not result to the total spending to be more than 10 million.
 - `{$DESCRIPTION}`: Name of the spending.
+  - Must be free of /, *, ~ and | characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
+  - Must be free of /, *, ~ and | characters.
   - Enclosed in asterisks. 
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example inputs:** <br>
-- `add spending 100 telegram premium` </br>
-- `add spending 100 telegram premium /2024-10-20/` </br>
-- `add spending 100 telegram premium *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` </br>
+- `add spending 100 telegram premium` <br>
+- `add spending 100 telegram premium /2024-10-20/` <br>
+- `add spending 100 telegram premium *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` <br>
 
 **Expected output:**
 ```
@@ -112,23 +137,27 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
+  - 0 > amount => 1 million. 
+  - Adding of that entry must not result to the total income to be more than 10 million.
 - `{$DESCRIPTION}`: Name of the income.
+  - Must be free of /, *, ~ and | characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
+  - Must be free of /, *, ~ and | characters.
   - Enclosed in asterisks.
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example input:** <br>
-- `add income 10000 commission` </br>
-- `add income 10000 commission /2024-01-01/` </br>
-- `add income 10000 commission *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` </br>
+- `add income 10000 commission` <br>
+- `add income 10000 commission /2024-01-01/` <br>
+- `add income 10000 commission *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` <br>
 
 **Expected output:**
 ```
@@ -223,6 +252,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
       Spendings
       3. flights - 10 - 2024-11-01 - travel
       4. girlfriends - 10 - 2024-11-17 - personal
+      Total: 20
       ____________________________________________________________
   ```
 
@@ -262,6 +292,7 @@ Only entries that are within the time range will be displayed.
       ____________________________________________________________
       Incomes
       1. mcd - 100 - 2024-11-15 - FastFood
+      Total: 100
       ____________________________________________________________
   ```
 
@@ -421,10 +452,11 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 
 - `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
-- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`.
+- `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
-    - amount: positive numerical value.
+    - description, tag: free of /, *, ~ and | characters.
+    - amount: 0 > amount => 1 million, while total <= 10 million.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
@@ -496,43 +528,60 @@ All data previously inputted into the programme will be automatically saved upon
 There is no need to save manually.
 
 ### Editing the data file
-> <span style="color:#f5220d">WARNING</span> </br>
+> <span style="color:#f5220d">WARNING</span> <br>
 > This section is dedicated to advanced users who are confident in updating the data file manually. Failure 
-> to do so correctly can lead to data corruption and having possibly all previous information wiped out. </br>
+> to do so correctly can lead to data corruption and having possibly all previous information wiped out. <br>
 
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
 - spendings.txt: `[JARFILE LOCATION]/spendings.txt`, stores all the user spending data
-- incomes.txt: `[JARFILE LOCATION}/incomes.txt`, stores all the user income data
+- incomes.txt: `[JARFILE LOCATION]/incomes.txt`, stores all the user income data
 
 #### Format of data storage for password:
 For security purposes the method of storage will not be discussed. <span style="color:#f5220d">DO NOT</span> 
 alter this file, simply delete the file if you have forgotten you password and create a new password upon being 
-prompt when start up.
+prompt when start up. Note that this will cause a hard reset to the application and erase all data.
 
 #### Format of data storage for income and spending:
-Data are stored with `|` used as delimiter. Each line in the text file represents one entry. </br>
+Data are stored with `|` used as delimiter. Each line in the text file represents one entry. <br>
 Format: 
 `[$AMOUNT]|[$DESCRIPTION]|[$DATE_OF_ENTRY]|[TAG_NAME]|[RECURRENCE_FREQUENCY]|[LAST_RECURRENCE]|[DAY_OF_RECURRENCE]`
-</br>
-</br>
-For spending.txt, the first line of entry stores the budgets of the user.</br>
-Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` </br>
-</br>
+<br>
+<br>
+For spending.txt, the first line of entry stores the budgets of the user.<br>
+Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
+<br>
 Important data representation to note:
+- `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and | characters.
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
 - `[$DATE_OF_ENTRY]`: In the format of `YYYY-MM-DD`
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
 - `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`
 
-We recommend not to edit `[$LAST_RECURRENCE]`. If manually adding new entries with recurrence, `[$LAST_RECURRENCE]`
-should match `[$DATE_OF_ENTRY]`, "null" otherwise.
+We recommend not to edit `[$LAST_RECURRENCE]`. Adding or editing entries with recurrence, `[$LAST_RECURRENCE]`
+should match `[$DATE_OF_ENTRY]` and last possible recurred date before current date respectively, "null" otherwise.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program is at.
+**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
+is at.
+
+**Q**: Why are the indices of the entries not in consecutive order when I list all entries of a particular tag 
+or when I list entries in a time range?
+
+**A**: Each index reflects the actual index of the item in the entire list so that you can edit or delete the 
+entry easily.
+
+**Q**: What happens if I edit the date of a recurring entry to an earlier date?
+
+**A**: The date of the entry will be changed, but no additional entries will be created between the new date and the 
+current date.
+
+**Q**: What happends if I add a recurring entry with an earlier date?
+
+**A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
 
 ## Command Summary
 <table>
@@ -573,11 +622,13 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         <tr>
             <td rowspan="2">Deleting entries</td>
             <td>Income</td>
-            <td></td>
+            <td>delete income {$INDEX}</td>
+            <td>delete income 1</td>
         </tr>
         <tr>
             <td>Spending</td>
-            <td></td>
+            <td>delete spending {$INDEX}</td>
+            <td>delete spending 1</td>
         </tr>
         <tr>
             <td rowspan="3">Setting budget</td>
@@ -608,7 +659,3 @@ should match `[$DATE_OF_ENTRY]`, "null" otherwise.
         </tr>
     </tbody>
 </table>
-
-
-[//]: # ({Give a 'cheat sheet' of commands here})
-[//]: # (* Add todo `todo n/TODO_NAME d/DEADLINE`)

@@ -16,44 +16,63 @@ import static seedu.classes.Constants.DELETE_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
+import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Ui.commandInputForTest;
 
 class DeleteCommandTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    private IncomeList incomes = new IncomeList();
-    private SpendingList spendings = new SpendingList();
+    private final IncomeList incomes = new IncomeList();
+    private final SpendingList spendings = new SpendingList();
 
     // @@author wx-03
     @BeforeEach
     void setUp() {
-        incomes.add(new Income(1000, "salary", null, null, null, null, 0));
-        spendings.add(new Spending(4, "dinner", null, null, null, null, 0));
-        spendings.add(new Spending(5, "lunch", null, null, null, null, 0));
+        incomes.add(new Income(1000, "salary", VALID_TEST_DATE, null, null, null, 0));
+        spendings.add(new Spending(4, "dinner", VALID_TEST_DATE, null, null, null, 0));
+        spendings.add(new Spending(5, "lunch", VALID_TEST_DATE, null, null, null, 0));
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
     void execute_missingArg_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
     }
 
     @Test
-    void execute_validInput_successfullyDeleted() {
-        DeleteCommand c = new DeleteCommand("delete income 1");
-        c.execute(incomes, spendings);
+    void execute_validIncomeInput_successfullyDeleted() {
+        double expectedTotalAfterDelete = incomes.getTotal() - incomes.get(0).getAmount();
+        commandInputForTest("delete income 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(0, incomes.size());
+        assertEquals(expectedTotalAfterDelete, incomes.getTotal());
+    }
+
+    @Test
+    void execute_validSpendingInput_successfullyDeleted() {
+        double expectedTotalAfterDelete = spendings.getTotal() - spendings.get(0).getAmount();
+        commandInputForTest("delete spending 1", incomes, spendings);
+        assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
+        assertEquals(1, spendings.size());
+        assertEquals(expectedTotalAfterDelete, spendings.getTotal());
+    }
+
+    @Test
+    void execute_invalidCategory_expectIllegalInputExceptionMessage() {
+        commandInputForTest("delete invalidCategory a", incomes, spendings);
+        assertEquals(TAB + INVALID_CATEGORY + DELETE_COMMAND_FORMAT
+                + System.lineSeparator(), outputStreamCaptor.toString());
+        assertEquals(1, incomes.size());
     }
 
     @Test
     void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete income a");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete income a", incomes, spendings);
         assertEquals(TAB + INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT
                 + System.lineSeparator(), outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
@@ -61,8 +80,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_indexOutOfBounds_expectIllegalArgumentExceptionMessage() {
-        DeleteCommand c = new DeleteCommand("delete income 10");
-        c.execute(incomes, spendings);
+        commandInputForTest("delete income 10", incomes, spendings);
         assertEquals(INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
         assertEquals(1, incomes.size());
     }

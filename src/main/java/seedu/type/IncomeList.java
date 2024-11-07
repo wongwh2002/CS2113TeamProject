@@ -6,15 +6,33 @@ import seedu.recurrence.Recurrence;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Represents a list of {@link Income} entries.
+ * Provides methods to manage and update income recurrence.
+ */
 public class IncomeList extends ArrayList<Income> {
+
+
+    private double total;
+
     public IncomeList() {
         super();
+        total = 0;
     }
 
-    public IncomeList(IncomeList incomes) {
-        super(incomes);  // Initialise with data in storage
+    public double getTotal() {
+        return total;
     }
 
+    public void setTotal(double total) {
+        this.total = Math.round(total * 100.0) / 100.0;
+    }
+
+    /**
+     * Updates the recurrence for each income entry in the list.
+     * If an income entry has a recurrence, it updates according to the specified recurrence rules.
+     * The list is then sorted by the date of each entry.
+     */
     public void updateRecurrence() {
         int size = this.size();
         for (int i = 0; i < size; i++) {
@@ -24,6 +42,13 @@ public class IncomeList extends ArrayList<Income> {
                 recurrence.checkIncomeRecurrence(income, this, true);
             }
         }
+    }
+
+    @Override
+    public boolean add(Income income) {
+        total += income.getAmount();
+        super.add(income);
         this.sort(Comparator.comparing(EntryType::getDate));
+        return true;
     }
 }

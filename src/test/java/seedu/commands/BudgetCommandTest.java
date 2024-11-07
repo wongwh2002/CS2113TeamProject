@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.classes.Parser;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 import org.junit.jupiter.api.AfterEach;
@@ -11,10 +10,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Ui.commandInputForTest;
 
 class BudgetCommandTest {
 
@@ -43,10 +44,9 @@ class BudgetCommandTest {
         int budget = 1321;
 
         String userInput = "budget daily " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set daily budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set daily budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getDailyBudget());
     }
@@ -54,12 +54,10 @@ class BudgetCommandTest {
     @Test
     public void execute_setMonthlyBudget_success() {
         int budget = 1321;
-
         String userInput = "budget monthly " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set monthly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set monthly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getMonthlyBudget());
     }
@@ -67,41 +65,31 @@ class BudgetCommandTest {
     @Test
     public void execute_setYearlyBudget_success() {
         int budget = 1321;
-
         String userInput = "budget yearly " + budget;
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
+        commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set yearly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set yearly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getYearlyBudget());
     }
 
     @Test
     public void execute_invalidAmount_exceptionThrown() {
-        String userInput = "budget yearly abc";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
-        assertEquals("\tInvalid amount! Please enter in the form: budget {$PERIOD} {$AMOUNT}" + System.lineSeparator()
-                , outContent.toString());
+        commandInputForTest("budget yearly abc", incomes, spendings);
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + BUDGET_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_invalidTimeFrame_exceptionThrown() {
-        String userInput = "budget notatimeframe 1";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
-
-        assertEquals(TAB + INVALID_CATEGORY + BUDGET_COMMAND_FORMAT
+        commandInputForTest("budget notatimeframe 1", incomes, spendings);
+        assertEquals(TAB + INVALID_FIELD + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_tooFewInputs_exceptionThrown() {
-        String userInput = "budget notenoughinputs";
-        Command command = Parser.parseUserInput(userInput);
-        command.execute(incomes, spendings);
-
+        commandInputForTest("budget notenoughinputs", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
