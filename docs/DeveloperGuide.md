@@ -18,8 +18,29 @@ original source as well}
 # Design & implementation
 
 <!-- architecture diagram and explain component briefly -->
+## Architecture Diagram
+<img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="350" height="300"/><br>
+The Architecture Diagram given above explains the high-level design of the program.
+
+Given below is a quick overview of main components and how they interact with each other.
+
+#### Main components of the architecture
+1. `Wiagi`: The command executor and brain of the program.
+2. `UI`: Takes in user input and prints output of the program.
+    - Provides a wide variety of output formats, enabling it to work with different components.
+3. `Parser`:  Breaks down user input to deduce their intended command.
+    - Returns a `Command` object to `Wiagi` based on the user input.
+4. `Command`: Represents a collection of command classes with different functionalities.
+5. `Storage`: Reads data from, and writes data to, the hard disk.
+6. `WiagiLogger`: Tracks events that happened when the program runs.
 
 <!-- Wiagi component -->
+- At program launch, it initializes components, such as `WiagiLogger` and `Storage`, ensuring that the user data is
+  loaded securely.
+- It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
+  with `Command`.
+- When a shut-down command is initiated by the user, the program will be ended.
+
 <!-- general intro, convert overall cd to wiagi diagram -->
 
 ## Data Types and Structure
@@ -260,27 +281,7 @@ Functionality:
 ===================================================================================================================
 <!-- Old version to refactor above this line -->
 
-### Architecture Diagram
-<img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="350" height="300"/><br>
-The Architecture Diagram given above explains the high-level design of the program.
 
-Given below is a quick overview of main components and how they interact with each other.
-
-#### Main components of the architecture
-1. `Wiagi`: The command executor and brain of the program.
-   - At program launch, it initializes components, such as `WiagiLogger` and `Storage`, ensuring that the user data is
-          loaded securely.
-   - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
-     with `Command`.
-   - When a shut-down command is initiated by the user, it saves all changes made to `Storage`
-2. `UI`: Takes in user input and prints output of the program.
-   - Provides a wide variety of output formats, enabling it to work with different components. 
-3. `Parser`:  Breaks down user input to deduce their intended command.
-   - Returns a `Command` object to `Wiagi` based on the user input.
-4. `Command`: Represents a collection of command classes with different functionalities.
-5. `Storage`: Reads data from, and writes data to, the hard disk.
-6. `WiagiLogger`: Tracks events that happened when the program runs.
-7. `Commons`: Represents a collection of classes used by multiple other components.
 
 
 ### Overall Class Diagram
