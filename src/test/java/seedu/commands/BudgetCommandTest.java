@@ -46,7 +46,7 @@ class BudgetCommandTest {
         String userInput = "budget daily " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set daily budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set daily budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getDailyBudget());
     }
@@ -57,7 +57,7 @@ class BudgetCommandTest {
         String userInput = "budget monthly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set monthly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set monthly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getMonthlyBudget());
     }
@@ -68,7 +68,7 @@ class BudgetCommandTest {
         String userInput = "budget yearly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals("\tSuccessfully set yearly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set yearly budget of: " + budget + System.lineSeparator()
                 , outContent.toString());
         assertEquals(budget, spendings.getYearlyBudget());
     }

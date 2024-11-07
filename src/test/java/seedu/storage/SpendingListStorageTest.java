@@ -29,19 +29,19 @@ public class SpendingListStorageTest {
     }
 
     @Test
-    public void load_emptyFile_newBudgetSet() {
+    public void load_emptySpendingsAndPasswordFile_noBudgetSet() {
         File spendingsFile = new File("./spendings.txt");
         File passwordFile = new File("./password.txt");
         try {
             spendingsFile.delete();
             spendingsFile.createNewFile();
+            passwordFile.delete();
             passwordFile.createNewFile();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() +
-                    3 + System.lineSeparator());
+            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
             SpendingListStorage.load();
-            assertEquals(1, Storage.spendings.getDailyBudget());
-            assertEquals(2, Storage.spendings.getMonthlyBudget());
-            assertEquals(3, Storage.spendings.getYearlyBudget());
+            assertEquals(0, Storage.spendings.getDailyBudget());
+            assertEquals(0, Storage.spendings.getMonthlyBudget());
+            assertEquals(0, Storage.spendings.getYearlyBudget());
         } catch (IOException e) {
             Ui.printWithTab("Error with load_emptyFile_newBudgetSet test");
         }
