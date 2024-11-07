@@ -10,8 +10,7 @@ and investment analysis.
 
 # Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-original source as well}
+Sources of all reused/adapted ideas, code, documentation, and third-party libraries:
 
 [Original Source](https://github.com/nus-cs2113-AY2425S1/tp)
 
@@ -29,7 +28,7 @@ Given below is a quick overview of main components and how they interact with ea
           loaded securely.
    - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
      with `Command`.
-   - When a shut-down command is initiated by the user, it saves all changes made to `Storage`
+   - When a shut-down command is initiated by the user, the program is exited safely.
 2. `UI`: Takes in user input and prints output of the program.
    - Provides a wide variety of output formats, enabling it to work with different components. 
 3. `Parser`:  Breaks down user input to deduce their intended command.
@@ -37,7 +36,6 @@ Given below is a quick overview of main components and how they interact with ea
 4. `Command`: Represents a collection of command classes with different functionalities.
 5. `Storage`: Reads data from, and writes data to, the hard disk.
 6. `WiagiLogger`: Tracks events that happened when the program runs.
-7. `Commons`: Represents a collection of classes used by multiple other components.
 
 #### Wiagi class
 
@@ -112,7 +110,7 @@ The purpose of the class are as follows:
 
 Illustrated below is the class diagram for the Recurrence class:<br>
 <br>
-<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="600"/>
 <br>
 <br>
 
@@ -125,8 +123,9 @@ The following are child classes of `Recurrence`:
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
 Recurrence happens during 2 use cases:
-+ Recurrence updating of existing entries upon start up in [`Storage`](#storage-component)
-+ Recurrence backlogging when an entry with recurrence dated to the past is added using [add command](<!-- to add -->)
++ Recurrence updating of existing entries upon start up in [`Storage`](#loading-storage)
++ Recurrence backlogging when an entry with recurrence dated to the past is added using 
+[add command](#adding-a-new-entry-)
 
 Method implementations will be explained in later parts, in their respective use cases
 
@@ -160,6 +159,7 @@ Method implementations will be explained in later parts, in their respective use
 
 ### Loading storage
 
+<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="550" height="300"/><br>
 To load saved lists:
 + It is done upon program startup, when `Wiagi` is constructed.
 + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
@@ -174,12 +174,13 @@ To load password:
 
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="600" height="400"/><br>
-Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
+<img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500" height="450"/><br>
++ Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
 and add it to the lists.
 + During the process, if a line is corrupted, an exception will be caught and user will be informed.
+
 
 #### load method in `LoginStorage`
 <img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
@@ -191,7 +192,7 @@ and add it to the lists.
 ### Recurrence Updating
 Below illustrates the reference frame of recurrence updating <br>
 <br>
-<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
+<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="600"/>
 <br>
 For the reference frame of 'load from storage', it is as explained previously <br>
 For the reference frame of 'add recurring entry', refer to
@@ -202,10 +203,10 @@ For the reference frame of 'add recurring entry', refer to
   `Wiagi` to retrieve past data.
 + `updateRecurrence()` is called
 + Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through
-  `Parser#parseRecurrence` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
+  `Parser#parseRecurrence()` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
   which is encapsulated as a `Recurrence` object.
 + If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and
-  `IncomeList` if needed via `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence`. <br>
+  `IncomeList` if needed via `Recurrence#checkIncomeRecurrence()` or `Recurrence#checkSpendingRecurrence()`. <br>
 
 #### Implementation:
 The following are notable classes and methods used to achieve recurrence updating.
@@ -221,17 +222,17 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="600"/> <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
 for conciseness.
 
 Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
+1. Checks `lastRecurrence` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
    via `LocalDate.now()`
-2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
+2. According to the type of recurrence, loops `lastRecurrence` with the frequency incrementally
 3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past.
 4. isAdding is set to `true` for recurrence updating to allow adding of entries, it may be set to `false` for
-   backlogging as seen later to only update `lastRecurred` attribute to the latest possible recurring date to
+   backlogging as seen later to only update `lastRecurrence` attribute to the latest possible recurring date to
    be checked against in the future for recurrence updating
 
 ##### parseRecurrence method
@@ -252,8 +253,8 @@ Method Signature:
 public void updateRecurrence()
 ```
 Functionality: <br>
-1. Loops through the list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
-2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new
+1. Loops through the list and calls upon `Parser#parseRecurrence()` to determine type of `Recurrence`
+2. Calls upon `Recurrence#checkSpendingRecurrence()` or `Recurrence#checkIncomeRecurrence()` to update list if the new
    recurring entry is supposed to be added
 
 ##### checkIfDateAltered method
@@ -277,10 +278,10 @@ user logs in, 4 days of entries will be added). List is thus also sorted by date
   added in the future
 + Here is a scenario of why `dayOfRecurrence` is tracked:
     + Monthly recurring entry dated at 31st August
-    + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as
+    + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurrence` is stored as
       30th September
     + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
-    + However, due to varying days in months, `checkIfDateAltered` is used to validate the date of entry
+    + However, due to varying days in months, `checkIfDateAltered()` is used to validate the date of entry
 
 
 ## Program run sequence
@@ -334,18 +335,21 @@ The entries will be added to the respective list and the user will be informed t
 Illustrated below is the reference frame recurrence backlogging when a recurring entry dated before the current
 day is added <br>
 
-<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="550"/> <br>
 
 ##### How the recurrence backlogging works
-+ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog` method will be called to get
++ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog()` method will be called to get
   user input on whether to backlog
-+ According to the user input, `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence` will be
-  called to update the `lastRecurred` attribute of the entry as well as add recurring entries from the entry date to
++ According to the user input, `Recurrence#checkIncomeRecurrence()` or `Recurrence#checkSpendingRecurrence()` will be
+  called to update the `lastRecurrence` attribute of the entry as well as add recurring entries from the entry date to
   current date if user wishes to
++ An error will be thrown to the user if the total amount to be added from all the recurrence entries cause the `total`
+attribute of `SpendingList` or `IncomeList` to exceed its limit
 
 ##### Implementation
-The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence`,
-`Recurrence#checkSpendingRecurrence` and `Parser#parseRecurrence` explained in updating recurrence above is re-used
+The following are notable methods used to achieve recurrence backlogging. Methods[`Recurrence#checkIncomeRecurrence()`,
+`Recurrence#checkSpendingRecurrence()`](#checkincomerecurrence--checkspendingrecurrence-method) and 
+[`Parser#parseRecurrence()`](#parserecurrence-method) explained in updating recurrence above is re-used
 thus omitted below for conciseness
 
 ###### checkRecurrenceBacklog method
@@ -355,10 +359,13 @@ Method Signature: <br>
 public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
 ```
 Functionality:
-1. Calls upon the `Parser#parseRecurrence` method to determine the type fo recurrence
-2. Ask if user wishes to backlog all the past entries from date of entry to current date via
+1. Calls upon `Parser#parseRecurrence()` method to determine the type fo recurrence
+2. Calls its own method `getNumberOfRecurringEntries()` to obtain total recurring entries to be added
+3. Ask if user wishes to backlog all the past entries from date of entry to current date via
    `Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
-3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
+4. Calculates the total amount to be added using its own method `throwExceptionIfTotalExceeded()` and throws an error if
+`total` attribute of `SpendingList` or `IncomeList` exceeds limit after adding entries
+5. Updates the `lastRecurrence` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
    also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and
    `Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
 
@@ -369,7 +376,7 @@ Method Signature:
 public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
 ```
 Functionality:
-1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
+1. Query for user input via `Ui#readCommand()` on whether he/she wishes to backlog recurring entries
 2. Returns `true` if yes and `false` otherwise
 
 ### Editing entries
@@ -489,9 +496,10 @@ When the user types `bye`, the program will exit the program.
 ***
 ## Product scope
 ### Target user profile
-1. prefer desktop apps over other types
+1. prefer desktop apps over other types(i.e. online apps)
 2. is reasonably comfortable using CLI apps
 3. wants to manage their own finances better
+4. quick typer who prefers typing over using mouse
 
 ### Value proposition
 An app that help students to manage their financials faster than a typical mouse/GUI driven app.
@@ -602,6 +610,23 @@ Use case ends.
     - 3a. Wiagi displays an error message.
     Use case restarts at step 1.
 
+### Use Case: Adding a Budget
+
+**MSS**
+
+1. User requests to set a specified time range's budget to a specified amount.
+2. Wiagi sets the budget.
+3. Wiagi displays a message to the user that the budget has been updated.
+
+Use case ends.
+**Extensions**
+1. The given time range is invalid.
+    - 1a. Wiagi displays an error message.
+    Use case restarts at step 1.
+2. The given budget is invalid.
+    - 2b. Wiagi displays an error message.
+    Use case restarts at step 1.
+
 ### Use Case: Find an Entry
 **Finding an existing income or spending entry with certain information**
 
@@ -629,6 +654,7 @@ Use case ends.
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
 able to accomplish most of the tasks faster using commands than using the mouse.
+3. The system should be able to run on Windows, macOS, and Linux
 
 ## Future plans
 1. Implement editing of recurrence type of entries
@@ -636,11 +662,16 @@ able to accomplish most of the tasks faster using commands than using the mouse.
    - Allow entry to backlog recurrence from edited date 
 2. Set up database to store all of user's data 
 3. Create GUI interface to the program to increase aesthetics
+4. Include currency conversion to cater to users from different countries
 
 ## Glossary
 
 * *glossary item* - Definition
-* Mainstream OS: Windows, Linux, Unix, macOS
+* Backlogging - The process of retroactively adding recurring entries from a past date to the current date
+* Budget - A financial limit set by the user for daily, monthly or yearly spending
+* Command - A text instruction entered by the user to perform an action in the application
+* Validation - The process of checking if user input meets the required format and constraints
+* Mainstream OS - Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
 
@@ -666,3 +697,32 @@ Prerequisites: Add multiple entries to either incomes or spendings.
 ### Exiting the program
 1. Test case: `bye`
     - Expected: Program exits
+
+### Editing an Entry
+Prerequisites: Add multiple entries to either incomes or spendings.
+1. Test case: `edit spending 1 amount 100`
+   - Expected: The amount of the first spending entry is updated to 100. Confirmation message is shown.
+2. Test case: `edit income 2 description Salary`
+   - Expected: The description of the second income entry is updated to "Salary". Confirmation message is shown.
+3. Test case: `edit spending 3 date 2024-10-20`
+   - Expected: The date of the third spending entry is updated to 2024-10-20. Confirmation message is shown.
+4. Test case: `edit income 1 tag work`
+   - Expected: The tag of the first income entry is updated to "work". Confirmation message is shown.
+5. Test case: `edit spending 1 amount not-an-amount`, `edit income 2 date invalid-date`
+   - Expected: Error message is shown indicating invalid input.
+
+### Showing help
+Prerequisites: None.
+1. Test case: `help`
+   - Expected: Displays a list of all available commands along with their usage instructions.
+
+### Setting a Budget
+Prerequisites: None.
+1. Test case: `budget daily 50`
+   - Expected: Sets the daily budget to 50. Confirmation message is shown.
+2. Test case: `budget monthly 1500`
+   - Expected: Sets the monthly budget to 1500. Confirmation message is shown.
+3. Test case: `budget yearly 20000`
+   - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
+4. Test case: `budget weekly 500`
+   - Expected: Error message is shown indicating invalid time range.
