@@ -5,13 +5,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
+import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
+import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -61,13 +65,13 @@ public class AddCommandTest {
 
     @Test
     void execute_correctSpendingWithDateInput_success() {
-        commandInputForTest("add spending 10 macs /2024-10-10", incomes, spendings);
+        commandInputForTest("add spending 10 macs /2024-10-10/", incomes, spendings);
         assertEquals("macs - 10 - 2024-10-10", spendings.get(0).toString());
     }
 
     @Test
     void execute_correctIncomeWithDateInput_success() {
-        commandInputForTest("add income 1500 dishwasher /2024-10-10", incomes, spendings);
+        commandInputForTest("add income 1500 dishwasher /2024-10-10/", incomes, spendings);
         assertEquals("dishwasher - 1500 - 2024-10-10", incomes.get(0).toString());
     }
 
@@ -114,9 +118,23 @@ public class AddCommandTest {
     }
 
     @Test
+    void execute_negativeAmountIncomeInput_noSpendingAdded() {
+        commandInputForTest("add income -1 stocks", incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT + ADD_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     void execute_missingAmountIncomeInput_noIncomeAdded(){
         commandInputForTest("add income", incomes, spendings);
         assertEquals(TAB + MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    void execute_overflowAmountIncomeInput_noIncomeAdded(){
+        commandInputForTest("add income 10000000.05 house", incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT_MAX
                 + System.lineSeparator(), outContent.toString());
     }
 
@@ -189,6 +207,27 @@ public class AddCommandTest {
     void execute_wrongFormat_wrongFormatMessage() {
         commandInputForTest("add spending lunch 10", incomes, spendings);
         assertEquals(TAB + ADD_COMMAND_FORMAT + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    void execute_improperEnclosedDate_dateNotEnclosedMessage() {
+        commandInputForTest("add spending 10 lunch /2024-11-11", incomes, spendings);
+        assertEquals(TAB + DATE_NOT_ENCLOSED + ADD_COMMAND_FORMAT + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    void execute_improperEnclosedTag_tagNotEnclosedMessage() {
+        commandInputForTest("add spending 10 lunch *food", incomes, spendings);
+        assertEquals(TAB + TAG_NOT_ENCLOSED + ADD_COMMAND_FORMAT + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    void execute_improperEnclosedRecurrence_recurrenceNotEnclosedMessage() {
+        commandInputForTest("add spending 10 lunch ~daily", incomes, spendings);
+        assertEquals(TAB + RECURRENCE_NOT_ENCLOSED + ADD_COMMAND_FORMAT + System.lineSeparator(),
                 outContent.toString());
     }
 }

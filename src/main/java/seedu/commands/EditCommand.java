@@ -16,6 +16,8 @@ import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
@@ -88,6 +90,7 @@ public class EditCommand extends Command {
         String category = arguments[CATEGORY_INDEX];
         switch (category) {
         case AMOUNT_CATEGORY:
+            throwExceptionIfTotalExceeded(newValue, entryToEdit.getAmount(), list);
             entryToEdit.editAmount(newValue);
             break;
         case DESCRIPTION_CATEGORY:
@@ -103,6 +106,28 @@ public class EditCommand extends Command {
             throw new WiagiInvalidInputException(INVALID_FIELD + EDIT_COMMAND_FORMAT);
         }
         Ui.printWithTab("Edit Successful!");
+    }
+
+    private <T extends EntryType> void throwExceptionIfTotalExceeded(String newValue, double oldAmount,
+                                                                     ArrayList<T> list) {
+        double newAmount = CommandUtils.formatAmount(newValue, EDIT_COMMAND_FORMAT);
+        double currTotal;
+        if (list instanceof IncomeList) {
+            currTotal = ((IncomeList) list).getTotal();
+        } else {
+            currTotal = ((SpendingList) list).getTotal();
+        }
+
+        double totalAmountAfterRecur = currTotal + newAmount - oldAmount;
+        if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
+            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT);
+        }
+
+        if (list instanceof IncomeList) {
+            ((IncomeList) list).setTotal(totalAmountAfterRecur);
+        } else {
+            ((SpendingList) list).setTotal(totalAmountAfterRecur);
+        }
     }
 
     private <T extends EntryType> EntryType extractEntry(ArrayList<T> list, String stringIndex)

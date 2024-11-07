@@ -15,6 +15,7 @@ public class SpendingList extends ArrayList<Spending> {
     private double dailyBudget;
     private double monthlyBudget;
     private double yearlyBudget;
+    private double total;
 
     /**
      * Constructs an empty SpendingList with default budget values.
@@ -24,18 +25,15 @@ public class SpendingList extends ArrayList<Spending> {
         dailyBudget = 0;
         monthlyBudget = 0;
         yearlyBudget = 0;
+        total = 0;
     }
 
-    /**
-     * Constructs a SpendingList initialized with the data from another SpendingList.
-     *
-     * @param spendings The SpendingList to copy data from.
-     */
-    public SpendingList(SpendingList spendings) {
-        super(spendings);  // Initialise with data in storage
-        dailyBudget = 0;
-        monthlyBudget = 0;
-        yearlyBudget = 0;
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = Math.round(total * 100.0) / 100.0;
     }
 
     /**
@@ -207,6 +205,7 @@ public class SpendingList extends ArrayList<Spending> {
 
     @Override
     public boolean add(Spending spending) {
+        total += spending.getAmount();
         super.add(spending);
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;

@@ -11,12 +11,21 @@ import java.util.Comparator;
  * Provides methods to manage and update income recurrence.
  */
 public class IncomeList extends ArrayList<Income> {
+
+
+    private double total;
+
     public IncomeList() {
         super();
+        total = 0;
     }
 
-    public IncomeList(IncomeList incomes) {
-        super(incomes);  // Initialise with data in storage
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = Math.round(total * 100.0) / 100.0;
     }
 
     /**
@@ -37,6 +46,7 @@ public class IncomeList extends ArrayList<Income> {
 
     @Override
     public boolean add(Income income) {
+        total += income.getAmount();
         super.add(income);
         this.sort(Comparator.comparing(EntryType::getDate));
         return true;

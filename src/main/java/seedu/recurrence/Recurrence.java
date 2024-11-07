@@ -2,6 +2,7 @@ package seedu.recurrence;
 
 import seedu.classes.Parser;
 import seedu.classes.Ui;
+import seedu.exception.WiagiInvalidInputException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -10,7 +11,11 @@ import seedu.type.EntryType;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 
 /**
  * Abstract class for {@code DailyRecurrence}, {@code MonthlyRecurrence} and {@code YearlyRecurrence}. Used to manage
@@ -30,10 +35,35 @@ public abstract class Recurrence {
         Recurrence recurrence = Parser.parseRecurrence(toAdd);
         assert recurrence != null : "previously checked that recurrence frequency is not NONE";
         boolean hasRecurrenceBacklog = Ui.hasRecurrenceBacklog(toAdd);
+        long numOfRecur = getNumberOfRecurringEntries(recurrence, toAdd);
         if (toAdd instanceof Spending) {
-            recurrence.checkSpendingRecurrence((Spending)toAdd, (SpendingList)list, hasRecurrenceBacklog);
+            SpendingList spendings = (SpendingList) list;
+            throwExceptionIfTotalExceeded(numOfRecur, spendings.getTotal(), toAdd.getAmount());
+            recurrence.checkSpendingRecurrence((Spending)toAdd, spendings, hasRecurrenceBacklog);
+            assert spendings.getTotal() <= MAX_LIST_TOTAL_AMOUNT;
         } else {
-            recurrence.checkIncomeRecurrence((Income)toAdd, (IncomeList)list, hasRecurrenceBacklog);
+            IncomeList incomes = (IncomeList) list;
+            throwExceptionIfTotalExceeded(numOfRecur, incomes.getTotal(), toAdd.getAmount());
+            recurrence.checkIncomeRecurrence((Income)toAdd, incomes, hasRecurrenceBacklog);
+            assert incomes.getTotal() <= MAX_LIST_TOTAL_AMOUNT;
+        }
+        Ui.printWithTab("All entries to recur are added!");
+    }
+
+    private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
+        double totalAmountAfterRecur = (numOfRecur * addAmount) + currListTotal;
+        if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
+            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE);
+        }
+    }
+
+    private static <T extends EntryType> long getNumberOfRecurringEntries(Recurrence recurrence, T toAdd) {
+        if (recurrence instanceof DailyRecurrence) {
+            return ChronoUnit.DAYS.between(toAdd.getDate(), LocalDate.now());
+        } else if (recurrence instanceof MonthlyRecurrence) {
+            return ChronoUnit.MONTHS.between(toAdd.getDate(), LocalDate.now());
+        } else {
+            return ChronoUnit.YEARS.between(toAdd.getDate(), LocalDate.now());
         }
     }
 

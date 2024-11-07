@@ -5,7 +5,9 @@ import seedu.classes.WiagiLogger;
 import seedu.exception.WiagiInvalidIndexException;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.exception.WiagiMissingParamsException;
+import seedu.type.Income;
 import seedu.type.IncomeList;
+import seedu.type.Spending;
 import seedu.type.SpendingList;
 
 import java.util.ArrayList;
@@ -74,12 +76,28 @@ public class DeleteCommand extends Command {
         String stringIndex = arguments[INDEX_OF_ENTRY_INDEX];
         try {
             int index = Integer.parseInt(stringIndex) - 1;
+            T entryToDelete = arrList.get(index);
             arrList.remove(index);
+            editListTotalAfterDelete(arrList, entryToDelete);
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException(INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT);
         } catch (IndexOutOfBoundsException e) {
             throw new WiagiInvalidIndexException(INDEX_OUT_OF_BOUNDS);
         }
         Ui.printWithTab("Successfully deleted!");
+    }
+
+    private <T> void editListTotalAfterDelete(ArrayList<T> arrList, T entryToDelete) {
+        if (arrList instanceof IncomeList) {
+            IncomeList incomes = (IncomeList) arrList;
+            double amountToBeRemoved = ((Income) entryToDelete).getAmount();
+            double updatedAmount = incomes.getTotal() - amountToBeRemoved;
+            incomes.setTotal(updatedAmount);
+        } else {
+            SpendingList spendings = (SpendingList) arrList;
+            double amountToBeRemoved = ((Spending) entryToDelete).getAmount();
+            double updatedAmount = spendings.getTotal() - amountToBeRemoved;
+            spendings.setTotal(updatedAmount);
+        }
     }
 }
