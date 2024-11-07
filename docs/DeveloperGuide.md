@@ -111,7 +111,7 @@ The purpose of the class are as follows:
 
 Illustrated below is the class diagram for the Recurrence class:<br>
 <br>
-<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="750"/>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="600"/>
 <br>
 <br>
 
@@ -124,8 +124,9 @@ The following are child classes of `Recurrence`:
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
 Recurrence happens during 2 use cases:
-+ Recurrence updating of existing entries upon start up in [`Storage`](#storage-component)
-+ Recurrence backlogging when an entry with recurrence dated to the past is added using [add command](<!-- to add -->)
++ Recurrence updating of existing entries upon start up in [`Storage`](#loading-storage)
++ Recurrence backlogging when an entry with recurrence dated to the past is added using 
+[add command](#adding-a-new-entry-)
 
 Method implementations will be explained in later parts, in their respective use cases
 
@@ -190,7 +191,7 @@ and add it to the lists.
 ### Recurrence Updating
 Below illustrates the reference frame of recurrence updating <br>
 <br>
-<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="700"/>
+<img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="600"/>
 <br>
 For the reference frame of 'load from storage', it is as explained previously <br>
 For the reference frame of 'add recurring entry', refer to
@@ -201,10 +202,10 @@ For the reference frame of 'add recurring entry', refer to
   `Wiagi` to retrieve past data.
 + `updateRecurrence()` is called
 + Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through
-  `Parser#parseRecurrence` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
+  `Parser#parseRecurrence()` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
   which is encapsulated as a `Recurrence` object.
 + If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and
-  `IncomeList` if needed via `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence`. <br>
+  `IncomeList` if needed via `Recurrence#checkIncomeRecurrence()` or `Recurrence#checkSpendingRecurrence()`. <br>
 
 #### Implementation:
 The following are notable classes and methods used to achieve recurrence updating.
@@ -220,17 +221,17 @@ public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spe
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
-<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="800"/> <br>
+<img src="./Diagrams/Recurrence/addRecurrenceEntrySD.png" alt="addRecurrenceEntrySD" width="600"/> <br>
 Since checkSpendingRecurrence method follows the same sequence as checkIncomeRecurrence method, the diagram is omitted
 for conciseness.
 
 Functionality: <br>
-1. Checks `lastRecurred` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
+1. Checks `lastRecurrence` attribute of `recurringIncome`/`recurringSpending`(i.e. entry to check) against the current date
    via `LocalDate.now()`
-2. According to the type of recurrence, loops `lastRecurred` with the frequency incrementally
+2. According to the type of recurrence, loops `lastRecurrence` with the frequency incrementally
 3. Adds a recurring entry each time into the `IncomeList`/`SpendingList` if date is still of the past.
 4. isAdding is set to `true` for recurrence updating to allow adding of entries, it may be set to `false` for
-   backlogging as seen later to only update `lastRecurred` attribute to the latest possible recurring date to
+   backlogging as seen later to only update `lastRecurrence` attribute to the latest possible recurring date to
    be checked against in the future for recurrence updating
 
 ##### parseRecurrence method
@@ -251,8 +252,8 @@ Method Signature:
 public void updateRecurrence()
 ```
 Functionality: <br>
-1. Loops through the list and calls upon `Parser#parseRecurrence` to determine type of `Recurrence`
-2. Calls upon `Recurrence#checkSpendingRecurrence` or `Recurrence#checkIncomeRecurrence` to update list if the new
+1. Loops through the list and calls upon `Parser#parseRecurrence()` to determine type of `Recurrence`
+2. Calls upon `Recurrence#checkSpendingRecurrence()` or `Recurrence#checkIncomeRecurrence()` to update list if the new
    recurring entry is supposed to be added
 
 ##### checkIfDateAltered method
@@ -276,10 +277,10 @@ user logs in, 4 days of entries will be added). List is thus also sorted by date
   added in the future
 + Here is a scenario of why `dayOfRecurrence` is tracked:
     + Monthly recurring entry dated at 31st August
-    + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurred` is stored as
+    + Since September ends on the 30th, recurring entry is added on the 30th September and `lastRecurrence` is stored as
       30th September
     + `dayOfRecurrence` is used to track the real date of recurrence since the day will be overwritten
-    + However, due to varying days in months, `checkIfDateAltered` is used to validate the date of entry
+    + However, due to varying days in months, `checkIfDateAltered()` is used to validate the date of entry
 
 
 ## Program run sequence
@@ -297,10 +298,8 @@ Since there are various list commands that the user can execute, the list comman
 If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
 
 After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
-The referenced sequence diagram for the execution of list commands will be shown in the section for [listing entries](#listing-entries),
-while the referenced sequence diagram for the execution of commands will be shown in the sections for 
-[adding a new entry](#adding-a-new-entry) and [editing entries](#editing-entries), which will serve as examples since the 
-execution of most commands will be similar.
+The referenced sequence diagrams for the execution of commands will be shown in the sections for 
+[adding a new entry](#adding-a-new-entry), [listing entries](#listing-entries), and editing entries.
 
 The diagram below shows the class diagram for a command.
 
@@ -335,18 +334,21 @@ The `AddCommand` class will then validate the user's input and add the input to 
 Illustrated below is the reference frame recurrence backlogging when a recurring entry dated before the current
 day is added <br>
 
-<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="700"/> <br>
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="550"/> <br>
 
 ##### How the recurrence backlogging works
-+ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog` method will be called to get
++ Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog()` method will be called to get
   user input on whether to backlog
-+ According to the user input, `Recurrence#checkIncomeRecurrence` or `Recurrence#checkSpendingRecurrence` will be
-  called to update the `lastRecurred` attribute of the entry as well as add recurring entries from the entry date to
++ According to the user input, `Recurrence#checkIncomeRecurrence()` or `Recurrence#checkSpendingRecurrence()` will be
+  called to update the `lastRecurrence` attribute of the entry as well as add recurring entries from the entry date to
   current date if user wishes to
++ An error will be thrown to the user if the total amount to be added from all the recurrence entries cause the `total`
+attribute of `SpendingList` or `IncomeList` to exceed its limit
 
 ##### Implementation
-The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence`,
-`Recurrence#checkSpendingRecurrence` and `Parser#parseRecurrence` explained in updating recurrence above is re-used
+The following are notable methods used to achieve recurrence backlogging. Methods[`Recurrence#checkIncomeRecurrence()`,
+`Recurrence#checkSpendingRecurrence()`](#checkincomerecurrence--checkspendingrecurrence-method) and 
+[`Parser#parseRecurrence()`](#parserecurrence-method) explained in updating recurrence above is re-used
 thus omitted below for conciseness
 
 ###### checkRecurrenceBacklog method
@@ -356,10 +358,13 @@ Method Signature: <br>
 public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
 ```
 Functionality:
-1. Calls upon the `Parser#parseRecurrence` method to determine the type fo recurrence
-2. Ask if user wishes to backlog all the past entries from date of entry to current date via
+1. Calls upon `Parser#parseRecurrence()` method to determine the type fo recurrence
+2. Calls its own method `getNumberOfRecurringEntries()` to obtain total recurring entries to be added
+3. Ask if user wishes to backlog all the past entries from date of entry to current date via
    `Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
-3. Updates the `lastRecurred` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
+4. Calculates the total amount to be added using its own method `throwExceptionIfTotalExceeded()` and throws an error if
+`total` attribute of `SpendingList` or `IncomeList` exceeds limit after adding entries
+5. Updates the `lastRecurrence` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
    also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and
    `Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
 
@@ -370,7 +375,7 @@ Method Signature:
 public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
 ```
 Functionality:
-1. Query for user input via `Ui#readCommand` on whether he/she wishes to backlog recurring entries
+1. Query for user input via `Ui#readCommand()` on whether he/she wishes to backlog recurring entries
 2. Returns `true` if yes and `false` otherwise
 
 ### Editing entries
