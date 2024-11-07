@@ -236,6 +236,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
       Spendings
       3. flights - 10 - 2024-11-01 - travel
       4. girlfriends - 10 - 2024-11-17 - personal
+      Total: 20
       ____________________________________________________________
   ```
 
@@ -275,6 +276,7 @@ Only entries that are within the time range will be displayed.
       ____________________________________________________________
       Incomes
       1. mcd - 100 - 2024-11-15 - FastFood
+      Total: 100
       ____________________________________________________________
   ```
 
@@ -604,11 +606,13 @@ current date.
         <tr>
             <td rowspan="2">Deleting entries</td>
             <td>Income</td>
-            <td></td>
+            <td>delete income {$INDEX}</td>
+            <td>delete income 1</td>
         </tr>
         <tr>
             <td>Spending</td>
-            <td></td>
+            <td>delete spending {$INDEX}</td>
+            <td>delete spending 1</td>
         </tr>
         <tr>
             <td rowspan="3">Setting budget</td>
