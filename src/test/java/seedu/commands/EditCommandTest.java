@@ -19,6 +19,7 @@ import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
@@ -106,17 +107,28 @@ class EditCommandTest {
     }
 
     @Test
+    public void execute_overflowEditAmount_expectIllegalArgumentExceptionThrown() {
+        commandInputForTest("edit spending 1 amount 100000000", incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT_MAX
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     public void execute_editSpendingAmount_success() {
+        double expectedTotalAfterEdit = spendings.getTotal() - spendings.get(0).getAmount() + 1.05;
         commandInputForTest("edit spending 1 amount 1.05", incomes, spendings);
         assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + VALID_TEST_DATE,
                 spendings.get(0).toString());
+        assertEquals(expectedTotalAfterEdit, spendings.getTotal());
     }
 
     @Test
     public void execute_editIncomeAmount_success() {
+        double expectedTotalAfterEdit = incomes.getTotal() - incomes.get(0).getAmount() + 1;
         commandInputForTest("edit income 1 amount 1", incomes, spendings);
         assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(7),
                 incomes.get(0).toString());
+        assertEquals(expectedTotalAfterEdit, incomes.getTotal());
     }
 
     @Test
