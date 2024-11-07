@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_AMOUNT_DESCRIPTION_CATEGORY;
@@ -52,7 +54,7 @@ public class AddCommand extends Command {
 
         // Split full command into compulsory and optional strings
         String compulsoryString = splitCommand(fullCommand)[0];
-        String optionalString = splitCommand(fullCommand)[1];
+        String optionalString = splitCommand(fullCommand)[1].trim().concat(WHITESPACE);
 
         // Split compulsory arguments into array of max size 4 with whitespace as delimiter
         // [add] [type] [amount] [description...]
@@ -131,8 +133,12 @@ public class AddCommand extends Command {
 
     private void addSpending(SpendingList spendings, double amount, String description, String optionalArguments) {
         try {
+            if (amount + spendings.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
+                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
+            }
             Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
+            assert spendings.getTotal() < MAX_LIST_TOTAL_AMOUNT;
             Recurrence.checkRecurrenceBackLog(toAdd, spendings);
             spendings.checkOverspend();
         } catch (WiagiInvalidInputException e) {
@@ -142,8 +148,12 @@ public class AddCommand extends Command {
 
     private void addIncome(IncomeList incomes, double amount, String description, String optionalArguments) {
         try {
+            if (amount + incomes.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
+                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
+            }
             Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);
+            assert incomes.getTotal() < MAX_LIST_TOTAL_AMOUNT;
             Recurrence.checkRecurrenceBackLog(toAdd, incomes);
         } catch (WiagiInvalidInputException e) {
             Ui.printWithTab(e.getMessage());
