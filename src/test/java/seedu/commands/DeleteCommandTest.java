@@ -45,17 +45,21 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_validInput_successfullyDeleted() {
+    void execute_validIncomeInput_successfullyDeleted() {
+        double expectedTotalAfterDelete = incomes.getTotal() - incomes.get(0).getAmount();
         commandInputForTest("delete income 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(0, incomes.size());
+        assertEquals(expectedTotalAfterDelete, incomes.getTotal());
     }
 
     @Test
     void execute_validSpendingInput_successfullyDeleted() {
+        double expectedTotalAfterDelete = spendings.getTotal() - spendings.get(0).getAmount();
         commandInputForTest("delete spending 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
         assertEquals(1, spendings.size());
+        assertEquals(expectedTotalAfterDelete, spendings.getTotal());
     }
 
     @Test

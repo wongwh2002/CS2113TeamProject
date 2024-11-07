@@ -54,11 +54,11 @@ public class Wiagi {
                 c.execute(incomes, spendings);
                 isExit = c.isExit();
                 Ui.printSeparator();
+                storage.save(incomes, spendings);
             } catch (NoSuchElementException e) {
                 WiagiLogger.logger.log(Level.WARNING, "Nothing to read", e);
             }
         }
-        storage.save(incomes, spendings);
     }
 
     /**

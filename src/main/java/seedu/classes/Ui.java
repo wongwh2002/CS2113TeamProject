@@ -91,32 +91,32 @@ public class Ui {
 
     public static <T extends EntryType> void printArrList(ArrayList<T> arrList) {
         String typeOfList;
+        double total;
         if (arrList instanceof SpendingList) {
             typeOfList = SPENDING;
+            total = ((SpendingList) arrList).getTotal();
         } else {
             typeOfList = INCOME;
+            total = ((IncomeList) arrList).getTotal();
         }
         printWithTab(typeOfList);
-        printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
+        printList(arrList);
+        printWithTab("Total " + typeOfList.toLowerCase() + ": " + formatPrintDouble(total));
 
     }
 
     /**
-     * Prints the elements of the given ArrayList and calculates the sum of their amounts.
+     * Prints the elements of the given ArrayList
      *
-     * @param <T>     The type of elements in the ArrayList, which must extend the Type class.
-     * @param arrList The ArrayList containing elements to be printed and summed.
-     * @return The sum of the amounts of the elements in the ArrayList as a String.
+     * @param <T>     The type of elements in the ArrayList, which must extend the EntryType class.
+     * @param arrList The ArrayList containing elements to be printed and the total.
      */
-    public static <T> String printList(ArrayList<T> arrList) {
-        double sumOfAmountInList = 0;
+    public static <T extends EntryType> void printList(ArrayList<T> arrList) {
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             assert arrList != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            sumOfAmountInList += ((EntryType) arrList.get(indexInList)).getAmount();
             printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
-        return formatPrintDouble(sumOfAmountInList);
     }
 
     public static String formatPrintDouble(double sum) {
@@ -386,9 +386,9 @@ public class Ui {
         printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
     }
 
-    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
+    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter, String typeOfFile) {
         Ui.printWithTab(e.getMessage());
-        Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
+        Ui.printWithTab("Detected at line " + counter + " in the " + typeOfFile + " file.");
         Ui.printWithTab("Deleting corrupted entry...");
     }
 }

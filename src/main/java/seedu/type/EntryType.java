@@ -8,6 +8,11 @@ import seedu.recurrence.RecurrenceFrequency;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static seedu.classes.Constants.RESTRICT_CHARACTER;
+import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
+import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS;
+import static seedu.classes.Constants.INVALID_FREQUENCY;
+import static seedu.classes.Constants.INVALID_TAG_CHARACTERS;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.RECURRENCE_IDENTIFIER;
 import static seedu.classes.Constants.TAG_IDENTIFIER;
@@ -15,9 +20,10 @@ import static seedu.classes.Constants.DATE_IDENTIFIER;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
+import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
+import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
-import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 
 
@@ -74,10 +80,14 @@ public class EntryType {
 
     private String extractTag(String optionalArguments) {
         String[] commandAndTag = optionalArguments.split(TAG_IDENTIFIER);
-        if (commandAndTag.length == 1) {
+        switch (commandAndTag.length) {
+        case 1:
             return "";
+        case 2:
+            throw new WiagiInvalidInputException(TAG_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
+        default:
+            return commandAndTag[1].trim();
         }
-        return commandAndTag[1].trim();
     }
 
     public double getAmount() {
@@ -86,23 +96,32 @@ public class EntryType {
 
     private LocalDate extractDate(String optionalArguments) throws WiagiInvalidInputException {
         String[] commandAndDate = optionalArguments.split(DATE_IDENTIFIER);
-        try {
-            if (commandAndDate.length == 1) {
-                return LocalDate.now();
+        switch (commandAndDate.length) {
+        case 1:
+            return LocalDate.now();
+        case 2:
+            throw new WiagiInvalidInputException(DATE_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
+        default:
+            try {
+                return LocalDate.parse(commandAndDate[1].trim());
+            } catch (DateTimeParseException e) {
+                throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
             }
-            return LocalDate.parse(commandAndDate[1].trim());
-        } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
         }
     }
 
     private RecurrenceFrequency extractRecurrenceFrequency(String optionalArguments)
             throws WiagiInvalidInputException {
         String[] commandAndFrequency = optionalArguments.split(RECURRENCE_IDENTIFIER);
-        if (commandAndFrequency.length == 1) {
+        String frequency;
+        switch (commandAndFrequency.length) {
+        case 1:
             return RecurrenceFrequency.NONE;
+        case 2:
+            throw new WiagiInvalidInputException(RECURRENCE_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
+        default:
+            frequency = commandAndFrequency[1].trim().toLowerCase();
         }
-        String frequency = commandAndFrequency[1].toLowerCase();
 
         switch (frequency) {
         case DAILY_RECURRENCE:
@@ -141,6 +160,9 @@ public class EntryType {
     }
 
     public void editDescription(String newDescription){
+        if (newDescription.matches(RESTRICT_CHARACTER)) {
+            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS);
+        }
         this.description = newDescription;
     }
 
@@ -165,6 +187,9 @@ public class EntryType {
     }
 
     public void editTag(String newTag) {
+        if (newTag.matches(RESTRICT_CHARACTER)) {
+            throw new WiagiInvalidInputException(INVALID_TAG_CHARACTERS);
+        }
         this.tag = newTag;
     }
 
