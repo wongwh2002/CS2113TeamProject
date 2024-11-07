@@ -8,6 +8,7 @@ and investment analysis.
 
 <!-- TABLE OF CONTENTS -->
 
+
 # Acknowledgements
 
 Sources of all reused/adapted ideas, code, documentation, and third-party libraries:
@@ -17,7 +18,7 @@ Sources of all reused/adapted ideas, code, documentation, and third-party librar
 # Design & implementation
 
 ## Architecture Diagram
-<img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="350" height="300"/><br>
+<img src="./Diagrams/Overall/architectureDiagram.png" alt="architectureDiagram" width="550"/><br>
 The Architecture Diagram given above explains the high-level design of the program.
 
 Given below is a quick overview of main components and how they interact with each other.
@@ -26,15 +27,15 @@ Given below is a quick overview of main components and how they interact with ea
 1. `Wiagi`: The command executor and brain of the program.
    - At program launch, it initializes components, such as `WiagiLogger` and `Storage`, ensuring that the user data is
           loaded securely.
-   - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
+   - It will then repeatedly read in user commands with `Ui`, parse input with `Parser` and executes them accordingly
      with `Command`.
    - When a shut-down command is initiated by the user, the program is exited safely.
 2. `UI`: Takes in user input and prints output of the program.
    - Provides a wide variety of output formats, enabling it to work with different components. 
-3. `Parser`:  Breaks down user input to deduce their intended command.
+3. `Parser`:  Parse user input to deduce their intended command.
    - Returns a `Command` object to `Wiagi` based on the user input.
 4. `Command`: Represents a collection of command classes with different functionalities.
-5. `Storage`: Reads data from, and writes data to, the hard disk.
+5. `Storage`: Reads data from files and writes data to files.
 6. `WiagiLogger`: Tracks events that happened when the program runs.
 
 #### Wiagi class
@@ -45,10 +46,9 @@ On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `I
 else, new lists would be created.
 `Wiagi` then takes in user input via the `UI` class, then parse and executes the command through the `Parser` class.
 The related output is printed through the `UI` class.
-At the end of the run, or when the user exits the application, `Wiagi` will save the lists.
 Now let's delve deeper into some of these classes used for the program below
 
-## Data Types and Structure
+## Data Types and Structures
 This section introduces the common classes used throughout the program their internal implementations and structure.
 
 ### EntryType Class
@@ -61,21 +61,21 @@ The following are its attributes: <br>
   + stores the amount for the entry
 + `description`
   + type: `String`
-  + stores the description of relating to the entry
+  + stores the description of the entry
 + `date`
-  + type `LocalDate`
+  + type: `LocalDate`
   + stores the date of entry
 + `tag`
-  + type `String`
+  + type: `String`
   + stores the tag name linked to the entry
 + `recurrenceFrequency`
-  + type [`RecurrenceFrequency`](#recurrencefrequency-enumeration)
+  + type: [`RecurrenceFrequency`](#recurrencefrequency-enumeration)
   + stores the frequency of recurrence for the entry
 + `lastRecurrence`
-  + type `LocalDate`
+  + type: `LocalDate`
   + stores the date the entry was last recurred for internal program checking usage
 + `dayOfRecurrence`
-  + type `int`
+  + type: `int`
   + stores the day of it own private attribute `date`, used for internal program checking usage
 
 The methods implemented in this class are a collection of getters and setters that allow other class types to access
@@ -98,7 +98,7 @@ The `IncomeList` class inherits from the `ArrayList` class. It is used to store 
 program.
 
 ### SpendingList class
-THe `SpendingList` class inherits from the `ArrayList` class. It is used to store all of the `Spending` objects used in
+The `SpendingList` class inherits from the `ArrayList` class. It is used to store all of the `Spending` objects used in
 the program. Additionally, it stores the budgets that are set by the user.
 
 ### Recurrence Class
@@ -110,7 +110,7 @@ The purpose of the class are as follows:
 
 Illustrated below is the class diagram for the Recurrence class:<br>
 <br>
-<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="600"/>
+<img src="./Diagrams/Recurrence/recurrenceCD.png" alt="recurrenceClassDiagram" width="800"/>
 <br>
 <br>
 
@@ -123,7 +123,7 @@ The following are child classes of `Recurrence`:
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
 Recurrence happens during 2 use cases:
-+ Recurrence updating of existing entries upon start up in [`Storage`](#loading-storage)
++ Recurrence updating of existing entries during start up.
 + Recurrence backlogging when an entry with recurrence dated to the past is added using 
 [add command](#adding-a-new-entry-)
 
@@ -177,7 +177,7 @@ To load password:
 <img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500" height="450"/><br>
 + Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
-+ It splits each line by `|` to access each attributes, convert date and last recurrence date to `LocalDate` type, 
++ It splits each line by '`|`' to access each attributes, convert date and last recurrence date to `LocalDate` type, 
 and add it to the lists.
 + During the process, if a line is corrupted, an exception will be caught and user will be informed.
 
@@ -185,7 +185,7 @@ and add it to the lists.
 #### load method in `LoginStorage`
 <img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
 + It first checks if the password file exists.
-  + If yes, it will use a scanner to read the file and initialise `password` in `Storage`.
+  + If it exists, it will use a scanner to read the file and initialise `password` in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
   the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
 
@@ -194,7 +194,7 @@ Below illustrates the reference frame of recurrence updating <br>
 <br>
 <img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="600"/>
 <br>
-For the reference frame of 'load from storage', it is as explained previously <br>
+For the reference frame of 'load from storage', it is as explained previously in [load method](#load-method-in-incomeliststorage-spendingliststorage) <br>
 For the reference frame of 'add recurring entry', refer to
 [checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
 
@@ -216,9 +216,11 @@ Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
 Method Signature: <br>
 ```
 @Override
-public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, boolean isAdding)
+public void checkIncomeRecurrence(Income recurringIncome, IncomeList incomes, 
+boolean isAdding)
 @Override
-public void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding)
+public void checkSpendingRecurrence(Spending recurringSpending, 
+SpendingList spendings, boolean isAdding)
 ```
 Below illustrates the functionality of the checkIncomeRecurrence method through a sequence diagram <br>
 <br>
@@ -261,8 +263,8 @@ Functionality: <br>
 Class: `DailyRecurrence`, `MonthlyRecurrence`, `YearlyRecurrence` <br>
 Method Signature:
 ```
-protected <T extends EntryType> void checkIfDateAltered(T newEntry, LocalDate checkDate, 
-ArrayList<T> list, boolean isAdding)
+protected <T extends EntryType> void checkIfDateAltered(T newEntry, 
+LocalDate checkDate, ArrayList<T> list, boolean isAdding)
 ```
 Functionality: <br>
 1. Get the actual day (e.g. 31st) of supposed recurrence from `dayOfRecurrence` attribute of entry
@@ -298,9 +300,10 @@ sequence diagram above.
 Since there are various list commands that the user can execute, the list commands are split into multiple classes.
 If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
 
-After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
-The referenced sequence diagrams for the execution of commands will be shown in the sections for 
-[adding a new entry](#adding-a-new-entry), [listing entries](#listing-entries), and editing entries.
+The referenced sequence diagram for the execution of list commands will be shown in the section for [listing entries](#listing-entries),
+while the referenced sequence diagram for the execution of commands will be shown in the sections for
+[adding a new entry](#adding-a-new-entry) and [editing entries](#editing-entries), which will serve as examples since the
+execution of most commands will be similar.
 
 The diagram below shows the class diagram for a command.
 
@@ -325,7 +328,7 @@ first line of its respective text file.
 
 
 ### Adding a new entry
-<img src="./Diagrams/Commands/addCommandSequence.png" width="700" alt="addCommandSequence.png">
+<img src="./Diagrams/Commands/addCommandSequence.png" width="500" alt="addCommandSequence.png">
 <br>
 To add new entries, user will have to input the related commands. The sequence diagram above shows the flow of adding a new entry.
 handleCommand method in addCommand class will be called to verify the user input and handle the command.
@@ -335,7 +338,7 @@ The entries will be added to the respective list and the user will be informed t
 Illustrated below is the reference frame recurrence backlogging when a recurring entry dated before the current
 day is added <br>
 
-<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="550"/> <br>
+<img src="./Diagrams/Recurrence/recurrenceBacklogSD.png" alt="recurrenceBacklogSD" width="500"/> <br>
 
 ##### How the recurrence backlogging works
 + Upon adding an entry with recurrence dated to the past, the `Ui#hasRecurrenceBacklog()` method will be called to get
@@ -356,13 +359,14 @@ thus omitted below for conciseness
 Class: `Recurrence` <br>
 Method Signature: <br>
 ```
-public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd, ArrayList<T> list)
+public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd,
+ ArrayList<T> list)
 ```
 Functionality:
 1. Calls upon `Parser#parseRecurrence()` method to determine the type fo recurrence
 2. Calls its own method `getNumberOfRecurringEntries()` to obtain total recurring entries to be added
 3. Ask if user wishes to backlog all the past entries from date of entry to current date via
-   `Ui#hasRecurrenceBacklog` which returns a boolean, true if yes, false otherwise
+   `Ui#hasRecurrenceBacklog` which returns a boolean, `true` if user inputs yes, else `false`.
 4. Calculates the total amount to be added using its own method `throwExceptionIfTotalExceeded()` and throws an error if
 `total` attribute of `SpendingList` or `IncomeList` exceeds limit after adding entries
 5. Updates the `lastRecurrence` attribute of the entry to facilitate future adding of recurrence and if boolean is true,
@@ -377,14 +381,14 @@ public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd)
 ```
 Functionality:
 1. Query for user input via `Ui#readCommand()` on whether he/she wishes to backlog recurring entries
-2. Returns `true` if yes and `false` otherwise
+2. Returns `true` if users input yes or `false` otherwise
 
 ### Editing entries
 `EditCommand` validates and parses the given input to determine if it is editing a spending or an income. It then
 extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
 determine which attribute to edit and sets this attribute of the extracted entry to the new value.
 
-![editCommandSequence.png](./Diagrams/Commands/editCommandSequence.png)
+<img src="./Diagrams/Recurrence/editCommandSequence.png" alt="editCommandSequence.png" width="600"/> <br>
 
 ### Finding entries
 `FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 

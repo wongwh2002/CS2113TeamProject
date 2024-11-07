@@ -103,16 +103,16 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending, up to 2 decimal places will be taken.
-  - 0 > amount => 10 million.
+  - 0 < amount <= 10 million.
   - Adding of that entry must not result to the total spending to be more than 100 million.
 - `{$DESCRIPTION}`: Name of the spending.
-  - Must be free of /, *, ~ and | characters.
+  + Must be free of /, *, ~ and \| characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
-  - Must be free of /, *, ~ and | characters.
+  + Must be free of /, *, ~ and \| characters.
   - Enclosed in asterisks. 
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
@@ -161,17 +161,16 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
-  - 0 > amount => 10 million. 
+  - 0 < amount <= 10 million. 
   - Adding of that entry must not result to the total income to be more than 100 million.
 - `{$DESCRIPTION}`: Name of the income.
-  - Must be free of /, *, ~ and | characters.
+  + Must be free of /, *, ~ and \| characters.
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
-  - Must be free of /, *, ~ and | characters.
-  - Enclosed in asterisks.
+  + Must be free of /, *, ~ and \| characters.
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
@@ -195,7 +194,8 @@ prompted to enter whether the user would like to add all the entries between the
 ```
 	____________________________________________________________
 	Entry successfully added!
-	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if any? [Y/N]
+	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if 
+	any? [Y/N]
 ```
 If Y is entered, the output will be as follows:
 ```
@@ -261,6 +261,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 	 List all statistics? [Y/N]:
   ```
     - **Input:** `y`
+    <br>
     ```
         ____________________________________________________________
         Spendings
@@ -281,6 +282,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
         ____________________________________________________________
     ```
     - **Input:** `n`
+    <br>
     ```
         ____________________________________________________________
         Spendings
@@ -500,8 +502,8 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
-    - description, tag: free of /, *, ~ and | characters.
-    - amount: 0 > amount => 10 million, while total <= 100 million.
+    + description, tag: free of /, *, ~ and \| characters.
+    - amount: 0 < amount <= 10 million, while total <= 100 million.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
@@ -597,7 +599,7 @@ For spending.txt, the first line of entry stores the budgets of the user.<br>
 Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
 <br>
 Important data representation to note:
-- `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and | characters.
++ `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and \| characters.
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
 - `[$DATE_OF_ENTRY]`: In the format of `YYYY-MM-DD`
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
@@ -641,28 +643,34 @@ current date.
         <tr>
             <td rowspan="2">Adding</td>
             <td>Income</td>
-            <td></td>
+            <td>add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]</td>
+            <td>add income 10000 commission /2023-01-23/ *bonus* ~monthly~</td>
         </tr>
         <tr>
             <td>Spending</td>
-            <td></td>
+            <td>add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]</td>
+            <td>add spending 100 telegram premium /2023-01-23/ *personal expense* ~monthly~</td>
         </tr>
         <tr>
             <td rowspan="4">Listing entries</td>
             <td>All spendings</td>
-            <td></td>
+            <td>list spendings</td>
+            <td>list spendings</td>
         </tr>
         <tr>
             <td>All incomes</td>
-            <td></td>
+            <td>list incomes</td>
+            <td>list spendings</td>
         </tr>
         <tr>
             <td>All tags</td>
-            <td></td>
+            <td>list tags</td>
+            <td>list tags</td>
         </tr>
         <tr>
             <td>All of a specific tag</td>
-            <td></td>
+            <td>list tags {$TAGNAME}</td>
+            <td>list tags food</td>
         </tr>
         <tr>
             <td rowspan="2">Deleting entries</td>
