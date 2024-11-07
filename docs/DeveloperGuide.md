@@ -486,9 +486,10 @@ entries with the specified tag to a String. This string is then printed out.
 
 ## Product scope
 ### Target user profile
-1. prefer desktop apps over other types
+1. prefer desktop apps over other types(i.e. online apps)
 2. is reasonably comfortable using CLI apps
 3. wants to manage their own finances better
+4. quick typer who prefers typing over using mouse
 
 ### Value proposition
 An app that help students to manage their financials faster than a typical mouse/GUI driven app.
@@ -599,6 +600,23 @@ Use case ends.
     - 3a. Wiagi displays an error message.
     Use case restarts at step 1.
 
+### Use Case: Adding a Budget
+
+**MSS**
+
+1. User requests to set a specified time range's budget to a specified amount.
+2. Wiagi sets the budget.
+3. Wiagi displays a message to the user that the budget has been updated.
+
+Use case ends.
+**Extensions**
+1. The given time range is invalid.
+    - 1a. Wiagi displays an error message.
+    Use case restarts at step 1.
+2. The given budget is invalid.
+    - 2b. Wiagi displays an error message.
+    Use case restarts at step 1.
+
 ### Use Case: Find an Entry
 **Finding an existing income or spending entry with certain information**
 
@@ -626,6 +644,7 @@ Use case ends.
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
 able to accomplish most of the tasks faster using commands than using the mouse.
+3. The system should be able to run on Windows, macOS, and Linux
 
 ## Future plans
 1. Implement editing of recurrence type of entries
@@ -638,7 +657,11 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 ## Glossary
 
 * *glossary item* - Definition
-* Mainstream OS: Windows, Linux, Unix, macOS
+* Backlogging - The process of retroactively adding recurring entries from a past date to the current date
+* Budget - A financial limit set by the user for daily, monthly or yearly spending
+* Command - A text instruction entered by the user to perform an action in the application
+* Validation - The process of checking if user input meets the required format and constraints
+* Mainstream OS - Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
 
@@ -664,3 +687,32 @@ Prerequisites: Add multiple entries to either incomes or spendings.
 ### Exiting the program
 1. Test case: `bye`
     - Expected: Program exits
+
+### Editing an Entry
+Prerequisites: Add multiple entries to either incomes or spendings.
+1. Test case: `edit spending 1 amount 100`
+   - Expected: The amount of the first spending entry is updated to 100. Confirmation message is shown.
+2. Test case: `edit income 2 description Salary`
+   - Expected: The description of the second income entry is updated to "Salary". Confirmation message is shown.
+3. Test case: `edit spending 3 date 2024-10-20`
+   - Expected: The date of the third spending entry is updated to 2024-10-20. Confirmation message is shown.
+4. Test case: `edit income 1 tag work`
+   - Expected: The tag of the first income entry is updated to "work". Confirmation message is shown.
+5. Test case: `edit spending 1 amount not-an-amount`, `edit income 2 date invalid-date`
+   - Expected: Error message is shown indicating invalid input.
+
+### Showing help
+Prerequisites: None.
+1. Test case: `help`
+   - Expected: Displays a list of all available commands along with their usage instructions.
+
+### Setting a Budget
+Prerequisites: None.
+1. Test case: `budget daily 50`
+   - Expected: Sets the daily budget to 50. Confirmation message is shown.
+2. Test case: `budget monthly 1500`
+   - Expected: Sets the monthly budget to 1500. Confirmation message is shown.
+3. Test case: `budget yearly 20000`
+   - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
+4. Test case: `budget weekly 500`
+   - Expected: Error message is shown indicating invalid time range.

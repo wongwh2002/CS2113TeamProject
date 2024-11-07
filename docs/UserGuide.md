@@ -633,15 +633,18 @@ current date.
         <tr>
             <td rowspan="3">Setting budget</td>
             <td>Daily</td>
-            <td></td>
+            <td>budget daily {$AMOUNT}</td>
+            <td>budget daily 30</td>
         </tr>
         <tr>
             <td>Monthly</td>
-            <td></td>
+            <td>budget monthly {$AMOUNT}</td>
+            <td>budget monthly 1000</td>
         </tr>
         <tr>
             <td>Yearly</td>
-            <td></td>
+            <td>budget yearly {$AMOUNT}</td>
+            <td>budget yearly 12000</td>
         </tr>
         <tr>
             <td rowspan="2">Finding entries</td>
