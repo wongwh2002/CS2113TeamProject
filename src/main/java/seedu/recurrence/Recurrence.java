@@ -47,7 +47,11 @@ public abstract class Recurrence {
             recurrence.checkIncomeRecurrence((Income)toAdd, incomes, hasRecurrenceBacklog);
             assert incomes.getTotal() <= MAX_LIST_TOTAL_AMOUNT;
         }
-        Ui.printWithTab("All entries to recur are added!");
+        if (hasRecurrenceBacklog) {
+            Ui.printWithTab("All entries to recur are added!");
+        } else {
+            Ui.printWithTab("Ok! The entry will not be backlogged");
+        }
     }
 
     private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {

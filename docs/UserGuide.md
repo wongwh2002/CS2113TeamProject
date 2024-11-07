@@ -35,7 +35,7 @@ and investment analysis.
 ## Quick Start
  
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
+2. Download the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder.
 4. Open a command terminal, navigate to the folder you have placed the jar file in, 
 and use the `java -jar Wiagi.java.jar` command to run the application.
@@ -54,7 +54,7 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 
 ### Login
 #### Creation of new user:
-First time users will be prompted to create a new password. Users are to type in his/her preferred password.
+First time users will be prompted to create a new password. Users are to type in their preferred password.
 Subsequent logins will not require this step. <br>
 Expected display for first time users:
 ```
