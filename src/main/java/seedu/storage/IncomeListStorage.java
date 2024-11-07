@@ -61,8 +61,11 @@ public class IncomeListStorage {
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
         int errorEntryNumber = 0;
+        File incomeFile = new File(INCOMES_FILE_PATH);
         try {
-            File incomeFile = new File(INCOMES_FILE_PATH);
+            if (!incomeFile.exists() || incomeFile.length() == 0) {
+                return;
+            }
             Scanner incomeReader = new Scanner(incomeFile);
             while (incomeReader.hasNext()) {
                 String newEntry = incomeReader.nextLine();
@@ -89,6 +92,6 @@ public class IncomeListStorage {
 
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted income entry detected at line " + counter, e);
-        Ui.handleCorruptedEntry(e, counter);
+        Ui.handleCorruptedEntry(e, counter, "incomes");
     }
 }

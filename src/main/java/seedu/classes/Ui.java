@@ -377,9 +377,9 @@ public class Ui {
         Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
     }
 
-    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
+    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter, String typeOfFile) {
         Ui.printWithTab(e.getMessage());
-        Ui.printWithTab("Detected at line " + counter + " in the incomes file.");
+        Ui.printWithTab("Detected at line " + counter + " in the " + typeOfFile + " file.");
         Ui.printWithTab("Deleting corrupted entry...");
     }
 }
