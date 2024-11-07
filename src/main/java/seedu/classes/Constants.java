@@ -14,7 +14,7 @@ public class Constants {
     public static final String SPACE_REGEX = "\\s+";
     public static final String WHITESPACE= " ";
     public static final String TAG_IDENTIFIER = "\\*";
-    public static final String ATTRIBUTE_IDENTIFIER = ".*[*/~].*";
+    public static final String RESTRICT_CHARACTER = ".*[*/~|].*";
     public static final String DATE_IDENTIFIER = "/";
     public static final String RECURRENCE_IDENTIFIER = "~";
     public static final String FIND_RANGE_DIVIDER = " to ";

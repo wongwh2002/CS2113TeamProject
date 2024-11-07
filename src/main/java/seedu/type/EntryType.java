@@ -8,7 +8,7 @@ import seedu.recurrence.RecurrenceFrequency;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static seedu.classes.Constants.ATTRIBUTE_IDENTIFIER;
+import static seedu.classes.Constants.RESTRICT_CHARACTER;
 import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
 import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS;
 import static seedu.classes.Constants.INVALID_FREQUENCY;
@@ -160,7 +160,7 @@ public class EntryType {
     }
 
     public void editDescription(String newDescription){
-        if (newDescription.matches(ATTRIBUTE_IDENTIFIER)) {
+        if (newDescription.matches(RESTRICT_CHARACTER)) {
             throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS);
         }
         this.description = newDescription;
@@ -187,7 +187,7 @@ public class EntryType {
     }
 
     public void editTag(String newTag) {
-        if (newTag.matches(ATTRIBUTE_IDENTIFIER)) {
+        if (newTag.matches(RESTRICT_CHARACTER)) {
             throw new WiagiInvalidInputException(INVALID_TAG_CHARACTERS);
         }
         this.tag = newTag;
