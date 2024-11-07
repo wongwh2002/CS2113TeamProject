@@ -476,7 +476,7 @@ through all entries and gets an ArrayList of all the unique tags before printing
 For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
 method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
 entries with the specified tag to a String. This string is then printed out. 
-***
+
 ## Product scope
 ### Target user profile
 1. prefer desktop apps over other types
@@ -626,6 +626,7 @@ able to accomplish most of the tasks faster using commands than using the mouse.
    - Allow entry to backlog recurrence from edited date 
 2. Set up database to store all of user's data 
 3. Create GUI interface to the program to increase aesthetics
+4. Include currency conversion to cater to users from different countries
 
 ## Glossary
 
