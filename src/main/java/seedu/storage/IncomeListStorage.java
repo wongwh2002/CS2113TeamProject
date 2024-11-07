@@ -30,11 +30,10 @@ public class IncomeListStorage {
      */
     static void save(IncomeList incomes) {
         assert incomes != null : "IncomeList should not be null";
+        WiagiLogger.logger.log(Level.INFO, "Starting to save incomes...");
         try {
-            WiagiLogger.logger.log(Level.INFO, "Starting to save incomes...");
             handleWriteFile(incomes);
-
-            WiagiLogger.logger.log(Level.INFO, "Successfully saved incomes to file");
+            WiagiLogger.logger.log(Level.INFO, "Successfully saved incomes file");
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to save incomes file", e);
             Ui.printWithTab(SAVE_INCOME_FILE_ERROR);
@@ -61,17 +60,14 @@ public class IncomeListStorage {
      */
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
-        long counter = 0;
+        int errorEntryNumber = 0;
         try {
-            if (new File(INCOMES_FILE_PATH).createNewFile()) {
-                return;
-            }
             File incomeFile = new File(INCOMES_FILE_PATH);
             Scanner incomeReader = new Scanner(incomeFile);
             while (incomeReader.hasNext()) {
                 String newEntry = incomeReader.nextLine();
-                counter++;
-                processEntry(newEntry, counter);
+                errorEntryNumber++;
+                processEntry(newEntry, errorEntryNumber);
             }
             incomeReader.close();
             WiagiLogger.logger.log(Level.INFO, "Successfully loaded incomes from file");
@@ -79,7 +75,6 @@ public class IncomeListStorage {
             WiagiLogger.logger.log(Level.WARNING, "Unable to open incomes file", e);
             Ui.printWithTab(LOAD_INCOME_FILE_ERROR);
         }
-        assert Storage.incomes.size() > 0 : "Incomes list should not be empty after loading";
         WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");
     }
 

@@ -3,6 +3,8 @@ package seedu.storage;
 import seedu.classes.Ui;
 import seedu.classes.WiagiLogger;
 import seedu.commands.BudgetCommand;
+import seedu.type.IncomeList;
+import seedu.type.SpendingList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -26,10 +28,9 @@ public class LoginStorage {
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load password file...");
         try {
-            File file = new File(PASSWORD_FILE_PATH);
-            boolean isFileCreated = file.exists();
-            if (isFileCreated) {
-                Scanner scanner = new Scanner(file);
+            File passwordFile = new File(PASSWORD_FILE_PATH);
+            if (passwordFile.exists()) {
+                Scanner scanner = new Scanner(passwordFile);
                 String passwordHash = scanner.next();
                 Storage.password = Integer.parseInt(passwordHash);
             } else {
@@ -41,12 +42,18 @@ public class LoginStorage {
         } catch (NoSuchElementException e) {
             WiagiLogger.logger.log(Level.WARNING, "Password file was empty", e);
             Ui.errorLoadingPasswordMessage();
-            new File(PASSWORD_FILE_PATH).delete();
-            new File(SPENDINGS_FILE_PATH).delete();
-            new File(INCOMES_FILE_PATH).delete();
+            resetAllData();
             createNewUser();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading password file.");
+    }
+
+    private static void resetAllData() {
+        new File(PASSWORD_FILE_PATH).delete();
+        new File(SPENDINGS_FILE_PATH).delete();
+        new File(INCOMES_FILE_PATH).delete();
+        Storage.spendings = new SpendingList();
+        Storage.incomes = new IncomeList();
     }
 
     private static void createNewUser() {
