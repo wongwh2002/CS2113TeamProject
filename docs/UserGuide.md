@@ -35,7 +35,7 @@ and investment analysis.
 ## Quick Start
  
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
+2. Download the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder.
 4. Open a command terminal, navigate to the folder you have placed the jar file in, 
 and use the `java -jar Wiagi.java.jar` command to run the application.
@@ -54,7 +54,7 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 
 ### Login
 #### Creation of new user:
-First time users will be prompted to create a new password. Users are to type in his/her preferred password.
+First time users will be prompted to create a new password. Users are to type in their preferred password.
 Subsequent logins will not require this step. <br>
 Expected display for first time users:
 ```
@@ -101,8 +101,8 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending, up to 2 decimal places will be taken.
-  - 0 > amount => 1 million.
-  - Adding of that entry must not result to the total spending to be more than 10 million.
+  - 0 > amount => 10 million.
+  - Adding of that entry must not result to the total spending to be more than 100 million.
 - `{$DESCRIPTION}`: Name of the spending.
   - Must be free of /, *, ~ and | characters.
 - `[/$DATE/]`: Date of the transaction.
@@ -137,8 +137,8 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
-  - 0 > amount => 1 million. 
-  - Adding of that entry must not result to the total income to be more than 10 million.
+  - 0 > amount => 10 million. 
+  - Adding of that entry must not result to the total income to be more than 100 million.
 - `{$DESCRIPTION}`: Name of the income.
   - Must be free of /, *, ~ and | characters.
 - `[/$DATE/]`: Date of the transaction.
@@ -456,7 +456,7 @@ The `edit` command allows you to edit the amount, description, or date of an exi
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
     - description, tag: free of /, *, ~ and | characters.
-    - amount: 0 > amount => 1 million, while total <= 10 million.
+    - amount: 0 > amount => 10 million, while total <= 100 million.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>

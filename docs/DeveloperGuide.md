@@ -10,8 +10,7 @@ and investment analysis.
 
 # Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-original source as well}
+Sources of all reused/adapted ideas, code, documentation, and third-party libraries:
 
 [Original Source](https://github.com/nus-cs2113-AY2425S1/tp)
 
@@ -29,7 +28,7 @@ Given below is a quick overview of main components and how they interact with ea
           loaded securely.
    - It will then repeatedly read in user commands with `Ui`, breaks it down with `Parser` and executes them accordingly
      with `Command`.
-   - When a shut-down command is initiated by the user, it saves all changes made to `Storage`
+   - When a shut-down command is initiated by the user, the program is exited safely.
 2. `UI`: Takes in user input and prints output of the program.
    - Provides a wide variety of output formats, enabling it to work with different components. 
 3. `Parser`:  Breaks down user input to deduce their intended command.
@@ -37,7 +36,6 @@ Given below is a quick overview of main components and how they interact with ea
 4. `Command`: Represents a collection of command classes with different functionalities.
 5. `Storage`: Reads data from, and writes data to, the hard disk.
 6. `WiagiLogger`: Tracks events that happened when the program runs.
-7. `Commons`: Represents a collection of classes used by multiple other components.
 
 #### Wiagi class
 ![overallClass.png](./Diagrams/Overall/overallClass.drawio.png)

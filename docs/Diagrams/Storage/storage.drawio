@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.4" pages="4">
   <diagram name="load" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
-    <mxGraphModel dx="939" dy="558" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1357" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="7baba1c4bc27f4b0-2" value="&lt;div&gt;storage&lt;/div&gt;:Storage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
-          <mxGeometry x="260" y="135" width="100" height="505" as="geometry" />
+          <mxGeometry x="260" y="135" width="100" height="525" as="geometry" />
         </mxCell>
         <mxCell id="7baba1c4bc27f4b0-10" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-2" vertex="1">
           <mxGeometry x="45" y="40" width="10" height="280" as="geometry" />
@@ -69,7 +69,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="7baba1c4bc27f4b0-3" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:IncomeListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
-          <mxGeometry x="390" y="80" width="130" height="560" as="geometry" />
+          <mxGeometry x="390" y="80" width="130" height="580" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
           <mxGeometry x="60" y="120" width="10" height="60" as="geometry" />
@@ -103,7 +103,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-17" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:SpendingListStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
-          <mxGeometry x="530" y="80" width="140" height="560" as="geometry" />
+          <mxGeometry x="530" y="80" width="140" height="580" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-19" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="PVHJ7KxA7nmS4XBwmIQY-17" vertex="1">
           <mxGeometry x="65" y="210" width="10" height="50" as="geometry" />
@@ -115,7 +115,7 @@
           <mxGeometry x="60" y="217" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-21" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:LoginStorage" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
-          <mxGeometry x="680" y="80" width="166" height="560" as="geometry" />
+          <mxGeometry x="680" y="80" width="166" height="580" as="geometry" />
         </mxCell>
         <mxCell id="PVHJ7KxA7nmS4XBwmIQY-22" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="PVHJ7KxA7nmS4XBwmIQY-21" vertex="1">
           <mxGeometry x="66" y="296" width="10" height="60" as="geometry" />
@@ -189,6 +189,9 @@
         </mxCell>
         <mxCell id="pJ5YruY39lMEMVRIvO9G-1" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial; text-wrap-mode: nowrap;&quot;&gt;&lt;font face=&quot;Verdana&quot;&gt;login&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="732" y="382" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="TtBPZgkZuS_J_Hhj0Z0y-1" value="&lt;b&gt;sd&lt;/b&gt; Load from Storage" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=140;height=32;" vertex="1" parent="1">
+          <mxGeometry x="60" y="38.5" width="970" height="601.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -489,7 +492,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="c8Er_BMiKh1uftktMxLo" name="login-sd">
-    <mxGraphModel dx="-239" dy="725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="-479" dy="725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />

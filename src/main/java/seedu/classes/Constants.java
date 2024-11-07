@@ -26,12 +26,12 @@ public class Constants {
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
     public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million!";
-    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD = "The total amount will exceed the limit " +
-            "after adding! Entry rejected!";
-    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT = "The total amount will exceed the limit " +
-            "after editing! Editing rejected!";
-    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount will exceed the limit " +
-            "after recurrence! Recurrence rejected!";
+    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD = "The total amount will exceed the list limit " +
+            "of 100 million after adding! Entry rejected!";
+    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT = "The total amount will exceed the list limit " +
+            "of 100 million after editing! Editing rejected!";
+    public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount will exceed the list limit" +
+            " of 100 million after recurrence! Recurrence rejected!";
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
     public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
