@@ -62,7 +62,23 @@ Expected display for first time users:
 	Hi! You seem to be new, are you ready?!
 	Please enter your new account password:
 ```
-Expected output after successfully creating password: <br>
+To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
+users should enter valid amounts (eg. An integer or number with decimals) for each budget type <br>
+Expected display:
+```
+	Hello! So happy you took this first step of financial management.
+	Let's first set your budgets!
+	Please enter a daily budget you have in mind:
+```
+```
+	____________________________________________________________
+	Next, please enter a monthly budget you have in mind:
+```
+```
+	____________________________________________________________
+	Last one! Please enter a yearly budget you have in mind:
+```
+Expected output after successfully creating new user: <br>
 ```
 	____________________________________________________________
 	Hello from
@@ -101,11 +117,11 @@ Run the [`list spendings`](#listing-all-spendings) command to display the list w
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example inputs:** <br>
-- `add spending 100 telegram premium` </br>
-- `add spending 100 telegram premium /2024-10-20/` </br>
-- `add spending 100 telegram premium *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense*` </br>
-- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` </br>
+- `add spending 100 telegram premium` <br>
+- `add spending 100 telegram premium /2024-10-20/` <br>
+- `add spending 100 telegram premium *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense*` <br>
+- `add spending 100 telegram premium /2024-10-20/ *personal expense* ~monthly~` <br>
 
 **Expected output:**
 ```
@@ -137,11 +153,11 @@ Run the [`list incomes`](#listing-all-incomes) command to display the list with 
   - Possible options: `daily`, `monthly` and `yearly`
 
 **Example input:** <br>
-- `add income 10000 commission` </br>
-- `add income 10000 commission /2024-01-01/` </br>
-- `add income 10000 commission *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus*` </br>
-- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` </br>
+- `add income 10000 commission` <br>
+- `add income 10000 commission /2024-01-01/` <br>
+- `add income 10000 commission *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus*` <br>
+- `add income 10000 commission /2024-01-01/ *bonus* ~yearly~` <br>
 
 **Expected output:**
 ```
@@ -512,9 +528,9 @@ All data previously inputted into the programme will be automatically saved upon
 There is no need to save manually.
 
 ### Editing the data file
-> <span style="color:#f5220d">WARNING</span> </br>
+> <span style="color:#f5220d">WARNING</span> <br>
 > This section is dedicated to advanced users who are confident in updating the data file manually. Failure 
-> to do so correctly can lead to data corruption and having possibly all previous information wiped out. </br>
+> to do so correctly can lead to data corruption and having possibly all previous information wiped out. <br>
 
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
@@ -524,17 +540,17 @@ User data is stored into 3 text files, namely
 #### Format of data storage for password:
 For security purposes the method of storage will not be discussed. <span style="color:#f5220d">DO NOT</span> 
 alter this file, simply delete the file if you have forgotten you password and create a new password upon being 
-prompt when start up.
+prompt when start up. Note that this will cause a hard reset to the application and erase all data.
 
 #### Format of data storage for income and spending:
-Data are stored with `|` used as delimiter. Each line in the text file represents one entry. </br>
+Data are stored with `|` used as delimiter. Each line in the text file represents one entry. <br>
 Format: 
 `[$AMOUNT]|[$DESCRIPTION]|[$DATE_OF_ENTRY]|[TAG_NAME]|[RECURRENCE_FREQUENCY]|[LAST_RECURRENCE]|[DAY_OF_RECURRENCE]`
-</br>
-</br>
-For spending.txt, the first line of entry stores the budgets of the user.</br>
-Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` </br>
-</br>
+<br>
+<br>
+For spending.txt, the first line of entry stores the budgets of the user.<br>
+Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
+<br>
 Important data representation to note:
 - `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and | characters.
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
@@ -542,8 +558,8 @@ Important data representation to note:
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
 - `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`
 
-We recommend not to edit `[$LAST_RECURRENCE]`. If manually adding new entries with recurrence, `[$LAST_RECURRENCE]`
-should match `[$DATE_OF_ENTRY]`, "null" otherwise.
+We recommend not to edit `[$LAST_RECURRENCE]`. Adding or editing entries with recurrence, `[$LAST_RECURRENCE]`
+should match `[$DATE_OF_ENTRY]` and last possible recurred date before current date respectively, "null" otherwise.
 
 ## FAQ
 
@@ -640,7 +656,3 @@ current date.
         </tr>
     </tbody>
 </table>
-
-
-[//]: # ({Give a 'cheat sheet' of commands here})
-[//]: # (* Add todo `todo n/TODO_NAME d/DEADLINE`)
