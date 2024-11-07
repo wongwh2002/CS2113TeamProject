@@ -124,8 +124,9 @@ The following are child classes of `Recurrence`:
 + `YearlyRecurrence`: Handles entries labelled as yearly recurring events
 
 Recurrence happens during 2 use cases:
-+ Recurrence updating of existing entries upon start up in [`Storage`](#storage-component)
-+ Recurrence backlogging when an entry with recurrence dated to the past is added using [add command](<!-- to add -->)
++ Recurrence updating of existing entries upon start up in [`Storage`](#loading-storage)
++ Recurrence backlogging when an entry with recurrence dated to the past is added using 
+[add command](#adding-a-new-entry-)
 
 Method implementations will be explained in later parts, in their respective use cases
 
@@ -298,7 +299,7 @@ If the command word is `list`, the parser will call a separate method `parseList
 
 After the correct command is returned, it is executed by `Wiagi` by calling the `execute(...)` method of the command. 
 The referenced sequence diagrams for the execution of commands will be shown in the sections for 
-[adding a new entry](#adding-a-new-entry), [listing entries](#listing-entries), and editing entries.
+[adding a new entry](#adding-a-new-entry-), [listing entries](#listing-entries), and editing entries.
 
 The diagram below shows the class diagram for a command.
 
@@ -345,8 +346,9 @@ day is added <br>
 attribute of `SpendingList` or `IncomeList` to exceed its limit
 
 ##### Implementation
-The following are notable methods used to achieve recurrence backlogging. Methods `Recurrence#checkIncomeRecurrence()`,
-`Recurrence#checkSpendingRecurrence()` and `Parser#parseRecurrence()` explained in updating recurrence above is re-used
+The following are notable methods used to achieve recurrence backlogging. Methods[`Recurrence#checkIncomeRecurrence()`,
+`Recurrence#checkSpendingRecurrence()`](#checkincomerecurrence--checkspendingrecurrence-method) and 
+[`Parser#parseRecurrence()`](#parserecurrence-method) explained in updating recurrence above is re-used
 thus omitted below for conciseness
 
 ###### checkRecurrenceBacklog method
