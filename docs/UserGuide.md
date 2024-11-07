@@ -228,6 +228,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
       Spendings
       3. flights - 10 - 2024-11-01 - travel
       4. girlfriends - 10 - 2024-11-17 - personal
+      Total: 20
       ____________________________________________________________
   ```
 
@@ -267,6 +268,7 @@ Only entries that are within the time range will be displayed.
       ____________________________________________________________
       Incomes
       1. mcd - 100 - 2024-11-15 - FastFood
+      Total: 100
       ____________________________________________________________
   ```
 
