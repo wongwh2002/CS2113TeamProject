@@ -2,6 +2,7 @@ package seedu.classes;
 
 import seedu.commands.Command;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiStorageCorruptedException;
 import seedu.type.Income;
 import seedu.type.IncomeList;
 import seedu.type.Spending;
@@ -43,7 +44,7 @@ public class Ui {
     public static String readCommand() {
         String line = scanner.nextLine().trim();
         assert line != null : "Input line is null";
-        Ui.printSeparator();
+        printSeparator();
         // replace whitespaces to a single whitespace and remove trailing spaces
         return line.replaceAll(SPACE_REGEX, " ").trim();
     }
@@ -59,32 +60,32 @@ public class Ui {
         System.out.println(TAB+TAB + message);
     }
     public static void welcome() {
-        Ui.printSeparator();
-        Ui.printWithTab("Hello from");
+        printSeparator();
+        printWithTab("Hello from");
         printFancyWiagi();
-        Ui.printSeparator();
+        printSeparator();
     }
     private static void printFancyWiagi() {
-        Ui.printWithTab("__        __  ___      /\\       ____   ___");
-        Ui.printWithTab("\\ \\      / / |_ _|    /  \\     / ___| |_ _|");
-        Ui.printWithTab(" \\ \\ /\\ / /   | |    / /\\ \\   | |  _   | |");
-        Ui.printWithTab("  \\ V  V /    | |   / ____ \\  | |_| |  | |");
-        Ui.printWithTab("   \\_/\\_/    |___| /_/    \\_\\  \\____| |___|");
-        Ui.printSeparator();
+        printWithTab("__        __  ___      /\\       ____   ___");
+        printWithTab("\\ \\      / / |_ _|    /  \\     / ___| |_ _|");
+        printWithTab(" \\ \\ /\\ / /   | |    / /\\ \\   | |  _   | |");
+        printWithTab("  \\ V  V /    | |   / ____ \\  | |_| |  | |");
+        printWithTab("   \\_/\\_/    |___| /_/    \\_\\  \\____| |___|");
+        printSeparator();
     }
 
     public static void printSpendingStatistics(SpendingList spendings) {
-        Ui.printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
-        Ui.printWithDoubleTab("Daily Budget: " + formatPrintDouble(spendings.getDailyBudget()));
-        Ui.printWithDoubleTab("Daily budget left: " + formatPrintDouble(spendings.getDailyBudget() -
+        printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
+        printWithDoubleTab("Daily Budget: " + formatPrintDouble(spendings.getDailyBudget()));
+        printWithDoubleTab("Daily budget left: " + formatPrintDouble(spendings.getDailyBudget() -
                 spendings.getDailySpending()));
-        Ui.printWithDoubleTab("Monthly spendings: " + formatPrintDouble(spendings.getMonthlySpending()));
-        Ui.printWithDoubleTab("Monthly Budget: " + formatPrintDouble(spendings.getMonthlyBudget()));
-        Ui.printWithDoubleTab("Monthly budget left: " +
+        printWithDoubleTab("Monthly spendings: " + formatPrintDouble(spendings.getMonthlySpending()));
+        printWithDoubleTab("Monthly Budget: " + formatPrintDouble(spendings.getMonthlyBudget()));
+        printWithDoubleTab("Monthly budget left: " +
                 formatPrintDouble(spendings.getMonthlyBudget() - spendings.getMonthlySpending()));
-        Ui.printWithDoubleTab("Yearly spendings: " + formatPrintDouble(spendings.getYearlySpending()));
-        Ui.printWithDoubleTab("Yearly Budget: " + formatPrintDouble(spendings.getYearlyBudget()));
-        Ui.printWithDoubleTab("Yearly budget left: " + formatPrintDouble(spendings.getYearlyBudget() -
+        printWithDoubleTab("Yearly spendings: " + formatPrintDouble(spendings.getYearlySpending()));
+        printWithDoubleTab("Yearly Budget: " + formatPrintDouble(spendings.getYearlyBudget()));
+        printWithDoubleTab("Yearly budget left: " + formatPrintDouble(spendings.getYearlyBudget() -
                 spendings.getYearlySpending()));
     }
 
@@ -95,8 +96,8 @@ public class Ui {
         } else {
             typeOfList = INCOME;
         }
-        Ui.printWithTab(typeOfList);
-        Ui.printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
+        printWithTab(typeOfList);
+        printWithTab("Total " + typeOfList.toLowerCase() + ": " + printList(arrList));
 
     }
 
@@ -113,7 +114,7 @@ public class Ui {
             assert arrList != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
             sumOfAmountInList += ((EntryType) arrList.get(indexInList)).getAmount();
-            Ui.printWithTab(indexToUser + ". " + arrList.get(indexInList));
+            printWithTab(indexToUser + ". " + arrList.get(indexInList));
         }
         return formatPrintDouble(sumOfAmountInList);
     }
@@ -136,10 +137,10 @@ public class Ui {
             throw new WiagiInvalidInputException("No tags found. Please input more tags!");
         }
         assert tags != null : "Tags list is null";
-        Ui.printWithTab("Tags");
+        printWithTab("Tags");
         for (int indexInList = 0; indexInList < tags.size(); indexInList++) {
             int indexToUser = indexInList + 1;
-            Ui.printWithTab(indexToUser + ". " + tags.get(indexInList));
+            printWithTab(indexToUser + ". " + tags.get(indexInList));
         }
     }
 
@@ -185,12 +186,12 @@ public class Ui {
         assert tagsCount > 0 : "No entries with tag: " + tag;
         assert incomeCount > 0 || spendingCount > 0 : "No entries with tag: " + tag;
 
-        Ui.printWithTab("Tag: " + tag);
+        printWithTab("Tag: " + tag);
         if (incomeCount > 0) {
-            Ui.printWithTab(sbIncome.toString().trim());
+            printWithTab(sbIncome.toString().trim());
         }
         if (spendingCount > 0) {
-            Ui.printWithTab(sbSpending.toString().trim());
+            printWithTab(sbSpending.toString().trim());
         }
     }
 
@@ -213,7 +214,7 @@ public class Ui {
 
     public static void printOverspendMessage(String budgetType, double overspendAmount) {
         overspendAmount *= -1;
-        Ui.printWithTab("!!! You have overspent your " + budgetType + " by: " +
+        printWithTab("!!! You have overspent your " + budgetType + " by: " +
                 formatPrintDouble(overspendAmount) + " !!!");
     }
 
@@ -223,15 +224,18 @@ public class Ui {
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
+        double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monday, sunday)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
+                sum += entry.getAmount();
             }
         }
-        Ui.printWithTab(filteredListString.toString().strip());
+        printWithTab(filteredListString.toString().strip());
+        printWithTab("Total: " + formatPrintDouble(sum));
     }
 
     public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
@@ -239,15 +243,18 @@ public class Ui {
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
         StringBuilder filteredListString = new StringBuilder();
+        double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
+                sum += entry.getAmount();
             }
         }
-        Ui.printWithTab(filteredListString.toString().strip());
+        printWithTab(filteredListString.toString().strip());
+        printWithTab("Total: " + formatPrintDouble(sum));
     }
 
     public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
@@ -255,70 +262,73 @@ public class Ui {
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
         StringBuilder filteredListString = new StringBuilder();
+        double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), start, end)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
                         .append(entry).append(System.lineSeparator());
+                sum += entry.getAmount();
             }
         }
-        Ui.printWithTab(filteredListString.toString().strip());
+        printWithTab(filteredListString.toString().strip());
+        printWithTab("Total: " + formatPrintDouble(sum));
     }
 
     //@@author wx-03
     public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> arrList) {
         while (true) {
-            Ui.printWithTab(TIME_RANGE_MESSAGE);
-            String userInput = Ui.readCommand();
+            printWithTab(TIME_RANGE_MESSAGE);
+            String userInput = readCommand();
             switch (userInput) {
             case ALL_TIME_OPTION:
                 return true;
             case WEEKLY_OPTION:
-                Ui.printWeekly(arrList);
+                printWeekly(arrList);
                 return false;
             case BIWEEKLY_OPTION:
-                Ui.printBiweekly(arrList);
+                printBiweekly(arrList);
                 return false;
             case MONTHLY_OPTION:
-                Ui.printMonthly(arrList);
+                printMonthly(arrList);
                 return false;
             default:
-                Ui.printWithTab("Invalid input");
+                printWithTab("Invalid input");
             }
         }
     }
 
     public static void printStatisticsIfRequired(SpendingList spendings) {
-        Ui.printWithTab("List all statistics? [Y/N]:");
+        printWithTab("List all statistics? [Y/N]:");
         while (true) {
-            String userInput = Ui.readCommand().toLowerCase();
+            String userInput = readCommand().toLowerCase();
             switch (userInput) {
             case "y":
-                Ui.printArrList(spendings);
-                Ui.printSpendingStatistics(spendings);
+                printArrList(spendings);
+                printSpendingStatistics(spendings);
                 return;
             case "n":
-                Ui.printArrList(spendings);
+                printArrList(spendings);
                 return;
             default:
-                Ui.printWithTab("Invalid input. [Y/N].");
+                printWithTab("Invalid input. [Y/N].");
             }
         }
     }
 
     public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
-        Ui.printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
+        printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
                 + LocalDate.now() + " if any? [Y/N]");
         while (true) {
-            String userInput = Ui.readCommand().toLowerCase();
+            String userInput = readCommand().toLowerCase();
             switch (userInput) {
             case "y":
                 return true;
             case "n":
                 return false;
             default:
-                Ui.printWithTab("Not a valid input. Please enter [Y/N]");
+                printWithTab("Not a valid input. Please enter [Y/N]");
             }
         }
     }
@@ -344,36 +354,41 @@ public class Ui {
 
     public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
-            Ui.printWithTab("No entries found match the criteria.");
+            printWithTab("No entries found match the criteria.");
         } else {
-            Ui.printWithTab("Here are the matching results:");
-            findResults.forEach(entry -> Ui.printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
+            printWithTab("Here are the matching results:");
+            findResults.forEach(entry -> printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
         }
     }
 
     public static void newUserBudgetMessage() {
-        Ui.printWithTab("Hello! So happy you took this first step of financial management.");
-        Ui.printWithTab("Let's first set your budgets!");
+        printWithTab("Hello! So happy you took this first step of financial management.");
+        printWithTab("Let's first set your budgets!");
     }
 
     public static void initialiseDailyBudgetMessage() {
-        Ui.printWithTab("Please enter a daily budget you have in mind:");
+        printWithTab("Please enter a daily budget you have in mind:");
     }
 
     public static void initialiseMonthlyBudgetMessage() {
-        Ui.printWithTab("Next, please enter a monthly budget you have in mind:");
+        printWithTab("Next, please enter a monthly budget you have in mind:");
     }
 
     public static void initialiseYearlyBudgetMessage() {
-        Ui.printWithTab("Last one! Please enter a yearly budget you have in mind:");
+        printWithTab("Last one! Please enter a yearly budget you have in mind:");
     }
 
     public static void errorLoadingBudgetMessage() {
-        Ui.printWithTab("Hmmmm, seems to have some issues loading your budgets, please re-enter them :(");
+        printWithTab("Hmmmm, seems to have some issues loading your budgets, please re-enter them :(");
     }
 
     public static void errorLoadingPasswordMessage() {
-        Ui.printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
+        printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
+    }
+
+    public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter, String typeOfFile) {
+        Ui.printWithTab(e.getMessage());
+        Ui.printWithTab("Detected at line " + counter + " in the " + typeOfFile + " file.");
+        Ui.printWithTab("Deleting corrupted entry...");
     }
 }
-

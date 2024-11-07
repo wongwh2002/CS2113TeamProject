@@ -15,7 +15,7 @@ public class IncomeListStorageTest {
     @Test
     public void save_existingList_success() {
         IncomeList incomes = new IncomeList();
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 1));
         IncomeListStorage.save(incomes);
         assertTrue(new File("./incomes.txt").exists());
     }
@@ -23,6 +23,6 @@ public class IncomeListStorageTest {
     @Test
     public void load_existingFile_success() {
         IncomeListStorage.load();
-        assertEquals(Storage.incomes.size(), 1);
+        assertEquals( 1, Storage.incomes.size());
     }
 }
