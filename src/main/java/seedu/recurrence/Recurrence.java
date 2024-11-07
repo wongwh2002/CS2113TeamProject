@@ -40,12 +40,12 @@ public abstract class Recurrence {
             SpendingList spendings = (SpendingList) list;
             throwExceptionIfTotalExceeded(numOfRecur, spendings.getTotal(), toAdd.getAmount());
             recurrence.checkSpendingRecurrence((Spending)toAdd, spendings, hasRecurrenceBacklog);
-            assert spendings.getTotal() < MAX_LIST_TOTAL_AMOUNT;
+            assert spendings.getTotal() <= MAX_LIST_TOTAL_AMOUNT;
         } else {
             IncomeList incomes = (IncomeList) list;
             throwExceptionIfTotalExceeded(numOfRecur, incomes.getTotal(), toAdd.getAmount());
             recurrence.checkIncomeRecurrence((Income)toAdd, incomes, hasRecurrenceBacklog);
-            assert incomes.getTotal() < MAX_LIST_TOTAL_AMOUNT;
+            assert incomes.getTotal() <= MAX_LIST_TOTAL_AMOUNT;
         }
         Ui.printWithTab("All entries to recur are added!");
     }
