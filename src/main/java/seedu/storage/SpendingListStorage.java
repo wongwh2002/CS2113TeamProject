@@ -77,7 +77,7 @@ public class SpendingListStorage {
             }
             Scanner spendingReader = new Scanner(spendingFile);
             assert spendingReader.hasNext() : "file is not empty";
-            String[] budgetDetails = spendingReader.nextLine().split(STORAGE_LOAD_SEPARATOR);
+            String budgetDetails = spendingReader.nextLine();
             loadBudgets(budgetDetails);
             while (spendingReader.hasNext()) {
                 String newEntry = spendingReader.nextLine();
@@ -93,10 +93,12 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 
-    private static void loadBudgets(String[] budgetDetails) {
+    private static void loadBudgets(String budgetDetail) {
+        String[] budgetDetails = budgetDetail.split(STORAGE_LOAD_SEPARATOR);
         if (budgetDetails.length != 3) {
             WiagiLogger.logger.log(Level.WARNING, "Corrupted budget details found in spendings file");
             emptyFileErrorHandling();
+            processEntry(budgetDetail,1);
             return;
         }
         try {
@@ -127,6 +129,6 @@ public class SpendingListStorage {
 
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, int counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
-        Ui.handleCorruptedEntry(e, counter);
+        Ui.handleCorruptedEntry(e, counter, "spendings");
     }
 }
