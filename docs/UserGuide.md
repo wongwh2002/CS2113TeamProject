@@ -511,10 +511,10 @@ Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
-`edit spending 1 amount 100`
-`edit spending 1 description macdonalds`
-`edit spending 1 tag food`
-`edit spending 1 date 2024-10-10`
+`edit spending 1 amount 100` <br>
+`edit spending 1 description macdonalds` <br>
+`edit spending 1 tag food` <br>
+`edit spending 1 date 2024-10-10` <br>
 
 **Example output**:
 ```
@@ -541,9 +541,9 @@ It also allows you to find entries with a specific keyword in the description.
     - date: YYYY-MM-DD format, eg.`2023-01-21`.
 
 **Example input:**<br>
-- `find income amount 100`
-- `find spending description macdonalds`
-- `find spending date 2024-10-10 to 2024-12-12`
+- `find income amount 100` <br>
+- `find spending description macdonalds` <br>
+- `find spending date 2024-10-10 to 2024-12-12` <br>
 
 **Example output**:
 ```
@@ -720,6 +720,16 @@ If you have a backup of the `spending.txt` and `incomes.txt` files, you can repl
             <td>Spending</td>
             <td>find spending {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]</td>
             <td>find spending amount 10 to 100</td>
+        </tr>
+        <tr>
+            <td rowspan="1" colspan="2">Get all Commands</td>
+            <td>help</td>
+            <td>help</td>
+        </tr>
+        <tr>
+            <td rowspan="1" colspan="2">Exit Program</td>
+            <td>bye</td>
+            <td>bye</td>
         </tr>
     </tbody>
 </table>
