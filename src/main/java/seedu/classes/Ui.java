@@ -202,7 +202,7 @@ public class Ui {
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
             EntryType listIndex = arrList.get(i);
-            if (listIndex.getTag().equals(tag)) {
+            if (listIndex.getTag().equalsIgnoreCase(tag)) {
                 tagsCount++;
                 int oneIndexedI = i + 1;
                 sb.append(TAB).append(oneIndexedI).append(". ")
