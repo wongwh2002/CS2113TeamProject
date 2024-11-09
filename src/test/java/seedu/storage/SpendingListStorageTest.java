@@ -16,6 +16,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 
 public class SpendingListStorageTest {
@@ -48,12 +49,61 @@ public class SpendingListStorageTest {
     }
 
     @Test
+    public void load_corruptedEntriesList_entryDiscardedMessage() {
+        try {
+            FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
+            initialisePasswordFile();
+            spendingsFileWriter.write("1.0|1.0|1.0" + System.lineSeparator() + "1.0|macs|wrong||NONE|null|1");
+            spendingsFileWriter.close();
+            SpendingListStorage.load();
+            assertEquals(TAB + "Corrupted spending entry detected, error with date!" + System.lineSeparator()
+                    + TAB + "Detected at line 1 in the spendings file." + System.lineSeparator()
+                    + TAB + "Deleting corrupted entry..." + System.lineSeparator(), outContent.toString());
+        } catch (IOException e) {
+            Ui.printWithTab("error occured with load_corruptedEntriesList_entryDiscardedMessage() test");
+        }
+    }
+
+    @Test
     public void save_existingList_success() {
         spendingsFile.delete();
         SpendingList spendings = new SpendingList();
         spendings.add(new Spending(10, "macs", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 1));
         SpendingListStorage.save(spendings);
         assertTrue(new File("./spendings.txt").exists());
+    }
+
+    @Test
+    public void load_storageFileDeletedAndPasswordFileExist_initialiseBudget() {
+        try {
+            spendingsFile.delete();
+            initialisePasswordFile();
+            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            SpendingListStorage.load();
+            assertEquals(1, Storage.spendings.getDailyBudget());
+            assertEquals(2, Storage.spendings.getMonthlyBudget());
+            assertEquals(3, Storage.spendings.getYearlyBudget());
+        } catch (IOException e) {
+            Ui.printWithTab("error occured with load_storageFileDeletedAndPasswordFileExist_initialiseBudget() test");
+        }
+    }
+
+    @Test
+    public void load_storageFileDeletedAndPasswordFileEmpty_budgetNotInitialised() {
+        try {
+            spendingsFile.delete();
+            passwordFile.createNewFile();
+            FileWriter passwordFileWriter = new FileWriter("./password.txt");
+            passwordFileWriter.write("");
+            passwordFileWriter.close();
+            SpendingListStorage.load();
+            assertEquals(0, Storage.spendings.getDailyBudget());
+            assertEquals(0, Storage.spendings.getMonthlyBudget());
+            assertEquals(0, Storage.spendings.getYearlyBudget());
+        } catch (IOException e) {
+            Ui.printWithTab("error occured with load_storageFileDeletedAndPasswordFileDeleted_budgetNotInitialised() " +
+                    "test");
+        }
     }
 
     @Test
@@ -118,6 +168,40 @@ public class SpendingListStorageTest {
             assertEquals(3, Storage.spendings.getYearlyBudget());
         } catch (IOException e) {
             Ui.printWithTab("error occured with load_userEditMonthlyLessThanDaily_wrongBudgetNotSet() test");
+        }
+    }
+
+    @Test
+    public void load_budgetLengthNotThree_newBudgetInitialised() {
+        try {
+            FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
+            initialisePasswordFile();
+            spendingsFileWriter.write("15.0|10.0" + System.lineSeparator());
+            spendingsFileWriter.close();
+            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            SpendingListStorage.load();
+            assertEquals(1, Storage.spendings.getDailyBudget());
+            assertEquals(2, Storage.spendings.getMonthlyBudget());
+            assertEquals(3, Storage.spendings.getYearlyBudget());
+        } catch (IOException e) {
+            Ui.printWithTab("error occured with load_budgetLengthNotThree_newBudgetInitialised() test");
+        }
+    }
+
+    @Test
+    public void load_spendingFileEmpty_newBudgetInitialised() {
+        try {
+            FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
+            initialisePasswordFile();
+            spendingsFileWriter.write("");
+            spendingsFileWriter.close();
+            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            SpendingListStorage.load();
+            assertEquals(1, Storage.spendings.getDailyBudget());
+            assertEquals(2, Storage.spendings.getMonthlyBudget());
+            assertEquals(3, Storage.spendings.getYearlyBudget());
+        } catch (IOException e) {
+            Ui.printWithTab("error occured with load_spendingFileEmpty_newBudgetInitialised() test");
         }
     }
 }
