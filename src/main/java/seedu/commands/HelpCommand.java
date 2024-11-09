@@ -65,7 +65,7 @@ public class HelpCommand extends Command {
 
     private void appendEditCommandHelp(StringBuilder helpText) {
         helpText.append("Editing Entries:").append(System.lineSeparator())
-                .append(TAB + "edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}").append(System.lineSeparator())
+                .append(TAB + "edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}").append(System.lineSeparator())
                 .append(TAB + "e.g., edit spending 1 amount 100").append(System.lineSeparator())
                 .append(TAB + "e.g., edit income 2 description Bonus").append(System.lineSeparator())
                 .append(System.lineSeparator());
@@ -73,7 +73,7 @@ public class HelpCommand extends Command {
 
     private void appendDeleteCommandHelp(StringBuilder helpText) {
         helpText.append("Deleting Entries:").append(System.lineSeparator())
-                .append(TAB + "delete {$TYPE} {$INDEX}").append(System.lineSeparator())
+                .append(TAB + "delete {$CATEGORY} {$INDEX}").append(System.lineSeparator())
                 .append(TAB + "e.g., delete spending 1").append(System.lineSeparator())
                 .append(System.lineSeparator());
     }
