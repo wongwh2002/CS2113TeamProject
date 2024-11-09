@@ -49,6 +49,12 @@ public class Ui {
         return line.replaceAll(SPACE_REGEX, " ").trim();
     }
 
+    public static String readUserPassword() {
+        String password = scanner.nextLine();
+        printSeparator();
+        return password;
+    }
+
     public static void printSeparator() {
         printWithTab(SEPARATOR);
     }
