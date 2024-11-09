@@ -23,10 +23,8 @@ public class SpendingListStorageTest {
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
-    private File spendingsFile = new File("./spendings.txt");
-    private File passwordFile = new File("./password.txt");
-    private FileWriter spendingsFileWriter;
-    private FileWriter passwordFileWriter;
+    private final File spendingsFile = new File("./spendings.txt");
+    private final File passwordFile = new File("./password.txt");
 
     private void initialisePasswordFile() throws IOException {
         FileWriter passwordFileWriter = new FileWriter("./password.txt");
@@ -37,12 +35,7 @@ public class SpendingListStorageTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        spendingsFileWriter = new FileWriter("./spendings.txt");
-        passwordFileWriter = new FileWriter("./password.txt");
         spendingsFile.createNewFile();
-        passwordFile.createNewFile();
-        passwordFileWriter.write("1");
-        passwordFileWriter.close();
         Storage.spendings = new SpendingList();
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -76,8 +69,6 @@ public class SpendingListStorageTest {
             Ui.printWithTab("error occured with load_exisitingFile_success() test");
         }
     }
-
-
 
     @Test
     public void load_userEditDailyMoreThanMonthly_wrongBudgetNotSet() {
