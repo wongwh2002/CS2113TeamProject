@@ -28,7 +28,7 @@ import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
-    private static final int LIST_CATEGORY_INDEX = 1;
+    private static final int LIST_FIELD_INDEX = 1;
     private static final int LIST_ALL_COMMAND_LENGTH = 1;
     private static final int COMMAND_WORD_ARGUMENT = 0;
 
@@ -64,8 +64,8 @@ public class Parser {
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {
             return new ListAllCommand(arguments);
         }
-        String category = arguments[LIST_CATEGORY_INDEX];
-        switch (category) {
+        String field = arguments[LIST_FIELD_INDEX];
+        switch (field) {
         case ListTagsCommand.COMMAND_WORD:
             return new ListTagsCommand(arguments);
         case ListSpendingsCommand.COMMAND_WORD:

@@ -27,13 +27,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     private static final int TYPE_INDEX = 1;
     private static final int INDEX_OF_ENTRY_INDEX = 2;
-    private static final int CATEGORY_INDEX = 3;
+    private static final int FIELD_INDEX = 3;
     private static final int NEW_VALUE_INDEX = 4;
     private static final int EDIT_COMPULSORY_ARGUMENTS_LENGTH = 5;
-    private static final String AMOUNT_CATEGORY = "amount";
-    private static final String DESCRIPTION_CATEGORY = "description";
-    private static final String DATE_CATEGORY = "date";
-    private static final String TAG_CATEGORY = "tag";
+    private static final String AMOUNT_FIELD = "amount";
+    private static final String DESCRIPTION_FIELD = "description";
+    private static final String DATE_FIELD = "date";
+    private static final String TAG_FIELD = "tag";
 
     private final String fullCommand;
 
@@ -87,19 +87,19 @@ public class EditCommand extends Command {
         String index = arguments[INDEX_OF_ENTRY_INDEX];
         EntryType entryToEdit = extractEntry(list, index);
         String newValue = arguments[NEW_VALUE_INDEX];
-        String category = arguments[CATEGORY_INDEX];
-        switch (category) {
-        case AMOUNT_CATEGORY:
+        String field = arguments[FIELD_INDEX];
+        switch (field) {
+        case AMOUNT_FIELD:
             throwExceptionIfTotalExceeded(newValue, entryToEdit.getAmount(), list);
             entryToEdit.editAmount(newValue);
             break;
-        case DESCRIPTION_CATEGORY:
+        case DESCRIPTION_FIELD:
             entryToEdit.editDescription(newValue);
             break;
-        case DATE_CATEGORY:
+        case DATE_FIELD:
             entryToEdit.editDate(newValue);
             break;
-        case TAG_CATEGORY:
+        case TAG_FIELD:
             entryToEdit.editTag(newValue);
             break;
         default:
