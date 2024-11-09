@@ -17,8 +17,8 @@ public class HelpCommandTest {
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
-    IncomeList incomes = new IncomeList();
-    SpendingList spendings = new SpendingList();
+    private final IncomeList incomes = new IncomeList();
+    private final SpendingList spendings = new SpendingList();
 
     @BeforeEach
     public void setUp() {
