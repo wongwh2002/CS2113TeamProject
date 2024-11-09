@@ -275,7 +275,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 **Input:** `list spendings`
 ```
 	____________________________________________________________
-	List spending entries within:
+	List spending entries for:
 	[1] All
 	[2] This week
 	[3] Last week and this week
@@ -362,7 +362,7 @@ Only entries that are within the time range will be displayed.
 **Input:** `list incomes`
 ```
 	____________________________________________________________
-	List income entries within:
+	List income entries for:
 	[1] All
 	[2] This week
 	[3] Last week and this week

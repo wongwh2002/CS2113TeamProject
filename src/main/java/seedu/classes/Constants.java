@@ -64,7 +64,7 @@ public class Constants {
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
-    public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries within:" +
+    public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries for:" +
             System.lineSeparator() +
             TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
             TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
