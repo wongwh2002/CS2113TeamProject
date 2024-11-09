@@ -114,13 +114,10 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingAmount(String findValue, ArrayList<T> list) {
         double lower;
         double upper;
-        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
-        if (indexOfFindRangeDivider != -1) { // range
-            String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
-            String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
-            throwExceptionIfValueHasWhitespace(lowerString, upperString);
-            lower = CommandUtils.formatAmount(lowerString, FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatAmount(upperString, FIND_COMMAND_FORMAT);
+        if (findValue.contains(FIND_RANGE_DIVIDER)) { // range
+            String[] rangeValues = extractRangeValues(findValue);
+            lower = CommandUtils.formatAmount(rangeValues[0], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatAmount(rangeValues[1], FIND_COMMAND_FORMAT);
             if (upper < lower) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT_RANGE);
             }
@@ -145,13 +142,10 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingDate(String findValue, ArrayList<T> list) {
         LocalDate lower;
         LocalDate upper;
-        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
         if (findValue.contains(FIND_RANGE_DIVIDER)) {
-            String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
-            String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
-            throwExceptionIfValueHasWhitespace(lowerString, upperString);
-            lower = CommandUtils.formatDate(lowerString, FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatDate(upperString, FIND_COMMAND_FORMAT);
+            String[] rangeValues = extractRangeValues(findValue);
+            lower = CommandUtils.formatDate(rangeValues[0], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatDate(rangeValues[1], FIND_COMMAND_FORMAT);
             if (lower.isAfter(upper)) {
                 throw new WiagiInvalidInputException(INVALID_DATE_RANGE);
             }
@@ -167,12 +161,16 @@ public class FindCommand extends Command {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private static void throwExceptionIfValueHasWhitespace(String lowerString, String upperString) {
+    private static String[] extractRangeValues(String findValue) {
+        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
+        String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
+        String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
         if (lowerString.contains(WHITESPACE)) {
             throw new WiagiInvalidInputException(LONG_FIND_FROM_VALUE + FIND_COMMAND_FORMAT);
         }
         if (upperString.contains(WHITESPACE)) {
             throw new WiagiInvalidInputException(LONG_FIND_TO_VALUE + FIND_COMMAND_FORMAT);
         }
+        return new String[]{lowerString, upperString};
     }
 }
