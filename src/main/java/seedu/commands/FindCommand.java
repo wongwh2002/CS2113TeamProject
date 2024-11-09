@@ -37,6 +37,8 @@ public class FindCommand extends Command {
     private static final int VALUE_TO_FIND_INDEX = 3;
     private static final int FIND_ARGUMENTS_LENGTH = 4;
     private static final int LENGTH_OF_FIND_RANGE_DIVIDER = 2;
+    private static final int FROM_VALUE = 0;
+    private static final int TO_VALUE = 1;
     private static final String AMOUNT_FIELD = "amount";
     private static final String DESCRIPTION_FIELD = "description";
     private static final String DATE_FIELD = "date";
@@ -117,8 +119,8 @@ public class FindCommand extends Command {
         double upper;
         if (findValue.contains(FIND_RANGE_DIVIDER)) { // range
             String[] rangeValues = extractRangeValues(findValue);
-            lower = CommandUtils.formatAmount(rangeValues[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatAmount(rangeValues[1], FIND_COMMAND_FORMAT);
+            lower = CommandUtils.formatAmount(rangeValues[FROM_VALUE], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatAmount(rangeValues[TO_VALUE], FIND_COMMAND_FORMAT);
             if (upper < lower) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT_RANGE);
             }
@@ -145,8 +147,8 @@ public class FindCommand extends Command {
         LocalDate upper;
         if (findValue.contains(FIND_RANGE_DIVIDER)) {
             String[] rangeValues = extractRangeValues(findValue);
-            lower = CommandUtils.formatDate(rangeValues[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatDate(rangeValues[1], FIND_COMMAND_FORMAT);
+            lower = CommandUtils.formatDate(rangeValues[FROM_VALUE], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatDate(rangeValues[TO_VALUE], FIND_COMMAND_FORMAT);
             if (lower.isAfter(upper)) {
                 throw new WiagiInvalidInputException(INVALID_DATE_RANGE);
             }
