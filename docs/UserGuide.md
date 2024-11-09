@@ -95,16 +95,16 @@ Expected display:
 Expected output after successfully creating new user: <br>
 ```
     ____________________________________________________________
-	____________________________________________________________
-	Hello from
-	__        __  ___      /\       ____   ___
-	\ \      / / |_ _|    /  \     / ___| |_ _|
-	 \ \ /\ / /   | |    / /\ \   | |  _   | |
-	  \ V  V /    | |   / ____ \  | |_| |  | |
-	   \_/\_/    |___| /_/    \_\  \____| |___|
-	____________________________________________________________
-	____________________________________________________________
-	Please Enter Login Credentials:
+    ____________________________________________________________
+    Hello from
+    __        __  ___      /\       ____   ___
+    \ \      / / |_ _|    /  \     / ___| |_ _|
+     \ \ /\ / /   | |    / /\ \   | |  _   | |
+      \ V  V /    | |   / ____ \  | |_| |  | |
+       \_/\_/    |___| /_/    \_\  \____| |___|
+    ____________________________________________________________
+    ____________________________________________________________
+    Please Enter Login Credentials:
 ```
 *Note that this is also the startup page for returning existing users
 
@@ -152,7 +152,8 @@ prompted to enter whether the user would like to add all the entries between the
 ```
 	____________________________________________________________
 	Entry successfully added!
-	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if any? [Y/N]
+	Do you want to backlog recurrence entries from 2023-01-23 to 
+	2024-11-07 if any? [Y/N]
 ```
 If Y is entered, the output will be as follows:
 ```
