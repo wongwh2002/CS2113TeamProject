@@ -23,6 +23,9 @@ import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.LONG_FIND_FROM_VALUE;
+import static seedu.classes.Constants.LONG_FIND_SPECIFIC_VALUE;
+import static seedu.classes.Constants.LONG_FIND_TO_VALUE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 import static seedu.classes.Ui.commandInputForTest;
@@ -95,6 +98,27 @@ class FindCommandTest {
     public void execute_invalidDateFormat_expectIllegalInputExceptionThrown() {
         commandInputForTest("find spending date 2024/10/10", incomes, spendings);
         assertEquals(TAB + INCORRECT_DATE_FORMAT + FIND_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_longSpecificValue_expectIllegalInputExceptionThrown() {
+        commandInputForTest("find spending date 2024/10/10 extraString", incomes, spendings);
+        assertEquals(TAB + LONG_FIND_SPECIFIC_VALUE + FIND_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_longFromValue_expectIllegalInputExceptionThrown() {
+        commandInputForTest("find spending date 2024/10/10 extraString to 2024-12-12", incomes, spendings);
+        assertEquals(TAB + LONG_FIND_FROM_VALUE + FIND_COMMAND_FORMAT
+                + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void execute_longToValue_expectIllegalInputExceptionThrown() {
+        commandInputForTest("find spending date 2024/10/10 to 2024-12-12 extraString", incomes, spendings);
+        assertEquals(TAB + LONG_FIND_TO_VALUE + FIND_COMMAND_FORMAT
                 + System.lineSeparator(), outContent.toString());
     }
 
