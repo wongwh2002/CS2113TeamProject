@@ -9,7 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -19,8 +18,8 @@ import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE_INCOMES;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE_SPENDINGS;
+import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
+import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -102,7 +101,7 @@ class ListCommandTest {
         Ui.userInputForTest("1");
         commandInputForTest("list incomes", incomes, spendings);
 
-        assertEquals(TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "Incomes" + System.lineSeparator() +
                 TAB + "1. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
@@ -164,7 +163,7 @@ class ListCommandTest {
         Ui.userInputForTest(String.format("1%sY", System.lineSeparator()));
         commandInputForTest("list spendings", incomes, spendings);
 
-        assertEquals(TAB + TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "List all statistics? [Y/N]:" + System.lineSeparator() +
                 TAB + "____________________________________________________________" + System.lineSeparator() +
@@ -188,7 +187,7 @@ class ListCommandTest {
     public void execute_listSpendingNotAllStatistics_correctMessage() {
         Ui.userInputForTest(String.format("1%sN", System.lineSeparator()));
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "List all statistics? [Y/N]:" + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
@@ -204,7 +203,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -218,7 +217,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -232,7 +231,7 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -246,7 +245,7 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -260,7 +259,7 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -274,7 +273,7 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -288,10 +287,10 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "Invalid input" + System.lineSeparator() +
-                TAB + TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
+                TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +

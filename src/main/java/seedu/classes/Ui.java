@@ -19,12 +19,16 @@ import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.NO_ENTRIES_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_INCOMES;
+import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE_INCOMES;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE_SPENDINGS;
+import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
+import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.WEEKLY_OPTION;
+import static seedu.classes.Constants.WHITESPACE;
 
 public class Ui {
     private static final String INCOME = "Incomes";
@@ -220,11 +224,21 @@ public class Ui {
     }
 
     //@@author wx-03
+    private static <T extends EntryType> void printTimeRangeDates(ArrayList<T> arrList,
+            LocalDate start, LocalDate end) {
+        if (arrList instanceof SpendingList) {
+            printWithTab(PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + start + " to " + end);
+        } else {
+            printWithTab(PRINTING_TIME_RANGE_MESSAGE_INCOMES + start + " to " + end);
+        }
+    }
+
     public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
         StringBuilder filteredListString = new StringBuilder();
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
+        printTimeRangeDates(arrList, monday, sunday);
         double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
             EntryType entry = arrList.get(indexInList);
@@ -235,6 +249,7 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
@@ -243,6 +258,7 @@ public class Ui {
         LocalDate currDate = LocalDate.now();
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
+        printTimeRangeDates(arrList, monthStart, monthEnd);
         StringBuilder filteredListString = new StringBuilder();
         double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
@@ -254,6 +270,7 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
@@ -262,6 +279,7 @@ public class Ui {
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
+        printTimeRangeDates(arrList, start, end);
         StringBuilder filteredListString = new StringBuilder();
         double sum = 0.0;
         for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
@@ -273,6 +291,7 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
@@ -281,9 +300,9 @@ public class Ui {
     public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> arrList) {
         while (true) {
             if (arrList instanceof SpendingList) {
-                printWithTab(TIME_RANGE_MESSAGE_SPENDINGS);
+                printWithTab(SELECT_TIME_RANGE_MESSAGE_SPENDINGS);
             } else {
-                printWithTab(TIME_RANGE_MESSAGE_INCOMES);
+                printWithTab(SELECT_TIME_RANGE_MESSAGE_INCOMES);
             }
             String userInput = readCommand();
             switch (userInput) {

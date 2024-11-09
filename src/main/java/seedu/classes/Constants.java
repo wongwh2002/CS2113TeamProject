@@ -64,12 +64,15 @@ public class Constants {
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
-    public static final String TIME_RANGE_MESSAGE_SPENDINGS = "List spendings from:" + System.lineSeparator() +
-            "\t[1] All" + System.lineSeparator() + "\t[2] This monday" + System.lineSeparator() +
-            "\t[3] Last monday" + System.lineSeparator() + "\t[4] First day of this month";
-    public static final String TIME_RANGE_MESSAGE_INCOMES = "List incomes from:" + System.lineSeparator() +
-            "\t[1] All" + System.lineSeparator() + "\t[2] This monday" + System.lineSeparator() +
-            "\t[3] Last monday" + System.lineSeparator() + "\t[4] First day of this month";
+    public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries within:" + System.lineSeparator() +
+            "\t[1] All" + System.lineSeparator() + "\t[2] This week" + System.lineSeparator() +
+            "\t[3] Past 2 weeks" + System.lineSeparator() + "\t[4] This month";
+    public static final String SELECT_TIME_RANGE_MESSAGE_INCOMES = "List income entries within:" + System.lineSeparator() +
+            "\t[1] All" + System.lineSeparator() + "\t[2] This week" + System.lineSeparator() +
+            "\t[3] Past 2 weeks" + System.lineSeparator() + "\t[4] This month";
+    public static final String NO_ENTRIES_TIME_RANGE_MESSAGE = "No entries within selected time range";
+    public static final String PRINTING_TIME_RANGE_MESSAGE_SPENDINGS = "Showing spending entries from ";
+    public static final String PRINTING_TIME_RANGE_MESSAGE_INCOMES = "Showing income entries from ";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";
