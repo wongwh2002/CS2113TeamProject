@@ -5,8 +5,8 @@ Wiagi is a simple command line application that helps students who are beginning
 independence journey by offering a wide range of essential tools and features such as budgeting, saving, 
 and investment analysis. 
  
-- [Quick start](#Quick-Start)
-- [Features](#Features)
+- [Quick start](#quick-start)
+- [Features](#features)
   - [Login](#login) 
     - [Creation of new user](#creation-of-new-user)
   - [Adding an entry](#adding-an-entry)
