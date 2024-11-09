@@ -441,9 +441,7 @@ The `help` command allows the user to see a quick summary of the commands.
 **Format:** `help`
 
 **Example input:**<br>
-`
-help
-`
+`help`
 
 **Example output**:
 ```
@@ -499,9 +497,7 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 The input criteria for the amount is the same as the amount entered for [Creation of new user](#creation-of-new-user).
 
 **Example input:**<br>
-`
-budget daily 50
-`
+`budget daily 50`
 
 **Example output**:
 ```
