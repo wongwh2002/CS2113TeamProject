@@ -454,12 +454,12 @@ Listing Entries:
 	list tags {$TAG} - shows entries with specific tag
 
 Editing Entries:
-	edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}
+	edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}
 	e.g., edit spending 1 amount 100
 	e.g., edit income 2 description Bonus
 
 Deleting Entries:
-	delete {$TYPE} {$INDEX}
+	delete {$CATEGORY} {$INDEX}
 	e.g., delete spending 1
 
 Setting Budget:
@@ -499,9 +499,9 @@ budget daily 50
 The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry. <br>
 Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
 
-**Format:** `edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}`
+**Format:** `edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}`
 
-- `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$CATEGORY}`: Specifies the category of entry to be edited. It can be `spending` or `income`.
 - `{$INDEX}`: The index of the entry to be edited (1-based index).
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
@@ -530,7 +530,7 @@ It also allows you to find entries with a specific keyword in the description.
 
 **Format:** `find {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]`
 
-- `{$CATEGORY}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$CATEGORY}`: Specifies the category of entry to be edited. It can be `spending` or `income`.
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
 - `{$FIND_VALUE}`: The value to find for the specified field.
 - `[to $ANOTHER_FIND_VALUE]`: The upper limit of the search result.
@@ -574,7 +574,7 @@ The `bye` command allows you to exit the program safely, as it will store all ch
 	____________________________________________________________
 ```
 
-### Saving the data 
+### Saving the data
 All data previously inputted into the programme will be automatically saved upon the user exiting via the `bye` command.
 There is no need to save manually.
 
