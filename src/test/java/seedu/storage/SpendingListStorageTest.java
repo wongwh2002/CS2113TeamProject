@@ -28,6 +28,13 @@ public class SpendingListStorageTest {
     private FileWriter spendingsFileWriter;
     private FileWriter passwordFileWriter;
 
+    private void initialisePasswordFile() throws IOException {
+        FileWriter passwordFileWriter = new FileWriter("./password.txt");
+        passwordFile.createNewFile();
+        passwordFileWriter.write("1");
+        passwordFileWriter.close();
+    }
+
     @BeforeEach
     public void setUp() throws IOException {
         spendingsFileWriter = new FileWriter("./spendings.txt");
@@ -60,10 +67,7 @@ public class SpendingListStorageTest {
     public void load_existingFile_success() {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
-            FileWriter passwordFileWriter = new FileWriter("./password.txt");
-            passwordFile.createNewFile();
-            passwordFileWriter.write("1");
-            passwordFileWriter.close();
+            initialisePasswordFile();
             spendingsFileWriter.write("1.0|1.0|1.0" + System.lineSeparator() + "10.0|macs|2024-11-09||NONE|null|1");
             spendingsFileWriter.close();
             SpendingListStorage.load();
@@ -73,14 +77,13 @@ public class SpendingListStorageTest {
         }
     }
 
+
+
     @Test
     public void load_userEditDailyMoreThanMonthly_wrongBudgetNotSet() {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
-            FileWriter passwordFileWriter = new FileWriter("./password.txt");
-            passwordFile.createNewFile();
-            passwordFileWriter.write("1");
-            passwordFileWriter.close();
+            initialisePasswordFile();
             spendingsFileWriter.write("10.0|1.0|1.0" + System.lineSeparator());
             spendingsFileWriter.close();
             Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
@@ -97,10 +100,7 @@ public class SpendingListStorageTest {
     public void load_userEditMonthlyMoreThanYearly_wrongBudgetNotSet() {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
-            FileWriter passwordFileWriter = new FileWriter("./password.txt");
-            passwordFile.createNewFile();
-            passwordFileWriter.write("1");
-            passwordFileWriter.close();
+            initialisePasswordFile();
             spendingsFileWriter.write("1.0|10.0|1.0" + System.lineSeparator());
             spendingsFileWriter.close();
             Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
@@ -117,10 +117,7 @@ public class SpendingListStorageTest {
     public void load_userEditMonthlyLessThanDaily_wrongBudgetNotSet() throws IOException {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
-            FileWriter passwordFileWriter = new FileWriter("./password.txt");
-            passwordFile.createNewFile();
-            passwordFileWriter.write("1");
-            passwordFileWriter.close();
+            initialisePasswordFile();
             spendingsFileWriter.write("15.0|10.0|100.0" + System.lineSeparator());
             spendingsFileWriter.close();
             Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
