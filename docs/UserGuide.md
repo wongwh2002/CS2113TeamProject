@@ -277,8 +277,8 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
     ____________________________________________________________
     List all statistics? [Y/N]:
 ```
+- - **Input:** `y`
 
-   - - **Input:** `y`
 ```
     ____________________________________________________________
     Spendings
@@ -298,7 +298,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
         Yearly budget left: -40
     ____________________________________________________________
 ```
-**Input:** `n`
+- - **Input:** `n`
 ```
     ____________________________________________________________
     Spendings
@@ -310,7 +310,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
     ____________________________________________________________
 ```
 
-**Input:** `4` (Date of command is 2024-11-18)
+- **Input:** `4` (Date of command is 2024-11-18)
 ```
     ____________________________________________________________
     Spendings
