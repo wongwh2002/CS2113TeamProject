@@ -130,13 +130,62 @@ public class LoadStorageCheckTest {
     @Test
     public void parseEntry_invalidDate_storageCorruptedExceptionthrown() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
-        String newEntry = "10.0|savings|2024-11-09||NONE|null|1";
+        String newEntry = "10.0|savings|2024-13-09||NONE|null|1";
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
             assertEquals(storageUtils.storageErrorMessage + "date!", e.getMessage());
         }
     }
+
+    @Test
+    public void parseEntry_nullTag_storageCorruptedExceptionthrown() {
+        LoadStorageCheck storageUtils = new LoadStorageCheck("income");
+        String newEntry = "10.0|savings|2024-11-09|null|NONE|null|1";
+        try {
+            storageUtils.parseEntry(newEntry);
+        } catch (WiagiStorageCorruptedException e) {
+            assertEquals(storageUtils.storageErrorMessage + "tag!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseEntry_nullRecurrenceFrequency_storageCorruptedExceptionthrown() {
+        LoadStorageCheck storageUtils = new LoadStorageCheck("income");
+        String newEntry = "10.0|savings|2024-11-09||null|null|1";
+        try {
+            storageUtils.parseEntry(newEntry);
+        } catch (WiagiStorageCorruptedException e) {
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_RECURRENCE_FREQUENCY, e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseEntry_invalidRecurrenceFrequency_storageCorruptedExceptionthrown() {
+        LoadStorageCheck storageUtils = new LoadStorageCheck("income");
+        String newEntry = "10.0|savings|2024-11-09||WEEKLY|null|1"; //recurrence frequency should be NONE, DAILY, MONTHLY, YEARLY
+        try {
+            storageUtils.parseEntry(newEntry);
+        } catch (WiagiStorageCorruptedException e) {
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_RECURRENCE_FREQUENCY, e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseEntry_nullLastRecurredDate_storageCorruptedExceptionthrown() {
+        LoadStorageCheck storageUtils = new LoadStorageCheck("income");
+        String newEntry = "10.0|savings|2024-11-09||NONE|null|1";
+        try {
+            storageUtils.parseEntry(newEntry);
+        } catch (WiagiStorageCorruptedException e) {
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_LAST_RECURRED_DATE, e.getMessage());
+        }
+    }
+
+
+
+
+
 
     @BeforeEach
     void setUp() {
