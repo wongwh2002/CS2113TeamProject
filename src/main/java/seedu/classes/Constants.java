@@ -64,9 +64,12 @@ public class Constants {
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
-    public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
-            "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
-            "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
+    public static final String TIME_RANGE_MESSAGE_SPENDINGS = "List spendings from:" + System.lineSeparator() +
+            "\t[1] All" + System.lineSeparator() + "\t[2] This monday" + System.lineSeparator() +
+            "\t[3] Last monday" + System.lineSeparator() + "\t[4] First day of this month";
+    public static final String TIME_RANGE_MESSAGE_INCOMES = "List incomes from:" + System.lineSeparator() +
+            "\t[1] All" + System.lineSeparator() + "\t[2] This monday" + System.lineSeparator() +
+            "\t[3] Last monday" + System.lineSeparator() + "\t[4] First day of this month";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";

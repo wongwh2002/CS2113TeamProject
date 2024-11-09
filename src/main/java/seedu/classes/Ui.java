@@ -22,7 +22,8 @@ import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE_INCOMES;
+import static seedu.classes.Constants.TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
@@ -279,7 +280,11 @@ public class Ui {
     //@@author wx-03
     public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> arrList) {
         while (true) {
-            printWithTab(TIME_RANGE_MESSAGE);
+            if (arrList instanceof SpendingList) {
+                printWithTab(TIME_RANGE_MESSAGE_SPENDINGS);
+            } else {
+                printWithTab(TIME_RANGE_MESSAGE_INCOMES);
+            }
             String userInput = readCommand();
             switch (userInput) {
             case ALL_TIME_OPTION:
