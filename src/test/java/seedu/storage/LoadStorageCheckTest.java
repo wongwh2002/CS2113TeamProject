@@ -47,7 +47,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.corruptedErrorMessage + LoadStorageCheck.STORAGE_COMPULSORY_SIZE, e.getMessage());
+            assertEquals(storageUtils.corruptedErrorMessage + LoadStorageCheck.STORAGE_COMPULSORY_SIZE,
+                    e.getMessage());
         }
     }
 
@@ -165,11 +166,13 @@ public class LoadStorageCheckTest {
     @Test
     public void parseEntry_invalidRecurrenceFrequency_storageCorruptedExceptionthrown() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
-        String newEntry = "10.0|savings|2024-11-09||WEEKLY|null|1"; //recurrence frequency should be NONE, DAILY, MONTHLY, YEARLY
+        String newEntry = "10.0|savings|2024-11-09||WEEKLY|null|1";
+        //recurrence frequency should be NONE, DAILY, MONTHLY, YEARLY
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_RECURRENCE_FREQUENCY, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_RECURRENCE_FREQUENCY,
+                    e.getMessage());
         }
     }
 
@@ -180,7 +183,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_LAST_RECURRED_DATE, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_LAST_RECURRED_DATE,
+                    e.getMessage());
         }
     }
 
@@ -191,7 +195,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_LAST_RECURRED_DATE, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_LAST_RECURRED_DATE,
+                    e.getMessage());
         }
     }
 
@@ -202,7 +207,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_DAY_RECURRENCE, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_DAY_RECURRENCE,
+                    e.getMessage());
         }
     }
 
@@ -213,7 +219,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_VALID_DAY_RECURRENCE, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_VALID_DAY_RECURRENCE,
+                    e.getMessage());
         }
     }
 
@@ -224,7 +231,8 @@ public class LoadStorageCheckTest {
         try {
             storageUtils.parseEntry(newEntry);
         } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_VALID_DAY_RECURRENCE, e.getMessage());
+            assertEquals(storageUtils.storageErrorMessage + LoadStorageCheck.STORAGE_VALID_DAY_RECURRENCE,
+                    e.getMessage());
         }
     }
 }
