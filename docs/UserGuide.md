@@ -630,9 +630,16 @@ entry easily.
 **A**: The date of the entry will be changed, but no additional entries will be created between the new date and the 
 current date.
 
-**Q**: What happends if I add a recurring entry with an earlier date?
+**Q**: What happens if I add a recurring entry with an earlier date?
 
 **A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
+
+**Q**: What happens if I forget my password?
+
+**A**: Delete the `password.txt` file in the folder where the program is located. Upon starting the program, you will be prompted to create a new password.
+Users have to press Crtl+C (or Command+C for Mac users) to exit the program before they are able to delete the file.
+Do note that the `spending.txt` and `incomes.txt` files will be reset and all data will be lost.
+If you have a backup of the `spending.txt` and `incomes.txt` files, you can replace the new files with the backup files to restore your data.
 
 ## Command Summary
 <table>
