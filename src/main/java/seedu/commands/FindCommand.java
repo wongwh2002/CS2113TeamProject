@@ -114,10 +114,10 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingAmount(String findValue, ArrayList<T> list) {
         double lower;
         double upper;
-        int indexOfTo = findValue.indexOf(FIND_RANGE_DIVIDER);
-        if (indexOfTo != -1) { // range
-            String lowerString = findValue.substring(0, indexOfTo).trim();
-            String upperString = findValue.substring(indexOfTo + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
+        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
+        if (indexOfFindRangeDivider != -1) { // range
+            String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
+            String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
             throwExceptionIfValueHasWhitespace(lowerString, upperString);
             lower = CommandUtils.formatAmount(lowerString, FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatAmount(upperString, FIND_COMMAND_FORMAT);
@@ -145,10 +145,10 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingDate(String findValue, ArrayList<T> list) {
         LocalDate lower;
         LocalDate upper;
-        int indexOfTo = findValue.indexOf(FIND_RANGE_DIVIDER);
+        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
         if (findValue.contains(FIND_RANGE_DIVIDER)) {
-            String lowerString = findValue.substring(0, indexOfTo).trim();
-            String upperString = findValue.substring(indexOfTo + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
+            String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
+            String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
             throwExceptionIfValueHasWhitespace(lowerString, upperString);
             lower = CommandUtils.formatDate(lowerString, FIND_COMMAND_FORMAT);
             upper = CommandUtils.formatDate(upperString, FIND_COMMAND_FORMAT);
