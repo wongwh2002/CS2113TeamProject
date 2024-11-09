@@ -36,6 +36,7 @@ public class BudgetCommand extends Command {
     private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
     private static final double UNINITIALISED_BUDGET = 0.0;
 
+
     private final String fullCommand;
 
 

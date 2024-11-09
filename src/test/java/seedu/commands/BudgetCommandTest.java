@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.classes.Ui;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 import org.junit.jupiter.api.AfterEach;
@@ -12,10 +13,15 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.DAILY_BUDGET_QUESTION;
 import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
+import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
+import static seedu.classes.Constants.YEARLY_BUDGET_MESSAGE;
 import static seedu.classes.Ui.commandInputForTest;
 
 class BudgetCommandTest {
@@ -124,5 +130,54 @@ class BudgetCommandTest {
         commandInputForTest("budget yearly 100", incomes, spendings);
         assertEquals(TAB + "Monthly budget should not be larger than yearly budget! " + ENTER_BUDGET_MESSAGE +
                 System.lineSeparator() ,outContent.toString());
+    }
+
+    @Test
+    public void initialiseBudget_dailyBudgetLessThanZero_invalidBudgetMessage() {
+        Ui.userInputForTest("-1" + System.lineSeparator() + "100" + System.lineSeparator() + "1000" +
+                System.lineSeparator() + "10000");
+        BudgetCommand.initialiseBudget(spendings);
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + System.lineSeparator() + TAB +
+                MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator() + TAB +
+                YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator(),
+                outContent.toString());
+    }
+
+
+    @Test
+    public void initialiseBudget_budgetLessThanZero_invalidBudgetMessage() {
+        Ui.userInputForTest("-1" + System.lineSeparator() + "100" + System.lineSeparator() + "1000" +
+                System.lineSeparator() + "10000");
+        BudgetCommand.initialiseBudget(spendings);
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + System.lineSeparator() + TAB +
+                MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator() + TAB +
+                YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    public void initialiseBudget_budgetMoreThanLimit_invalidBudgetMessage() {
+        Ui.userInputForTest("100" + System.lineSeparator() + "10000000000" + System.lineSeparator() + "1000" +
+                System.lineSeparator() + "10000");
+        BudgetCommand.initialiseBudget(spendings);
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + "Amount must be lesser than 1.0E8Please enter a valid budget:" +
+                System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
+                SEPARATOR + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void initialiseBudget_yearlyBudgetInvalid_invalidBudgetMessage() {
+        Ui.userInputForTest("100" + System.lineSeparator() + "1000" + System.lineSeparator() + "1000000000" +
+                System.lineSeparator() + "10000");
+        BudgetCommand.initialiseBudget(spendings);
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
+                System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
+                SEPARATOR + System.lineSeparator() + TAB + "Amount must be lesser than 1.0E8Please enter a valid " +
+                "budget:" + System.lineSeparator(), outContent.toString());
     }
 }

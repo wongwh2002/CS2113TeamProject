@@ -74,6 +74,9 @@ public class Constants {
     public static final String MONTHLY_OPTION = "4";
     public static final int LIST_TYPE_INDEX = 1;
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
+    public static final String DAILY_BUDGET_QUESTION = "Please enter a daily budget you have in mind:";
+    public static final String MONTHLY_BUDGET_MESSAGE = "Next, please enter a monthly budget you have in mind:";
+    public static final String YEARLY_BUDGET_MESSAGE = "Last one! Please enter a yearly budget you have in mind:";
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";
