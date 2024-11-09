@@ -155,7 +155,7 @@ public class SpendingListStorageTest {
     }
 
     @Test
-    public void load_userEditMonthlyLessThanDaily_wrongBudgetNotSet() throws IOException {
+    public void load_userEditMonthlyLessThanDaily_wrongBudgetNotSet() {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
