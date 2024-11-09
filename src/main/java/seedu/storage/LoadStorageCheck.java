@@ -51,15 +51,6 @@ public class LoadStorageCheck {
         LocalDate lastRecurred = parseLastRecurredDate(entryData[LOAD_LAST_RECURRED_INDEX], recurrenceFrequency);
         int dayOfRecurrence = parseDayOfRecurrence(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]);
 
-        assert amount > 0 : "Amount should be greater than 0";
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
-        assert date != null : "Date should not be null";
-        assert tag != null : "Tag should not be null";
-        assert recurrenceFrequency != null : "Recurrence frequency should not be null";
-        assert recurrenceFrequency == RecurrenceFrequency.NONE || lastRecurred != null :
-                "Last recurred date should not be null if recurrence frequency is not NONE";
-        assert dayOfRecurrence >= 1 && dayOfRecurrence <= 31 : "Day of recurrence should be between 1 and 31";
-
         if (this.storageType.equals("income")) {
             return new Income(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
         }
