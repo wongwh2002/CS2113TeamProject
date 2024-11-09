@@ -13,12 +13,14 @@ import java.util.regex.Pattern;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS_IN_ADD;
 import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_AMOUNT_DESCRIPTION_CATEGORY;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
+import static seedu.classes.Constants.RESTRICT_CHARACTER;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
@@ -94,6 +96,9 @@ public class AddCommand extends Command {
         }
 
         String description = compulsoryArguments[DESCRIPTION_INDEX];
+        if (description.matches(RESTRICT_CHARACTER)) {
+            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS_IN_ADD);
+        }
 
         if (typeOfList.equals(SPENDING)) {
             addSpending(spendings, amount, description, optionalString);

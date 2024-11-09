@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.RESTRICT_CHARACTER;
 import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
-import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS;
+import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS_IN_EDIT;
 import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.INVALID_TAG_CHARACTERS;
 import static seedu.classes.Constants.LIST_SEPARATOR;
@@ -135,13 +135,6 @@ public class EntryType {
         }
     }
 
-    private LocalDate checkRecurrence(RecurrenceFrequency frequency) {
-        if (frequency == RecurrenceFrequency.NONE) {
-            return null;
-        }
-        return this.date;
-    }
-
     @Override
     public String toString() {
         String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.format("%.02f", amount);
@@ -161,7 +154,7 @@ public class EntryType {
 
     public void editDescription(String newDescription){
         if (newDescription.matches(RESTRICT_CHARACTER)) {
-            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS);
+            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS_IN_EDIT);
         }
         this.description = newDescription;
     }
