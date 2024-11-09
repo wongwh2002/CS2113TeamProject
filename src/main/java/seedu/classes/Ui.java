@@ -20,8 +20,8 @@ import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.NO_ENTRIES_TIME_RANGE_MESSAGE;
-import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_INCOMES;
-import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_SPENDINGS;
+import static seedu.classes.Constants.INCOMES_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.SPENDINGS_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
@@ -226,9 +226,9 @@ public class Ui {
     private static <T extends EntryType> void printTimeRangeDates(ArrayList<T> arrList,
             LocalDate start, LocalDate end) {
         if (arrList instanceof SpendingList) {
-            printWithTab(PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + start + " to " + end);
+            printWithTab(SPENDINGS_TIME_RANGE_MESSAGE + start + " to " + end);
         } else {
-            printWithTab(PRINTING_TIME_RANGE_MESSAGE_INCOMES + start + " to " + end);
+            printWithTab(INCOMES_TIME_RANGE_MESSAGE + start + " to " + end);
         }
     }
 

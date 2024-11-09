@@ -67,14 +67,14 @@ public class Constants {
     public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries within:" +
             System.lineSeparator() +
             TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
-            TAB + "[3] Past 2 weeks" + System.lineSeparator() + TAB + "[4] This month";
+            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
     public static final String SELECT_TIME_RANGE_MESSAGE_INCOMES = "List income entries within:" +
             System.lineSeparator() +
             TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
-            TAB + "[3] Past 2 weeks" + System.lineSeparator() + TAB + "[4] This month";
+            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
     public static final String NO_ENTRIES_TIME_RANGE_MESSAGE = "No entries within selected time range";
-    public static final String PRINTING_TIME_RANGE_MESSAGE_SPENDINGS = "Showing spending entries from ";
-    public static final String PRINTING_TIME_RANGE_MESSAGE_INCOMES = "Showing income entries from ";
+    public static final String SPENDINGS_TIME_RANGE_MESSAGE = "Showing spending entries from ";
+    public static final String INCOMES_TIME_RANGE_MESSAGE = "Showing income entries from ";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";

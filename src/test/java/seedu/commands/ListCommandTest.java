@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
-import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_INCOMES;
-import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_SPENDINGS;
+import static seedu.classes.Constants.INCOMES_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.SPENDINGS_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
@@ -225,7 +225,7 @@ class ListCommandTest {
         LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + monday + " to " +
+                TAB + SPENDINGS_TIME_RANGE_MESSAGE + monday + " to " +
                 sunday + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -243,7 +243,7 @@ class ListCommandTest {
         LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + lastMonday + " to " +
+                TAB + SPENDINGS_TIME_RANGE_MESSAGE + lastMonday + " to " +
                 sunday + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -261,7 +261,7 @@ class ListCommandTest {
         LocalDate monthEnd = monthStart.plusDays(VALID_TEST_DATE.getMonth().length(VALID_TEST_DATE.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + monthStart + " to " +
+                TAB + SPENDINGS_TIME_RANGE_MESSAGE + monthStart + " to " +
                 monthEnd + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
@@ -279,7 +279,7 @@ class ListCommandTest {
         LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monday + " to " +
+                TAB + INCOMES_TIME_RANGE_MESSAGE + monday + " to " +
                 sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -297,7 +297,7 @@ class ListCommandTest {
         LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + lastMonday + " to " +
+                TAB + INCOMES_TIME_RANGE_MESSAGE + lastMonday + " to " +
                 sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -315,7 +315,7 @@ class ListCommandTest {
         LocalDate monthEnd = monthStart.plusDays(VALID_TEST_DATE.getMonth().length(VALID_TEST_DATE.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monthStart + " to " +
+                TAB + INCOMES_TIME_RANGE_MESSAGE + monthStart + " to " +
                 monthEnd + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
@@ -336,7 +336,7 @@ class ListCommandTest {
                 TAB + "Invalid input" + System.lineSeparator() +
                 TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
-                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monday + " to " +
+                TAB + INCOMES_TIME_RANGE_MESSAGE + monday + " to " +
                 sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +

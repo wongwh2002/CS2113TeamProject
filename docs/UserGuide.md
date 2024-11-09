@@ -260,7 +260,7 @@ Lists all the entries in the user's spending list.
 The user will then be prompted to select a time range from the following options:
 1. All
 2. This week
-3. Past 2 weeks
+3. Last week and this week
 4. This month
 
 Only entries that are dated within the selected time range will be displayed. 
@@ -278,7 +278,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 	List spending entries within:
 	[1] All
 	[2] This week
-	[3] Past 2 weeks
+	[3] Last week and this week
 	[4] This month
 ```
 
@@ -345,7 +345,12 @@ Lists all the entries in the user's income list.
 
 **Format:** `list incomes`
 
-The user will then be prompted to select a time range.
+The user will then be prompted to select a time range from the following options:
+1. All
+2. This week
+3. Last week and this week
+4. This month
+
 Only entries that are dated within the selected time range will be displayed.
 <br> E.g. If today is 20 November 2024 (Wednesday) and the user chooses option 2 (this week),  only income entries
 from the current week's Monday (18 November 2024) to Sunday (24 November 2024) will be shown.
@@ -360,7 +365,7 @@ Only entries that are within the time range will be displayed.
 	List income entries within:
 	[1] All
 	[2] This week
-	[3] Past 2 weeks
+	[3] Last week and this week
 	[4] This month 
 ```
 - **Input:** `1`
