@@ -72,6 +72,7 @@ public class Constants {
     public static final String MONTHLY_OPTION = "4";
     public static final int LIST_TYPE_INDEX = 1;
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
+    public static final int LIST_MAX_ARGUMENTS_LENGTH = 3;
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";

@@ -23,6 +23,7 @@ import seedu.type.EntryType;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.LIST_MAX_ARGUMENTS_LENGTH;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
@@ -57,7 +58,7 @@ public class Parser {
     }
 
     private static Command parseListCommand(String fullCommand) {
-        String[] arguments = fullCommand.split(WHITESPACE);
+        String[] arguments = fullCommand.split(WHITESPACE, LIST_MAX_ARGUMENTS_LENGTH);
         int commandSize = arguments.length;
         assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {
