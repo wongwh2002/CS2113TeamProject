@@ -65,6 +65,19 @@ Expected display for first time users:
 To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
 users should enter valid amounts (e.g. An integer or number with decimals) for each budget type <br>
 Amount entered must be greater than 0 when rounded to 2dp. <br>
+
+Example valid inputs: <br>
+- `50` <br>
+- `1500` <br>
+- `18000` <br>
+<br>
+
+Example invalid inputs: <br>
+- `$50` <br>
+- `1,500` <br>
+- `18 000` <br>
+<br>
+
 Expected display:
 ```
 	Hello! So happy you took this first step of financial management.
@@ -244,66 +257,67 @@ Lists all the entries in the user's spending list.
 
 The user will then be prompted to select a time range.
 Only entries that are within the time range will be displayed.
-If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed.
+If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed (case insensitive).
 
 **Example Input and Output**
 
 **Input:** `list spendings`
 ```
-	____________________________________________________________
-	Select time range:
-	[1] All
-	[2] Weekly
-	[3] Biweekly
-	[4] Monthly
+    ____________________________________________________________
+    Select time range:
+    [1] All
+    [2] Weekly
+    [3] Biweekly
+    [4] Monthly
 ```
+
 - **Input:** `1`
-  ```
-	 ____________________________________________________________
-	 List all statistics? [Y/N]:
-  ```
-    - **Input:** `y`
-    <br>
-    ```
-        ____________________________________________________________
-        Spendings
-        1. macdonalds - 10 - 2024-10-10 - food
-        2. techno - 10 - 2024-10-17 - food
-        3. flights - 10 - 2024-11-01 - travel
-        4. girlfriends - 10 - 2024-11-17 - personal
-        Total spendings: 40
-            Daily spendings: 0
-            Daily Budget: 0
-            Daily budget left: 0
-            Monthly spendings: 40
-            Monthly Budget: 0
-            Monthly budget left: -40
-            Yearly spendings: 40
-            Yearly Budget: 0
-            Yearly budget left: -40
-        ____________________________________________________________
-    ```
-    - **Input:** `n`
-    <br>
-    ```
-        ____________________________________________________________
-        Spendings
-        1. macdonalds - 10 - 2024-10-10 - food
-        2. techno - 10 - 2024-10-17 - food
-        3. flights - 10 - 2024-11-01 - travel
-        4. girlfriends - 10 - 2024-11-17 - personal
-        Total spendings: 40
-        ____________________________________________________________
-    ```
-- **Input:** `4` (Date of command is 2024-11-18)
-  ```
-      ____________________________________________________________
-      Spendings
-      3. flights - 10 - 2024-11-01 - travel
-      4. girlfriends - 10 - 2024-11-17 - personal
-      Total: 20
-      ____________________________________________________________
-  ```
+```
+    ____________________________________________________________
+    List all statistics? [Y/N]:
+```
+
+   - - **Input:** `y`
+```
+    ____________________________________________________________
+    Spendings
+    1. macdonalds - 10 - 2024-10-10 - food
+    2. techno - 10 - 2024-10-17 - food
+    3. flights - 10 - 2024-11-01 - travel
+    4. girlfriends - 10 - 2024-11-17 - personal
+    Total spendings: 40
+        Daily spendings: 0
+        Daily Budget: 0
+        Daily budget left: 0
+        Monthly spendings: 40
+        Monthly Budget: 0
+        Monthly budget left: -40
+        Yearly spendings: 40
+        Yearly Budget: 0
+        Yearly budget left: -40
+    ____________________________________________________________
+```
+**Input:** `n`
+```
+    ____________________________________________________________
+    Spendings
+    1. macdonalds - 10 - 2024-10-10 - food
+    2. techno - 10 - 2024-10-17 - food
+    3. flights - 10 - 2024-11-01 - travel
+    4. girlfriends - 10 - 2024-11-17 - personal
+    Total spendings: 40
+    ____________________________________________________________
+```
+
+**Input:** `4` (Date of command is 2024-11-18)
+```
+    ____________________________________________________________
+    Spendings
+    3. flights - 10 - 2024-11-01 - travel
+    4. girlfriends - 10 - 2024-11-17 - personal
+    Total: 20
+    ____________________________________________________________
+```
 
 #### Listing all incomes:
 
@@ -481,6 +495,8 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 
 - `{$PERIOD}`: Specifies the period for the budget. It can be `daily`, `monthly`, or `yearly`.
 - `{$AMOUNT}`: The budget amount to be set.
+
+The input criteria for the amount is the same as the amount entered for [Creation of new user](#creation-of-new-user).
 
 **Example input:**<br>
 `
