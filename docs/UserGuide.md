@@ -63,7 +63,7 @@ Expected display for first time users:
 	Please enter your new account password:
 ```
 To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
-users should enter valid amounts (eg. An integer or number with decimals) for each budget type <br>
+users should enter valid amounts (e.g. An integer or number with decimals) for each budget type <br>
 Amount entered must be greater than 0 when rounded to 2dp. <br>
 Expected display:
 ```
