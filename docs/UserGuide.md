@@ -528,9 +528,9 @@ Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
 The `find` command allows you to find entries within a range of amount or date. 
 It also allows you to find entries with a specific keyword in the description.
 
-**Format:** `find {$TYPE} {$FIELD} {$FIND_VALUE}`
+**Format:** `find {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]`
 
-- `{$TYPE}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
+- `{$CATEGORY}`: Specifies the type of entry to be edited. It can be `spending` or `income`.
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, or `date`.
 - `{$FIND_VALUE}`: The value to find for the specified field.
 - `[to $ANOTHER_FIND_VALUE]`: The upper limit of the search result.
