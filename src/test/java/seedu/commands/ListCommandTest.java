@@ -11,11 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
+import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_INCOMES;
+import static seedu.classes.Constants.PRINTING_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
@@ -198,13 +202,31 @@ class ListCommandTest {
                 outContent.toString());
     }
 
+    private static LocalDate getMondayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.MONDAY) {
+            currDate = currDate.minusDays(1);
+        }
+        return currDate;
+    }
+
+    private static LocalDate getSundayDate(LocalDate currDate) {
+        while (currDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            currDate = currDate.plusDays(1);
+        }
+        return currDate;
+    }
+
     @Test
     public void execute_listWeeklySpendings_expectWeeklySpendingList() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list spendings", incomes, spendings);
+        LocalDate monday = getMondayDate(VALID_TEST_DATE);
+        LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + monday + " to " +
+                sunday + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -217,8 +239,12 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list spendings", incomes, spendings);
+        LocalDate lastMonday = getMondayDate(VALID_TEST_DATE.minusDays(7));
+        LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + lastMonday + " to " +
+                sunday + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -231,8 +257,12 @@ class ListCommandTest {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list spendings", incomes, spendings);
+        LocalDate monthStart = LocalDate.of(VALID_TEST_DATE.getYear(), VALID_TEST_DATE.getMonth(), 1);
+        LocalDate monthEnd = monthStart.plusDays(VALID_TEST_DATE.getMonth().length(VALID_TEST_DATE.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_SPENDINGS + monthStart + " to " +
+                monthEnd + System.lineSeparator() +
                 TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -245,8 +275,12 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list incomes", incomes, spendings);
+        LocalDate monday = getMondayDate(VALID_TEST_DATE);
+        LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monday + " to " +
+                sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -259,8 +293,12 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list incomes", incomes, spendings);
+        LocalDate lastMonday = getMondayDate(VALID_TEST_DATE.minusDays(7));
+        LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + lastMonday + " to " +
+                sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -273,8 +311,12 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list incomes", incomes, spendings);
+        LocalDate monthStart = LocalDate.of(VALID_TEST_DATE.getYear(), VALID_TEST_DATE.getMonth(), 1);
+        LocalDate monthEnd = monthStart.plusDays(VALID_TEST_DATE.getMonth().length(VALID_TEST_DATE.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monthStart + " to " +
+                monthEnd + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
@@ -287,11 +329,15 @@ class ListCommandTest {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
         commandInputForTest("list incomes", incomes, spendings);
+        LocalDate monday = getMondayDate(VALID_TEST_DATE);
+        LocalDate sunday = getSundayDate(VALID_TEST_DATE);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
                 TAB + "Invalid input" + System.lineSeparator() +
                 TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + System.lineSeparator() +
                 TAB + SEPARATOR + System.lineSeparator() +
+                TAB + PRINTING_TIME_RANGE_MESSAGE_INCOMES + monday + " to " +
+                sunday + System.lineSeparator() +
                 TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
                 TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
                 TAB + "Total: 20" + System.lineSeparator(),
