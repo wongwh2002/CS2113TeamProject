@@ -53,7 +53,7 @@ public class Constants {
     public static final String INDEX_OUT_OF_BOUNDS = "Not a valid index!";
     public static final String INDEX_NOT_INTEGER = "Please enter a integer as the index! ";
     public static final String AMOUNT_NOT_NUMBER = "Please enter a number for the amount! ";
-    public static final String INVALID_AMOUNT = "Invalid amount! Amount must be greater than 0 (rounded to 2dp)! ";
+    public static final String INVALID_AMOUNT = "Invalid amount! Amount must be greater than 0 (when rounded to 2dp)! ";
     public static final String INVALID_DESCRIPTION_CHARACTERS_IN_EDIT = "Invalid characters in description. " +
             "Edit unsuccessful.";
     public static final String INVALID_DESCRIPTION_CHARACTERS_IN_ADD = "Invalid characters in description. " +

@@ -59,7 +59,7 @@ public class AddCommand extends Command {
         String optionalString = splitCommand(fullCommand)[1].trim().concat(WHITESPACE);
 
         // Split compulsory arguments into array of max size 4 with whitespace as delimiter
-        // [add] [type] [amount] [description...]
+        // [add] [category] [amount] [description...]
         String[] compulsoryArguments = extractArguments(compulsoryString);
 
         // Check that command length greater than 1
@@ -74,7 +74,7 @@ public class AddCommand extends Command {
 
         // Check that amount, description are present
         if (compulsoryArguments.length == AMOUNT_INDEX) {
-            // Command is "add {$TYPE}"
+            // Command is "add {$CATEGORY}"
             throw new WiagiInvalidInputException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
         } else if (compulsoryArguments.length == DESCRIPTION_INDEX) {
             // Either amount or description is missing
