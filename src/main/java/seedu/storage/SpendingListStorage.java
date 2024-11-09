@@ -48,18 +48,18 @@ public class SpendingListStorage {
     }
 
     private static void handleWriteFile(SpendingList spendings) throws IOException {
-        FileWriter fw = new FileWriter(SPENDINGS_FILE_PATH);
+        FileWriter spendingFile = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
                 spendings.getMonthlyBudget() + STORAGE_SEPARATOR + spendings.getYearlyBudget();
-        fw.write(budgetDetails + System.lineSeparator());
+        spendingFile.write(budgetDetails + System.lineSeparator());
         for (Spending spending : spendings) {
             String singleEntry = spending.getAmount() + STORAGE_SEPARATOR + spending.getDescription() +
                     STORAGE_SEPARATOR + spending.getDate() + STORAGE_SEPARATOR + spending.getTag() +
                     STORAGE_SEPARATOR + spending.getRecurrenceFrequency() + STORAGE_SEPARATOR +
                     spending.getLastRecurrence() + STORAGE_SEPARATOR + spending.getDayOfRecurrence();
-            fw.write(singleEntry + System.lineSeparator());
+            spendingFile.write(singleEntry + System.lineSeparator());
         }
-        fw.close();
+        spendingFile.close();
     }
 
     /**
@@ -77,7 +77,7 @@ public class SpendingListStorage {
             }
             Scanner spendingReader = new Scanner(spendingFile);
             assert spendingReader.hasNext() : "file is not empty";
-            String[] budgetDetails = spendingReader.nextLine().split(STORAGE_LOAD_SEPARATOR);
+            String budgetDetails = spendingReader.nextLine();
             loadBudgets(budgetDetails);
             while (spendingReader.hasNext()) {
                 String newEntry = spendingReader.nextLine();
@@ -93,10 +93,12 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish loading spendings file.");
     }
 
-    private static void loadBudgets(String[] budgetDetails) {
+    private static void loadBudgets(String budgetDetail) {
+        String[] budgetDetails = budgetDetail.split(STORAGE_LOAD_SEPARATOR);
         if (budgetDetails.length != 3) {
             WiagiLogger.logger.log(Level.WARNING, "Corrupted budget details found in spendings file");
             emptyFileErrorHandling();
+            processEntry(budgetDetail,1);
             return;
         }
         try {
@@ -127,6 +129,6 @@ public class SpendingListStorage {
 
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, int counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
-        Ui.handleCorruptedEntry(e, counter);
+        Ui.handleCorruptedEntry(e, counter, "spendings");
     }
 }

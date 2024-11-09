@@ -17,6 +17,7 @@ import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
+import static seedu.classes.Constants.MISSING_AMOUNT_DESCRIPTION_CATEGORY;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
@@ -40,6 +41,7 @@ public class AddCommand extends Command {
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;
         assert spendings != null;
+        assert fullCommand.startsWith("add");
         try {
             handleCommand(incomes, spendings);
         } catch (WiagiInvalidInputException e) {
@@ -58,6 +60,10 @@ public class AddCommand extends Command {
         // [add] [type] [amount] [description...]
         String[] compulsoryArguments = extractArguments(compulsoryString);
 
+        // Check that command length greater than 1
+        if (compulsoryArguments.length <= 1) {
+            throw new WiagiInvalidInputException(MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT);
+        }
         // Check that category is correct
         String typeOfList = compulsoryArguments[LIST_TYPE_INDEX];
         if (!(typeOfList.equals(SPENDING) || typeOfList.equals(INCOME))) {

@@ -136,7 +136,7 @@ public class LoadStorageCheck {
             throw new WiagiStorageCorruptedException(storageErrorMessage + STORAGE_LAST_RECURRED_DATE);
         }
         assert recurrenceFrequency == RecurrenceFrequency.NONE || lastRecurred != null :
-                "Corrupted income entry detected, error with recurred date";
+                "Corrupted entry detected, error with recurred date";
         return lastRecurred;
     }
 
