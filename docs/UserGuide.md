@@ -64,6 +64,7 @@ Expected display for first time users:
 ```
 To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
 users should enter valid amounts (eg. An integer or number with decimals) for each budget type <br>
+Amount entered must be greater than 0 when rounded to 2dp. <br>
 Expected display:
 ```
 	Hello! So happy you took this first step of financial management.
@@ -99,6 +100,7 @@ Expected output after successfully creating new user: <br>
 
 Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
 Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry. <br>
+Amount entered must be greater than 0 when rounded to 2dp. <br>
 
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
@@ -473,6 +475,7 @@ Other Commands:
 ### Setting a Budget
 
 The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
+Amount entered must be greater than 0 when rounded to 2dp. <br>
 
 **Format**: `budget {$PERIOD} {$AMOUNT}`
 
@@ -493,7 +496,8 @@ budget daily 50
 
 ### Editing an Entry
 
-The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry.
+The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry. <br>
+Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
 
 **Format:** `edit {$TYPE} {$INDEX} {$FIELD} {$NEW_VALUE}`
 

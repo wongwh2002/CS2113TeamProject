@@ -388,7 +388,7 @@ Functionality:
 extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
 determine which attribute to edit and sets this attribute of the extracted entry to the new value.
 
-<img src="./Diagrams/Recurrence/editCommandSequence.png" alt="editCommandSequence.png" width="600"/> <br>
+<img src="./Diagrams/Commands/editCommandSequence.png" alt="editCommandSequence.png" width="600"/> <br>
 
 ### Finding entries
 `FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 
