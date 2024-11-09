@@ -11,9 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
-import static seedu.classes.Constants.BUDGET_INITIALISE_FORMAT;
+import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 
 /**
@@ -84,7 +86,7 @@ public class BudgetCommand extends Command {
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
+        double budget = CommandUtils.roundAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
 
         LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
@@ -104,19 +106,37 @@ public class BudgetCommand extends Command {
         String formatedBudget = Ui.formatPrintDouble(budget);
         switch (timeRange) {
         case DAILY:
+            checkUserBudgetEntered(budget, spendings.getMonthlyBudget(), "Daily budget", "monthly budget");
             spendings.setDailyBudget(budget);
             Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case MONTHLY:
+            checkUserBudgetEntered(budget, spendings.getYearlyBudget(), "Monthly budget", "yearly budget");
+            checkUserBudgetEntered(spendings.getDailyBudget(), budget, "Daily budget", "monthly budget");
             spendings.setMonthlyBudget(budget);
             Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case YEARLY:
+            checkUserBudgetEntered(spendings.getMonthlyBudget(), budget, "Monthly budget", "yearly budget");
             spendings.setYearlyBudget(budget);
             Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_FIELD + BUDGET_COMMAND_FORMAT);
+        }
+    }
+
+    private static void checkUserBudgetEntered(double smallerBudget, double biggerBudget, String smallerBudgetType,
+            String biggerBudgetType) {
+        if (biggerBudget <= 0) {
+            throw new WiagiInvalidInputException(INVALID_AMOUNT + ENTER_BUDGET_MESSAGE);
+        } else if (biggerBudget > MAX_LIST_TOTAL_AMOUNT) {
+            throw new WiagiInvalidInputException("Amount must be lesser than " + MAX_LIST_TOTAL_AMOUNT
+                    + ENTER_BUDGET_MESSAGE);
+        }
+        if (biggerBudget < smallerBudget) {
+            throw new WiagiInvalidInputException(smallerBudgetType + " should not be larger than " + biggerBudgetType
+                    + "! " + ENTER_BUDGET_MESSAGE);
         }
     }
 
@@ -126,7 +146,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userDailyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userDailyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userDailyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(0, amount, "", "daily Budget");
                 spendings.setDailyBudget(amount);
             } catch (WiagiInvalidInputException e) {
                 Ui.printWithTab(e.getMessage());
@@ -140,7 +161,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userMonthlyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userMonthlyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userMonthlyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(spendings.getDailyBudget(), amount, "Daily budget", "monthly budget");
                 spendings.setMonthlyBudget(amount);
             } catch (WiagiInvalidInputException e){
                 Ui.printWithTab(e.getMessage());
@@ -154,7 +176,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userYearlyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userYearlyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userYearlyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(spendings.getMonthlyBudget(), amount, "Monthly budget", "yearly budget");
                 spendings.setYearlyBudget(amount);
             } catch (WiagiInvalidInputException e) {
                 Ui.printWithTab(e.getMessage());
