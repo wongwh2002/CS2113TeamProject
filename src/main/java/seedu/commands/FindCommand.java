@@ -22,6 +22,7 @@ import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.INVALID_FIND_RANGE_DIVIDER_FORMAT;
 import static seedu.classes.Constants.LONG_FIND_FROM_VALUE;
 import static seedu.classes.Constants.LONG_FIND_SPECIFIC_VALUE;
 import static seedu.classes.Constants.LONG_FIND_TO_VALUE;
@@ -162,6 +163,9 @@ public class FindCommand extends Command {
     }
 
     private static String[] extractRangeValues(String findValue) {
+        if (!findValue.contains(WHITESPACE + FIND_RANGE_DIVIDER + WHITESPACE)) {
+            throw new WiagiInvalidInputException(INVALID_FIND_RANGE_DIVIDER_FORMAT + FIND_COMMAND_FORMAT);
+        }
         int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
         String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
         String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();

@@ -71,6 +71,7 @@ public class Constants {
             "no whitespace separating it! ";
     public static final String LONG_FIND_SPECIFIC_VALUE = "There should only be one value, " +
             "no whitespace separating it! ";
+    public static final String INVALID_FIND_RANGE_DIVIDER_FORMAT = "\"to\" should be separated from find values! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
