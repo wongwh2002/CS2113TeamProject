@@ -17,7 +17,7 @@ public class Constants {
     public static final String RESTRICT_CHARACTER = ".*[*/~|].*";
     public static final String DATE_IDENTIFIER = "/";
     public static final String RECURRENCE_IDENTIFIER = "~";
-    public static final String FIND_RANGE_DIVIDER = " to ";
+    public static final String FIND_RANGE_DIVIDER = "to";
     public static final String SPENDING = "spending";
     public static final String INCOME = "income";
     public static final String DAILY_RECURRENCE = "daily";
@@ -65,6 +65,12 @@ public class Constants {
     public static final String MISSING_AMOUNT = "No amount found! ";
     public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
+    public static final String LONG_FIND_FROM_VALUE = "There should only be one from-value, " +
+            "no whitespace separating it! ";
+    public static final String LONG_FIND_TO_VALUE = "There should only be one to-value, " +
+            "no whitespace separating it! ";
+    public static final String LONG_FIND_SPECIFIC_VALUE = "There should only be one value, " +
+            "no whitespace separating it! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +

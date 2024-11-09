@@ -22,6 +22,9 @@ import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.LONG_FIND_FROM_VALUE;
+import static seedu.classes.Constants.LONG_FIND_SPECIFIC_VALUE;
+import static seedu.classes.Constants.LONG_FIND_TO_VALUE;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.SPENDING;
 
@@ -32,6 +35,7 @@ public class FindCommand extends Command {
     private static final int FIELD_INDEX = 2;
     private static final int VALUE_TO_FIND_INDEX = 3;
     private static final int FIND_ARGUMENTS_LENGTH = 4;
+    private static final int LENGTH_OF_FIND_RANGE_DIVIDER = 2;
     private static final String AMOUNT_FIELD = "amount";
     private static final String DESCRIPTION_FIELD = "description";
     private static final String DATE_FIELD = "date";
@@ -110,20 +114,27 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingAmount(String findValue, ArrayList<T> list) {
         double lower;
         double upper;
-        if (findValue.contains(FIND_RANGE_DIVIDER)) { // range
-            String[] range = findValue.split(FIND_RANGE_DIVIDER);
-            lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
+        int indexOfTo = findValue.indexOf(FIND_RANGE_DIVIDER);
+        if (indexOfTo != -1) { // range
+            String lowerString = findValue.substring(0, indexOfTo).trim();
+            String upperString = findValue.substring(indexOfTo + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
+            throwExceptionIfValueHasWhitespace(lowerString, upperString);
+            lower = CommandUtils.formatAmount(lowerString, FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatAmount(upperString, FIND_COMMAND_FORMAT);
             if (upper < lower) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT_RANGE);
             }
         } else { // exact
+            if (findValue.contains(WHITESPACE)) {
+                throw new WiagiInvalidInputException(LONG_FIND_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+            }
             lower = upper = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
         }
         return list.stream()
                 .filter(entry -> entry.getAmount() >= lower && entry.getAmount() <= upper)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     private <T extends EntryType> ArrayList<T> getMatchingDescription(String findValue, ArrayList<T> list) {
         return list.stream()
@@ -134,19 +145,34 @@ public class FindCommand extends Command {
     private <T extends EntryType> ArrayList<T> getMatchingDate(String findValue, ArrayList<T> list) {
         LocalDate lower;
         LocalDate upper;
+        int indexOfTo = findValue.indexOf(FIND_RANGE_DIVIDER);
         if (findValue.contains(FIND_RANGE_DIVIDER)) {
-            String[] range = findValue.split(FIND_RANGE_DIVIDER);
-            lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
+            String lowerString = findValue.substring(0, indexOfTo).trim();
+            String upperString = findValue.substring(indexOfTo + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
+            throwExceptionIfValueHasWhitespace(lowerString, upperString);
+            lower = CommandUtils.formatDate(lowerString, FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatDate(upperString, FIND_COMMAND_FORMAT);
             if (lower.isAfter(upper)) {
                 throw new WiagiInvalidInputException(INVALID_DATE_RANGE);
             }
         } else {
+            if (findValue.contains(WHITESPACE)) {
+                throw new WiagiInvalidInputException(LONG_FIND_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+            }
             lower = upper = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
         }
         return list.stream()
                 .filter(entry -> entry.getDate().isAfter(lower.minusDays(1))
                         && entry.getDate().isBefore(upper.plusDays(1)))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private static void throwExceptionIfValueHasWhitespace(String lowerString, String upperString) {
+        if (lowerString.contains(WHITESPACE)) {
+            throw new WiagiInvalidInputException(LONG_FIND_FROM_VALUE + FIND_COMMAND_FORMAT);
+        }
+        if (upperString.contains(WHITESPACE)) {
+            throw new WiagiInvalidInputException(LONG_FIND_TO_VALUE + FIND_COMMAND_FORMAT);
+        }
     }
 }
