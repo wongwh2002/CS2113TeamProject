@@ -503,7 +503,7 @@ When the user types `bye`, the program will exit the program.
 1. prefer desktop apps over other types(i.e. online apps)
 2. is reasonably comfortable using CLI apps
 3. wants to manage their own finances better
-4. quick typer who prefers typing over using mouse
+4. quick typist who prefers typing over using mouse
 
 ### Value proposition
 An app that help students to manage their financials faster than a typical mouse/GUI driven app.
@@ -541,7 +541,7 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 
 **MSS**
 
-1. User inputs to add income with description, amount, date, and tag.
+1. User inputs to add income with description, amount, date, tag and recurrence.
 2. Wiagi adds the income to the income list.
 3. If the date is not provided, Wiagi will use the current date.
 4. If the tag is not provided, Wiagi will use the default tag (Empty String).
@@ -551,9 +551,11 @@ Use case ends.
 
 **Extensions**
 1. User enters invalid input.
-   1. If the user inputs invalid formatting, Wiagi will display an error message.
+   1. If the user inputs invalid ordering, Wiagi will display an error message.
    2. If the user inputs an invalid amount, Wiagi will display an error message.
    3. If the user inputs an invalid date, Wiagi will display an error message.
+   4. If the user inputs an invalid recurrence, Wiagi will display an error message.
+   5. If the user inputs an invalid tag, Wiagi will display an error message.
    
    Use case restarts at step 1.
 
@@ -600,8 +602,9 @@ Use case of listing all spendings, incomes, tags is similar, omitted for brevity
 1. User requests to list all incomes or spendings.
 2. Wiagi shows a list of all incomes or spendings.
 3. User takes note of the index of the entry to edit and requests to edit the entry by specifying the index and new details.
-4. Wiagi updates the entry with the new details.
-5. Wiagi displays a message to the user that the entry has been updated.
+4. User enters the new details
+5. Wiagi updates the entry with the new details. 
+6. Wiagi displays a message to the user that the entry has been updated.
 
 Use case ends.  
 **Extensions**
@@ -636,8 +639,9 @@ Use case ends.
 
 **MSS**
 
-1. User requests to find a specific entry in incomes or spendings with its relevant details.
-2. Wiagi shows a list of all incomes or spendings that contains that detail.
+1. User enters the category and field to find.
+2. User enters specific or ranged input to search for.
+3. Wiagi shows a list of all incomes or spendings that contains that detail.
 
 Use case ends. 
 
@@ -651,14 +655,25 @@ Use case ends.
     - 3a. Wiagi displays an error message.
       Use case restarts at step 1.
 
-## Non-Functional Requirements
+### Use Case: Getting information of commands
+**Unsure of command specifics and require assistance**
 
-{Give non-functional requirements}
+**MSS**
+
+1. User enters help into the command terminal
+2. Wiagi shows a list of all commands and their details.
+
+Use case ends.
+## Non-Functional Requirements
 
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
 able to accomplish most of the tasks faster using commands than using the mouse.
 3. The system should be able to run on Windows, macOS, and Linux
+4. The system should be able to be used easily by a new user
+5. The program should not have use of language deemed offensive
+6. The program should be able to recover as much data as possible in the event of corruption
+7. The user data should not be hard to migrate and easily recoverable to another local host
 
 ## Future plans
 1. Implement editing of recurrence type of entries
@@ -667,6 +682,7 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 2. Set up database to store all of user's data 
 3. Create GUI interface to the program to increase aesthetics
 4. Include currency conversion to cater to users from different countries
+5. Include graphs and statistics for users to have a better overview of their finances
 
 ## Glossary
 
@@ -678,8 +694,6 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 * Mainstream OS - Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
 ### Creating a new user
 Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
@@ -697,10 +711,6 @@ Prerequisites: Add multiple entries to either incomes or spendings.
     - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
-
-### Exiting the program
-1. Test case: `bye`
-    - Expected: Program exits
 
 ### Editing an Entry
 Prerequisites: Add multiple entries to either incomes or spendings.
@@ -730,3 +740,26 @@ Prerequisites: None.
    - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
 4. Test case: `budget weekly 500`
    - Expected: Error message is shown indicating invalid time range.
+
+### Adding an income or spending
+Prerequisites: None.
+1. Test case: `add spendings 10 macs`
+   - Expected: Adds a spending entry of 10 dollars with description macs and entry date is current date
+2. Test case: `add income 1000 job`
+   - Expected: Adds an income entry of 1000 dollars with description job and entry date is current date
+3. Test case: `add spendings 10 macs *food*`
+   - Expected: Adds a spending entry of 10 dollars with description macs, tagged as food and entry date is current date
+4. Test case: `add income 100 odd job ~daily~`
+   - Expected: Adds an income entry of 100 dollars with description odd job, set to recurring daily and entry date is
+   current date
+5. Test case: `add spendings 100 toy /2024-10-10/`
+   - Expected: Adds a spending entry of 100 dollars with description toy and entry date set to 2024-10-10
+6. Test case: `add income 10000 salary *SIA* ~monthly* /2024-05-05/`
+   - Expected: Adds an income entry of 10000 dollars with description salary, tagged as SIA, set to recurring monthly, 
+   and entry date set to 2024-05-05
+7. Test case: `add spend 10 food`, `add spending food 10`, `add income 100 job /2024-100-100/`, `add income 100 job ~day~`
+   - Expected: Error message is shown indicating the general error made
+
+### Exiting the program
+1. Test case: `bye`
+    - Expected: Program exits
