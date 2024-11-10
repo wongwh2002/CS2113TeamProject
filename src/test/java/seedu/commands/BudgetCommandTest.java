@@ -164,7 +164,7 @@ class BudgetCommandTest {
         BudgetCommand.initialiseBudget(spendings);
         assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
                 System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + "Amount must be lesser than 1.0E8Please enter a valid budget:" +
+                System.lineSeparator() + TAB + "Amount must be lesser than 100000000. Please enter a valid budget:" +
                 System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
                 SEPARATOR + System.lineSeparator(), outContent.toString());
     }
@@ -177,7 +177,8 @@ class BudgetCommandTest {
         assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
                 System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
                 System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
-                SEPARATOR + System.lineSeparator() + TAB + "Amount must be lesser than 1.0E8Please enter a valid " +
+                SEPARATOR + System.lineSeparator() + TAB + "Amount must be lesser than 100000000. Please enter a " +
+                "valid " +
                 "budget:" + System.lineSeparator(), outContent.toString());
     }
 }
