@@ -605,8 +605,8 @@ There is no need to save manually.
 > <span style="color:#f5220d">WARNING</span> <br>
 > This section is dedicated to advanced users who are confident in updating the data file manually. Failure 
 > to do so correctly can lead to data corruption and having possibly all previous information wiped out.
-> Entry numbers detected as corrupted will be displayed to user upon start up, user may choose to copy out the lines, 
-> rectify and manually input then back after closing the program properly<br>
+> Entry numbers detected as corrupted will be displayed to user upon start up. The user may choose to copy out the lines, 
+> rectify, and manually input them back after closing the program properly.<br>
 
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
