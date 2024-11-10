@@ -43,8 +43,6 @@ public class YearlyRecurrence extends Recurrence {
             checkDate = checkDate.plusYears(YEARLY_FREQUENCY);
         }
         checkDate = checkDate.minusYears(YEARLY_FREQUENCY);
-        assert !checkDate.isAfter(LocalDate.now()) && checkDate.plusYears(YEARLY_FREQUENCY).isAfter(LocalDate.now())
-                : "last recurrence should be within one year";
         recurringSpending.editLastRecurrence(checkDate);
     }
 }
