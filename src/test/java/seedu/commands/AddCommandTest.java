@@ -12,6 +12,7 @@ import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
+import static seedu.classes.Constants.MISSING_AMOUNT_DESCRIPTION_CATEGORY;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAB;
@@ -217,6 +218,13 @@ public class AddCommandTest {
     void execute_invalidCategory_invalidCategoryMessage() {
         commandInputForTest("add invalidCategory 10 lunch", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + ADD_COMMAND_FORMAT + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    void execute_onlyAddInCommand_invalidCategoryMessage() {
+        commandInputForTest("add", incomes, spendings);
+        assertEquals(TAB + MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT + System.lineSeparator(),
                 outContent.toString());
     }
 

@@ -1,6 +1,7 @@
 package seedu.commands;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 import seedu.recurrence.Recurrence;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -46,13 +47,13 @@ public class AddCommand extends Command {
         assert fullCommand.startsWith("add");
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiInvalidInputException e) {
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
     private void handleCommand(IncomeList incomes, SpendingList spendings)
-            throws WiagiInvalidInputException {
+            throws WiagiInvalidInputException, WiagiMissingParamsException {
 
         // Split full command into compulsory and optional strings
         String compulsoryString = splitCommand(fullCommand)[0];
@@ -64,7 +65,7 @@ public class AddCommand extends Command {
 
         // Check that command length greater than 1
         if (compulsoryArguments.length <= 1) {
-            throw new WiagiInvalidInputException(MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT);
         }
         // Check that category is correct
         String typeOfList = compulsoryArguments[LIST_TYPE_INDEX];
@@ -75,13 +76,13 @@ public class AddCommand extends Command {
         // Check that amount, description are present
         if (compulsoryArguments.length == AMOUNT_INDEX) {
             // Command is "add {$CATEGORY}"
-            throw new WiagiInvalidInputException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
         } else if (compulsoryArguments.length == DESCRIPTION_INDEX) {
             // Either amount or description is missing
             if (isDouble(compulsoryArguments[AMOUNT_INDEX])) {
-                throw new WiagiInvalidInputException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
             } else {
-                throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
             }
         }
 
@@ -92,7 +93,7 @@ public class AddCommand extends Command {
             // Wrong format
             throw new WiagiInvalidInputException(ADD_COMMAND_FORMAT);
         } else {
-            throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         }
 
         String description = compulsoryArguments[DESCRIPTION_INDEX];
