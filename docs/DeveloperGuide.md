@@ -699,7 +699,7 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
 is located
 1. Test case: Start up the program
-    - Expected: Program prompts user to create new password and accepts user password input
+    - Expected: Program prompts user to create new password and initialise budgets
 
 ### Finding an entry
 Prerequisites: Add multiple entries to either incomes or spendings.
@@ -731,7 +731,7 @@ Prerequisites: None.
    - Expected: Displays a list of all available commands along with their usage instructions.
 
 ### Setting a Budget
-Prerequisites: None.
+Prerequisites: Budget currently initialised for monthly should be more than 50, budget for yearly should be more than 1500.
 1. Test case: `budget daily 50`
    - Expected: Sets the daily budget to 50. Confirmation message is shown.
 2. Test case: `budget monthly 1500`
