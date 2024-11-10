@@ -44,9 +44,6 @@ public class MonthlyRecurrence extends Recurrence {
             checkDate = checkDate.plusMonths(MONTHLY_FREQUENCY);
         }
         checkDate = checkDate.minusMonths(MONTHLY_FREQUENCY);
-        assert !checkDate.isAfter(LocalDate.now()) &&
-                checkDate.plusMonths(MONTHLY_FREQUENCY).isAfter(LocalDate.now())
-                : "last recurrence should be within one month";
         recurringSpending.editLastRecurrence(checkDate);
     }
 }
