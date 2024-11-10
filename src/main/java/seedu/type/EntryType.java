@@ -23,7 +23,7 @@ import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
-import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 
 
@@ -105,7 +105,7 @@ public class EntryType {
             try {
                 return LocalDate.parse(commandAndDate[1].trim());
             } catch (DateTimeParseException e) {
-                throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_DATE_FORMAT + ADD_COMMAND_FORMAT);
             }
         }
     }

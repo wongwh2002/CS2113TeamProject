@@ -60,7 +60,7 @@ public class Constants {
             "Add unsuccessful.";
     public static final String INVALID_TAG_CHARACTERS = "Invalid characters in description. Edit unsuccessful.";
     public static final String MISSING_DESCRIPTION = "No description input! ";
-    public static final String INCORRECT_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
+    public static final String INVALID_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
     public static final String MISSING_AMOUNT = "No amount found! ";
     public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
-import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.MAX_ENTRY_AMOUNT;
@@ -33,7 +33,7 @@ public class CommandUtils {
         try {
             return LocalDate.parse(stringDate);
         } catch (DateTimeParseException e) {
-            throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + commandFormat);
+            throw new WiagiInvalidInputException(INVALID_DATE_FORMAT + commandFormat);
         }
     }
 }
