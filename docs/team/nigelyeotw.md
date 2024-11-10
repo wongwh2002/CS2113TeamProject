@@ -28,22 +28,35 @@ financial decisions and be in control of their finances.
   been happening for some time. By allowing backlogging, the list of missed out entries can be added efficiently
   + Highlights: Builds on the existing methods for recurrence and required changes to the current implementation to
   allow backlogging to occur
++ **New feature**: Initialising of budgets for users
+  + What it does: Initialise the budgets of the users upon program start up or when budget in saved data file is corrupted
+  + Justification: The program is supposed to help the user track his/her expenses and budgets should be set from the 
+  start
+  + Highlights: Due to the limitations of the amounts set for the program (eg. 100 million max total in account), 
+  extensive checking is required to ensure the budgets set for daily, monthly and yearly makes sense
++ **New feature**: Storing and loading entries of data files, checking of corruption of budget
+  + What it does: Load and save the data of the user into text files
+  + Justification: The user would want a program that can save his entries for continuous usage
+  + Highlights: There is extensive checking required to check for user corrupting data for budgets since there could be
+  many possible outcomes, there is also a need for logic to re-initialise budgets in the case of corruption
 + **Contribution to UG**
   + Login section
   + Saving and editing data file
   + Parts of command summary 
 + **Contribution to DG**
-  + Updating recurrence (Recurrence component)
-  + Backlogging recurrence (Recurrence component)
+  + Recurrence class and Recurrence enumeration
+  + Updating recurrence under program start up
+  + Backlogging recurrence under add command
   + EntryType Class implementation
   + SpendingList Class implementation
   + IncomeList Class implementation
-  + Parts of the appendix
+  + Parts of the appendix (NFR, user stories, manual testing, use cases, future implementation, target user, value proposition)
 + **Contribution to team based task**
-  + Cleaning and refactoring of code generally near milestones
+  + Cleaning and refactoring of code
   + Maintaining issue tracker
   + Catching bugs in the application and adding to issue tracker
   + Help facilitate team meetings and splitting of tasks
+  + Frequently reviewing pull requests
 + **Review/mentoring contributions**: 
 [PR comments link](https://nus-cs2113-ay2425s1.github.io/dashboards/contents/tp-comments.html)
   + Check under @NigelYeoTW
