@@ -69,7 +69,7 @@ Expected display for first time users:
 ```
 To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
 users should enter valid amounts (e.g. An integer or number with decimals) for each budget type <br>
-Amount entered must be greater than 0 when rounded to 2dp. <br>
+Amount entered must be greater than 0 when rounded to 2dp. (eg. 0.005 rounded to 0.1 is valid but 0.004 is not)<br>
 
 Example valid inputs: <br>
 - `50` <br>
@@ -173,8 +173,7 @@ If no recurrence is set or there is no possible backlog, the output will be as f
 	Ok! The entry will not be backlogged
 	____________________________________________________________
 ```
-Note: If an entry of date beyond current date is added and user wishes to backlog, it will only add recurring entries until
-current date. <br>
+Note: If an entry of date beyond current date is added and user wishes to backlog, no recurring entries will be added<br>
 
 #### Adding an income:
 
