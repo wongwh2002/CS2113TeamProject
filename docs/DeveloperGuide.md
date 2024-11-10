@@ -671,8 +671,8 @@ Use case ends.
 able to accomplish most of the tasks faster using commands than using the mouse.
 3. The system should be able to run on Windows, macOS, and Linux
 4. The system should be able to be used easily by a new user
-5. The program should not have use of language deemed offensive
-6. The program should be able to recover as much data as possible in the event of corruption
+5. The program should have a pleasant tone in its output messages
+6. The program should be able to recover as much data as possible if data storage is corrupted
 7. The user data should not be hard to migrate and easily recoverable to another local host
 
 ## Future plans
