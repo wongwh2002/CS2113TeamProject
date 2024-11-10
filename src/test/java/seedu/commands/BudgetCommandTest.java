@@ -107,29 +107,29 @@ class BudgetCommandTest {
     @Test
     public void execute_dailyMoreThanMonthlyBudget_dailyMoreThanMonthlyMessage() {
         commandInputForTest("budget daily 10000", incomes, spendings);
-        assertEquals(TAB + "Daily budget should not be larger than monthly budget! " + ENTER_BUDGET_MESSAGE +
-                System.lineSeparator() ,outContent.toString());
+        assertEquals(TAB + "Your daily budget should not be larger than monthly budget! " +
+                ENTER_BUDGET_MESSAGE + System.lineSeparator() ,outContent.toString());
     }
 
     @Test
     public void execute_monthlyMoreThanYearlyBudget_monthlyMoreThanYearlyMessage() {
         commandInputForTest("budget monthly 100000", incomes, spendings);
-        assertEquals(TAB + "Monthly budget should not be larger than yearly budget! " + ENTER_BUDGET_MESSAGE +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + "Your monthly budget should not be larger than yearly budget! " +
+                ENTER_BUDGET_MESSAGE + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_monthlyLessThanDailyBudget_monthlyLessThanDailyMessage() {
         commandInputForTest("budget monthly 1", incomes, spendings);
-        assertEquals(TAB + "Daily budget should not be larger than monthly budget! " + ENTER_BUDGET_MESSAGE +
-                System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + "Your daily budget should not be larger than monthly budget! " +
+                ENTER_BUDGET_MESSAGE + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void execute_yearlyMoreThanMonthlyBudget_yearlyMoreThanMonthlyMessage() {
         commandInputForTest("budget yearly 100", incomes, spendings);
-        assertEquals(TAB + "Monthly budget should not be larger than yearly budget! " + ENTER_BUDGET_MESSAGE +
-                System.lineSeparator() ,outContent.toString());
+        assertEquals(TAB + "Your monthly budget should not be larger than yearly budget! " +
+                ENTER_BUDGET_MESSAGE + System.lineSeparator() ,outContent.toString());
     }
 
     @Test
