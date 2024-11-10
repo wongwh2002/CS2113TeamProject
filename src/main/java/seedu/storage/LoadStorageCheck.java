@@ -43,22 +43,13 @@ public class LoadStorageCheck {
         String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
         validateEntryDataLength(entryData);
 
-        double amount = parseAmount(entryData[LOAD_AMOUNT_INDEX]);
-        String description = validateDescription(entryData[LOAD_DESCRIPTION_INDEX]);
-        LocalDate date = parseDate(entryData[LOAD_DATE_INDEX]);
-        String tag = validateTag(entryData[LOAD_TAG_INDEX]);
-        RecurrenceFrequency recurrenceFrequency = parseRecurrenceFrequency(entryData[LOAD_RECURRENCE_INDEX]);
-        LocalDate lastRecurred = parseLastRecurredDate(entryData[LOAD_LAST_RECURRED_INDEX], recurrenceFrequency);
-        int dayOfRecurrence = parseDayOfRecurrence(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]);
-
-        assert amount > 0 : "Amount should be greater than 0";
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
-        assert date != null : "Date should not be null";
-        assert tag != null : "Tag should not be null";
-        assert recurrenceFrequency != null : "Recurrence frequency should not be null";
-        assert recurrenceFrequency == RecurrenceFrequency.NONE || lastRecurred != null :
-                "Last recurred date should not be null if recurrence frequency is not NONE";
-        assert dayOfRecurrence >= 1 && dayOfRecurrence <= 31 : "Day of recurrence should be between 1 and 31";
+        double amount = getAmount(entryData[LOAD_AMOUNT_INDEX]);
+        String description = getDescription(entryData[LOAD_DESCRIPTION_INDEX]);
+        LocalDate date = getDate(entryData[LOAD_DATE_INDEX]);
+        String tag = getTag(entryData[LOAD_TAG_INDEX]);
+        RecurrenceFrequency recurrenceFrequency = getRecurrenceFrequency(entryData[LOAD_RECURRENCE_INDEX]);
+        LocalDate lastRecurred = getLastRecurredDate(entryData[LOAD_LAST_RECURRED_INDEX], recurrenceFrequency);
+        int dayOfRecurrence = getDayOfRecurrence(entryData[LOAD_DAY_OF_RECURRENCE_INDEX]);
 
         if (this.storageType.equals("income")) {
             return new Income(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
@@ -74,7 +65,7 @@ public class LoadStorageCheck {
         assert entryData.length == 7 : corruptedErrorMessage + "supposed to have 7 parameters";
     }
 
-    private double parseAmount(String amountStr) {
+    private double getAmount(String amountStr) {
         try {
             double amount = CommandUtils.formatAmount(amountStr, "");
             assert amount > 0 : "Amount should be greater than 0";
@@ -85,7 +76,7 @@ public class LoadStorageCheck {
         }
     }
 
-    private String validateDescription(String description) {
+    private String getDescription(String description) {
         if (description == null || description.isEmpty()) {
             logger.log(Level.WARNING, storageErrorMessage + "description!");
             throw new WiagiStorageCorruptedException(storageErrorMessage + "description!");
@@ -94,7 +85,7 @@ public class LoadStorageCheck {
         return description;
     }
 
-    private LocalDate parseDate(String dateStr) {
+    private LocalDate getDate(String dateStr) {
         try {
             LocalDate date = LocalDate.parse(dateStr);
             assert date != null : "Date should not be null";
@@ -105,7 +96,7 @@ public class LoadStorageCheck {
         }
     }
 
-    private String validateTag(String tag) {
+    private String getTag(String tag) {
         if (tag == null) {
             logger.log(Level.WARNING, storageErrorMessage + "tag!");
             throw new WiagiStorageCorruptedException(storageErrorMessage + "tag!");
@@ -114,7 +105,7 @@ public class LoadStorageCheck {
         return tag;
     }
 
-    private RecurrenceFrequency parseRecurrenceFrequency(String recurrenceStr) {
+    private RecurrenceFrequency getRecurrenceFrequency(String recurrenceStr) {
         try {
             RecurrenceFrequency recurrenceFrequency = RecurrenceFrequency.valueOf(recurrenceStr);
             assert recurrenceFrequency != null : "Recurrence frequency should not be null";
@@ -125,7 +116,7 @@ public class LoadStorageCheck {
         }
     }
 
-    private LocalDate parseLastRecurredDate(String lastRecurredStr, RecurrenceFrequency recurrenceFrequency) {
+    private LocalDate getLastRecurredDate(String lastRecurredStr, RecurrenceFrequency recurrenceFrequency) {
         LocalDate lastRecurred = null;
         if (!lastRecurredStr.equals(NO_RECURRENCE)) {
             lastRecurred = LocalDate.parse(lastRecurredStr);
@@ -140,7 +131,7 @@ public class LoadStorageCheck {
         return lastRecurred;
     }
 
-    private int parseDayOfRecurrence(String dayOfRecurrenceStr) {
+    private int getDayOfRecurrence(String dayOfRecurrenceStr) {
         int dayOfRecurrence;
         try {
             dayOfRecurrence = Integer.parseInt(dayOfRecurrenceStr);
