@@ -15,7 +15,7 @@ public class LoadStorageCheckTest {
     @Test
     public void parseEntry_validIncomeInput_success() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
-        String newEntry = "10.0|savings|2024-11-09||NONE|null|1";
+        String newEntry = "10.0|savings|" + VALID_TEST_DATE + "||NONE|null|1";
         Income income = (Income) storageUtils.parseEntry(newEntry);
         assertEquals(10.0, income.getAmount());
         assertEquals("savings", income.getDescription());
@@ -29,7 +29,7 @@ public class LoadStorageCheckTest {
     @Test
     public void parseEntry_validSpendingInput_success() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("spending");
-        String newEntry = "10.0|kfc|2024-11-09||NONE|null|1";
+        String newEntry = "10.0|kfc|" + VALID_TEST_DATE + "||NONE|null|1";
         Spending spending = (Spending) storageUtils.parseEntry(newEntry);
         assertEquals(10.0, spending.getAmount());
         assertEquals("kfc", spending.getDescription());
