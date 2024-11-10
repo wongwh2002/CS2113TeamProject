@@ -11,9 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
-import static seedu.classes.Constants.BUDGET_INITIALISE_FORMAT;
+import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
+import static seedu.classes.Constants.FORMATTED_MAXIMUM_LIST_AMOUNT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
+import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 
 /**
@@ -29,10 +32,17 @@ public class BudgetCommand extends Command {
     private static final String DAILY = "daily";
     private static final String MONTHLY = "monthly";
     private static final String YEARLY = "yearly";
+    private static final String DAILY_BUDGET = "daily budget";
+    private static final String MONTHLY_BUDGET = "monthly budget";
+    private static final String YEARLY_BUDGET = "yearly budget";
     private static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
     private static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
     private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
+    private static final String DUMMY_STRING = "";
+    private static final double DUMMY_AMOUNT = 0.0;
     private static final double UNINITIALISED_BUDGET = 0.0;
+    private static final double MINIMUM_AMOUNT_ENTERED = 0.0;
+
 
     private final String fullCommand;
 
@@ -84,7 +94,7 @@ public class BudgetCommand extends Command {
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
-        double budget = CommandUtils.formatAmount(stringBudget, BUDGET_COMMAND_FORMAT);
+        double budget = CommandUtils.roundAmount(stringBudget, BUDGET_COMMAND_FORMAT);
         String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
 
         LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
@@ -104,19 +114,38 @@ public class BudgetCommand extends Command {
         String formatedBudget = Ui.formatPrintDouble(budget);
         switch (timeRange) {
         case DAILY:
+            checkUserBudgetEntered(budget, spendings.getMonthlyBudget(), DAILY_BUDGET, MONTHLY_BUDGET);
             spendings.setDailyBudget(budget);
             Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case MONTHLY:
+            checkUserBudgetEntered(budget, spendings.getYearlyBudget(), MONTHLY_BUDGET,YEARLY_BUDGET);
+            checkUserBudgetEntered(spendings.getDailyBudget(), budget, DAILY_BUDGET,MONTHLY_BUDGET);
             spendings.setMonthlyBudget(budget);
             Ui.printWithTab(MONTHLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         case YEARLY:
+            checkUserBudgetEntered(spendings.getMonthlyBudget(), budget, MONTHLY_BUDGET, YEARLY_BUDGET);
             spendings.setYearlyBudget(budget);
             Ui.printWithTab(YEARLY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_FIELD + BUDGET_COMMAND_FORMAT);
+        }
+    }
+
+    private static void checkUserBudgetEntered(double smallerBudget, double biggerBudget, String smallerBudgetType,
+            String biggerBudgetType) {
+        if (biggerBudget <= MINIMUM_AMOUNT_ENTERED) {
+            throw new WiagiInvalidInputException(INVALID_AMOUNT + ENTER_BUDGET_MESSAGE);
+        }
+        if (biggerBudget > MAX_LIST_TOTAL_AMOUNT) {
+            throw new WiagiInvalidInputException("Amount must be lesser than " + FORMATTED_MAXIMUM_LIST_AMOUNT + ". "
+                    + ENTER_BUDGET_MESSAGE);
+        }
+        if (biggerBudget < smallerBudget) {
+            throw new WiagiInvalidInputException("Your " + smallerBudgetType + " should not be larger than " +
+                    biggerBudgetType + "! " + ENTER_BUDGET_MESSAGE);
         }
     }
 
@@ -126,7 +155,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userDailyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userDailyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userDailyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(DUMMY_AMOUNT, amount, DUMMY_STRING, DAILY_BUDGET);
                 spendings.setDailyBudget(amount);
             } catch (WiagiInvalidInputException e) {
                 Ui.printWithTab(e.getMessage());
@@ -140,7 +170,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userMonthlyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userMonthlyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userMonthlyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(spendings.getDailyBudget(), amount, DAILY_BUDGET, MONTHLY_BUDGET);
                 spendings.setMonthlyBudget(amount);
             } catch (WiagiInvalidInputException e){
                 Ui.printWithTab(e.getMessage());
@@ -154,7 +185,8 @@ public class BudgetCommand extends Command {
         while (amount == UNINITIALISED_BUDGET) {
             try {
                 String userYearlyBudget = Ui.readCommand();
-                amount = CommandUtils.formatAmount(userYearlyBudget, BUDGET_INITIALISE_FORMAT);
+                amount = CommandUtils.roundAmount(userYearlyBudget, BUDGET_COMMAND_FORMAT);
+                checkUserBudgetEntered(spendings.getMonthlyBudget(), amount, MONTHLY_BUDGET, YEARLY_BUDGET);
                 spendings.setYearlyBudget(amount);
             } catch (WiagiInvalidInputException e) {
                 Ui.printWithTab(e.getMessage());

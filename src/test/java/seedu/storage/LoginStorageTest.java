@@ -63,7 +63,6 @@ public class LoginStorageTest {
     @Test
     public void load_fileIsEmpty_errorMessage() {
         File loginFile = new File("./password.txt");
-        File incomesFile = new File("./incomes.txt");
         try {
             loginFile.delete();
             loginFile.createNewFile();

@@ -17,7 +17,9 @@ import java.util.Scanner;
 
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
+import static seedu.classes.Constants.DAILY_BUDGET_QUESTION;
 import static seedu.classes.Constants.EMPTY_STRING;
+import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.NO_ENTRIES_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.INCOMES_TIME_RANGE_MESSAGE;
@@ -28,6 +30,7 @@ import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.WEEKLY_OPTION;
+import static seedu.classes.Constants.YEARLY_BUDGET_MESSAGE;
 
 public class Ui {
     private static final String INCOME = "Incomes";
@@ -51,6 +54,12 @@ public class Ui {
         printSeparator();
         // replace whitespaces to a single whitespace and remove trailing spaces
         return line.replaceAll(SPACE_REGEX, " ").trim();
+    }
+
+    public static String readUserPassword() {
+        String password = scanner.nextLine();
+        printSeparator();
+        return password;
     }
 
     public static void printSeparator() {
@@ -393,15 +402,15 @@ public class Ui {
     }
 
     public static void initialiseDailyBudgetMessage() {
-        printWithTab("Please enter a daily budget you have in mind:");
+        printWithTab(DAILY_BUDGET_QUESTION);
     }
 
     public static void initialiseMonthlyBudgetMessage() {
-        printWithTab("Next, please enter a monthly budget you have in mind:");
+        printWithTab(MONTHLY_BUDGET_MESSAGE);
     }
 
     public static void initialiseYearlyBudgetMessage() {
-        printWithTab("Last one! Please enter a yearly budget you have in mind:");
+        printWithTab(YEARLY_BUDGET_MESSAGE);
     }
 
     public static void errorLoadingBudgetMessage() {

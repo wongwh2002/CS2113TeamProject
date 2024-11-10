@@ -25,6 +25,7 @@ public class Constants {
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
+    public static final int FORMATTED_MAXIMUM_LIST_AMOUNT = 100000000;
     public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million!";
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD = "The total amount will exceed the list limit " +
             "of 100 million after adding! Entry rejected!";
@@ -33,7 +34,6 @@ public class Constants {
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount will exceed the list limit" +
             " of 100 million after recurrence! Recurrence rejected!";
     public static final LocalDate VALID_TEST_DATE = LocalDate.now();
-    public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
             "[$CATEGORY]/[tags [$TAG_NAME]]";
     public static final String BUDGET_COMMAND_FORMAT = "Please enter in the form: budget {$PERIOD} {$AMOUNT}";
@@ -44,6 +44,7 @@ public class Constants {
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
             "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]";
+    public static final String ENTER_BUDGET_MESSAGE = "Please enter a valid budget:";
     public static final String DATE_NOT_ENCLOSED = "Date is not properly enclosed with \"/\"! ";
     public static final String TAG_NOT_ENCLOSED = "Tag is not properly enclosed with \"*\"! ";
     public static final String RECURRENCE_NOT_ENCLOSED = "Recurrence is not properly enclosed with \"~\"! ";
@@ -81,6 +82,9 @@ public class Constants {
     public static final String MONTHLY_OPTION = "4";
     public static final int LIST_TYPE_INDEX = 1;
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
+    public static final String DAILY_BUDGET_QUESTION = "Please enter a daily budget you have in mind:";
+    public static final String MONTHLY_BUDGET_MESSAGE = "Next, please enter a monthly budget you have in mind:";
+    public static final String YEARLY_BUDGET_MESSAGE = "Last one! Please enter a yearly budget you have in mind:";
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";
