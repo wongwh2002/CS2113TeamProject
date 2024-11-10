@@ -103,7 +103,7 @@ public class IncomeListStorageTest {
     }
 
     @Test
-    public void save_nullList_throwsAssertionError() {
+    public void save_nullList_nullIncomeListMessage() {
         try {
             IncomeListStorage.save(null);
         } catch (AssertionError e) {
@@ -112,7 +112,7 @@ public class IncomeListStorageTest {
     }
 
     @Test
-    public void load_corruptedLinesFromFiles_throwsCorruptedException() {
+    public void load_corruptedLinesFromFiles_corruptedIncomeEntryMessage() {
         File incomeFile = new File("./incomes.txt");
         if (incomeFile.exists()) {
             incomeFile.delete();

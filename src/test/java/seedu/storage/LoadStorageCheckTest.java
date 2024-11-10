@@ -41,7 +41,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_invalidEntryDataLength_storageCorruptedExceptionthrown() {
+    public void parseEntry_invalidEntryDataLength_storageCorruptedErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||NONE|null";
         try {
@@ -53,7 +53,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_amountNotNumber_storageCorruptedExceptionthrown() {
+    public void parseEntry_amountNotNumber_amountStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0a|savings|2024-11-09||NONE|null|1";
         try {
@@ -64,7 +64,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_amountLessThanZero_storageCorruptedExceptionthrown() {
+    public void parseEntry_amountLessThanZero_amountStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "-1|savings|2024-11-09||NONE|null|1";
         try {
@@ -75,7 +75,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_amountZero_storageCorruptedExceptionthrown() {
+    public void parseEntry_amountZero_amountStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "0|savings|2024-11-09||NONE|null|1";
         try {
@@ -86,7 +86,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_amountTooLarge_storageCorruptedExceptionthrown() {
+    public void parseEntry_amountTooLarge_amountStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10000001|savings|2024-11-09||NONE|null|1";
         try {
@@ -97,7 +97,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullDescription_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullDescription_descriptionStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|null|2024-11-09||NONE|null|1";
         try {
@@ -108,7 +108,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_emptyDescription_storageCorruptedExceptionthrown() {
+    public void parseEntry_emptyDescription_descriptionStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0||2024-11-09||NONE|null|1";
         try {
@@ -119,7 +119,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullDate_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullDate_dateStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|null||NONE|null|1";
         try {
@@ -130,7 +130,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_invalidDate_storageCorruptedExceptionthrown() {
+    public void parseEntry_invalidDate_dateStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-13-09||NONE|null|1";
         try {
@@ -141,7 +141,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullTag_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullTag_tagStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09|null|NONE|null|1";
         try {
@@ -152,7 +152,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullRecurrenceFrequency_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullRecurrenceFrequency_recurrenceFrequencyStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||null|null|1";
         try {
@@ -164,7 +164,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_invalidRecurrenceFrequency_storageCorruptedExceptionthrown() {
+    public void parseEntry_invalidRecurrenceFrequency_recurrenceFrequencyStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||WEEKLY|null|1";
         //recurrence frequency should be NONE, DAILY, MONTHLY, YEARLY
@@ -177,7 +177,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullLastRecurredDate_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullLastRecurredDate_lastRecurredDateStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||NONE|null|1";
         try {
@@ -189,7 +189,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_invalidLastRecurredDate_storageCorruptedExceptionthrown() {
+    public void parseEntry_invalidLastRecurredDate_lastRecurredDateStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||DAILY|null|1";
         try {
@@ -201,7 +201,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullDayOfRecurrence_storageCorruptedExceptionthrown() {
+    public void parseEntry_nullDayOfRecurrence_dayRecurrenceStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||NONE|null|null";
         try {
@@ -213,7 +213,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_tooLargeDayOfRecurrence_storageCorruptedExceptionthrown() {
+    public void parseEntry_tooLargeDayOfRecurrence_validDayRecurrenceStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||NONE|null|32";
         try {
@@ -225,7 +225,7 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_tooSmallDayOfRecurrence_storageCorruptedExceptionthrown() {
+    public void parseEntry_tooSmallDayOfRecurrence_validDayRecurrenceStorageErrorMessage() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
         String newEntry = "10.0|savings|2024-11-09||NONE|null|0";
         try {
