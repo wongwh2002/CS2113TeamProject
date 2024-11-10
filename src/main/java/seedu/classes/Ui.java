@@ -18,7 +18,10 @@ import java.util.Scanner;
 import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.EMPTY_STRING;
+import static seedu.classes.Constants.INVALID_LIST_OPTION;
 import static seedu.classes.Constants.MONTHLY_OPTION;
+import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.NO_TAGS_FOUND;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
@@ -134,7 +137,7 @@ public class Ui {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
         if (tags.isEmpty()) {
-            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
+            throw new WiagiInvalidInputException(NO_TAGS_FOUND);
         }
         assert tags != null : "Tags list is null";
         printWithTab("Tags");
@@ -198,7 +201,7 @@ public class Ui {
     //@@author wongwh2002
     private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
                                         StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
+        sb.append(listName).append(NEXT_LINE);
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
             EntryType listIndex = arrList.get(i);
@@ -206,7 +209,7 @@ public class Ui {
                 tagsCount++;
                 int oneIndexedI = i + 1;
                 sb.append(TAB).append(oneIndexedI).append(". ")
-                        .append(listIndex).append(System.lineSeparator());
+                        .append(listIndex).append(NEXT_LINE);
             }
         }
         return tagsCount;
@@ -230,7 +233,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monday, sunday)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -249,7 +252,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -268,7 +271,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), start, end)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -294,7 +297,7 @@ public class Ui {
                 printMonthly(arrList);
                 return false;
             default:
-                printWithTab("Invalid input");
+                printWithTab(INVALID_LIST_OPTION);
             }
         }
     }

@@ -46,17 +46,17 @@ public class SpendingListTest {
     }
 
     @Test
-    public void getMonthlySpending_basicInputs_shouldReturnMonthlySpendings() {
+    public void getMonthlySpending_basicInputs_returnMonthlySpendings() {
         assertEquals(monthlySpending, spendings.getMonthlySpending(currentDate));
     }
 
     @Test
-    public void getDailySpending_basicInputs_shouldReturnDailySpendings() {
+    public void getDailySpending_basicInputs_returnDailySpendings() {
         assertEquals(dailySpending, spendings.getDailySpending(currentDate));
     }
 
     @Test
-    public void getYearlySpending_basicInputs_shouldReturnYearlySpendings() {
+    public void getYearlySpending_basicInputs_returnYearlySpendings() {
         assertEquals(yearlySpending, spendings.getYearlySpending(currentDate));
     }
 }

@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 
@@ -51,8 +52,8 @@ public class LoginStorageTest {
         loginFile.delete();
         String userPassword = "password";
         int hashCode = userPassword.hashCode();
-        Ui.userInputForTest("password" + System.lineSeparator() + "1" + System.lineSeparator() + "1"
-                + System.lineSeparator() + "1");
+        Ui.userInputForTest("password" + NEXT_LINE + "1" + NEXT_LINE + "1"
+                + NEXT_LINE + "1");
         LoginStorage.load();
         assertEquals(hashCode, Storage.password);
     }
@@ -70,9 +71,9 @@ public class LoginStorageTest {
             LoginStorage.load();
         } catch (NoSuchElementException | IOException e) {
             assertEquals(TAB + "Hmmmm, seems to have some issues loading your password, hard resetting... " +
-                    "deleting files..." + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator() +
-                    TAB + "Hi! You seem to be new, are you ready?!" + System.lineSeparator() +
-                    TAB + "Please enter your new account password:" + System.lineSeparator(), outContent.toString());
+                    "deleting files..." + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE +
+                    TAB + "Hi! You seem to be new, are you ready?!" + NEXT_LINE +
+                    TAB + "Please enter your new account password:" + NEXT_LINE, outContent.toString());
         }
     }
 }

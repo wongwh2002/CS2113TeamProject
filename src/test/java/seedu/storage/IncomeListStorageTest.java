@@ -20,6 +20,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 
@@ -127,9 +128,9 @@ public class IncomeListStorageTest {
         }
         IncomeListStorage.load();
         assertEquals(TAB + "Corrupted income entry detected, supposed to have 7 parameters!" +
-                System.lineSeparator() +
-                TAB + "Detected at line 1 in the incomes file." + System.lineSeparator() +
-                TAB + "Deleting corrupted entry..." + System.lineSeparator() ,outContent.toString());
+                NEXT_LINE +
+                TAB + "Detected at line 1 in the incomes file." + NEXT_LINE +
+                TAB + "Deleting corrupted entry..." + NEXT_LINE ,outContent.toString());
         assertEquals(1, Storage.incomes.size());
         Storage.incomes.clear(); //resets income list for next test
     }

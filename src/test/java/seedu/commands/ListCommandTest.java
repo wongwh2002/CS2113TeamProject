@@ -16,7 +16,10 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.INVALID_LIST_OPTION;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
+import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.NO_TAGS_FOUND;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
@@ -61,44 +64,44 @@ class ListCommandTest {
         SpendingList emptySpendings = new SpendingList();
         commandInputForTest("list", emptyIncomes, emptySpendings);
 
-        assertEquals("\tSpendings" + System.lineSeparator() +
-                "\tTotal spendings: 0" + System.lineSeparator() +
-                "\tIncomes" + System.lineSeparator() +
-                "\tTotal incomes: 0" + System.lineSeparator(),
+        assertEquals(TAB + "Spendings" + NEXT_LINE +
+                TAB + "Total spendings: 0" + NEXT_LINE +
+                TAB + "Incomes" + NEXT_LINE +
+                TAB + "Total incomes: 0" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
-    public void execute_listEmptyTags_expectWiagiInvalidInputException() {
+    public void execute_listEmptyTags_noTagsFoundMessage() {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         commandInputForTest("list tags", emptyIncomes, emptySpendings);
 
-        assertEquals("\tNo tags found. Please input more tags!" + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + NO_TAGS_FOUND + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_listSpecificEmptyTags_expectWiagiInvalidInputException() {
+    public void execute_listSpecificEmptyTags_noSuchTagFoundMessage() {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         commandInputForTest("list tags tag", emptyIncomes, emptySpendings);
 
-        assertEquals("\tNo entries with tag: tag. Please input tags first!"
-                + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + "No entries with tag: tag. Please input tags first!"
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_allLists_success() {
         commandInputForTest("list", incomes, spendings);
 
-        assertEquals("\tSpendings" + System.lineSeparator() +
-                "\t1. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                "\tTotal spendings: 20" + System.lineSeparator() +
-                "\tIncomes" + System.lineSeparator() +
-                "\t1. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                "\tTotal incomes: 20" + System.lineSeparator(),
+        assertEquals(TAB + "Spendings" + NEXT_LINE +
+                TAB + "1. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total spendings: 20" + NEXT_LINE +
+                TAB + "Incomes" + NEXT_LINE +
+                TAB + "1. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total incomes: 20" + NEXT_LINE,
                 outContent.toString());
     }
 
@@ -107,200 +110,200 @@ class ListCommandTest {
         Ui.userInputForTest("1");
         commandInputForTest("list incomes", incomes, spendings);
 
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                "\t" + SEPARATOR + System.lineSeparator() +
-                "\tIncomes" + System.lineSeparator() +
-                "\t1. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                "\tTotal incomes: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "Incomes" + NEXT_LINE +
+                TAB + "1. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total incomes: 20" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
-    public void execute_randomInput_expectWiagiInvalidInputException() {
-        commandInputForTest("list 1234", incomes, spendings);
+    public void execute_invalidCategory_invalidCategoryMessage() {
+        commandInputForTest("list invalidCategory", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + LIST_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_tooManySpendingsInputs_expectWiagiInvalidInputException() {
+    public void execute_extraListSpendingsArguments_incorrectParamsNumberMessage() {
         commandInputForTest("list spendings incomes", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_tooManyIncomesInputs_expectWiagiInvalidInputException() {
+    public void execute_extraListIncomesArguments_incorrectParamsNumberMessage() {
         commandInputForTest("list incomes spendings", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_listTags_success() {
         commandInputForTest("list tags", incomes, spendings);
-        assertEquals("\tTags" + System.lineSeparator() +
-                "\t1. food" + System.lineSeparator() +
-                "\t2. investment" + System.lineSeparator(),
+        assertEquals(TAB + "Tags" + NEXT_LINE +
+                TAB + "1. food" + NEXT_LINE +
+                TAB + "2. investment" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
     void execute_listSpecificInvestmentTag_success() {
         commandInputForTest("list tags investment", incomes, spendings);
-        assertEquals("\tTag: investment" + System.lineSeparator() +
-                "\tIncomes" + System.lineSeparator() +
-                "\t2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator(),
+        assertEquals(TAB + "Tag: investment" + NEXT_LINE +
+                TAB + "Incomes" + NEXT_LINE +
+                TAB + "2. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
     void execute_listSpecificFoodTag_success() {
         commandInputForTest("list tags food", incomes, spendings);
-        assertEquals("\tTag: food" + System.lineSeparator() +
-                "\tSpendings" + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator(),
+        assertEquals(TAB + "Tag: food" + NEXT_LINE +
+                TAB + "Spendings" + NEXT_LINE +
+                TAB + "2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
-    public void execute_listSpendingAllStatistics_correctMessage() {
-        Ui.userInputForTest(String.format("1%sY", System.lineSeparator()));
+    public void execute_listSpendingAllStatistics_success() {
+        Ui.userInputForTest(String.format("1%sY", NEXT_LINE));
         commandInputForTest("list spendings", incomes, spendings);
 
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                "\t" + SEPARATOR + System.lineSeparator() +
-                "\tList all statistics? [Y/N]:" + System.lineSeparator() +
-                "\t____________________________________________________________" + System.lineSeparator() +
-                "\tSpendings" + System.lineSeparator() +
-                "\t1. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                "\tTotal spendings: 20" + System.lineSeparator() +
-                "\t\tDaily spendings: 20" + System.lineSeparator() +
-                "\t\tDaily Budget: 0" + System.lineSeparator() +
-                "\t\tDaily budget left: -20" + System.lineSeparator() +
-                "\t\tMonthly spendings: 20" + System.lineSeparator() +
-                "\t\tMonthly Budget: 0" + System.lineSeparator() +
-                "\t\tMonthly budget left: -20" + System.lineSeparator() +
-                "\t\tYearly spendings: 20" + System.lineSeparator() +
-                "\t\tYearly Budget: 0" + System.lineSeparator() +
-                "\t\tYearly budget left: -20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "List all statistics? [Y/N]:" + NEXT_LINE +
+                TAB + "____________________________________________________________" + NEXT_LINE +
+                TAB + "Spendings" + NEXT_LINE +
+                TAB + "1. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total spendings: 20" + NEXT_LINE +
+                TAB + TAB + "Daily spendings: 20" + NEXT_LINE +
+                TAB + TAB + "Daily Budget: 0" + NEXT_LINE +
+                TAB + TAB + "Daily budget left: -20" + NEXT_LINE +
+                TAB + TAB + "Monthly spendings: 20" + NEXT_LINE +
+                TAB + TAB + "Monthly Budget: 0" + NEXT_LINE +
+                TAB + TAB + "Monthly budget left: -20" + NEXT_LINE +
+                TAB + TAB + "Yearly spendings: 20" + NEXT_LINE +
+                TAB + TAB + "Yearly Budget: 0" + NEXT_LINE +
+                TAB + TAB + "Yearly budget left: -20" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
-    public void execute_listSpendingNotAllStatistics_correctMessage() {
-        Ui.userInputForTest(String.format("1%sN", System.lineSeparator()));
+    public void execute_listSpendingNotAllStatistics_success() {
+        Ui.userInputForTest(String.format("1%sN", NEXT_LINE));
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                "\t" + SEPARATOR + System.lineSeparator() +
-                "\tList all statistics? [Y/N]:" + System.lineSeparator() +
-                "\t" + SEPARATOR + System.lineSeparator() +
-                "\tSpendings" + System.lineSeparator() +
-                "\t1. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                "\t2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                "\tTotal spendings: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "List all statistics? [Y/N]:" + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "Spendings" + NEXT_LINE +
+                TAB + "1. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "2. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total spendings: 20" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
-    public void execute_listWeeklySpendings_expectWeeklySpendingList() {
+    public void execute_listWeeklySpendings_success() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         spendings.remove(2);
     }
 
     @Test
-    public void execute_listBiweeklySpendings_expectBiweeklySpendingList() {
+    public void execute_listBiweeklySpendings_success() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         spendings.remove(2);
     }
 
     @Test
-    public void execute_listMonthlySpendings_expectMonthlySpendingList() {
+    public void execute_listMonthlySpendings_success() {
         spendings.add(new Spending(10, "lunch", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list spendings", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. girlfriends - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. macdonalds - 10 - " + VALID_TEST_DATE + " - Tag: food" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         spendings.remove(2);
     }
 
     @Test
-    public void execute_listWeeklyIncomes_expectWeeklyIncomeList() {
+    public void execute_listWeeklyIncomes_success() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         incomes.remove(2);
     }
 
     @Test
-    public void execute_listBiweeklyIncomes_expectBiweeklyIncomeList() {
+    public void execute_listBiweeklyIncomes_success() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         incomes.remove(2);
     }
 
     @Test
-    public void execute_listMonthlyIncomes_expectMonthlyIncomeList() {
+    public void execute_listMonthlyIncomes_success() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         incomes.remove(2);
     }
 
     @Test
-    public void execute_listInvalidTimeRangeWeekly_expectAskAgainShowWeekly() {
+    public void execute_listInvalidTimeRangeWeekly_invalidListOptionPrintTimeRangeMessageAgain() {
         incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusDays(7), "", null, null, 0));
-        Ui.userInputForTest(String.format("5%s2", System.lineSeparator()));
+        Ui.userInputForTest(String.format("5%s2", NEXT_LINE));
         commandInputForTest("list incomes", incomes, spendings);
-        assertEquals(TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "Invalid input" + System.lineSeparator() +
-                TAB + TIME_RANGE_MESSAGE + System.lineSeparator() +
-                TAB + SEPARATOR + System.lineSeparator() +
-                TAB + "2. savings - 10 - " + VALID_TEST_DATE + System.lineSeparator() +
-                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + System.lineSeparator() +
-                TAB + "Total: 20" + System.lineSeparator(),
+        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + INVALID_LIST_OPTION + NEXT_LINE +
+                TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+                TAB + SEPARATOR + NEXT_LINE +
+                TAB + "2. savings - 10 - " + VALID_TEST_DATE + NEXT_LINE +
+                TAB + "3. dividends - 10 - " + VALID_TEST_DATE + " - Tag: investment" + NEXT_LINE +
+                TAB + "Total: 20" + NEXT_LINE,
                 outContent.toString());
         incomes.remove(2);
     }

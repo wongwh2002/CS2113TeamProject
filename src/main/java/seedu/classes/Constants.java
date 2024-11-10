@@ -8,6 +8,7 @@ public class Constants {
     public static final String SEPARATOR = "____________________________________________________________";
     public static final String EMPTY_STRING = "";
     public static final String LIST_SEPARATOR = " - ";
+    public static final String NEXT_LINE = System.lineSeparator();
     public static final String STORAGE_SEPARATOR = "|";
     public static final String STORAGE_LOAD_SEPARATOR = "\\|";
     public static final String TAB = "\t";
@@ -65,18 +66,18 @@ public class Constants {
     public static final String MISSING_AMOUNT = "No amount found! ";
     public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
-    public static final String LONG_FIND_FROM_VALUE = "There should only be one from-value, " +
+    public static final String FIND_EXTRA_FROM_VALUE = "There should only be one from-value, " +
             "no whitespace separating it! ";
-    public static final String LONG_FIND_TO_VALUE = "There should only be one to-value, " +
+    public static final String FIND_EXTRA_TO_VALUE = "There should only be one to-value, " +
             "no whitespace separating it! ";
-    public static final String LONG_FIND_SPECIFIC_VALUE = "There should only be one value, " +
+    public static final String FIND_EXTRA_SPECIFIC_VALUE = "There should only be one value, " +
             "no whitespace separating it! ";
     public static final String INVALID_FIND_RANGE_DIVIDER_FORMAT = "\"to\" should be separated from find values! ";
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount! ";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date! ";
-    public static final String TIME_RANGE_MESSAGE = "Select time range:" + System.lineSeparator() +
-            "\t[1] All" + System.lineSeparator() + "\t[2] Weekly" + System.lineSeparator() +
-            "\t[3] Biweekly" + System.lineSeparator() + "\t[4] Monthly";
+    public static final String TIME_RANGE_MESSAGE = "Select time range:" + NEXT_LINE +
+            TAB + "[1] All" + NEXT_LINE + TAB + "[2] Weekly" + NEXT_LINE +
+            TAB + "[3] Biweekly" + NEXT_LINE + TAB + "[4] Monthly";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";
@@ -84,6 +85,8 @@ public class Constants {
     public static final int LIST_TYPE_INDEX = 1;
     public static final int LIST_COMPULSORY_ARGUMENTS_LENGTH = 2;
     public static final int LIST_MAX_ARGUMENTS_LENGTH = 3;
+    public static final String NO_TAGS_FOUND = "No tags found. Please input more tags!";
+    public static final String INVALID_LIST_OPTION = "Invalid option!";
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";

@@ -23,9 +23,9 @@ import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.INVALID_FIND_RANGE_DIVIDER_FORMAT;
-import static seedu.classes.Constants.LONG_FIND_FROM_VALUE;
-import static seedu.classes.Constants.LONG_FIND_SPECIFIC_VALUE;
-import static seedu.classes.Constants.LONG_FIND_TO_VALUE;
+import static seedu.classes.Constants.FIND_EXTRA_FROM_VALUE;
+import static seedu.classes.Constants.FIND_EXTRA_SPECIFIC_VALUE;
+import static seedu.classes.Constants.FIND_EXTRA_TO_VALUE;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.SPENDING;
 
@@ -126,7 +126,7 @@ public class FindCommand extends Command {
             }
         } else { // exact
             if (findValue.contains(WHITESPACE)) {
-                throw new WiagiInvalidInputException(LONG_FIND_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(FIND_EXTRA_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
             }
             lower = upper = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
         }
@@ -154,7 +154,7 @@ public class FindCommand extends Command {
             }
         } else {
             if (findValue.contains(WHITESPACE)) {
-                throw new WiagiInvalidInputException(LONG_FIND_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(FIND_EXTRA_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
             }
             lower = upper = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
         }
@@ -172,10 +172,10 @@ public class FindCommand extends Command {
         String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
         String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
         if (lowerString.contains(WHITESPACE)) {
-            throw new WiagiInvalidInputException(LONG_FIND_FROM_VALUE + FIND_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(FIND_EXTRA_FROM_VALUE + FIND_COMMAND_FORMAT);
         }
         if (upperString.contains(WHITESPACE)) {
-            throw new WiagiInvalidInputException(LONG_FIND_TO_VALUE + FIND_COMMAND_FORMAT);
+            throw new WiagiInvalidInputException(FIND_EXTRA_TO_VALUE + FIND_COMMAND_FORMAT);
         }
         return new String[]{lowerString, upperString};
     }

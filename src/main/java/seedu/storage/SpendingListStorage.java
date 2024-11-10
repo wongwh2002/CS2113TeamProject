@@ -17,6 +17,7 @@ import static seedu.classes.Constants.LOAD_DAILY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_YEARLY_BUDGET_INDEX;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.SAVE_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
@@ -51,13 +52,13 @@ public class SpendingListStorage {
         FileWriter spendingFile = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
                 spendings.getMonthlyBudget() + STORAGE_SEPARATOR + spendings.getYearlyBudget();
-        spendingFile.write(budgetDetails + System.lineSeparator());
+        spendingFile.write(budgetDetails + NEXT_LINE);
         for (Spending spending : spendings) {
             String singleEntry = spending.getAmount() + STORAGE_SEPARATOR + spending.getDescription() +
                     STORAGE_SEPARATOR + spending.getDate() + STORAGE_SEPARATOR + spending.getTag() +
                     STORAGE_SEPARATOR + spending.getRecurrenceFrequency() + STORAGE_SEPARATOR +
                     spending.getLastRecurrence() + STORAGE_SEPARATOR + spending.getDayOfRecurrence();
-            spendingFile.write(singleEntry + System.lineSeparator());
+            spendingFile.write(singleEntry + NEXT_LINE);
         }
         spendingFile.close();
     }

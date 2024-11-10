@@ -23,6 +23,7 @@ import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.VALID_TEST_DATE;
@@ -58,59 +59,99 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_missingEditDescription_expectIllegalArgumentException() {
+    public void execute_missingEditArguments_incorrectParamsNumberMessage() {
         IncomeList emptyIncomes = new IncomeList();
         SpendingList emptySpendings = new SpendingList();
         commandInputForTest("edit", emptyIncomes, emptySpendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + EDIT_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidInput_expectIllegalArgumentException() {
-        commandInputForTest("edit notspendingincome 1 amount 1", incomes, spendings);
+    public void execute_invalidCategory_invalidCategoryMessage() {
+        commandInputForTest("edit invalidCategory 1 amount 1", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + EDIT_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidInputIndex_expectIndexOutOfBoundsException() {
+    public void execute_indexOutOfBoundsSpendingInput_indexOutOfBoundsMessage() {
         commandInputForTest("edit spending 5 amount 1", incomes, spendings);
-        assertEquals(TAB + INDEX_OUT_OF_BOUNDS + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + INDEX_OUT_OF_BOUNDS + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidStringIndex_expectIndexOutOfBoundsException() {
+    public void execute_indexOutOfBoundsIncomeInput_indexOutOfBoundsMessage() {
+        commandInputForTest("edit income 5 amount 1", incomes, spendings);
+        assertEquals(TAB + INDEX_OUT_OF_BOUNDS + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_stringIndexSpendingInput_indexNotIntegerMessage() {
         commandInputForTest("edit spending string amount 1", incomes, spendings);
-        assertEquals(TAB + INDEX_NOT_INTEGER + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + INDEX_NOT_INTEGER + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidEditType_expectIllegalArgumentException() {
-        commandInputForTest("edit spending 1 notamountdescription 1", incomes, spendings);
+    public void execute_stringIndexIncomeInput_indexNotIntegerMessage() {
+        commandInputForTest("edit income string amount 1", incomes, spendings);
+        assertEquals(TAB + INDEX_NOT_INTEGER + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_invalidEditFieldSpendingInput_invalidFieldMessage() {
+        commandInputForTest("edit spending 1 invalidField 1", incomes, spendings);
         assertEquals(TAB + INVALID_FIELD + EDIT_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidEditAmount_expectIllegalArgumentExceptionThrown() {
+    public void execute_invalidEditFieldIncomeInput_invalidFieldMessage() {
+        commandInputForTest("edit income 1 invalidField 1", incomes, spendings);
+        assertEquals(TAB + INVALID_FIELD + EDIT_COMMAND_FORMAT
+                + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_stringEditAmountSpendingInput_amountNotNumberMessage() {
         commandInputForTest("edit spending 1 amount notanint", incomes, spendings);
         assertEquals(TAB + AMOUNT_NOT_NUMBER + EDIT_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_negativeEditAmount_expectIllegalArgumentExceptionThrown() {
+    public void execute_stringEditAmountIncomeInput_amountNotNumberMessage() {
+        commandInputForTest("edit income 1 amount notanint", incomes, spendings);
+        assertEquals(TAB + AMOUNT_NOT_NUMBER + EDIT_COMMAND_FORMAT
+                + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_negativeEditAmountSpendingInput_invalidAmountMessage() {
         commandInputForTest("edit spending 1 amount -1", incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_overflowEditAmount_expectIllegalArgumentExceptionThrown() {
+    public void execute_negativeEditAmountIncomeInput_invalidAmountMessage() {
+        commandInputForTest("edit income 1 amount -1", incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT + EDIT_COMMAND_FORMAT
+                + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_overflowEditAmountSpendingInput_invalidAmountMaxMessage() {
         commandInputForTest("edit spending 1 amount 100000000", incomes, spendings);
         assertEquals(TAB + INVALID_AMOUNT_MAX
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
+    }
+
+    @Test
+    public void execute_overflowEditAmountIncomeInput_invalidAmountMaxMessage() {
+        commandInputForTest("edit income 1 amount 100000000", incomes, spendings);
+        assertEquals(TAB + INVALID_AMOUNT_MAX
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
@@ -147,13 +188,6 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_editIncomeDate_success() {
-        commandInputForTest("edit income 2 date 2024-10-10", incomes, spendings);
-        assertEquals("dividends" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
-    }
-
-    @Test
     public void execute_editSpendingDate_success() {
         commandInputForTest("edit spending 2 date 2024-10-10", incomes, spendings);
         assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
@@ -161,7 +195,22 @@ class EditCommandTest {
     }
 
     @Test
-    public void execute_editTag_success() {
+    public void execute_editIncomeDate_success() {
+        commandInputForTest("edit income 2 date 2024-10-10", incomes, spendings);
+        assertEquals("dividends" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
+                incomes.get(1).toString());
+    }
+
+    @Test
+    public void execute_editSpendingTag_success() {
+        commandInputForTest("edit spending 2 tag food", incomes, spendings);
+        assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE +
+                        LIST_SEPARATOR + "Tag: food",
+                spendings.get(1).toString());
+    }
+
+    @Test
+    public void execute_editIncomeTag_success() {
         commandInputForTest("edit income 3 tag investments", incomes, spendings);
         assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(5) +
                 LIST_SEPARATOR + "Tag: investments",

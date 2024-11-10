@@ -17,6 +17,7 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 import static seedu.classes.Ui.commandInputForTest;
@@ -38,14 +39,14 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_missingArg_expectIllegalArgumentExceptionMessage() {
+    void execute_missingDeleteArguments_incorrectParamsNumberMessage() {
         commandInputForTest("delete", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + DELETE_COMMAND_FORMAT
-                + System.lineSeparator(), outputStreamCaptor.toString());
+                + NEXT_LINE, outputStreamCaptor.toString());
     }
 
     @Test
-    void execute_validIncomeInput_successfullyDeleted() {
+    void execute_validIncomeInput_success() {
         double expectedTotalAfterDelete = incomes.getTotal() - incomes.get(0).getAmount();
         commandInputForTest("delete income 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
@@ -54,7 +55,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_validSpendingInput_successfullyDeleted() {
+    void execute_validSpendingInput_success() {
         double expectedTotalAfterDelete = spendings.getTotal() - spendings.get(0).getAmount();
         commandInputForTest("delete spending 1", incomes, spendings);
         assertEquals("Successfully deleted!", outputStreamCaptor.toString().trim());
@@ -63,26 +64,41 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_invalidCategory_expectIllegalInputExceptionMessage() {
+    void execute_invalidCategory_invalidCategoryMessage() {
         commandInputForTest("delete invalidCategory a", incomes, spendings);
         assertEquals(TAB + INVALID_CATEGORY + DELETE_COMMAND_FORMAT
-                + System.lineSeparator(), outputStreamCaptor.toString());
+                + NEXT_LINE, outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
     }
 
     @Test
-    void execute_invalidIndex_expectIllegalArgumentExceptionMessage() {
+    void execute_stringIndexIncomeInput_indexNotIntegerMessage() {
         commandInputForTest("delete income a", incomes, spendings);
         assertEquals(TAB + INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT
-                + System.lineSeparator(), outputStreamCaptor.toString());
+                + NEXT_LINE, outputStreamCaptor.toString());
         assertEquals(1, incomes.size());
     }
 
     @Test
-    void execute_indexOutOfBounds_expectIllegalArgumentExceptionMessage() {
+    void execute_stringIndexSpendingInput_indexNotIntegerMessage() {
+        commandInputForTest("delete spending a", incomes, spendings);
+        assertEquals(TAB + INDEX_NOT_INTEGER + DELETE_COMMAND_FORMAT
+                + NEXT_LINE, outputStreamCaptor.toString());
+        assertEquals(2, spendings.size());
+    }
+
+    @Test
+    void execute_indexOutOfBoundsIncomeInput_indexOutOfBoundsMessage() {
         commandInputForTest("delete income 10", incomes, spendings);
         assertEquals(INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
         assertEquals(1, incomes.size());
+    }
+
+    @Test
+    void execute_indexOutOfBoundsSpendingInput_indexOutOfBoundsMessage() {
+        commandInputForTest("delete spending 10", incomes, spendings);
+        assertEquals(INDEX_OUT_OF_BOUNDS, outputStreamCaptor.toString().trim());
+        assertEquals(2, spendings.size());
     }
 
     @AfterEach

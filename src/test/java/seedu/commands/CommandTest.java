@@ -3,12 +3,9 @@ package seedu.commands;
 import org.junit.jupiter.api.Test;
 import seedu.classes.Parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.classes.Constants.TAB;
-import static seedu.classes.Ui.commandInputForTest;
 
 public class CommandTest {
     @Test

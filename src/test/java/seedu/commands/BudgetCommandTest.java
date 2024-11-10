@@ -14,6 +14,7 @@ import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -46,7 +47,7 @@ class BudgetCommandTest {
         String userInput = "budget daily " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set daily budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set daily budget of: " + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getDailyBudget());
     }
@@ -57,7 +58,7 @@ class BudgetCommandTest {
         String userInput = "budget monthly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set monthly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set monthly budget of: " + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getMonthlyBudget());
     }
@@ -68,29 +69,29 @@ class BudgetCommandTest {
         String userInput = "budget yearly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set yearly budget of: " + budget + System.lineSeparator()
+        assertEquals(TAB + "Successfully set yearly budget of: " + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getYearlyBudget());
     }
 
     @Test
-    public void execute_invalidAmount_exceptionThrown() {
+    public void execute_invalidAmount_amountNotNumberMessage() {
         commandInputForTest("budget yearly abc", incomes, spendings);
         assertEquals(TAB + AMOUNT_NOT_NUMBER + BUDGET_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_invalidTimeFrame_exceptionThrown() {
+    public void execute_invalidTimeFrame_invalidFieldMessage() {
         commandInputForTest("budget notatimeframe 1", incomes, spendings);
         assertEquals(TAB + INVALID_FIELD + BUDGET_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 
     @Test
-    public void execute_tooFewInputs_exceptionThrown() {
+    public void execute_tooFewInputs_incorrectParamsNumberMessage() {
         commandInputForTest("budget notenoughinputs", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + BUDGET_COMMAND_FORMAT
-                + System.lineSeparator(), outContent.toString());
+                + NEXT_LINE, outContent.toString());
     }
 }

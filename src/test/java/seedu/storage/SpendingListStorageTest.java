@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.VALID_TEST_DATE;
 
 public class SpendingListStorageTest {
@@ -37,7 +38,7 @@ public class SpendingListStorageTest {
             spendingsFile.createNewFile();
             passwordFile.delete();
             passwordFile.createNewFile();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(0, Storage.spendings.getDailyBudget());
             assertEquals(0, Storage.spendings.getMonthlyBudget());
