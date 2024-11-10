@@ -7,6 +7,8 @@ import seedu.type.SpendingList;
 
 import java.time.LocalDate;
 
+import static seedu.classes.Constants.TODAY;
+
 /**
  * Used to manage recurring entries labelled as yearly recurrence in the user's {@code IncomeList} and
  * {@code SpendingList} and adds recurring entries when needed
@@ -20,13 +22,13 @@ public class YearlyRecurrence extends Recurrence {
         assert lastRecurred != null : "should only be checking entries with recurrence, " +
                 "lastRecurred should be initialised";
         LocalDate checkDate = lastRecurred.plusYears(YEARLY_FREQUENCY);
-        while (!checkDate.isAfter(LocalDate.now())) {
+        while (!checkDate.isAfter(TODAY)) {
             Income newEntry = new Income(recurringIncome);
             checkIfDateAltered(newEntry, checkDate, incomes, isAdding);
             checkDate = checkDate.plusYears(YEARLY_FREQUENCY);
         }
         checkDate = checkDate.minusYears(YEARLY_FREQUENCY);
-        assert !checkDate.isAfter(LocalDate.now()) && checkDate.plusYears(YEARLY_FREQUENCY).isAfter(LocalDate.now())
+        assert !checkDate.isAfter(TODAY) && checkDate.plusYears(YEARLY_FREQUENCY).isAfter(TODAY)
                 : "last recurrence should be within one year";
         recurringIncome.editLastRecurrence(checkDate);
     }
@@ -37,13 +39,13 @@ public class YearlyRecurrence extends Recurrence {
         assert lastRecurred != null : "should only be checking entries with recurrence, " +
                 "lastRecurred should be initialised";
         LocalDate checkDate = lastRecurred.plusYears(YEARLY_FREQUENCY);
-        while (!checkDate.isAfter(LocalDate.now())) {
+        while (!checkDate.isAfter(TODAY)) {
             Spending newEntry = new Spending(recurringSpending);
             checkIfDateAltered(newEntry, checkDate, spendings, isAdding);
             checkDate = checkDate.plusYears(YEARLY_FREQUENCY);
         }
         checkDate = checkDate.minusYears(YEARLY_FREQUENCY);
-        assert !checkDate.isAfter(LocalDate.now()) && checkDate.plusYears(YEARLY_FREQUENCY).isAfter(LocalDate.now())
+        assert !checkDate.isAfter(TODAY) && checkDate.plusYears(YEARLY_FREQUENCY).isAfter(TODAY)
                 : "last recurrence should be within one year";
         recurringSpending.editLastRecurrence(checkDate);
     }

@@ -26,6 +26,7 @@ import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 
 public class Ui {
@@ -224,7 +225,7 @@ public class Ui {
     //@@author wx-03
     public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
         StringBuilder filteredListString = new StringBuilder();
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
         double sum = 0.0;
@@ -242,7 +243,7 @@ public class Ui {
     }
 
     public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
         StringBuilder filteredListString = new StringBuilder();
@@ -261,7 +262,7 @@ public class Ui {
     }
 
     public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
         StringBuilder filteredListString = new StringBuilder();
@@ -322,7 +323,7 @@ public class Ui {
 
     public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
         printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
-                + LocalDate.now() + " if any? [Y/N]");
+                + TODAY + " if any? [Y/N]");
         while (true) {
             String userInput = readCommand().toLowerCase();
             switch (userInput) {

@@ -26,7 +26,7 @@ import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
 
@@ -42,11 +42,11 @@ class EditCommandTest {
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(10, "girlfriends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        spendings.add(new Spending(10, "macdonalds", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE.minusDays(7), "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "dividends", VALID_TEST_DATE.minusDays(6), "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(10, "stocks", VALID_TEST_DATE.minusDays(5), "wronginput",
+        spendings.add(new Spending(10, "girlfriends", TODAY, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(10, "macdonalds", TODAY, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "savings", TODAY.minusDays(7), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "dividends", TODAY.minusDays(6), "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(10, "stocks", TODAY.minusDays(5), "wronginput",
                 RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -158,7 +158,7 @@ class EditCommandTest {
     public void execute_editSpendingAmount_success() {
         double expectedTotalAfterEdit = spendings.getTotal() - spendings.get(0).getAmount() + 1.05;
         commandInputForTest("edit spending 1 amount 1.05", incomes, spendings);
-        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("girlfriends" + LIST_SEPARATOR + "1.05" + LIST_SEPARATOR + TODAY,
                 spendings.get(0).toString());
         assertEquals(expectedTotalAfterEdit, spendings.getTotal());
     }
@@ -167,7 +167,7 @@ class EditCommandTest {
     public void execute_editIncomeAmount_success() {
         double expectedTotalAfterEdit = incomes.getTotal() - incomes.get(0).getAmount() + 1;
         commandInputForTest("edit income 1 amount 1", incomes, spendings);
-        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(7),
+        assertEquals("savings" + LIST_SEPARATOR + "1" + LIST_SEPARATOR + TODAY.minusDays(7),
                 incomes.get(0).toString());
         assertEquals(expectedTotalAfterEdit, incomes.getTotal());
     }
@@ -175,7 +175,7 @@ class EditCommandTest {
     @Test
     public void execute_editSpendingDescription_success() {
         commandInputForTest("edit spending 1 description test", incomes, spendings);
-        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY,
                 spendings.get(0).toString());
     }
 
@@ -183,7 +183,7 @@ class EditCommandTest {
     public void execute_editIncomeDescription_success() {
         commandInputForTest("edit income 1 description test", incomes, spendings);
         assertEquals("test" + LIST_SEPARATOR + "10" + LIST_SEPARATOR +
-                VALID_TEST_DATE.minusDays(7),
+                TODAY.minusDays(7),
                 incomes.get(0).toString());
     }
 
@@ -204,7 +204,7 @@ class EditCommandTest {
     @Test
     public void execute_editSpendingTag_success() {
         commandInputForTest("edit spending 2 tag food", incomes, spendings);
-        assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE +
+        assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY +
                         LIST_SEPARATOR + "Tag: food",
                 spendings.get(1).toString());
     }
@@ -212,7 +212,7 @@ class EditCommandTest {
     @Test
     public void execute_editIncomeTag_success() {
         commandInputForTest("edit income 3 tag investments", incomes, spendings);
-        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE.minusDays(5) +
+        assertEquals("stocks" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY.minusDays(5) +
                 LIST_SEPARATOR + "Tag: investments",
                 incomes.get(2).toString());
     }

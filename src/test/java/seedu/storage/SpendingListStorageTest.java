@@ -12,13 +12,13 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.classes.Constants.NEXT_LINE;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 
 public class SpendingListStorageTest {
     @Test
     public void save_existingList_success() {
         SpendingList spendings = new SpendingList();
-        spendings.add(new Spending(10, "macs", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 1));
+        spendings.add(new Spending(10, "macs", TODAY, "", RecurrenceFrequency.NONE, null, 1));
         SpendingListStorage.save(spendings);
         assertTrue(new File("./spendings.txt").exists());
     }

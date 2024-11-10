@@ -29,7 +29,7 @@ import static seedu.classes.Constants.FIND_EXTRA_TO_VALUE;
 import static seedu.classes.Constants.INVALID_FIND_RANGE_DIVIDER_FORMAT;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
 
@@ -45,9 +45,9 @@ class FindCommandTest {
 
     @BeforeEach
     public void setUp() {
-        spendings.add(new Spending(1, "girlfriends", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        spendings.add(new Spending(1, "girlfriends", TODAY, "", RecurrenceFrequency.NONE, null, 0));
         spendings.add(new Spending(2, "macdonalds", LocalDate.of(2024, 10, 10), "", RecurrenceFrequency.NONE, null, 0));
-        incomes.add(new Income(1, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 0));
+        incomes.add(new Income(1, "savings", TODAY, "", RecurrenceFrequency.NONE, null, 0));
         incomes.add(new Income(2, "dividends", LocalDate.of(2024, 10, 10), "", RecurrenceFrequency.NONE, null, 0));
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -273,7 +273,7 @@ class FindCommandTest {
 
     @Test
     public void execute_findSpendingDateRange_success() {
-        commandInputForTest("find spending date 2024-10-10 to " + VALID_TEST_DATE, incomes, spendings);
+        commandInputForTest("find spending date 2024-10-10 to " + TODAY, incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
                 + TAB + "1: " + spendings.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + spendings.get(1).toString() + NEXT_LINE,
@@ -282,7 +282,7 @@ class FindCommandTest {
 
     @Test
     public void execute_findIncomeDateRange_success() {
-        commandInputForTest("find income date 2024-10-10 to " + VALID_TEST_DATE, incomes, spendings);
+        commandInputForTest("find income date 2024-10-10 to " + TODAY, incomes, spendings);
         assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
                 + TAB + "1: " + incomes.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + incomes.get(1).toString() + NEXT_LINE,

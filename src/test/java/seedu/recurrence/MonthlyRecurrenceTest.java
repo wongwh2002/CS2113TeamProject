@@ -15,7 +15,7 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
 public class MonthlyRecurrenceTest {
@@ -43,13 +43,13 @@ public class MonthlyRecurrenceTest {
 
     @Test
     public void checkSpendingRecurrence_addRecurringPastMonthlyEntry_spendingListUpdated() {
-        spendings.add(new Spending(10, "food", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
-                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        spendings.add(new Spending(10, "food", TODAY.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                TODAY.minusMonths(1), TODAY.minusMonths(1).getDayOfMonth()));
         spendings.updateRecurrence();
         commandInputForTest("list", incomes, spendings);
         assertEquals(TAB + "Spendings" + NEXT_LINE +
-                TAB + "1. food - 10 - " + VALID_TEST_DATE.minusMonths(1) + " - Recurring: MONTHLY"
-                + NEXT_LINE + TAB + "2. food - 10 - " + VALID_TEST_DATE.minusMonths(1).plusMonths(1)
+                TAB + "1. food - 10 - " + TODAY.minusMonths(1) + " - Recurring: MONTHLY"
+                + NEXT_LINE + TAB + "2. food - 10 - " + TODAY.minusMonths(1).plusMonths(1)
                 + NEXT_LINE + TAB + "Total spendings: 20" + NEXT_LINE +
                 TAB + "Incomes" + NEXT_LINE +
                 TAB + "Total incomes: 0" + NEXT_LINE,
@@ -58,24 +58,24 @@ public class MonthlyRecurrenceTest {
 
     @Test
     public void checkIncomeRecurrence_addRecurringPastMonthlyEntry_incomeListUpdated() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
-                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        incomes.add(new Income(1000, "salary", TODAY.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                TODAY.minusMonths(1), TODAY.minusMonths(1).getDayOfMonth()));
         incomes.updateRecurrence();
         commandInputForTest("list", incomes, spendings);
         assertEquals(TAB + "Spendings" + NEXT_LINE +
                 TAB + "Total spendings: 0" + NEXT_LINE +
                 TAB + "Incomes" + NEXT_LINE +
-                TAB + "1. salary - 1000 - " + VALID_TEST_DATE.minusMonths(1) +
+                TAB + "1. salary - 1000 - " + TODAY.minusMonths(1) +
                 " - Recurring: MONTHLY" + NEXT_LINE + TAB + "2. salary - 1000 - " +
-                VALID_TEST_DATE.minusMonths(1).plusMonths(1) + NEXT_LINE
+                TODAY.minusMonths(1).plusMonths(1) + NEXT_LINE
                 + TAB + "Total incomes: 2000" + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
     public void checkSpendingRecurrence_addPastMonthlyEntryNoBacklogging_noEntryAdded() {
-        spendings.add(new Spending(10, "food", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
-                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        spendings.add(new Spending(10, "food", TODAY.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                TODAY.minusMonths(1), TODAY.minusMonths(1).getDayOfMonth()));
         Ui.userInputForTest("n");
         Recurrence.checkRecurrenceBackLog(spendings.get(0), spendings);
         assertEquals(1, spendings.size());
@@ -83,8 +83,8 @@ public class MonthlyRecurrenceTest {
 
     @Test
     public void checkIncomeRecurrence_addPastMonthlyEntryNoBacklogging_noEntryAdded() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
-                VALID_TEST_DATE.minusMonths(1), VALID_TEST_DATE.minusMonths(1).getDayOfMonth()));
+        incomes.add(new Income(1000, "salary", TODAY.minusMonths(1), "", RecurrenceFrequency.MONTHLY,
+                TODAY.minusMonths(1), TODAY.minusMonths(1).getDayOfMonth()));
         Ui.userInputForTest("n");
         Recurrence.checkRecurrenceBackLog(incomes.get(0), incomes);
         assertEquals(1, incomes.size());

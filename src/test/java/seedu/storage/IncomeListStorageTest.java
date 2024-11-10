@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class IncomeListStorageTest {
@@ -38,7 +38,7 @@ public class IncomeListStorageTest {
     @Test
     public void save_existingList_success() {
         IncomeList incomes = new IncomeList();
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE,
+        incomes.add(new Income(10, "savings", TODAY, "", RecurrenceFrequency.NONE,
                 null, 1));
         IncomeListStorage.save(incomes);
         assertTrue(new File("./incomes.txt").exists());
@@ -56,10 +56,10 @@ public class IncomeListStorageTest {
     @Test
     public void save_multipleEntries_success() {
         IncomeList incomes = new IncomeList();
-        incomes.add(new Income(10, "savings", VALID_TEST_DATE, "", RecurrenceFrequency.NONE,
+        incomes.add(new Income(10, "savings", TODAY, "", RecurrenceFrequency.NONE,
                 null, 1));
-        incomes.add(new Income(20, "investment", VALID_TEST_DATE, "",
-                RecurrenceFrequency.MONTHLY, VALID_TEST_DATE, 15));
+        incomes.add(new Income(20, "investment", TODAY, "",
+                RecurrenceFrequency.MONTHLY, TODAY, 15));
         IncomeListStorage.save(incomes);
         assertTrue(new File("./incomes.txt").exists());
     }

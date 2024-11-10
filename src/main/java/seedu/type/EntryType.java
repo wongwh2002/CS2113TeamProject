@@ -22,6 +22,7 @@ import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
@@ -98,7 +99,7 @@ public class EntryType {
         String[] commandAndDate = optionalArguments.split(DATE_IDENTIFIER);
         switch (commandAndDate.length) {
         case 1:
-            return LocalDate.now();
+            return TODAY;
         case 2:
             throw new WiagiInvalidInputException(DATE_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
         default:

@@ -19,7 +19,7 @@ import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
 import seedu.type.IncomeList;
@@ -55,14 +55,14 @@ public class AddCommandTest {
     @Test
     void execute_correctSpendingWithoutDateInput_success() {
         commandInputForTest("add spending 10 macs", incomes, spendings);
-        assertEquals("macs" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("macs" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY,
                 spendings.get(0).toString());
     }
 
     @Test
     void execute_correctIncomeWithoutDateInput_success() {
         commandInputForTest("add income 1500 dishwasher", incomes, spendings);
-        assertEquals("dishwasher" + LIST_SEPARATOR + "1500" + LIST_SEPARATOR + VALID_TEST_DATE,
+        assertEquals("dishwasher" + LIST_SEPARATOR + "1500" + LIST_SEPARATOR + TODAY,
                 incomes.get(0).toString());
     }
 
@@ -97,14 +97,14 @@ public class AddCommandTest {
     @Test
     void execute_correctSpendingWithRecurrence_success() {
         commandInputForTest("add spending 10 electric bill *utilities* ~monthly~", incomes, spendings);
-        assertEquals("electric bill" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE + LIST_SEPARATOR
+        assertEquals("electric bill" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY + LIST_SEPARATOR
                 + "Tag: utilities" + LIST_SEPARATOR + "Recurring: MONTHLY", spendings.get(0).toString());
     }
 
     @Test
     void execute_correctIncomeWithRecurrence_success() {
         commandInputForTest("add income 10 salary *work* ~monthly~", incomes, spendings);
-        assertEquals("salary" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + VALID_TEST_DATE + LIST_SEPARATOR
+        assertEquals("salary" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + TODAY + LIST_SEPARATOR
                 + "Tag: work" + LIST_SEPARATOR + "Recurring: MONTHLY", incomes.get(0).toString());
     }
 

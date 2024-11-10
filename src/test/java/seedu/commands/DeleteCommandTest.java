@@ -19,7 +19,7 @@ import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
 class DeleteCommandTest {
@@ -32,9 +32,9 @@ class DeleteCommandTest {
     // @@author wx-03
     @BeforeEach
     void setUp() {
-        incomes.add(new Income(1000, "salary", VALID_TEST_DATE, null, null, null, 0));
-        spendings.add(new Spending(4, "dinner", VALID_TEST_DATE, null, null, null, 0));
-        spendings.add(new Spending(5, "lunch", VALID_TEST_DATE, null, null, null, 0));
+        incomes.add(new Income(1000, "salary", TODAY, null, null, null, 0));
+        spendings.add(new Spending(4, "dinner", TODAY, null, null, null, 0));
+        spendings.add(new Spending(5, "lunch", TODAY, null, null, null, 0));
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 

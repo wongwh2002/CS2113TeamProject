@@ -33,7 +33,7 @@ public class Constants {
             "of 100 million after editing! Editing rejected!";
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount will exceed the list limit" +
             " of 100 million after recurrence! Recurrence rejected!";
-    public static final LocalDate VALID_TEST_DATE = LocalDate.now();
+    public static final LocalDate TODAY = LocalDate.now();
     public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
             "[$CATEGORY]/[tags [$TAG_NAME]]";
