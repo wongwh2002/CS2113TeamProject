@@ -15,24 +15,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 
+/**
+ * The type Login storage test.
+ */
 public class LoginStorageTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
 
+    /**
+     * Restore.
+     */
     @AfterEach
     public void restore() {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }
 
+    /**
+     * Login storage user password correct hash code.
+     */
     @Test
     public void loginStorage_userPassword_correctHashCode() {
         File loginFile = new File("./password.txt");
@@ -45,6 +57,9 @@ public class LoginStorageTest {
         assertEquals(hashCode, Storage.password);
     }
 
+    /**
+     * Load file is empty error message.
+     */
     @Test
     public void load_fileIsEmpty_errorMessage() {
         File loginFile = new File("./password.txt");
