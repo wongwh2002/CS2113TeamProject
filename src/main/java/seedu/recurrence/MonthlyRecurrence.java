@@ -41,7 +41,8 @@ public class MonthlyRecurrence extends Recurrence {
     }
 
     /**
-     * Checks if the {@code Spending} entry is due for recurrence, updates the {@code lastRecurred} attribute of the entry
+     * Checks if the {@code Spending} entry is due for recurrence,
+     * updates the {@code lastRecurred} attribute of the entry
      * adds new entries to the {@code SpendingList} if user wants to backlog entries (For Months)
      * @param recurringSpending {@code Spending} entry to be checked
      * @param spendings {@code SpendingList} of the user
