@@ -27,7 +27,6 @@ import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
-import static seedu.classes.Constants.TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
 
@@ -109,7 +108,7 @@ class ListCommandTest {
         Ui.userInputForTest("1");
         commandInputForTest("list incomes", incomes, spendings);
 
-        assertEquals(TAB + TIME_RANGE_MESSAGE + NEXT_LINE +
+        assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +
                 TAB + SEPARATOR + NEXT_LINE +
                 TAB + "Incomes" + NEXT_LINE +
                 TAB + "1. savings - 10 - " + TODAY + NEXT_LINE +

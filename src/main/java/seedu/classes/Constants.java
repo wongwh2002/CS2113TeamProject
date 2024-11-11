@@ -35,7 +35,6 @@ public class Constants {
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE = "The total amount will exceed the list limit" +
             " of 100 million after recurrence! Recurrence rejected!";
     public static final LocalDate TODAY = LocalDate.now();
-    public static final String BUDGET_INITIALISE_FORMAT = "What amount would you like to set: ";
     public static final String LIST_COMMAND_FORMAT = "Please enter in the form: list " +
             "[$CATEGORY]/[tags [$TAG_NAME]]";
     public static final String BUDGET_COMMAND_FORMAT = "Please enter in the form: budget {$PERIOD} {$AMOUNT}";
@@ -71,13 +70,13 @@ public class Constants {
     public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
     public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
     public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries for:" +
-            System.lineSeparator() +
-            TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
-            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
+            NEXT_LINE +
+            TAB + "[1] All" + NEXT_LINE + TAB + "[2] This week" + NEXT_LINE +
+            TAB + "[3] Last week and this week" + NEXT_LINE + TAB + "[4] This month";
     public static final String SELECT_TIME_RANGE_MESSAGE_INCOMES = "List income entries within:" +
-            System.lineSeparator() +
-            TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
-            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
+            NEXT_LINE +
+            TAB + "[1] All" + NEXT_LINE + TAB + "[2] This week" + NEXT_LINE +
+            TAB + "[3] Last week and this week" + NEXT_LINE + TAB + "[4] This month";
     public static final String NO_ENTRIES_TIME_RANGE_MESSAGE = "No entries within selected time range";
     public static final String SPENDINGS_TIME_RANGE_MESSAGE = "Showing spending entries from ";
     public static final String INCOMES_TIME_RANGE_MESSAGE = "Showing income entries from ";
@@ -88,9 +87,6 @@ public class Constants {
     public static final String FIND_EXTRA_SPECIFIC_VALUE = "There should only be one value, " +
             "no whitespace separating it! ";
     public static final String INVALID_FIND_RANGE_DIVIDER_FORMAT = "\"to\" should be separated from find values! ";
-    public static final String TIME_RANGE_MESSAGE = "Select time range:" + NEXT_LINE +
-            TAB + "[1] All" + NEXT_LINE + TAB + "[2] Weekly" + NEXT_LINE +
-            TAB + "[3] Biweekly" + NEXT_LINE + TAB + "[4] Monthly";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";

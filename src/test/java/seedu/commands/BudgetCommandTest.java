@@ -109,77 +109,77 @@ class BudgetCommandTest {
     public void execute_dailyMoreThanMonthlyBudget_dailyMoreThanMonthlyMessage() {
         commandInputForTest("budget daily 10000", incomes, spendings);
         assertEquals(TAB + "Your daily budget should not be larger than monthly budget! " +
-                ENTER_BUDGET_MESSAGE + System.lineSeparator() ,outContent.toString());
+                ENTER_BUDGET_MESSAGE + NEXT_LINE ,outContent.toString());
     }
 
     @Test
     public void execute_monthlyMoreThanYearlyBudget_monthlyMoreThanYearlyMessage() {
         commandInputForTest("budget monthly 100000", incomes, spendings);
         assertEquals(TAB + "Your monthly budget should not be larger than yearly budget! " +
-                ENTER_BUDGET_MESSAGE + System.lineSeparator(), outContent.toString());
+                ENTER_BUDGET_MESSAGE + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_monthlyLessThanDailyBudget_monthlyLessThanDailyMessage() {
         commandInputForTest("budget monthly 1", incomes, spendings);
         assertEquals(TAB + "Your daily budget should not be larger than monthly budget! " +
-                ENTER_BUDGET_MESSAGE + System.lineSeparator(), outContent.toString());
+                ENTER_BUDGET_MESSAGE + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_yearlyMoreThanMonthlyBudget_yearlyMoreThanMonthlyMessage() {
         commandInputForTest("budget yearly 100", incomes, spendings);
         assertEquals(TAB + "Your monthly budget should not be larger than yearly budget! " +
-                ENTER_BUDGET_MESSAGE + System.lineSeparator() ,outContent.toString());
+                ENTER_BUDGET_MESSAGE + NEXT_LINE ,outContent.toString());
     }
 
     @Test
     public void initialiseBudget_dailyBudgetLessThanZero_invalidBudgetMessage() {
-        Ui.userInputForTest("-1" + System.lineSeparator() + "100" + System.lineSeparator() + "1000" +
-                System.lineSeparator() + "10000");
+        Ui.userInputForTest("-1" + NEXT_LINE + "100" + NEXT_LINE + "1000" +
+                NEXT_LINE + "10000");
         BudgetCommand.initialiseBudget(spendings);
-        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + System.lineSeparator() + TAB +
-                MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator() + TAB +
-                YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator(),
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB +
+                MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
+                YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE,
                 outContent.toString());
     }
 
 
     @Test
     public void initialiseBudget_budgetLessThanZero_invalidBudgetMessage() {
-        Ui.userInputForTest("-1" + System.lineSeparator() + "100" + System.lineSeparator() + "1000" +
-                System.lineSeparator() + "10000");
+        Ui.userInputForTest("-1" + NEXT_LINE + "100" + NEXT_LINE + "1000" +
+                NEXT_LINE + "10000");
         BudgetCommand.initialiseBudget(spendings);
-        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + System.lineSeparator() + TAB +
-                MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator() + TAB +
-                YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR + System.lineSeparator(),
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB +
+                MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
+                YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE,
                 outContent.toString());
     }
 
     @Test
     public void initialiseBudget_budgetMoreThanLimit_invalidBudgetMessage() {
-        Ui.userInputForTest("100" + System.lineSeparator() + "10000000000" + System.lineSeparator() + "1000" +
-                System.lineSeparator() + "10000");
+        Ui.userInputForTest("100" + NEXT_LINE + "10000000000" + NEXT_LINE + "1000" +
+                NEXT_LINE + "10000");
         BudgetCommand.initialiseBudget(spendings);
-        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + "Amount must be lesser than 100000000. Please enter a valid budget:" +
-                System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
-                SEPARATOR + System.lineSeparator(), outContent.toString());
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + "Amount must be lesser than 100000000. Please enter a valid budget:" +
+                NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
+                SEPARATOR + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void initialiseBudget_yearlyBudgetInvalid_invalidBudgetMessage() {
-        Ui.userInputForTest("100" + System.lineSeparator() + "1000" + System.lineSeparator() + "1000000000" +
-                System.lineSeparator() + "10000");
+        Ui.userInputForTest("100" + NEXT_LINE + "1000" + NEXT_LINE + "1000000000" +
+                NEXT_LINE + "10000");
         BudgetCommand.initialiseBudget(spendings);
-        assertEquals(TAB + DAILY_BUDGET_QUESTION + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + MONTHLY_BUDGET_MESSAGE + System.lineSeparator() + TAB + SEPARATOR +
-                System.lineSeparator() + TAB + YEARLY_BUDGET_MESSAGE + System.lineSeparator() + TAB +
-                SEPARATOR + System.lineSeparator() + TAB + "Amount must be lesser than 100000000. Please enter a " +
+        assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
+                SEPARATOR + NEXT_LINE + TAB + "Amount must be lesser than 100000000. Please enter a " +
                 "valid " +
-                "budget:" + System.lineSeparator(), outContent.toString());
+                "budget:" + NEXT_LINE, outContent.toString());
     }
 }
