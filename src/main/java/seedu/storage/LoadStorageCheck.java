@@ -21,6 +21,7 @@ import static seedu.classes.Constants.LOAD_RECURRENCE_INDEX;
 import static seedu.classes.Constants.LOAD_TAG_INDEX;
 import static seedu.classes.Constants.NO_RECURRENCE;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
+import static seedu.commands.CommandUtils.checkDateLimit;
 
 public class LoadStorageCheck {
     public static final String STORAGE_LAST_RECURRED_DATE = "last recurred date!";
@@ -88,6 +89,7 @@ public class LoadStorageCheck {
     private LocalDate getDate(String dateStr) {
         try {
             LocalDate date = LocalDate.parse(dateStr);
+            checkDateLimit(date);
             assert date != null : "Date should not be null";
             return date;
         } catch (Exception e) {
