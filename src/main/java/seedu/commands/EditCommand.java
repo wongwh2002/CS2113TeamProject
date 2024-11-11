@@ -10,6 +10,7 @@ import seedu.type.SpendingList;
 import seedu.type.EntryType;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,9 +85,11 @@ public class EditCommand extends Command {
         switch (typeOfList) {
         case INCOME:
             editList(arguments, incomes);
+            incomes.sort(Comparator.comparing(EntryType::getDate));
             break;
         case SPENDING:
             editList(arguments, spendings);
+            spendings.sort(Comparator.comparing(EntryType::getDate));
             break;
         default:
             throw new WiagiInvalidInputException(INVALID_CATEGORY + EDIT_COMMAND_FORMAT);
