@@ -26,6 +26,7 @@ import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
+import static seedu.commands.CommandUtils.checkDateLimit;
 
 
 /**
@@ -33,6 +34,7 @@ import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
  * Provides functionality to create, edit, and retrieve details of an entry.
  */
 public class EntryType {
+    public static final int MAX_ENTRY_DATE_DECREMENT = 100;
     private double amount;
     private String description;
     private LocalDate date;
@@ -104,7 +106,9 @@ public class EntryType {
             throw new WiagiInvalidInputException(DATE_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
         default:
             try {
-                return LocalDate.parse(commandAndDate[1].trim());
+                LocalDate date = LocalDate.parse(commandAndDate[1].trim());
+                checkDateLimit(date);
+                return date;
             } catch (DateTimeParseException e) {
                 throw new WiagiInvalidInputException(INVALID_DATE_FORMAT + ADD_COMMAND_FORMAT);
             }
@@ -161,7 +165,9 @@ public class EntryType {
     }
 
     public void editDate(String newDate) throws WiagiInvalidInputException{
-        this.date = CommandUtils.formatDate(newDate, EDIT_COMMAND_FORMAT);
+        LocalDate date = CommandUtils.formatDate(newDate, EDIT_COMMAND_FORMAT);
+        checkDateLimit(date);
+        this.date = date;
     }
 
     public void editDateWithLocalDate(LocalDate date) {

@@ -6,10 +6,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
+import static seedu.classes.Constants.INVALID_DATE;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.OVER_MAX_ENTRY_AMOUNT;
 import static seedu.classes.Constants.MAX_ENTRY_AMOUNT;
+import static seedu.classes.Constants.TODAY;
+import static seedu.type.EntryType.MAX_ENTRY_DATE_DECREMENT;
 
 public class CommandUtils {
 
@@ -60,6 +63,13 @@ public class CommandUtils {
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
+    }
+
+    public static void checkDateLimit(LocalDate date) {
+        int yearOfEntry = date.getYear();
+        if (yearOfEntry < TODAY.getYear() - MAX_ENTRY_DATE_DECREMENT) {
+            throw new WiagiInvalidInputException(INVALID_DATE);
         }
     }
 }
