@@ -44,15 +44,15 @@ public class IncomeListStorage {
     }
 
     private static void handleWriteFile(IncomeList incomes) throws IOException {
-        FileWriter fw = new FileWriter(INCOMES_FILE_PATH);
+        FileWriter incomeFileWriter = new FileWriter(INCOMES_FILE_PATH);
         for (Income income : incomes) {
             String incomeEntry = income.getAmount() + STORAGE_SEPARATOR + income.getDescription() +
                     STORAGE_SEPARATOR + income.getDate() + STORAGE_SEPARATOR + income.getTag() + STORAGE_SEPARATOR +
                     income.getRecurrenceFrequency() + STORAGE_SEPARATOR + income.getLastRecurrence() +
                     STORAGE_SEPARATOR + income.getDayOfRecurrence();
-            fw.write(incomeEntry + NEXT_LINE);
+            incomeFileWriter.write(incomeEntry + NEXT_LINE);
         }
-        fw.close();
+        incomeFileWriter.close();
     }
 
     /**

@@ -59,10 +59,10 @@ public class LoginStorage {
         resetAllData();
         WiagiLogger.logger.log(Level.INFO, "Creating new user...");
         try {
-            FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
+            FileWriter passwordFileWriter = new FileWriter(PASSWORD_FILE_PATH);
             int passwordHash = getNewUserPassword();
-            fw.write(Integer.toString(passwordHash));
-            fw.close();
+            passwordFileWriter.write(Integer.toString(passwordHash));
+            passwordFileWriter.close();
             Storage.password = passwordHash;
             Ui.newUserBudgetMessage();
             BudgetCommand.initialiseBudget(Storage.spendings);
