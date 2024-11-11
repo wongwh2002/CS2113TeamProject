@@ -1,29 +1,29 @@
-<mxGraphModel dx="1224" dy="824" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxGraphModel dx="816" dy="549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-1" value="Recurrence" style="swimlane;fontStyle=2;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
-      <mxGeometry x="661.88" y="531" width="276.25" height="169" as="geometry">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-1" value="{abstract}&#xa;Recurrence" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
+      <mxGeometry x="661.88" y="510" width="276.25" height="180" as="geometry">
         <mxRectangle x="47.5" y="80" width="160" height="26" as="alternateBounds" />
       </mxGeometry>
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-2" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="30" width="276.25" height="8" as="geometry" />
+      <mxGeometry y="40" width="276.25" height="10" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-3" value="#getLastDayOfMonth() : int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="38" width="276.25" height="26" as="geometry" />
+      <mxGeometry y="50" width="276.25" height="26" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-4" value="#checkIfDateAltered&lt;T extends Type&gt;(...):void" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="64" width="276.25" height="26" as="geometry" />
+      <mxGeometry y="76" width="276.25" height="26" as="geometry" />
     </mxCell>
     <mxCell id="wNga9naLZSw63hYleL8z-5" value="+checkRecurrenceBackLog(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=6;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="90" width="276.25" height="26" as="geometry" />
+      <mxGeometry y="102" width="276.25" height="26" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-5" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="116" width="276.25" height="26" as="geometry" />
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-5" value="+checkIncomeRecurrence(...):void {abstract} " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
+      <mxGeometry y="128" width="276.25" height="26" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-6" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
-      <mxGeometry y="142" width="276.25" height="26" as="geometry" />
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-6" value="+checkSpendingRecurrence(...):void {abstract}" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-1" vertex="1">
+      <mxGeometry y="154" width="276.25" height="26" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-7" value="DailyRecurrence" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
       <mxGeometry x="435" y="801" width="220" height="90" as="geometry">
@@ -33,10 +33,10 @@
     <mxCell id="a9A-kaGHIIt9EINvmF-b-8" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-7" vertex="1">
       <mxGeometry y="26" width="220" height="8" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-9" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-7" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-9" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-7" vertex="1">
       <mxGeometry y="34" width="220" height="26" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-10" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-7" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-10" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-7" vertex="1">
       <mxGeometry y="60" width="220" height="26" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-11" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;fontSize=12;" parent="1" source="a9A-kaGHIIt9EINvmF-b-7" target="a9A-kaGHIIt9EINvmF-b-1" edge="1">
@@ -53,10 +53,10 @@
     <mxCell id="a9A-kaGHIIt9EINvmF-b-13" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-12" vertex="1">
       <mxGeometry y="26" width="220" height="8" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-14" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-12" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-14" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-12" vertex="1">
       <mxGeometry y="34" width="220" height="26" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-15" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-12" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-15" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-12" vertex="1">
       <mxGeometry y="60" width="220" height="30" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-16" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;fontSize=12;" parent="1" source="a9A-kaGHIIt9EINvmF-b-12" target="a9A-kaGHIIt9EINvmF-b-1" edge="1">
@@ -73,10 +73,10 @@
     <mxCell id="a9A-kaGHIIt9EINvmF-b-18" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-17" vertex="1">
       <mxGeometry y="26" width="220" height="8" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-19" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-17" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-19" value="+checkIncomeRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-17" vertex="1">
       <mxGeometry y="34" width="220" height="26" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-20" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-17" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-20" value="+checkSpendingRecurrence(...):void " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontSize=12;" parent="a9A-kaGHIIt9EINvmF-b-17" vertex="1">
       <mxGeometry y="60" width="220" height="30" as="geometry" />
     </mxCell>
     <mxCell id="a9A-kaGHIIt9EINvmF-b-21" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=12;" parent="1" source="a9A-kaGHIIt9EINvmF-b-17" target="a9A-kaGHIIt9EINvmF-b-1" edge="1">
@@ -224,7 +224,7 @@
     <mxCell id="a9A-kaGHIIt9EINvmF-b-58" value="Only essential method and attributes used for recurrence functionality is shown" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" parent="1" vertex="1">
       <mxGeometry x="1057" y="70" width="150" height="30" as="geometry" />
     </mxCell>
-    <mxCell id="a9A-kaGHIIt9EINvmF-b-59" value="&lt;&lt;Enumeration&gt;&gt;&#xa;RecurrenceFrequency" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
+    <mxCell id="a9A-kaGHIIt9EINvmF-b-59" value="&lt;&lt;enumeration&gt;&gt;&#xa;RecurrenceFrequency" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
       <mxGeometry x="360" y="30" width="200" height="160" as="geometry">
         <mxRectangle x="47.5" y="80" width="160" height="26" as="alternateBounds" />
       </mxGeometry>

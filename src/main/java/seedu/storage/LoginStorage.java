@@ -42,7 +42,6 @@ public class LoginStorage {
         } catch (NoSuchElementException | NumberFormatException e) {
             WiagiLogger.logger.log(Level.WARNING, "Password file was empty", e);
             Ui.errorLoadingPasswordMessage();
-            resetAllData();
             createNewUser();
         }
         WiagiLogger.logger.log(Level.INFO, "Finish loading password file.");
@@ -57,6 +56,7 @@ public class LoginStorage {
     }
 
     private static void createNewUser() {
+        resetAllData();
         WiagiLogger.logger.log(Level.INFO, "Creating new user...");
         try {
             FileWriter fw = new FileWriter(PASSWORD_FILE_PATH);
