@@ -14,6 +14,11 @@ public class ListAllCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes list command with the given arguments
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     //@@author rharwo
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
