@@ -22,20 +22,20 @@ and investment analysis.
     * [Recurrence Class](#recurrence-class)
     * [RecurrenceFrequency enumeration](#recurrencefrequency-enumeration)
     * [Storage Class](#storage-class)
-      * [Motivation behind the class:](#motivation-behind-the-class)
-      * [How the Storage works:](#how-the-storage-works)
+      * [Motivation behind the class](#motivation-behind-the-class)
+      * [How the Storage works](#how-the-storage-works)
   * [Program start up](#program-start-up)
     * [Loading storage](#loading-storage)
       * [load method in `IncomeListStorage` `SpendingListStorage`](#load-method-in-incomeliststorage-spendingliststorage)
       * [load method in `LoginStorage`](#load-method-in-loginstorage)
     * [Recurrence Updating](#recurrence-updating)
-      * [How recurrence updating works:](#how-recurrence-updating-works-)
-      * [Implementation:](#implementation)
+      * [How recurrence updating works](#how-recurrence-updating-works-)
+      * [Implementation](#implementation)
         * [checkIncomeRecurrence / checkSpendingRecurrence method](#checkincomerecurrence--checkspendingrecurrence-method)
         * [parseRecurrence method](#parserecurrence-method)
         * [updateRecurrence method](#updaterecurrence-method)
         * [checkIfDateAltered method](#checkifdatealtered-method)
-      * [Here are some things to take note:](#here-are-some-things-to-take-note)
+      * [Here are some things to take note](#here-are-some-things-to-take-note)
   * [Program run sequence](#program-run-sequence)
     * [Command handling](#command-handling-)
     * [Storage saving](#storage-saving)
@@ -45,11 +45,11 @@ and investment analysis.
         * [How the recurrence backlogging works](#how-the-recurrence-backlogging-works)
         * [Implementation](#implementation-1)
           * [checkRecurrenceBacklog method](#checkrecurrencebacklog-method)
-        * [hasRecurrenceBackLog method](#hasrecurrencebacklog-method)
+          * [hasRecurrenceBackLog method](#hasrecurrencebacklog-method)
     * [Editing entries](#editing-entries)
     * [Finding entries](#finding-entries)
     * [Deleting entries](#deleting-entries)
-    * [Creating a budget](#creating-a-budget)
+    * [Setting a budget](#setting-a-budget)
     * [Listing entries](#listing-entries)
       * [Listing all entries](#listing-all-entries)
       * [Listing spendings](#listing-spendings)
@@ -80,7 +80,7 @@ and investment analysis.
   * [Finding an entry](#finding-an-entry)
   * [Editing an Entry](#editing-an-entry)
   * [Showing help](#showing-help)
-  * [Setting a Budget](#setting-a-budget)
+  * [Setting a Budget](#setting-a-budget-1)
   * [Adding an income or spending](#adding-an-income-or-spending)
   * [Exiting the program](#exiting-the-program)
 <!-- TOC -->
@@ -107,7 +107,7 @@ Given below is a quick overview of main components and how they interact with ea
    - It will then repeatedly read in user commands with `Ui`, parse input with `Parser` and executes them accordingly
      with `Command`.
    - When a shut-down command is initiated by the user, the program is exited safely.
-2. `UI`: Takes in user input and prints output of the program.
+2. `Ui`: Takes in user input and prints output of the program.
    - Provides a wide variety of output formats, enabling it to work with different components. 
 3. `Parser`:  Parse user input to deduce their intended command.
    - Returns a `Command` object to `Wiagi` based on the user input.
@@ -119,10 +119,12 @@ Given below is a quick overview of main components and how they interact with ea
 
 <img src="./Diagrams/Overall/overallClass.png" width="800" alt="overallClass.png">
 <br>
-On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if it exists, 
-else, new lists would be created.
-`Wiagi` then takes in user input via the `UI` class, then parse and executes the command through the `Parser` class.
-The related output is printed through the `UI` class.
+On a high level, whenever `Wiagi` is started,  
+It will load `SpendingList` and `IncomeList` from `Storage` if they exist, else, new lists would be created.
+It will also load the hashed password from `Storage` if it exists, else it will
+prompt the user to create a new account. The hashed password is checked against the user's password input for verification.
+`Wiagi` then takes in user input via the `Ui` class, then parse and executes the command through the `Parser` class.
+The related output is printed through the `Ui` class.
 Now let's delve deeper into some of these classes used for the program below
 
 ## Data Types and Structures
@@ -130,7 +132,7 @@ This section introduces the common classes used throughout the program their int
 
 ### EntryType Class
 The `EntryType` class is a class that is used for storing different types of user entry such that the entries
-contain the relevant information required by other classes to perform their component tasks. <br>
+contain the relevant information required by other classes to perform their tasks. <br>
 
 The following are its attributes: <br>
 + `amount` 
@@ -159,16 +161,16 @@ The methods implemented in this class are a collection of getters and setters th
 the information of the entry.
 
 The following are child classes of `EntryType`:
-+ `Income`: Stores entries that the user labels as income
-+ `Spending`: Stores entries that the user labels as spending
++ `Income`
++ `Spending`
 
 ### Income class
 The `Income` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
-income. This information is used by other classes to perform their component tasks.
+income. This information is used by other classes to perform their tasks.
 
 ### Spending class
 The `Spending` class inherits from `EntryType` class. It is used to store relevant information for entries labelled as
-spending. This information is used by other classes to perform their component tasks.
+spending. This information is used by other classes to perform their tasks.
 
 ### IncomeList class
 The `IncomeList` class inherits from the `ArrayList` class. It is used to store all of the `Income` objects used in the
@@ -217,11 +219,11 @@ Enumeration constants:
 
 
 ### Storage Class
-#### Motivation behind the class:
+#### Motivation behind the class
 + Allows the user to save changes, so that they can resume where they left off.
 + Allows advanced users to edit files directly, enabling fast, manual adjustments.
 
-#### How the Storage works:
+#### How the Storage works
 The `Storage` class is a class that stores `incomes`, `spendings` and `password`. 
 Upon instantiation, it will call `IncomeListStorage.load()`, `SpendingListStorage.load()` and `LoginStorage.load()`, which will initialise the variables in `Storage` respectively. It will also call upon `IncomeListStorage.save()` and `SpendingListStorge.save()` to save the user data into its respective data files. 
 
@@ -242,50 +244,50 @@ To load saved lists:
 + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
   `incomes` and `spendings` file paths to an `IncomeList` and `SpendingList` respectively.
 + `Wiagi` will then retrieve the lists in `Storage` to initialise its lists.
-+ Data corruption in the file triggers an exception, often due to user-editing errors.
-+ For missing files (e.g., new users), files are created and the initialised lists will be empty.
++ Data corruption in the file triggers an exception, often due to user-editing error.
++ For missing incomes and spendings files (e.g., new users), files are created and the initialised lists will be empty.
 
 To load password:
-+ The hashed password will simply be loaded from the password file.
-+ For missing files (e.g., new users), users will be prompted to set a new password at the start of the program. The entered password will then be hashed and stored in a newly created password file.
++ The hashed password will be loaded from the password file.
++ For missing password file (e.g., new users), users will be prompted to set a new password at the start of the program. 
+The entered password will then be hashed and stored in a newly created password file.
 
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
 <img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500" height="450"/><br>
 + Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
-+ It splits each line by '`|`' to access each attributes, convert date and last recurrence date to `LocalDate` type, 
-and add it to the lists.
-+ During the process, if a line is corrupted, an exception will be caught and user will be informed.
++ It splits each line by '`|`' to access each attributes, converts each attribute to its respective type and adds it to its respective list.
++ During the process, if a line is corrupted, an exception will be caught and user will be informed of the line number.
 
 
 #### load method in `LoginStorage`
 <img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
 + It first checks if the password file exists.
-  + If it exists, it will use a scanner to read the file and initialise `password` in `Storage`.
+  + If it exists, it will use a `Scanner` to read the file and initialise `password` attribute in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
-  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` in `Storage`.
+  the user input. Then, it will be hashed, stored in the file, and be used to initialise `password` attribute in `Storage`.
 
 ### Recurrence Updating
 Below illustrates the reference frame of recurrence updating <br>
 <br>
 <img src="./Diagrams/Recurrence/updatingRecurrenceSD.png" alt="updatingRecurrenceSequenceDiagram" width="600"/>
 <br>
-For the reference frame of 'load from storage', it is as explained previously in [load method](#load-method-in-incomeliststorage-spendingliststorage) <br>
+For the reference frame of 'load from storage', it is as explained previously in [load](#load-method-in-incomeliststorage-spendingliststorage) method. <br>
 For the reference frame of 'add recurring entry', refer to
 [checkIncomeRecurrence / checkSpendingRecurrence](#checkincomerecurrence--checkspendingrecurrence-method) method. <br>
 
-#### How recurrence updating works: 
+#### How recurrence updating works 
 + Upon running the application by the user, `Storage` component will load the `IncomeList` and `SpendingList` members of
   `Wiagi` to retrieve past data.
-+ `updateRecurrence()` is called
++ `updateRecurrence()` is called.
 + Both `SpendingList` and `IncomeList` are then iterated through. Each member of the lists is parsed through
   `Parser#parseRecurrence()` which returns the type of recurrence it is (e.g. `DailyRecurrence`, `null`)
   which is encapsulated as a `Recurrence` object.
 + If `Recurrence` is not `null` (i.e. a recurring entry), it checks the entry and adds to the `SpendingList` and
   `IncomeList` if needed via `Recurrence#checkIncomeRecurrence()` or `Recurrence#checkSpendingRecurrence()`. <br>
 
-#### Implementation:
+#### Implementation
 The following are notable classes and methods used to achieve recurrence updating.
 
 ##### checkIncomeRecurrence / checkSpendingRecurrence method
@@ -349,10 +351,10 @@ Functionality: <br>
 3. Return the date with the minimum of the 2 to ensure that date of recurrence is valid
 
 
-#### Here are some things to take note:
+#### Here are some things to take note
 + Recurrence updating of entries is only added when user logs in, which is not determinable, thus many additional 
 entries may be added at once (e.g. user last logged in 4 days ago with one daily recurring entry in the list. When the 
-user logs in, 4 days of entries will be added). List is thus also sorted by date after recurrence is done.
+user logs in, 4 days of entries will be added). 
 + Additional entries added by `Recurrence` are being set to not recurring events to prevent double recurring entries
   added in the future
 + Here is a scenario of why `dayOfRecurrence` is tracked:
@@ -370,12 +372,14 @@ user logs in, 4 days of entries will be added). List is thus also sorted by date
 <img src="./Diagrams/Commands/commandHandling.png" alt="commandHandling.png" width="700">
 
 User input is taken in through the `Ui.readCommand()` method that is called from the `Wiagi` class. This command is 
-then passed to the static method `Parser#parseUserInput(...)`. This method determines the command type 
+then passed to the static method `Parser#parseUserInput()`. This method determines the command type 
 based on the command word, and returns a new instance of the respective command, as shown in the 
 sequence diagram above.
 
 Since there are various list commands that the user can execute, the list commands are split into multiple classes.
-If the command word is `list`, the parser will call a separate method `parseListCommand(...)` that will return the correct list command.
+If the command word is `list`, the parser will call a separate method `parseListCommand()` that will return the correct list command. <br>
+
+After the correct command is returned, it is executed by Wiagi by calling the `execute()` method of the command. <br>
 
 The referenced sequence diagram for the execution of list commands will be shown in the section for [listing entries](#listing-entries),
 while the referenced sequence diagram for the execution of commands will be shown in the sections for
@@ -395,11 +399,11 @@ To save edited lists:
 #### save method in `IncomeListStorage` `SpendingListStorage`
 <img src="./Diagrams/Storage/saveStorageSD.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
 Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
-first line of its respective text file.
+first line of its text file.
 + Format: `daily budget | monthly budget | yearly budget`
 + A for loop will loop through the list, and get each of the attributes of each entry within it and separate them by 
 `|`. Hence, each entry will be written line by line to the file.
-+ Format: `amount | description | date | tag | recurrence frequency | last recurrence date | last recurrence day`
++ Format: `amount | description | date | tag | recurrence frequency | last recurrence date | day of recurrence`
   + E.g. `add income 10 part time /2024-10-10/ *job* ~monthly~` will be stored as
     `10.0|part time|2024-10-10|job|MONTHLY|2024-10-10|10`
 
@@ -408,7 +412,7 @@ first line of its respective text file.
 <img src="./Diagrams/Commands/addCommandSequence.png" width="500" alt="addCommandSequence.png">
 <br>
 To add new entries, user will have to input the related commands. The sequence diagram above shows the flow of adding a new entry.
-handleCommand method in addCommand class will be called to verify the user input and handle the command.
+`handleCommand()` method in `AddCommand` class will be called to verify the user input and handle the command.
 The entries will be added to the respective list and the user will be informed that the entry has been added.
 
 #### Recurrence backlogging
@@ -429,8 +433,8 @@ attribute of `SpendingList` or `IncomeList` to exceed its limit
 ##### Implementation
 The following are notable methods used to achieve recurrence backlogging. Methods[`Recurrence#checkIncomeRecurrence()`,
 `Recurrence#checkSpendingRecurrence()`](#checkincomerecurrence--checkspendingrecurrence-method) and 
-[`Parser#parseRecurrence()`](#parserecurrence-method) explained in updating recurrence above is re-used
-thus omitted below for conciseness
+[`Parser#parseRecurrence()`](#parserecurrence-method) explained in updating recurrence above are re-used and
+thus will be omitted below for conciseness
 
 ###### checkRecurrenceBacklog method
 Class: `Recurrence` <br>
@@ -440,7 +444,7 @@ public static <T extends EntryType> void checkRecurrenceBackLog(T toAdd,
  ArrayList<T> list)
 ```
 Functionality:
-1. Calls upon `Parser#parseRecurrence()` method to determine the type fo recurrence
+1. Calls upon `Parser#parseRecurrence()` method to determine the type of recurrence
 2. Calls its own method `getNumberOfRecurringEntries()` to obtain total recurring entries to be added
 3. Ask if user wishes to backlog all the past entries from date of entry to current date via
    `Ui#hasRecurrenceBacklog` which returns a boolean, `true` if user inputs yes, else `false`.
@@ -450,7 +454,7 @@ Functionality:
    also adds backlog entries to `IncomeList` or `SpendingList` via [`Recurrence#checkIncomeRecurrence` and
    `Recurrence#checkSpendingRecurrence`](#checkincomerecurrence--checkspendingrecurrence-method)
 
-##### hasRecurrenceBackLog method
+###### hasRecurrenceBackLog method
 Class: `Ui` <br>
 Method Signature:
 ```
@@ -462,7 +466,7 @@ Functionality:
 
 ### Editing entries
 `EditCommand` validates and parses the given input to determine if it is editing a spending or an income. It then
-extracts the entry from either the respective list(SpendingList or IncomeList). Finally, it uses the parsed input to
+extracts the entry from its corresponding list (SpendingList or IncomeList). Finally, it uses the parsed input to
 determine which attribute to edit and sets this attribute of the extracted entry to the new value.
 
 <img src="./Diagrams/Commands/editCommandSequence.png" alt="editCommandSequence.png" width="600"/> <br>
@@ -470,20 +474,19 @@ determine which attribute to edit and sets this attribute of the extracted entry
 ### Finding entries
 `FindCommand` validates and parses the given input to determine if it is finding entries in a `SpendingList` or an 
 `IncomeList`. It then searches through the list based on specified fields (`amount`, `description`, or `date`) 
-to display matching results. For `amount` and `description`, it can be a range, but for `description`, it is only a 
-single keyword search
+to display matching results.
 
 ### Deleting entries
 `DeleteCommand` validates and parses the given input to determine if it is deleting a spending or an income. It then
-deletes the entry from the respective list(SpendingList or IncomeList) by calling the delete method of that list.
+deletes the entry from the respective list (SpendingList or IncomeList) by calling the delete method of that list.
 
-### Creating a budget
+### Setting a budget
 `BudgetCommand` first validates and parses the given input. It then determines whether the user wants to add a daily
 , monthly, or yearly budget. It then calls the respective method of the SpendingList to set the correct budget.
 
 ### Listing entries
 
-Since listing requires Wiagi to print items in the spendings and incomes list, the printing will be handled by the UI 
+Since listing requires Wiagi to print items in the spendings and incomes list, the printing will be handled by the Ui 
 class.
 
 #### Listing all entries
@@ -500,7 +503,7 @@ When users request to list all spendings, they are given the option to choose a 
 4. This month
 
 By selecting options 2, 3, or 4, only the spending entries 
-that are dated within the current week, current 2 weeks, or current month will be displayed.
+that are dated within the current week, last week and this week, or current month will be displayed.
 
 If the user chooses to list all spendings, they are then given the option to display all
 statistics, which consist of:
@@ -522,8 +525,8 @@ As shown in the diagram, when the command is executed, a `handleCommand(...)` me
 input and handle the command. 
 
 Within this method, a static method `printListofTimeRange` is called to 
-allow the user to select a time range. This method returns a boolean value that is true if the user has selected to list 
-all spendings and false otherwise. If this returned value is true, another static method `printStatisticsIfRequired` is 
+allow the user to select a time range. This method returns a boolean value that is `true` if the user has selected to list 
+all spendings and `false` otherwise. If this returned value is `true`, another static method `printStatisticsIfRequired` is 
 called to allow the user to choose whether to show all spending statistics and print the list accordingly.
 
 The sequence diagram below shows what happens when the user chooses to show their weekly spendings.
@@ -544,9 +547,9 @@ When users request to list incomes, they are also given the option to choose fro
 4. This month
  
 By selecting options 2, 3, or 4, only the spending entries
-that are dated within the current week, current 2 weeks, or current month will be displayed.
+that are dated within the current week, last week and this week, or current month will be displayed.
 
-Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
+The implementation of listing incomes is very similar to that of listing spendings, except that users will not be
 given the option to list statistics if they choose to list all incomes. Hence, the sequence diagram is omitted for this
 command.
 
@@ -560,14 +563,14 @@ wants to list all tags or to list all entries with a specific tag, as shown in t
 
 ##### Listing all tags
 
-For listing all tags, the static method `printAllTags(...)` from the Ui class is called. This method simply loops 
-through all entries and gets an ArrayList of all the unique tags before printing them out. 
+For listing all tags, the static method `printAllTags()` from the `Ui` class is called. This method simply loops 
+through all entries and gets an `ArrayList` of all the unique tags before printing them out. 
 
 ##### Listing all entries with a specific tag
 
-For listing entries with a specific tag, the static method `printSpecificTag(...)` from the Ui class is called. This
-method is similar to the `printWeekly(...)` method as it also loops through spendings and incomes while appending 
-entries with the specified tag to a String. This string is then printed out. 
+For listing entries with a specific tag, the static method `printSpecificTag()` from the `Ui` class is called. This
+method is similar to the `printWeekly()` method as it also loops through spendings and incomes while appending 
+entries with the specified tag to a `String` which is then printed out. 
 
 ### Help command
 
@@ -575,15 +578,15 @@ When the user types `help`, the program will print out a list of commands that t
 
 ### Bye command
 
-When the user types `bye`, the program will exit the program.
+When the user types `bye`, the program will exit.
 
 # Appendix: Requirements
 ## Product scope
 ### Target user profile
-1. prefer desktop apps over other types(i.e. online apps)
-2. is reasonably comfortable using CLI apps
-3. wants to manage their own finances better
-4. quick typist who prefers typing over using mouse
+1. User prefers desktop apps over other types (i.e. online apps)
+2. User is reasonably comfortable using CLI apps
+3. User wants to manage their own finances better
+4. User is a quick typist who prefers typing over using the mouse
 
 ### Value proposition
 An app that help students to manage their financials faster than a typical mouse/GUI driven app.
@@ -591,37 +594,37 @@ An app that help students to manage their financials faster than a typical mouse
 ## User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority | As a ...                                          | I want to ...                                                                  | So that I can ...                                        |
-|----------|---------------------------------------------------|--------------------------------------------------------------------------------|----------------------------------------------------------|
-| ***      | user                                              | start and close the application                                                | use it only when needed                                  |
-| ***      | user                                              | add my financial transactions                                                  | track the flow of my money                               |
-| ***      | user                                              | categorise my entries as income and spendings                                  | better understand my financials                          |
-| ***      | user                                              | add income and expenditure categories                                          | see my overall net gain or loss                          |
-| ***      | user                                              | see all my spendings                                                           | know what I spent on                                     |
-| ***      | user                                              | delete my entries                                                              | correct my mistakes                                      |
-| ***      | user                                              | have a password to my account                                                  | protect my account information                           |
-| **       | user                                              | edit my incomes and spendings                                                  | correct my mistakes                                      |
-| **       | user                                              | categorise my expenses                                                         | see what I spend on                                      |
-| **       | user                                              | categorise my incomes                                                          | see where my savings come from                           |
-| **       | user                                              | read the amount of money left in my allocated budget                           | gauge how much to spend for the remaining period         |
-| **       | user                                              | set expenses and incomes as recurring                                          | do not need to manually add them each time               |
-| **       | user                                              | set budgets for each category of expense                                       | make better financial decisions                          |
-| **       | user                                              | view my expenses in different time ranges such as weekly, biweekly, or monthly | better analyse my spendings                              |
-| **       | user subscribed to multiple subscription services | set expenses as recurring                                                      | automate the process of adding entries each month        |
-| **       | new user                                          | view usage instructions                                                        | refer to them when I forget how to use the application   |
-| *        | user                                              | be alerted when I overspend my budget                                          | try to curb my spendings                                 |
-| *        | user                                              | find my entry with keywords                                                    | retrieve its relevant information easily                 |
+| Priority | As a ...                                          | I want to ...                                        | So that I can ...                                      |
+|----------|---------------------------------------------------|------------------------------------------------------|--------------------------------------------------------|
+| ***      | user                                              | start and close the application                      | use it only when needed                                |
+| ***      | user                                              | add my financial transactions                        | track the flow of my money                             |
+| ***      | user                                              | categorise my entries as income and spendings        | better understand my financials                        |
+| ***      | user                                              | add income and expenditure categories                | see my overall net gain or loss                        |
+| ***      | user                                              | see all my spendings                                 | know what I spent on                                   |
+| ***      | user                                              | delete my entries                                    | correct my mistakes                                    |
+| ***      | user                                              | have a password to my account                        | protect my account information                         |
+| **       | user                                              | edit my incomes and spendings                        | correct my mistakes                                    |
+| **       | user                                              | categorise my expenses                               | see what I spend on                                    |
+| **       | user                                              | categorise my incomes                                | see where my savings come from                         |
+| **       | user                                              | read the amount of money left in my allocated budget | gauge how much to spend for the remaining period       |
+| **       | user                                              | set expenses and incomes as recurring                | do not need to manually add them each time             |
+| **       | user                                              | set budgets for each category of expense             | make better financial decisions                        |
+| **       | user                                              | view my expenses in different time ranges            | better analyse my spendings                            |
+| **       | user subscribed to multiple subscription services | set expenses as recurring                            | automate the process of adding entries                 |
+| **       | new user                                          | view usage instructions                              | refer to them when I forget how to use the application |
+| *        | user                                              | be alerted when I overspend my budget                | try to curb my spendings                               |
+| *        | user                                              | find my entry with keywords                          | retrieve specific entries easily                       |
 
 
 ## Use cases
 
 ### Use case: Add an Entry
 
-**Adding an income entry with optional input for date and tag**
+**Adding an income entry with optional input for date, tag and recurrence frequency**
 
 **MSS**
 
-1. User inputs to add income with description, amount, date, tag and recurrence.
+1. User inputs to add income with description, amount, date, tag and recurrence frequency.
 2. Wiagi adds the income to the income list.
 3. If the date is not provided, Wiagi will use the current date.
 4. If the tag is not provided, Wiagi will use the default tag (Empty String).
@@ -634,7 +637,7 @@ Use case ends.
    1. If the user inputs invalid ordering, Wiagi will display an error message.
    2. If the user inputs an invalid amount, Wiagi will display an error message.
    3. If the user inputs an invalid date, Wiagi will display an error message.
-   4. If the user inputs an invalid recurrence, Wiagi will display an error message.
+   4. If the user inputs an invalid recurrence frequency, Wiagi will display an error message.
    5. If the user inputs an invalid tag, Wiagi will display an error message.
    
    Use case restarts at step 1.
@@ -664,7 +667,7 @@ Use case ends.
 ### Use case: Listing all Entries
 **MSS**
 1. User requests to list all entries.
-2. Wiagi shows a list of all incomes and spendings, including optional parameters such as tags.
+2. Wiagi shows a list of all incomes and spendings, including optional parameters such as tags and recurrence frequency.
 
 Use case ends.
 **Extensions**
@@ -701,7 +704,7 @@ Use case ends.
 
 **MSS**
 
-1. User requests to set a specified time range's budget to a specified amount.
+1. User requests to set a specified time range's budget(daily, monthly, yearly) to a specified amount.
 2. Wiagi sets the budget.
 3. Wiagi displays a message to the user that the budget has been updated.
 
@@ -730,7 +733,7 @@ Use case ends.
    <br>Use case ends.
 2. No entries contain that detail.
     - 2a. Wiagi displays a message saying nothing is found.
-      Use case restarts at step 1.
+      <br>Use case ends.
 3. The details are invalid.
     - 3a. Wiagi displays an error message.
       Use case restarts at step 1.
@@ -740,7 +743,7 @@ Use case ends.
 
 **MSS**
 
-1. User enters help into the command terminal
+1. User enters `help` into the command terminal
 2. Wiagi shows a list of all commands and their details.
 
 Use case ends.
@@ -749,20 +752,21 @@ Use case ends.
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be 
 able to accomplish most of the tasks faster using commands than using the mouse.
-3. The system should be able to run on Windows, macOS, and Linux
-4. The system should be able to be used easily by a new user
-5. The program should have a pleasant tone in its output messages
-6. The program should be able to recover as much data as possible if data storage is corrupted
-7. The user data should not be hard to migrate and easily recoverable to another local host
+3. The system should be able to run on Windows, macOS, and Linux.
+4. The system should be able to be used easily by a new user.
+5. The program should not have offensive output messages.
+6. The program should be able to recover as much data as possible if data storage is corrupted.
+7. The user data should not be hard to migrate and easily recoverable to another local host.
 
 ## Future plans
-1. Implement editing of recurrence type of entries
+1. Implement editing of recurrence type for entries
    - Add field of recurrence to edit command
    - Allow entry to backlog recurrence from edited date 
 2. Set up database to store all of user's data 
 3. Create GUI interface to the program to increase aesthetics
-4. Include currency conversion to cater to users from different countries
+4. Include currency conversion to cater to users that travel frequently 
 5. Include graphs and statistics for users to have a better overview of their finances
+6. Investment analysis to show users their profits and losses
 
 ## Glossary
 
@@ -772,10 +776,10 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 * Command - A text instruction entered by the user to perform an action in the application
 * Validation - The process of checking if user input meets the required format and constraints
 * Mainstream OS - Windows, Linux, Unix, macOS
+* GUI - An interactive application with visuals
+* CLI - Text-based application involving only keyboard inputs
 
 # Appendix: Instructions for manual testing
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
 ## Creating a new user
 Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
@@ -790,15 +794,15 @@ Prerequisites: Add multiple entries to either incomes or spendings.
 2. Test case: `find spending amount 10`
     - Expected: Lists all spending entries that has an amount of 10.
 3. Test case: `find spending date 2024-11-11 to 2024-12-12`
-    - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
+    - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12 inclusive.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
  
 ## Editing an Entry
-Prerequisites: Add multiple entries to either incomes or spendings.
+Prerequisites: Add 3 or more entries to incomes and spendings.
 1. Test case: `edit spending 1 amount 100`
    - Expected: The amount of the first spending entry is updated to 100. Confirmation message is shown.
-2. Test case: `edit income 2 description Salary`
+2. Test case: `edit income 3 description Salary`
    - Expected: The description of the second income entry is updated to "Salary". Confirmation message is shown.
 3. Test case: `edit spending 3 date 2024-10-20`
    - Expected: The date of the third spending entry is updated to 2024-10-20. Confirmation message is shown.
@@ -813,7 +817,8 @@ Prerequisites: None.
    - Expected: Displays a list of all available commands along with their usage instructions.
 
 ## Setting a Budget
-Prerequisites: Budget currently initialised for monthly should be more than 50, budget for yearly should be more than 1500.
+Prerequisites: Budget currently initialised for monthly should be more than or equals to 50, less than or equals to 1500, 
+budget for yearly should be more than or equals to 1500.
 1. Test case: `budget daily 50`
    - Expected: Sets the daily budget to 50. Confirmation message is shown.
 2. Test case: `budget monthly 1500`
@@ -821,24 +826,24 @@ Prerequisites: Budget currently initialised for monthly should be more than 50, 
 3. Test case: `budget yearly 20000`
    - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
 4. Test case: `budget weekly 500`
-   - Expected: Error message is shown indicating invalid time range.
+   - Expected: Error message is shown indicating invalid field.
 
 ## Adding an income or spending
 Prerequisites: None.
-1. Test case: `add spendings 10 macs`
+1. Test case: `add spending 10 macs`
    - Expected: Adds a spending entry of 10 dollars with description macs and entry date is current date
 2. Test case: `add income 1000 job`
    - Expected: Adds an income entry of 1000 dollars with description job and entry date is current date
-3. Test case: `add spendings 10 macs *food*`
+3. Test case: `add spending 10 macs *food*`
    - Expected: Adds a spending entry of 10 dollars with description macs, tagged as food and entry date is current date
 4. Test case: `add income 100 odd job ~daily~`
    - Expected: Adds an income entry of 100 dollars with description odd job, set to recurring daily and entry date is
    current date
-5. Test case: `add spendings 100 toy /2024-10-10/`
+5. Test case: `add spending 100 toy /2024-10-10/`
    - Expected: Adds a spending entry of 100 dollars with description toy and entry date set to 2024-10-10
-6. Test case: `add income 10000 salary *SIA* ~monthly* /2024-05-05/`
+6. Test case: `add income 10000 salary *SIA* ~monthly~ /2024-05-05/`
    - Expected: Adds an income entry of 10000 dollars with description salary, tagged as SIA, set to recurring monthly, 
-   and entry date set to 2024-05-05
+   and entry date set to 2024-05-05 and program ask user if he/she wants to backlog
 7. Test case: `add spend 10 food`, `add spending food 10`, `add income 100 job /2024-100-100/`, `add income 100 job ~day~`
    - Expected: Error message is shown indicating the general error made
 
