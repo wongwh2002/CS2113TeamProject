@@ -14,11 +14,16 @@ public class ListAllCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes list command with the given arguments
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     //@@author rharwo
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert arguments[0].equals(COMMAND_WORD) : "command should be 'list'";
-        Ui.printArrList(spendings);
-        Ui.printArrList(incomes);
+        Ui.printListWithTotal(spendings);
+        Ui.printListWithTotal(incomes);
     }
 }

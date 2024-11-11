@@ -17,6 +17,11 @@ public class InvalidListCommand extends Command {
         this.exception = e;
     }
 
+    /**
+     * Prints the exception message when an invalid list command is executed
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         WiagiLogger.logger.log(Level.WARNING, "Invalid list command", exception);

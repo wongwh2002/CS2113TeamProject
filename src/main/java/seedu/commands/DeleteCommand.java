@@ -35,6 +35,12 @@ public class DeleteCommand extends Command {
     }
 
     // @@author wx-03
+
+    /**
+     * Executes delete command with the given arguments
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;
