@@ -81,6 +81,8 @@ and investment analysis.
   * [Editing an Entry](#editing-an-entry)
   * [Showing help](#showing-help)
   * [Setting a Budget](#setting-a-budget-1)
+  * [Deleting an income or spending](#deleting-an-income-or-spending)
+  * [Listing entries](#listing-entries-1)
   * [Adding an income or spending](#adding-an-income-or-spending)
   * [Exiting the program](#exiting-the-program)
 <!-- TOC -->
