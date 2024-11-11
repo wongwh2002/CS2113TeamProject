@@ -81,6 +81,8 @@ and investment analysis.
   * [Editing an Entry](#editing-an-entry)
   * [Showing help](#showing-help)
   * [Setting a Budget](#setting-a-budget-1)
+  * [Deleting an income or spending](#deleting-an-income-or-spending)
+  * [Listing entries](#listing-entries-1)
   * [Adding an income or spending](#adding-an-income-or-spending)
   * [Exiting the program](#exiting-the-program)
 <!-- TOC -->
@@ -820,8 +822,7 @@ Prerequisites: None.
    - Expected: Displays a list of all available commands along with their usage instructions.
 
 ## Setting a Budget
-Prerequisites: Budget currently initialised for monthly should be more than or equals to 50, less than or equals to 1500, 
-budget for yearly should be more than or equals to 1500.
+Prerequisites: Budget initialised to daily budget of 1, monthly budget of 100, yearly budget of 100000 
 1. Test case: `budget daily 50`
    - Expected: Sets the daily budget to 50. Confirmation message is shown.
 2. Test case: `budget monthly 1500`
@@ -830,6 +831,24 @@ budget for yearly should be more than or equals to 1500.
    - Expected: Sets the yearly budget to 20000. Confirmation message is shown.
 4. Test case: `budget weekly 500`
    - Expected: Error message is shown indicating invalid field.
+   
+## Deleting an income or spending
+Prerequisites: Have at least one income and spending in each list
+1. Test case: `delete spending 1`
+  - Expected: Deletes the spending of index 1 in spending list
+
+## Listing entries
+Prerequisites: None
+1. Test case: `list`
+   - Expected: lists out spending and income list entries with their respective totals
+2. Test case: `list spending`
+   - Expected: lists out all spending entries according to user selected time range and may ask to list spending statistics
+3. Test case: `list tags`
+   - Expected: lists out all tags in the list
+4. Test case: `list tags food`
+   - Expected: lists out all entries tagged as food
+5. Test case: `list income`
+   - Expected: lists out all incomes according to user selected time range
 
 ## Adding an income or spending
 Prerequisites: None.
