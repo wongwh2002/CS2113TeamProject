@@ -38,8 +38,8 @@ and investment analysis.
 2. Download the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder.
 4. Open a command terminal, navigate to the folder you have placed the jar file in, 
-and use the `java -jar Wiagi.java.jar` command to run the application.
-5. You will be prompted to set a password. Set a password and enter the password to log in. 
+and use the `java -jar [CS2113-W14-1][WIAGI].jar` command to run the application.
+5. You will be prompted to set a password and budget. Enter the password you set to log in. 
 
 ## Features
 > **Notes about the command format:**  
@@ -56,7 +56,7 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 #### Creation of new user:
 First time users will be prompted to create a new password. Users are to type in their preferred password.
 Subsequent logins will not require this step. <br>
-The password will be whitespace- and case-sensitive.<br>
+The password will be whitespace-sensitive and case-sensitive.<br>
 
 > <span style="color:#f5220d">TO NOTE</span> <br>
 > The program does not provide a forget password feature to recover password as of the current iteration. Please take note of the
@@ -71,7 +71,7 @@ Expected display for first time users:
 To help users manage their finances well, users are also prompted to enter their daily, monthly and yearly budgets.
 Users should enter valid amounts for each budget type <br>
 - An integer or number with decimals 
-- Greater than 0 but smaller than 100 million when rounded to 2dp. 
+- Greater than 0 but smaller than or equals to 100 million when rounded to 2 decimal places. 
   - E.g. 0.005 is rounded to 0.01 is valid but 0.004 is not.<br>
 
 Example valid inputs: <br>
@@ -140,9 +140,9 @@ Expected output for wrong password:
 ### Adding an entry
 #### Adding a spending:
 
-Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
+Adds an entry into user spending list. Entry will be displayed in chronological order. <br>
 Run the [`list spendings`](#listing-spendings) command to display the list with the new entry. <br>
-Amount entered must be greater than 0 when rounded to 2dp. <br>
+Amount entered must be greater than 0 and less than or equals to 10 million when rounded to 2 decimal places. <br>
 
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
@@ -177,8 +177,8 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 	Entry successfully added!
 	____________________________________________________________
 ```
-If frequency and date of entry is set, and there is possible backlog recurrence entries,
-prompted to enter whether the user would like to add all the entries between the date of entry and the current date. <br>
+If a recurring entry is added with the date before today, user will be prompted to enter whether he/she would like to 
+add all the recurring entries between the date of entry and the current date. (Y/N is case-insensitive). <br>
 
 ```
 	____________________________________________________________
@@ -186,14 +186,14 @@ prompted to enter whether the user would like to add all the entries between the
 	Do you want to backlog recurrence entries from 2023-01-23 to 
 	2024-11-07 if any? [Y/N]
 ```
-If Y is entered, the output will be as follows:
+If `Y` is entered, the output will be as follows:
 ```
 	____________________________________________________________
 	All entries to recur are added!
 	____________________________________________________________
 ```
 
-If no recurrence is set or there is no possible backlog, the output will be as follows:
+If `N` is entered, the output will be as follows:
 ```
 	____________________________________________________________
 	Ok! The entry will not be backlogged
@@ -238,8 +238,8 @@ Run the [`list incomes`](#listing-incomes) command to display the list with the 
 	Entry successfully added!
 	____________________________________________________________
 ```
-If frequency and date of entry is set, and there is possible backlog recurrence entries,
-prompted to enter whether the user would like to add all the entries between the date of entry and the current date. <br>
+If a recurring entry is added with the date before today, user will be prompted to enter whether he/she would like to
+add all the recurring entries between the date of entry and the current date. (Y/N is case-insensitive). <br>
 
 ```
 	____________________________________________________________
@@ -247,22 +247,31 @@ prompted to enter whether the user would like to add all the entries between the
 	Do you want to backlog recurrence entries from 2023-01-23 to 2024-11-07 if 
 	any? [Y/N]
 ```
-If Y is entered, the output will be as follows:
+If `Y` is entered, the output will be as follows:
 ```
 	____________________________________________________________
 	All entries to recur are added!
 	____________________________________________________________
 ```
 
-If no recurrence is set or there is no possible backlog, the output will be as follows:
+If `N` is entered, the output will be as follows:
 ```
 	____________________________________________________________
 	Ok! The entry will not be backlogged
 	____________________________________________________________
 ```
 
+If user overspends after all spending (ie. new entry and recurring entries) are added, a alert message will be displayed.
+The following is an example output, your output may differ in values and lines:
+```
+    !!! You have overspent your daily by: 1000 !!!
+    !!! You have overspent your monthly by: 1000 !!!
+    !!! You have overspent your yearly by: 1000 !!!
+```
+
+
 Note: Recurring entries will only recur till current date, today, thus if an entry dated to the future is added, no
-recurring entries will be added <br>
+recurring entries will be added. <br>
 
 ### Listing all entries:
 
@@ -301,7 +310,7 @@ The user will then be prompted to select a time range from the following options
 
 Only entries that are dated within the selected time range will be displayed. <br> 
 
-For instance, if the command is run on 15 November 2024,
+For instance, if the command is run on 15 November 2024 (Friday),
 - If the user chooses option 1 (all), all spending entries will be shown.
 - If the user chooses option 2 (this week), all spending entries dated between 11 November and 17 November 2024 
 (inclusive) will be shown.
@@ -351,7 +360,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
         Yearly budget left: -39
     ____________________________________________________________
 ```
-- **Input:** `n`
+- - **Input:** `n`
 ```
     ____________________________________________________________
     Spendings
@@ -565,7 +574,7 @@ Other Commands:
 ### Setting a Budget
 
 The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
-Amount entered must be greater than 0 when rounded to 2dp. <br>
+Amount entered must be greater than 0 when rounded to 2 decimal places. <br>
 
 **Format**: `budget {$PERIOD} {$AMOUNT}`
 
@@ -587,7 +596,7 @@ The input criteria for the amount is the same as the amount entered for [creatio
 ### Editing an Entry
 
 The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry. <br>
-Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
+Amount entered, if applicable, must be greater than 0 when rounded to 2 decimal places.
 
 **Format:** `edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}`
 
