@@ -44,56 +44,26 @@ public class SpendingList extends ArrayList<Spending> {
         this.total = Math.round(total * 100.0) / 100.0;
     }
 
-    /**
-     * Returns the daily budget.
-     *
-     * @return The daily budget.
-     */
     public double getDailyBudget() {
         return dailyBudget;
     }
 
-    /**
-     * Returns the monthly budget.
-     *
-     * @return The monthly budget.
-     */
     public double getMonthlyBudget() {
         return monthlyBudget;
     }
 
-    /**
-     * Returns the yearly budget.
-     *
-     * @return The yearly budget.
-     */
     public double getYearlyBudget() {
         return yearlyBudget;
     }
 
-    /**
-     * Sets the daily budget.
-     *
-     * @param dailyBudget The daily budget to set.
-     */
     public void setDailyBudget(double dailyBudget) {
         this.dailyBudget = Math.round(dailyBudget * 100.0) / 100.0;
     }
 
-    /**
-     * Sets the monthly budget.
-     *
-     * @param monthlyBudget The monthly budget to set.
-     */
     public void setMonthlyBudget(double monthlyBudget) {
         this.monthlyBudget = Math.round(monthlyBudget * 100.0) / 100.0;
     }
 
-    /**
-     * Sets the yearly budget.
-     *
-     * @param yearlyBudget The yearly budget to set.
-     */
     public void setYearlyBudget(double yearlyBudget) {
         this.yearlyBudget = Math.round(yearlyBudget * 100.0) / 100.0;
     }
@@ -211,6 +181,10 @@ public class SpendingList extends ArrayList<Spending> {
         }
     }
 
+    /**
+     * Checks if the daily, monthly, and yearly budgets have been exceeded.
+     * If any budget is exceeded, prints an overspend message.
+     */
     public void checkOverspend() {
         double dailyBudgetLeft = getDailyBudget() - getDailySpending();
         double monthlyBudgetLeft = getMonthlyBudget() - getMonthlySpending();
@@ -226,6 +200,13 @@ public class SpendingList extends ArrayList<Spending> {
         }
     }
 
+    /**
+     * Adds a spending entry to the list and updates the total spending amount.
+     * The list is then sorted by the date of each entry.
+     *
+     * @param spending the spending entry to be added
+     * @return true if the spending entry is successfully added
+     */
     @Override
     public boolean add(Spending spending) {
         total += spending.getAmount();

@@ -43,12 +43,22 @@ public class Ui {
     private static final String SPENDING = "Spendings";
     private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Sets the input stream to the given data
+     * @param data  The data to be set as the input stream
+     */
     public static void userInputForTest(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
         System.setIn(testIn);
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Executes the command given by the user
+     * @param userCommand   The command given by the user
+     * @param incomes        List of incomes in the application
+     * @param spendings      List of spendings in the application
+     */
     public static void commandInputForTest(String userCommand, IncomeList incomes, SpendingList spendings) {
         Command c = Parser.parseUserInput(userCommand);
         c.execute(incomes, spendings);
@@ -71,6 +81,7 @@ public class Ui {
     public static void printSeparator() {
         printWithTab(SEPARATOR);
     }
+
     public static void printWithTab(String message) {
         System.out.println(TAB + message);
     }
@@ -78,12 +89,20 @@ public class Ui {
     public static void printWithDoubleTab(String message) {
         System.out.println(TAB+TAB + message);
     }
+
+    /**
+     * Prints a welcome message
+     */
     public static void welcome() {
         printSeparator();
         printWithTab("Hello from");
         printFancyWiagi();
         printSeparator();
     }
+
+    /**
+     * Prints a welcome WIAGI letters in ASCII art
+     */
     private static void printFancyWiagi() {
         printWithTab("__        __  ___      /\\       ____   ___");
         printWithTab("\\ \\      / / |_ _|    /  \\     / ___| |_ _|");
@@ -93,6 +112,10 @@ public class Ui {
         printSeparator();
     }
 
+    /**
+     * Prints the spending statistics for daily, monthly, and yearly spendings, budgets and budget left
+     * @param spendings List of spendings in the application
+     */
     public static void printSpendingStatistics(SpendingList spendings) {
         printWithDoubleTab("Daily spendings: " + formatPrintDouble(spendings.getDailySpending()));
         printWithDoubleTab("Daily Budget: " + formatPrintDouble(spendings.getDailyBudget()));
@@ -142,6 +165,13 @@ public class Ui {
         }
     }
 
+    //@@author wongwh2002
+    /**
+     * Prints the double in either 2dp, if double has decimal places, or without 2dp, if double can be represented as
+     * an integer
+     *
+     * @param sum The double to be printed
+     */
     public static String formatPrintDouble(double sum) {
         if (sum % 1 == 0) { //it is an integer
             return String.valueOf((int) sum);
@@ -456,6 +486,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints message for new user to set budgets
+     */
     public static void newUserBudgetMessage() {
         printWithTab("Hello! So happy you took this first step of financial management.");
         printWithTab("Let's first set your budgets!");

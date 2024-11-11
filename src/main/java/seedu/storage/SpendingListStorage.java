@@ -28,8 +28,10 @@ import static seedu.storage.LoginStorage.PASSWORD_FILE_PATH;
  * Manages saving and loading of spending data to and from a file.
  */
 public class SpendingListStorage {
+    public static final int ACCOUNTING_BUDGET_LINE = 1;
     static final String SPENDINGS_FILE_PATH = "./spendings.txt";
     static LoadStorageCheck storageUtils = new LoadStorageCheck("spending");
+
     /**
      * Saves the spending list, including each spending entry and budget details, to a file.
      *
@@ -49,6 +51,7 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
+    //@@author wongwh2002
     private static void handleWriteFile(SpendingList spendings) throws IOException {
         FileWriter spendingFileWriter = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
@@ -68,6 +71,7 @@ public class SpendingListStorage {
      * Loads the spending data from a file into the application's spending list.
      * If no file exists, a new one is created.
      */
+    //@@author wongwh2002
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         File spendingFile = new File(SPENDINGS_FILE_PATH);
@@ -131,6 +135,7 @@ public class SpendingListStorage {
         }
     }
 
+    //@@author wongwh2002
     private static void processEntry(String newEntry, int counter) {
         try {
             Spending nextEntry = (Spending) storageUtils.parseEntry(newEntry);
@@ -138,10 +143,12 @@ public class SpendingListStorage {
         } catch (WiagiStorageCorruptedException e) {
             handleCorruptedEntry(e, counter);
         }
+
     }
 
+    //@@author wongwh2002
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, int counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
-        Ui.handleCorruptedEntry(e, counter, "spendings");
+        Ui.handleCorruptedEntry(e, counter + ACCOUNTING_BUDGET_LINE, "spendings");
     }
 }

@@ -29,11 +29,16 @@ import static seedu.classes.Constants.SPENDING;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    private static final int COMPULSORY_STRING_INDEX = 0;
+    private static final int OPTIONAL_STRING_INDEX = 1;
+    private static final int COMPULSORY_GROUP_INDEX = 1;
+    private static final int OPTIONAL_GROUP_INDEX = 2;
     private static final int DESCRIPTION_INDEX = 3;
     private static final int LIST_TYPE_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
     private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
     private static final String OPTIONAL_ARGUMENTS_REGEX = "^(.*?)([/~*].*)?$";
+
 
     private final String fullCommand;
     public AddCommand(String fullCommand) {
@@ -61,8 +66,8 @@ public class AddCommand extends Command {
             throws WiagiInvalidInputException, WiagiMissingParamsException {
 
         // Split full command into compulsory and optional strings
-        String compulsoryString = splitCommand(fullCommand)[0];
-        String optionalString = splitCommand(fullCommand)[1].trim().concat(WHITESPACE);
+        String compulsoryString = splitCommand(fullCommand)[COMPULSORY_STRING_INDEX];
+        String optionalString = splitCommand(fullCommand)[OPTIONAL_STRING_INDEX].trim().concat(WHITESPACE);
 
         // Split compulsory arguments into array of max size 4 with whitespace as delimiter
         // [add] [category] [amount] [description...]
@@ -130,8 +135,8 @@ public class AddCommand extends Command {
         Pattern pattern = Pattern.compile(OPTIONAL_ARGUMENTS_REGEX);
         Matcher matcher = pattern.matcher(fullCommand);
         if (matcher.find()) {
-            String compulsoryString = matcher.group(1).trim();
-            String optionalString = matcher.group(2);
+            String compulsoryString = matcher.group(COMPULSORY_GROUP_INDEX).trim();
+            String optionalString = matcher.group(OPTIONAL_GROUP_INDEX);
             if (optionalString == null) {
                 optionalString = EMPTY_STRING;
             } else {

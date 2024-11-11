@@ -13,7 +13,9 @@ financial decisions and be in control of their finances.
 + **New Feature**: IncomeListStorage and SpendingListStorage
     + What it does: Users can save their income and spending list to a file. More advanced users can also edit the file directly.
     + Justification: This feature allows users to save their data and edit it directly, allowing for more control over their data.
-
+    + Highlights: Builds on existing methods for lists storage, allowing more advanced users to edit their own storage files, but at the same time, validating the storage, 
+    making sure that the entries are valid when loading from storage.
+  
 + **New Feature**: Add Command
     + What it does: Users can add income and spending entries to their list.
     + Justification: This feature allows users to add entries to their list, allowing them to keep track of their finances.
@@ -25,11 +27,12 @@ financial decisions and be in control of their finances.
 + **Contribution to UG**
     + Add Command
     + List Command
+    + Parts of frequently asked questions
 
 + **Contribution to DG**
     + Wiagi Class Diagram and explanation
     + Design and implementation of Add Command component
-    + Design and implementation of helo and bye command
+    + Design and implementation of help and bye command
     + Certain parts of Appendix (user stories, use cases, non-functional requirements, etc)
 
 + **Contribution to team based task**
@@ -48,3 +51,5 @@ financial decisions and be in control of their finances.
 + **Contributions beyond the team project**
     + Reviewed PR extensively for other team during DG Review:
       [Link](https://github.com/nus-cs2113-AY2425S1/tp/pull/13/files)
+    + Reviewed PR extensively for other team during PED:
+      [Link](https://github.com/wongwh2002/ped/issues)
