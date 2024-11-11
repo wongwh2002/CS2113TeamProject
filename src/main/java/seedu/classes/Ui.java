@@ -104,35 +104,35 @@ public class Ui {
 
     /**
      * Prints the elements of the given ArrayList, along with the list name and its total amount
-     * @param arrList   The ArrayList containing elements to be printed
-     * @param <T>       The type of elements in the ArrayList, which must extend the EntryType class.
+     * @param list   The ArrayList containing elements to be printed
+     * @param <T>    The type of elements in the ArrayList, which must extend the EntryType class.
      */
-    public static <T extends EntryType> void printArrList(ArrayList<T> arrList) {
+    public static <T extends EntryType> void printListWithTotal(ArrayList<T> list) {
         String typeOfList;
         double total;
-        if (arrList instanceof SpendingList) {
+        if (list instanceof SpendingList) {
             typeOfList = SPENDING;
-            total = ((SpendingList) arrList).getTotal();
+            total = ((SpendingList) list).getTotal();
         } else {
             typeOfList = INCOME;
-            total = ((IncomeList) arrList).getTotal();
+            total = ((IncomeList) list).getTotal();
         }
         printWithTab(typeOfList);
-        printList(arrList);
+        printList(list);
         printWithTab("Total " + typeOfList.toLowerCase() + ": " + formatPrintDouble(total));
     }
 
     /**
      * Prints the elements of the given ArrayList
      *
-     * @param <T>     The type of elements in the ArrayList, which must extend the EntryType class.
-     * @param arrList The ArrayList containing elements to be printed and the total.
+     * @param <T>  The type of elements in the ArrayList, which must extend the EntryType class.
+     * @param list The ArrayList containing elements to be printed and the total.
      */
-    public static <T extends EntryType> void printList(ArrayList<T> arrList) {
-        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
-            assert arrList != null : "ArrayList is null";
+    public static <T extends EntryType> void printList(ArrayList<T> list) {
+        for (int indexInList = 0; indexInList < list.size(); indexInList++) {
+            assert list != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            printWithTab(indexToUser + ". " + arrList.get(indexInList));
+            printWithTab(indexToUser + ". " + list.get(indexInList));
         }
     }
 
@@ -381,11 +381,11 @@ public class Ui {
             String userInput = readCommand().toLowerCase();
             switch (userInput) {
             case "y":
-                printArrList(spendings);
+                printListWithTotal(spendings);
                 printSpendingStatistics(spendings);
                 return;
             case "n":
-                printArrList(spendings);
+                printListWithTotal(spendings);
                 return;
             default:
                 printWithTab("Invalid input. [Y/N].");

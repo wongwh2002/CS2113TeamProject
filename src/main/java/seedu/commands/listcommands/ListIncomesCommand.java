@@ -41,7 +41,7 @@ public class ListIncomesCommand extends Command {
         }
         boolean isListAllIncomes =  Ui.printListOfTimeRange(incomes);
         if (isListAllIncomes) {
-            Ui.printArrList(incomes);
+            Ui.printListWithTotal(incomes);
         }
     }
 }
