@@ -13,8 +13,8 @@ and investment analysis.
     - [Adding a spending](#adding-a-spending)
     - [Adding an income](#adding-an-income)
   - [Listing all entries](#listing-all-entries)
-    - [Listing all spendings](#listing-all-spendings)
-    - [Listing all incomes](#listing-all-incomes)
+    - [Listing spendings](#listing-spendings)
+    - [Listing incomes](#listing-incomes)
     - [Listing all tags](#listing-all-tags)
     - [Listing all of specific tag](#listing-all-of-specific-tag)
   - [Deleting an entry](#deleting-an-entry)
@@ -117,7 +117,7 @@ Expected output after successfully creating new user: <br>
 #### Adding a spending:
 
 Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
-Run the [`list spendings`](#listing-all-spendings) command to display the list with the new entry. <br>
+Run the [`list spendings`](#listing-spendings) command to display the list with the new entry. <br>
 Amount entered must be greater than 0 when rounded to 2dp. <br>
 
 
@@ -134,6 +134,7 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 - `[*$TAG*]`: Label for the entry.
   + Must be free of /, *, ~ and \| characters.
   - Enclosed in asterisks. 
+  - Case-insensitive (e.g. `Food` is treated the same as `food`)
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
@@ -180,7 +181,7 @@ recurring entries will be added <br>
 #### Adding an income:
 
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
-Run the [`list incomes`](#listing-all-incomes) command to display the list with the new entry. <br>
+Run the [`list incomes`](#listing-incomes) command to display the list with the new entry. <br>
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
@@ -249,37 +250,53 @@ Lists all the entries in the user's spending or income list. <br>
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - Tag: food
-	2. flights - 10 - 2024-10-17 - Tag: travel
-	3. girlfriends - 10 - 2024-10-17 - Tag: personal
-	4. macdonalds - 10 - 2024-10-10 - Tag: food
+	1. macdonalds - 10 - 2024-10-10 - Tag: food
+	2. techno - 10 - 2024-10-17 - Tag: food
+	3. flights - 10 - 2024-11-01 - Tag: travel
+	4. girlfriends - 10 - 2024-11-17 - Tag: personal
 	Total spendings: 40
 	Incomes
-	1. mcd - 100 - 2024-11-11 - Tag: personal
-	2. dividends - 10 - 2024-10-17 - Tag: investment
+	1. dividends - 10 - 2024-10-17 - Tag: investment
+	2. mcd - 100 - 2024-11-11 - Tag: personal
 	Total incomes: 110
 	____________________________________________________________
 ```
-#### Listing all spendings:
+#### Listing spendings:
 
-Lists all the entries in the user's spending list.
+Lists entries in the user's spending list.
 
 **Format:** `list spendings`
 
-The user will then be prompted to select a time range.
-Only entries that are within the time range will be displayed.
-If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed (case insensitive).
+The user will then be prompted to select a time range from the following options:
+1. All
+2. This week
+3. Last week and this week
+4. This month
+
+Only entries that are dated within the selected time range will be displayed. <br> 
+
+For instance, if the command is run on 15 November 2024,
+- If the user chooses option 1 (all), all spending entries will be shown.
+- If the user chooses option 2 (this week), all spending entries dated between 11 November and 17 November 2024 
+(inclusive) will be shown.
+- If the user chooses option 3 (last week and this week), all spending entries dated between 4 November and 17
+November 2024 (inclusive) will be shown.
+- If the user chooses option 4 (this month), all spending entries dated between 1 November and 30 November 2024 
+(inclusive) will be shown.
+
+If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed 
+(Y/N is case-insensitive).
 
 **Example Input and Output**
 
 **Input:** `list spendings`
 ```
-    ____________________________________________________________
-    Select time range:
-    [1] All
-    [2] Weekly
-    [3] Biweekly
-    [4] Monthly
+	____________________________________________________________
+	List spending entries for:
+	[1] All
+	[2] This week
+	[3] Last week and this week
+	[4] This month
 ```
 
 - **Input:** `1`
@@ -322,41 +339,55 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 - **Input:** `4` (Date of command is 2024-11-18)
 ```
-    ____________________________________________________________
-    Spendings
-    3. flights - 10 - 2024-11-01 - travel
-    4. girlfriends - 10 - 2024-11-17 - personal
-    Total: 20
-    ____________________________________________________________
+	____________________________________________________________
+	Showing spending entries from 2024-11-01 to 2024-11-30
+	3. flights - 10 - 2024-11-01 - Tag: travel
+	4. girlfriends - 10 - 2024-11-17 - Tag: personal
+	Total: 20
+	____________________________________________________________
 ```
 
-#### Listing all incomes:
+- **Input:** `2` (Date of command is 2024-11-18)
+```
+	____________________________________________________________
+	Showing spending entries from 2024-11-18 to 2024-11-24
+	No entries within selected time range
+	Total: 0
+	____________________________________________________________
+```
 
-Lists all the entries in the user's income list.
+#### Listing incomes:
+
+Lists entries in the user's income list.
 
 **Format:** `list incomes`
 
-The user will then be prompted to select a time range. 
-Only entries that are within the time range will be displayed.
+The user will then be prompted to select a time range from the following options:
+1. All
+2. This week
+3. Last week and this week
+4. This month
+
+Only entries that are within the time range will be displayed. The time range system is the same as that of
+[listing spendings](#listing-spendings).
 
 **Example Input and Output**
 
 **Input:** `list incomes`
 ```
 	____________________________________________________________
-	Select time range:
+	List income entries for:
 	[1] All
-	[2] Weekly
-	[3] Biweekly
-	[4] Monthly 
-
+	[2] This week
+	[3] Last week and this week
+	[4] This month 
 ```
 - **Input:** `1`
   ```
       ____________________________________________________________
       Incomes
-      1. mcd - 100 - 2024-11-15 - FastFood
-      2. dividends - 10 - 2024-10-17 - investment
+      1. dividends - 10 - 2024-10-17 - Tag: investment
+      2. mcd - 100 - 2024-11-11 - Tag: personal
       Total incomes: 110
       ____________________________________________________________
   ```
@@ -364,8 +395,17 @@ Only entries that are within the time range will be displayed.
 - **Input:** `2` (Date of command is 2024-11-18)
   ```
       ____________________________________________________________
-      Incomes
-      1. mcd - 100 - 2024-11-15 - FastFood
+      Showing income entries from 2024-11-18 to 2024-11-24
+      No entries within selected time range
+      Total: 0
+      ____________________________________________________________
+  ```
+  
+- **Input:** `4` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Showing income entries from 2024-11-01 to 2024-11-30
+      2. mcd - 100 - 2024-11-11 - Tag: personal
       Total: 100
       ____________________________________________________________
   ```
@@ -414,7 +454,7 @@ Lists all the entries in the user's list with the specified tag.
 #### Deleting an income:
 Deletes the specified income from the list. 
 The income to delete is specified by its index.<br>
-Run the [`list incomes`](#listing-all-incomes) command to check the index of the income.
+Run the [`list incomes`](#listing-incomes) command to check the index of the income.
 
 **Format:** `delete income {$INDEX}`
 
@@ -431,7 +471,7 @@ Run the [`list incomes`](#listing-all-incomes) command to check the index of the
 #### Deleting a spending:
 Deletes the specified spending from the list.
 The spending to delete is specified by its index.<br>
-Run the [`list spendings`](#listing-all-spendings) command to check the index of the spending.
+Run the [`list spendings`](#listing-spendings) command to check the index of the spending.
 
 **Format:** `delete spending {$INDEX}`
 
@@ -664,7 +704,7 @@ current date.
 **Q**: What happens if I forget my password?
 
 **A**: Delete the `password.txt` file in the folder where the program is located. Upon starting the program, you will be prompted to create a new password.
-Users have to press Crtl+C (or Command+C for Mac users) to exit the program before they are able to delete the file.
+Users have to press Ctrl+C (or Command+C for Mac users) to exit the program before they are able to delete the file.
 Do note that the `spending.txt` and `incomes.txt` files will be reset and all data will be lost.
 If you have a backup of the `spending.txt` and `incomes.txt` files, you can replace the new files with the backup files to restore your data.
 

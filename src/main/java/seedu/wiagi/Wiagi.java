@@ -33,7 +33,6 @@ public class Wiagi {
 
     private void run() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Ui.printWithTab("Saving data...");
             storage.save(incomes, spendings);
         }));
         Ui.welcome();
@@ -41,7 +40,7 @@ public class Wiagi {
         boolean isLoginSuccessful = false;
         while (!isLoginSuccessful) {
             Ui.printWithTab("Please Enter Login Credentials:");
-            String loginCredentials = Ui.readCommand();
+            String loginCredentials = Ui.readUserPassword();
             isLoginSuccessful = Password.validate(password, loginCredentials);
             Ui.printSeparator();
         }

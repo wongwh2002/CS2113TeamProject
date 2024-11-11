@@ -26,6 +26,7 @@ public class Constants {
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
+    public static final int FORMATTED_MAXIMUM_LIST_AMOUNT = 100000000;
     public static final String INVALID_AMOUNT_MAX = "Invalid amount! Amount is greater than 10 million!";
     public static final String MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD = "The total amount will exceed the list limit " +
             "of 100 million after adding! Entry rejected!";
@@ -45,6 +46,7 @@ public class Constants {
     public static final String DELETE_COMMAND_FORMAT = "Please enter in the form: delete {$CATEGORY} {$INDEX}";
     public static final String ADD_COMMAND_FORMAT = "Please enter in the form: add {$CATEGORY} {$AMOUNT} " +
             "{$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]";
+    public static final String ENTER_BUDGET_MESSAGE = "Please enter a valid budget:";
     public static final String DATE_NOT_ENCLOSED = "Date is not properly enclosed with \"/\"! ";
     public static final String TAG_NOT_ENCLOSED = "Tag is not properly enclosed with \"*\"! ";
     public static final String RECURRENCE_NOT_ENCLOSED = "Recurrence is not properly enclosed with \"~\"! ";
@@ -66,6 +68,19 @@ public class Constants {
     public static final String MISSING_AMOUNT = "No amount found! ";
     public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";
     public static final String MISSING_AMOUNT_DESCRIPTION_CATEGORY = "No category, amount, and description found! ";
+    public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount!";
+    public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date!";
+    public static final String SELECT_TIME_RANGE_MESSAGE_SPENDINGS = "List spending entries for:" +
+            System.lineSeparator() +
+            TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
+            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
+    public static final String SELECT_TIME_RANGE_MESSAGE_INCOMES = "List income entries within:" +
+            System.lineSeparator() +
+            TAB + "[1] All" + System.lineSeparator() + TAB + "[2] This week" + System.lineSeparator() +
+            TAB + "[3] Last week and this week" + System.lineSeparator() + TAB + "[4] This month";
+    public static final String NO_ENTRIES_TIME_RANGE_MESSAGE = "No entries within selected time range";
+    public static final String SPENDINGS_TIME_RANGE_MESSAGE = "Showing spending entries from ";
+    public static final String INCOMES_TIME_RANGE_MESSAGE = "Showing income entries from ";
     public static final String FIND_EXTRA_FROM_VALUE = "There should only be one from-value, " +
             "no whitespace separating it! ";
     public static final String FIND_EXTRA_TO_VALUE = "There should only be one to-value, " +
@@ -73,8 +88,6 @@ public class Constants {
     public static final String FIND_EXTRA_SPECIFIC_VALUE = "There should only be one value, " +
             "no whitespace separating it! ";
     public static final String INVALID_FIND_RANGE_DIVIDER_FORMAT = "\"to\" should be separated from find values! ";
-    public static final String INVALID_AMOUNT_RANGE = "The to-amount should be more than the from-amount! ";
-    public static final String INVALID_DATE_RANGE = "The to-date should be after the from-date! ";
     public static final String TIME_RANGE_MESSAGE = "Select time range:" + NEXT_LINE +
             TAB + "[1] All" + NEXT_LINE + TAB + "[2] Weekly" + NEXT_LINE +
             TAB + "[3] Biweekly" + NEXT_LINE + TAB + "[4] Monthly";
@@ -87,6 +100,9 @@ public class Constants {
     public static final int LIST_MAX_ARGUMENTS_LENGTH = 3;
     public static final String NO_TAGS_FOUND = "No tags found. Please input more tags!";
     public static final String INVALID_LIST_OPTION = "Invalid option!";
+    public static final String DAILY_BUDGET_QUESTION = "Please enter a daily budget you have in mind:";
+    public static final String MONTHLY_BUDGET_MESSAGE = "Next, please enter a monthly budget you have in mind:";
+    public static final String YEARLY_BUDGET_MESSAGE = "Last one! Please enter a yearly budget you have in mind:";
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";

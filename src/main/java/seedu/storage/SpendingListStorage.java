@@ -18,6 +18,7 @@ import static seedu.classes.Constants.LOAD_MONTHLY_BUDGET_INDEX;
 import static seedu.classes.Constants.LOAD_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_YEARLY_BUDGET_INDEX;
 import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.SAVE_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_LOAD_SEPARATOR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
@@ -73,7 +74,7 @@ public class SpendingListStorage {
         int errorEntryNumber = 0;
         try {
             if (!spendingFile.exists() || spendingFile.length() == 0) {
-                emptyFileErrorHandling();
+                loadingFileErrorHandling();
                 return;
             }
             Scanner spendingReader = new Scanner(spendingFile);
@@ -98,20 +99,31 @@ public class SpendingListStorage {
         String[] budgetDetails = budgetDetail.split(STORAGE_LOAD_SEPARATOR);
         if (budgetDetails.length != 3) {
             WiagiLogger.logger.log(Level.WARNING, "Corrupted budget details found in spendings file");
-            emptyFileErrorHandling();
+            loadingFileErrorHandling();
             processEntry(budgetDetail,1);
             return;
         }
         try {
-            Storage.spendings.setDailyBudget(Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]));
-            Storage.spendings.setMonthlyBudget(Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]));
-            Storage.spendings.setYearlyBudget(Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]));
-        } catch (NumberFormatException e) {
-            emptyFileErrorHandling();
+            double dailyBudget = Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]);
+            double monthlyBudget = Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]);
+            double yearlyBudget = Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]);
+            Storage.spendings.setDailyBudget(dailyBudget);
+            Storage.spendings.setMonthlyBudget(monthlyBudget);
+            Storage.spendings.setYearlyBudget(yearlyBudget);
+            checkBudgetLogicError(dailyBudget, monthlyBudget, yearlyBudget);
+        } catch (NumberFormatException | WiagiStorageCorruptedException e) {
+            loadingFileErrorHandling();
         }
     }
 
-    private static void emptyFileErrorHandling() {
+    private static void checkBudgetLogicError(double dailyBudget, double monthlyBudget, double yearlyBudget)
+            throws WiagiStorageCorruptedException {
+        if (yearlyBudget > MAX_LIST_TOTAL_AMOUNT || dailyBudget > monthlyBudget || monthlyBudget > yearlyBudget) {
+            throw new WiagiStorageCorruptedException("Budget in storage is corrupted");
+        }
+    }
+
+    private static void loadingFileErrorHandling() {
         File passwordFile = new File(PASSWORD_FILE_PATH);
         if (passwordFile.exists() && passwordFile.length() != 0) {
             Ui.errorLoadingBudgetMessage();

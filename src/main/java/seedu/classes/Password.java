@@ -4,7 +4,7 @@ public class Password {
     public static boolean validate(int password, String loginCredentials) {
         int loginCredentialsHash = loginCredentials.hashCode();
         if (password != loginCredentialsHash) {
-            Ui.printWithTab("Login Failed :<");
+            Ui.printWithTab("Incorrect password! Login Failed :<");
             return false;
         }
         Ui.printWithTab("Login Success!");

@@ -39,7 +39,7 @@ public class LoginStorage {
         } catch (IOException e) {
             WiagiLogger.logger.log(Level.WARNING, "Unable to open password file", e);
             Ui.printWithTab(e.getMessage());
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | NumberFormatException e) {
             WiagiLogger.logger.log(Level.WARNING, "Password file was empty", e);
             Ui.errorLoadingPasswordMessage();
             resetAllData();
@@ -77,7 +77,7 @@ public class LoginStorage {
         Ui.printSeparator();
         Ui.printWithTab("Hi! You seem to be new, are you ready?!");
         Ui.printWithTab("Please enter your new account password:");
-        String password = Ui.readCommand();
+        String password = Ui.readUserPassword();
         return password.hashCode();
     }
 }
