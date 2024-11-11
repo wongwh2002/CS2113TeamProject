@@ -56,9 +56,6 @@ public class CommandUtils {
      */
     public static double roundAmount(String stringAmount, String commandFormat) {
         try {
-            if (!stringAmount.matches("\\d*(\\.\\d+)?")) {
-                throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
-            }
             double doubleAmount = Double.parseDouble(stringAmount);
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException e) {
