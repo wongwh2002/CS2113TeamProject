@@ -49,6 +49,7 @@ public class SpendingListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish saving spendings file");
     }
 
+    //@@author wongwh2002
     private static void handleWriteFile(SpendingList spendings) throws IOException {
         FileWriter spendingFile = new FileWriter(SPENDINGS_FILE_PATH);
         String budgetDetails = spendings.getDailyBudget() + STORAGE_SEPARATOR +
@@ -68,6 +69,7 @@ public class SpendingListStorage {
      * Loads the spending data from a file into the application's spending list.
      * If no file exists, a new one is created.
      */
+    //@@author wongwh2002
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load spendings...");
         File spendingFile = new File(SPENDINGS_FILE_PATH);
@@ -131,6 +133,7 @@ public class SpendingListStorage {
         }
     }
 
+    //@@author wongwh2002
     private static void processEntry(String newEntry, int counter) {
         try {
             Spending nextEntry = (Spending) storageUtils.parseEntry(newEntry);
@@ -140,6 +143,7 @@ public class SpendingListStorage {
         }
     }
 
+    //@@author wongwh2002
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, int counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted entry found in spendings file at line " + counter, e);
         Ui.handleCorruptedEntry(e, counter, "spendings");

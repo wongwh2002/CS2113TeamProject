@@ -44,6 +44,13 @@ public class IncomeList extends ArrayList<Income> {
         }
     }
 
+    /**
+     * Adds an income entry to the list and updates the total income amount.
+     * The list is then sorted by the date of each entry.
+     *
+     * @param income the income entry to be added
+     * @return true if the income entry is successfully added
+     */
     @Override
     public boolean add(Income income) {
         total += income.getAmount();

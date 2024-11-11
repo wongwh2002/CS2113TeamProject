@@ -85,6 +85,10 @@ public class BudgetCommand extends Command {
         }
     }
 
+    /**
+     * Initialises the daily, monthly and yearly budgets.
+     * @param spendings
+     */
     public static void initialiseBudget(SpendingList spendings) {
         initialiseDailyBudget(spendings);
         initialiseMonthlyBudget(spendings);

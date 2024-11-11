@@ -19,6 +19,7 @@ import static seedu.classes.Constants.STORAGE_SEPARATOR;
 /**
  * Manages saving and loading of income data to and from a file.
  */
+//@@author wongwh2002
 public class IncomeListStorage {
     static final String INCOMES_FILE_PATH = "./incomes.txt";
 
@@ -42,6 +43,7 @@ public class IncomeListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish saving incomes file");
     }
 
+    //@@author wongwh2002
     private static void handleWriteFile(IncomeList incomes) throws IOException {
         FileWriter fw = new FileWriter(INCOMES_FILE_PATH);
         for (Income income : incomes) {
@@ -58,6 +60,7 @@ public class IncomeListStorage {
      * Loads the income data from a file into the application's income list.
      * If no file exists, a new one is created.
      */
+    //@@author wongwh2002
     static void load() {
         WiagiLogger.logger.log(Level.INFO, "Starting to load incomes...");
         int errorEntryNumber = 0;
@@ -81,6 +84,7 @@ public class IncomeListStorage {
         WiagiLogger.logger.log(Level.INFO, "Finish loading incomes file.");
     }
 
+    //@@author wongwh2002
     private static void processEntry(String newEntry, long counter) {
         try {
             Income nextEntry = (Income) storageUtils.parseEntry(newEntry);
@@ -90,6 +94,7 @@ public class IncomeListStorage {
         }
     }
 
+    //@@author wongwh2002
     private static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter) {
         WiagiLogger.logger.log(Level.WARNING, "Corrupted income entry detected at line " + counter, e);
         Ui.handleCorruptedEntry(e, counter, "incomes");

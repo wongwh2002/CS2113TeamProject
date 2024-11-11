@@ -33,6 +33,7 @@ public class LoadStorageCheck {
     public String storageErrorMessage;
     private final Logger logger = Logger.getLogger(LoadStorageCheck.class.getName());
 
+    //@@author wongwh2002
     public LoadStorageCheck(String storageType) {
         this.storageType = storageType;
         this.corruptedErrorMessage = "Corrupted " + storageType + " entry detected, ";
@@ -44,6 +45,7 @@ public class LoadStorageCheck {
      * @param newEntry
      * @return
      */
+    //@@author wongwh2002
     public EntryType parseEntry(String newEntry) {
         String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
         validateEntryDataLength(entryData);
@@ -62,6 +64,7 @@ public class LoadStorageCheck {
         return new Spending(amount, description, date, tag, recurrenceFrequency, lastRecurred, dayOfRecurrence);
     }
 
+    //@@author wongwh2002
     private void validateEntryDataLength(String[] entryData) {
         if (entryData.length != 7) {
             logger.log(Level.WARNING, corruptedErrorMessage + STORAGE_COMPULSORY_SIZE);
@@ -70,6 +73,7 @@ public class LoadStorageCheck {
         assert entryData.length == 7 : corruptedErrorMessage + "supposed to have 7 parameters";
     }
 
+    //@@author wongwh2002
     private double getAmount(String amountStr) {
         try {
             double amount = CommandUtils.formatAmount(amountStr, "");
@@ -81,6 +85,7 @@ public class LoadStorageCheck {
         }
     }
 
+    //@@author wongwh2002
     private String getDescription(String description) {
         if (description == null || description.isEmpty()) {
             logger.log(Level.WARNING, storageErrorMessage + "description!");
@@ -90,6 +95,7 @@ public class LoadStorageCheck {
         return description;
     }
 
+    //@@author wongwh2002
     private LocalDate getDate(String dateStr) {
         try {
             LocalDate date = LocalDate.parse(dateStr);
@@ -101,6 +107,7 @@ public class LoadStorageCheck {
         }
     }
 
+    //@@author wongwh2002
     private String getTag(String tag) {
         if (tag == null) {
             logger.log(Level.WARNING, storageErrorMessage + "tag!");
@@ -110,6 +117,7 @@ public class LoadStorageCheck {
         return tag;
     }
 
+    //@@author wongwh2002
     private RecurrenceFrequency getRecurrenceFrequency(String recurrenceStr) {
         try {
             RecurrenceFrequency recurrenceFrequency = RecurrenceFrequency.valueOf(recurrenceStr);
@@ -121,6 +129,7 @@ public class LoadStorageCheck {
         }
     }
 
+    //@@author wongwh2002
     private LocalDate getLastRecurredDate(String lastRecurredStr, RecurrenceFrequency recurrenceFrequency) {
         LocalDate lastRecurred = null;
         if (!lastRecurredStr.equals(NO_RECURRENCE)) {
@@ -136,6 +145,7 @@ public class LoadStorageCheck {
         return lastRecurred;
     }
 
+    //@@author wongwh2002
     private int getDayOfRecurrence(String dayOfRecurrenceStr) {
         int dayOfRecurrence;
         try {
