@@ -71,8 +71,9 @@ Expected display for first time users:
 To help users manage their finances well, users are also prompted to enter their daily, monthly and yearly budgets.
 Users should enter valid amounts for each budget type <br>
 - An integer or number with decimals 
-- Greater than 0 but smaller than or equals to 100 million when rounded to 2 decimal places. 
+- Greater than 0 but smaller than or equal to 100 million when rounded to 2 decimal places. 
   - E.g. 0.005 is rounded to 0.01 is valid but 0.004 is not.<br>
+- For budget types, daily budget <= monthly budget <= yearly budget <br>
 
 Example valid inputs: <br>
 - `50` <br>
@@ -158,7 +159,6 @@ Amount entered must be greater than 0 when rounded to 2 decimal places. <br>
 - `[*$TAG*]`: Label for the entry.
   + Must be free of /, *, ~ and \| characters.
   - Enclosed in asterisks. 
-  - Case-insensitive (e.g. `Food` is treated the same as `food`)
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
@@ -197,6 +197,14 @@ If `N` is entered, the output will be as follows:
 	____________________________________________________________
 	Ok! The entry will not be backlogged
 	____________________________________________________________
+```
+
+If user overspends after all spending (ie. new entry and recurring entries) are added, a alert message will be displayed.
+The following is an example output, your output may differ in values and lines:
+```
+    !!! You have overspent your daily by: 1000 !!!
+    !!! You have overspent your monthly by: 1000 !!!
+    !!! You have overspent your yearly by: 1000 !!!
 ```
 
 Note: Recurring entries will only recur till current date, today, thus if an entry dated to the future is added, no 
@@ -260,15 +268,6 @@ If `N` is entered, the output will be as follows:
 	____________________________________________________________
 ```
 
-If user overspends after all spending (ie. new entry and recurring entries) are added, a alert message will be displayed.
-The following is an example output, your output may differ in values and lines:
-```
-    !!! You have overspent your daily by: 1000 !!!
-    !!! You have overspent your monthly by: 1000 !!!
-    !!! You have overspent your yearly by: 1000 !!!
-```
-
-
 Note: Recurring entries will only recur till current date, today, thus if an entry dated to the future is added, no
 recurring entries will be added. <br>
 
@@ -323,22 +322,22 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 **Example Input and Output**
 
-**Input:** `list spending`
+**Input:** `list spending` <br>
 ```
-	____________________________________________________________
-	List spending entries for:
-	[1] All
-	[2] This week
-	[3] Last week and this week
-	[4] This month
+    ____________________________________________________________
+    List spending entries for:
+    [1] All
+    [2] This week
+    [3] Last week and this week
+    [4] This month
 ```
 
-- **Input:** `1`
+- **Input:** `1` (Date of command is 2024-11-18)
 ```
     ____________________________________________________________
     List all statistics? [Y/N]:
 ```
-- - **Input:** `y`
+- - **Input:** `Y`
 
 ```
     ____________________________________________________________
@@ -350,23 +349,23 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
     Total spendings: 40
         Daily spendings: 0
         Daily Budget: 1
-        Daily budget left: 0
-        Monthly spendings: 40
+        Daily budget left: 1
+        Monthly spendings: 20
         Monthly Budget: 1
-        Monthly budget left: -39
+        Monthly budget left: -19
         Yearly spendings: 40
         Yearly Budget: 1
         Yearly budget left: -39
     ____________________________________________________________
 ```
-- - **Input:** `n`
+- - **Input:** `N`
 ```
     ____________________________________________________________
     Spendings
-    1. macdonalds - 10 - 2024-10-10 - food
-    2. techno - 10 - 2024-10-17 - food
-    3. flights - 10 - 2024-11-01 - travel
-    4. girlfriends - 10 - 2024-11-17 - personal
+    1. macdonalds - 10 - 2024-10-10 - Tag: food
+    2. techno - 10 - 2024-10-17 - Tag: food
+    3. flights - 10 - 2024-11-01 - Tag: travel
+    4. girlfriends - 10 - 2024-11-17 - Tag: personal
     Total spendings: 40
     ____________________________________________________________
 ```
@@ -409,14 +408,14 @@ Only entries that are within the time range will be displayed. The time range sy
 
 **Input:** `list income`
 ```
-	____________________________________________________________
-	List income entries for:
-	[1] All
-	[2] This week
-	[3] Last week and this week
-	[4] This month 
+    ____________________________________________________________
+    List income entries for:
+    [1] All
+    [2] This week
+    [3] Last week and this week
+    [4] This month 
 ```
-- **Input:** `1`
+- **Input:** `1` (Date of command is 2024-11-18)
   ```
       ____________________________________________________________
       Incomes
@@ -455,39 +454,40 @@ Lists all the tags in the user's list.
 
 **Example output:**
 ```
-	____________________________________________________________
-	Tags
-	1. FastFood
-	2. food
-	3. investment
-	4. personal
-	5. travel
-	____________________________________________________________
+    ____________________________________________________________
+    Tags
+    1. FastFood
+    2. food
+    3. investment
+    4. personal
+    5. travel
+    ____________________________________________________________
 ```
 
 #### Listing all of specific tag:
 
-Lists all the entries in the user's list with the specified tag.
+Lists all the entries in the user's list with the specified tag. Tags are case-insensitive 
+(e.g. `Food` is treated the same as `food`) <br>
 
-**Format:** `list tags {$TAGNAME}`
+**Format:** `list tags {$TAG}`
 
 **Example input:** <br>
 `list tags food`
 
 **Example output:**
 ```
-	____________________________________________________________
-	Tag: food
-	Spendings
-	1. techno - 10 - 2024-10-17 - food
-	4. macdonalds - 10 - 2024-10-10 - food
-	____________________________________________________________
+    ____________________________________________________________
+    Tag: food
+    Spendings
+    1. techno - 10 - 2024-10-17 - food
+    4. macdonalds - 10 - 2024-10-10 - food
+    ____________________________________________________________
 ```
 
 ### Deleting an entry
 #### Deleting an income:
 Deletes the specified income from the list. 
-The income to delete is specified by its index.<br>
+The income to delete is specified by its index in the list.<br>
 Run the [`list income`](#listing-incomes) command to check the index of the income.
 
 **Format:** `delete income {$INDEX}`
@@ -498,13 +498,13 @@ Run the [`list income`](#listing-incomes) command to check the index of the inco
 **Example output:**
 ```
     ____________________________________________________________
-        Successfully deleted!
+    Successfully deleted!
     ____________________________________________________________
 ```
 
 #### Deleting a spending:
 Deletes the specified spending from the list.
-The spending to delete is specified by its index.<br>
+The spending to delete is specified by its index in the list.<br>
 Run the [`list spending`](#listing-spendings) command to check the index of the spending.
 
 **Format:** `delete spending {$INDEX}`
@@ -573,7 +573,8 @@ Other Commands:
 ### Setting a Budget
 
 The `budget` command allows you to set a daily, monthly, or yearly budget for your spendings.
-Amount entered must be greater than 0 when rounded to 2 decimal places. <br>
+Amount entered must be greater than 0 and less than or equal to 100 million when rounded to 2 decimal places. <br>
+For budget types, daily budget <= monthly budget <= yearly budget <br>
 
 **Format**: `budget {$PERIOD} {$AMOUNT}`
 
@@ -594,18 +595,18 @@ The input criteria for the amount is the same as the amount entered for [creatio
 
 ### Editing an Entry
 
-The `edit` command allows you to edit the amount, description, or date of an existing income or spending entry. <br>
+The `edit` command allows you to edit the amount, description, tag or date of an existing income or spending entry. <br>
 Amount entered, if applicable, must be greater than 0 when rounded to 2 decimal places.
 
 **Format:** `edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}`
 
 - `{$CATEGORY}`: Specifies the category of entry to be edited. It can be `spending` or `income`.
-- `{$INDEX}`: The index of the entry to be edited (1-based index).
+- `{$INDEX}`: The index of the entry to be edited.
 - `{$FIELD}`: The field to be edited. It can be `amount`, `description`, `tag` or `date`. Editing the frequency of a recurring entry is not allowed.
 - `{$NEW_VALUE}`: The new value to be set for the specified field.
   - Note: There are restrictions for the new value in these fields:
     + description, tag: free of /, *, ~ and \| characters.
-    - amount: 0 < amount <= 10 million, while total <= 100 million.
+    - amount: 0 < amount <= 10 million, while editing of that entry must not result to the total spending/income to be more than 100 million.
     - date: YYYY-MM-DD format, eg.`2023-01-21`, YYYY must not be more than 100 years ago.
   
 **Example input:**<br>
@@ -621,12 +622,12 @@ Amount entered, if applicable, must be greater than 0 when rounded to 2 decimal 
     ____________________________________________________________
 ```
 
-Note: Editing an entry with recurrence set does not trigger backlogging
+Note: Editing a recurring entry does not trigger backlogging and [overspend message](#adding-a-spending) will also be printed if budget has been exceeded after editing
 
 ### Finding an Entry
 
-The `find` command allows you to find entries within a range of amount or date. 
-It also allows you to find entries with a specific keyword in the description.
+The `find` command allows you to find entries of a specific amount and date or within a range. 
+It also allows you to find entries with specific keyword(s) in the description.
 
 **Format:** `find {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]`
 
@@ -660,7 +661,7 @@ It also allows you to find entries with a specific keyword in the description.
 
 ### Exiting the program
 
-The `bye` command allows you to exit the program safely, as it will store all changes made.
+The `bye` command allows you to exit the program safely.
 
 **Format:** `bye`
 
@@ -669,9 +670,9 @@ The `bye` command allows you to exit the program safely, as it will store all ch
 
 **Example output:**
 ```
-	____________________________________________________________
-	Bye. Hope to see you again soon!
-	____________________________________________________________
+    ____________________________________________________________
+    Bye. Hope to see you again soon!
+    ____________________________________________________________
 ```
 
 ### Saving the data
@@ -692,7 +693,7 @@ User data is stored into 3 text files, namely
 
 #### Format of data storage for password:
 For security purposes the method of storage will not be discussed. <span style="color:#f5220d">DO NOT</span> 
-alter this file, simply delete the file if you have forgotten you password and create a new password upon being 
+alter this file, simply exit the program and delete the file if you have forgotten you password and create a new password upon being 
 prompt when start up. Note that this will cause a hard reset to the application and erase all data.
 
 #### Format of data storage for income and spending:
@@ -705,40 +706,40 @@ For spending.txt, the first line of entry stores the budgets of the user.<br>
 Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
 <br>
 Important data representation to note:
-+ `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and \| characters.
++ `[$DESCRIPTION]`/`[$TAG]`: Must be free of /, *, ~ and \| characters.
 - `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places.
 - `[$DATE_OF_ENTRY]`: In the format of YYYY-MM-DD, YYYY must not be more than 100 years ago.
 - `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`.
 - `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`.
 
-We recommend not to edit `[$LAST_RECURRENCE]`. Adding or editing entries with recurrence, `[$LAST_RECURRENCE]`
-should match `[$DATE_OF_ENTRY]` and last possible recurred date before current date respectively, "null" otherwise.
+We recommend not to edit `[$LAST_RECURRENCE]`. However, if you wish to, for adding recurring entries, `[$LAST_RECURRENCE]`
+should match `[$DATE_OF_ENTRY]` and for editing recurring entries, `[$LAST_RECURRENCE]` should be the last possible recurred date 
+before current date. If the entry is not recurring, `[$LAST_RECURRENCE]` should be "null".
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
+- **A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
 is at.
 
-**Q**: Why are the indices of the entries not in consecutive order when I list all entries of a particular tag 
-or when I list entries in a time range?
+**Q**: Why are the indices of the entries not in consecutive order when I list or find entries?
 
-**A**: Each index reflects the actual index of the item in the entire list so that you can edit or delete the 
+&nbsp;&nbsp;&nbsp;&nbsp; **A**: Each index reflects the actual index of the item in the entire list so that you can edit or delete the 
 entry easily.
 
 **Q**: What happens if I edit the date of a recurring entry to an earlier date?
 
-**A**: The date of the entry will be changed, but no additional entries will be created between the new date and the 
+&nbsp;&nbsp;&nbsp;&nbsp; **A**: The date of the entry will be changed, but no additional entries will be created between the new date and the 
 current date.
 
 **Q**: What happens if I add a recurring entry with an earlier date?
 
-**A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
+&nbsp;&nbsp;&nbsp;&nbsp; **A**: You will have the option to select whether you would like to add the additional entries between the date of entry and the current date.
 
 **Q**: What happens if I forget my password?
 
-**A**: Delete the `password.txt` file in the folder where the program is located. Upon starting the program, you will be prompted to create a new password.
+&nbsp;&nbsp;&nbsp;&nbsp; **A**: Delete the `password.txt` file in the folder where the program is located. Upon starting the program, you will be prompted to create a new password.
 Users have to press Ctrl+C (or Command+C for Mac users) to exit the program before they are able to delete the file.
 Do note that the `spending.txt` and `incomes.txt` files will be reset and all data will be lost.
 If you have a backup of the `spending.txt` and `incomes.txt` files, you can replace the new files with the backup files to restore your data.
@@ -773,7 +774,7 @@ If you have a backup of the `spending.txt` and `incomes.txt` files, you can repl
         <tr>
             <td>All incomes</td>
             <td>list income</td>
-            <td>list spending</td>
+            <td>list income</td>
         </tr>
         <tr>
             <td>All tags</td>
@@ -782,7 +783,7 @@ If you have a backup of the `spending.txt` and `incomes.txt` files, you can repl
         </tr>
         <tr>
             <td>All of a specific tag</td>
-            <td>list tags {$TAGNAME}</td>
+            <td>list tags {$TAG}</td>
             <td>list tags food</td>
         </tr>
         <tr>
