@@ -154,6 +154,7 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
+  - The year of `$DATE` must not be more than 100 years ago.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
   + Must be free of /, *, ~ and \| characters.
@@ -216,6 +217,7 @@ Run the [`list income`](#listing-incomes) command to display the list with the n
 - `[/$DATE/]`: Date of the transaction.
   - Must be of YYYY-MM-DD format, eg.`2023-01-21`.
   - If left empty, it would be set to the date of entry.
+  - The year of `$DATE` must not be more than 100 years ago.
   - Enclosed in forward slashes.
 - `[*$TAG*]`: Label for the entry.
   + Must be free of /, *, ~ and \| characters.
@@ -542,6 +544,7 @@ Listing Entries:
 
 Editing Entries:
 	edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}
+	-note that {$FIELD} only works for amount, description, date and tags
 	e.g., edit spending 1 amount 100
 	e.g., edit income 2 description Bonus
 
@@ -595,8 +598,8 @@ Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
   - Note: There are restrictions for the new value in these fields:
     + description, tag: free of /, *, ~ and \| characters.
     - amount: 0 < amount <= 10 million, while total <= 100 million.
-    - date: YYYY-MM-DD format, eg.`2023-01-21`.
-
+    - date: YYYY-MM-DD format, eg.`2023-01-21`, YYYY must not be more than 100 years ago.
+  
 **Example input:**<br>
 `edit spending 1 amount 100` <br>
 `edit spending 1 description macdonalds` <br>
@@ -695,10 +698,10 @@ Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
 <br>
 Important data representation to note:
 + `[$DESCRIPTION]`/`[TAG_NAME]`: Must be free of /, *, ~ and \| characters.
-- `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places
-- `[$DATE_OF_ENTRY]`: In the format of `YYYY-MM-DD`
-- `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`
-- `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`
+- `[$AMOUNT]`/`[$DAILY_BUDGET]`/`[$MONTHLY_BUDGET]`/`[$YEARLY_BUDGET]`: In 2 decimal places.
+- `[$DATE_OF_ENTRY]`: In the format of YYYY-MM-DD, YYYY must not be more than 100 years ago.
+- `[$RECURRENCE_FREQUENCY]`: In the format of `NONE`/`DAILY`/`MONTHLY`/`YEARLY`.
+- `[$DAY_OF_RECURRENCE]`: To match the day stored in `[$DATE_OF_ENTRY]`.
 
 We recommend not to edit `[$LAST_RECURRENCE]`. Adding or editing entries with recurrence, `[$LAST_RECURRENCE]`
 should match `[$DATE_OF_ENTRY]` and last possible recurred date before current date respectively, "null" otherwise.
