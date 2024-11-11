@@ -225,7 +225,7 @@ public class Ui {
 
     //@@author wongwh2002
     private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
-                                        StringBuilder sb, String listName) {
+            StringBuilder sb, String listName) {
         sb.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
