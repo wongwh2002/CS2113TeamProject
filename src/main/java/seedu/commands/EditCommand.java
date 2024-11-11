@@ -115,6 +115,9 @@ public class EditCommand extends Command {
         case AMOUNT_FIELD:
             throwExceptionIfTotalExceeded(newValue, entryToEdit.getAmount(), list);
             entryToEdit.editAmount(newValue);
+            if (list instanceof SpendingList) {
+                ((SpendingList) list).checkOverspend();
+            }
             break;
         case DESCRIPTION_FIELD:
             entryToEdit.editDescription(newValue);
