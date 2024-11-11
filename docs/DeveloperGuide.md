@@ -119,9 +119,8 @@ Given below is a quick overview of main components and how they interact with ea
 
 <img src="./Diagrams/Overall/overallClass.png" width="800" alt="overallClass.png">
 <br>
-On a high level, whenever `Wiagi` is started,  
-It will load `SpendingList` and `IncomeList` from `Storage` if they exist, else, new lists would be created.
-It will also load the hashed password from `Storage` if it exists, else it will
+On a high level, whenever `Wiagi` is started, it will load `SpendingList` and `IncomeList` from `Storage` if they exist, 
+else, new lists would be created. It will also load the hashed password from `Storage` if it exists, else it will
 prompt the user to create a new account. The hashed password is checked against the user's password input for verification.
 `Wiagi` then takes in user input via the `Ui` class, then parse and executes the command through the `Parser` class.
 The related output is printed through the `Ui` class.
@@ -669,7 +668,8 @@ Use case ends.
 1. User requests to list all entries.
 2. Wiagi shows a list of all incomes and spendings, including optional parameters such as tags and recurrence frequency.
 
-Use case ends.
+Use case ends. <br>
+
 **Extensions**
 1. The list is empty.
     - 1a. Wiagi displays incomes and spendings without entries (equal to 0).
@@ -690,6 +690,7 @@ Use case of listing all spendings, incomes, tags is similar, omitted for brevity
 6. Wiagi displays a message to the user that the entry has been updated.
 
 Use case ends.  
+
 **Extensions**
 1. The list is empty.
 <br>Use case ends.
@@ -708,7 +709,8 @@ Use case ends.
 2. Wiagi sets the budget.
 3. Wiagi displays a message to the user that the budget has been updated.
 
-Use case ends.
+Use case ends. <br>
+
 **Extensions**
 1. The given time range is invalid.
     - 1a. Wiagi displays an error message.
@@ -747,6 +749,7 @@ Use case ends.
 2. Wiagi shows a list of all commands and their details.
 
 Use case ends.
+
 ## Non-Functional Requirements
 
 1. A user should be alerted of the correct command format whenever an invalid command is encountered.
