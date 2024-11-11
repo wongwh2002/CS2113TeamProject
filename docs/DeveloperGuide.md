@@ -417,12 +417,12 @@ When the user requests to list all entries, the program prints all entries in bo
 #### Listing spendings
 
 When users request to list all spendings, they are given the option to choose a time range from the following options:
-- All
-- Weekly
-- Biweekly
-- Monthly
+1. All
+2. This week
+3. Last week and this week
+4. This month
 
-By selecting the weekly, biweekly, or monthly options, only the spending entries 
+By selecting options 2, 3, or 4, only the spending entries 
 that are dated within the current week, current 2 weeks, or current month will be displayed.
 
 If the user chooses to list all spendings, they are then given the option to display all
@@ -461,10 +461,13 @@ index. Finally, the string is printed.
 #### Listing incomes
 
 When users request to list incomes, they are also given the option to choose from the same 4 time ranges:
-- All
-- Weekly
-- Biweekly
-- Monthly
+1. All
+2. This week
+3. Last week and this week
+4. This month
+ 
+By selecting options 2, 3, or 4, only the spending entries
+that are dated within the current week, current 2 weeks, or current month will be displayed.
 
 Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
 given the option to list statistics if they choose to list all incomes. Hence, the sequence diagram is omitted for this
