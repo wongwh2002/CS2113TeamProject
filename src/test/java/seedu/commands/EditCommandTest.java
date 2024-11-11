@@ -191,14 +191,14 @@ class EditCommandTest {
     public void execute_editSpendingDate_success() {
         commandInputForTest("edit spending 2 date 2024-10-10", incomes, spendings);
         assertEquals("macdonalds" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
-                spendings.get(1).toString());
+                spendings.get(0).toString());
     }
 
     @Test
     public void execute_editIncomeDate_success() {
         commandInputForTest("edit income 2 date 2024-10-10", incomes, spendings);
         assertEquals("dividends" + LIST_SEPARATOR + "10" + LIST_SEPARATOR + "2024-10-10",
-                incomes.get(1).toString());
+                incomes.get(0).toString());
     }
 
     @Test
