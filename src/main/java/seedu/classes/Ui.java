@@ -165,6 +165,7 @@ public class Ui {
         }
     }
 
+    //@@author wongwh2002
     /**
      * Prints the double in either 2dp, if double has decimal places, or without 2dp, if double can be represented as
      * an integer
