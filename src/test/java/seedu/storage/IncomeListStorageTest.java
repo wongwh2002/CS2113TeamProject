@@ -21,8 +21,10 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TODAY;
+
 
 @TestMethodOrder(OrderAnnotation.class)
 public class IncomeListStorageTest {
@@ -52,6 +54,7 @@ public class IncomeListStorageTest {
         Storage.incomes.clear();
     }
 
+    //@@author wongwh2002
     @Order(4)
     @Test
     public void save_multipleEntries_success() {
@@ -64,6 +67,7 @@ public class IncomeListStorageTest {
         assertTrue(new File("./incomes.txt").exists());
     }
 
+    //@@author wongwh2002
     @Order(5)
     @Test
     public void load_multipleEntries_success() {
@@ -72,6 +76,7 @@ public class IncomeListStorageTest {
         Storage.incomes.clear();
     }
 
+    //@@author wongwh2002
     @Order(6)
     @Test
     public void load_multipleLinesFromFile_success() {
@@ -92,17 +97,7 @@ public class IncomeListStorageTest {
         Storage.incomes.clear(); //resets income list for next test
     }
 
-    @Order(7)
-    @Test
-    public void load_noFile_successCreatesNewFile() {
-        File incomeFile = new File("./incomes.txt");
-        if (incomeFile.exists()) {
-            incomeFile.delete();
-        }
-        IncomeListStorage.save(new IncomeList());
-        assertTrue(incomeFile.exists());
-    }
-
+    //@@author wongwh2002
     @Test
     public void save_nullList_nullIncomeListMessage() {
         try {
@@ -112,6 +107,7 @@ public class IncomeListStorageTest {
         }
     }
 
+    //@@author wongwh2002
     @Test
     public void load_corruptedLinesFromFiles_corruptedIncomeEntryMessage() {
         File incomeFile = new File("./incomes.txt");
@@ -135,6 +131,49 @@ public class IncomeListStorageTest {
         Storage.incomes.clear(); //resets income list for next test
     }
 
+    @Test
+    public void load_emptyFile_noIncomesLoaded() {
+        File incomeFile = new File("./incomes.txt");
+        if (incomeFile.exists()) {
+            incomeFile.delete();
+        }
+        try {
+            incomeFile.createNewFile();
+        } catch (IOException e) {
+            Ui.printWithTab("Failed to create empty incomes file");
+        }
+        IncomeListStorage.load();
+        assertEquals(0, Storage.incomes.size());
+    }
+
+    //@@author wongwh2002
+    @Test
+    public void load_noFile_successCreatesNewFile() {
+        File incomeFile = new File("./incomes.txt");
+        if (incomeFile.exists()) {
+            incomeFile.delete();
+        }
+        IncomeListStorage.save(new IncomeList());
+        assertTrue(incomeFile.exists());
+        IncomeListStorage.load();
+        assertEquals(0, Storage.incomes.size());
+    }
+
+    @Test
+    public void save_ioExceptionDuringSave_saveIncomeFileErrorMessage() {
+        IncomeList incomes = new IncomeList();
+        incomes.add(new Income(10, "savings", TODAY, "", RecurrenceFrequency.NONE, null, 1));
+
+        File incomeFile = new File("./incomes.txt");
+        incomeFile.setReadOnly(); // read-only to trigger IOException
+        IncomeListStorage.save(incomes);
+        assertEquals(SAVE_INCOME_FILE_ERROR, outContent.toString().trim()); //remove TAB and newline
+
+        incomeFile.setWritable(true); //reset file permission
+        incomes.clear();
+    }
+
+    //@@author wongwh2002
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outContent));

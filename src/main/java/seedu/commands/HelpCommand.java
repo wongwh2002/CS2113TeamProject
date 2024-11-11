@@ -14,6 +14,12 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
+    /**
+     * Executes a help command with the given arguments, printing the usage instructions for each command.
+     *
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert incomes != null;

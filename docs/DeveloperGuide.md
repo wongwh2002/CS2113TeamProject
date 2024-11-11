@@ -238,7 +238,7 @@ Method implementations will be explained in later parts, in their respective use
 
 ### Loading storage
 
-<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="550" height="300"/><br>
+<img src="./Diagrams/Storage/loadStorageSD.png" alt="loadStorageSequenceDiagram" width="550"/><br>
 To load saved lists:
 + It is done upon program startup, when `Wiagi` is constructed.
 + Within the `Wiagi` constructor, it will create a new instance of `Storage`, which will then load the data at the 
@@ -254,7 +254,7 @@ The entered password will then be hashed and stored in a newly created password 
 
 
 #### load method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500" height="450"/><br>
+<img src="./Diagrams/Storage/loadListSD.png" alt="loadListSequenceDiagram" width="500"/><br>
 + Both classes have similar implementation for `load()`, except that `SpendingListStorage` also loads budget details.
 + A while loop will loop through the file with a scanner to read line by line till the end of the file is reached.
 + It splits each line by '`|`' to access each attributes, converts each attribute to its respective type and adds it to its respective list.
@@ -262,7 +262,7 @@ The entered password will then be hashed and stored in a newly created password 
 
 
 #### load method in `LoginStorage`
-<img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450" height="300"/><br>
+<img src="./Diagrams/Storage/loginStorageSD.png" alt="loginStorageSequenceDiagram" width="450"/><br>
 + It first checks if the password file exists.
   + If it exists, it will use a `Scanner` to read the file and initialise `password` attribute in `Storage`.
   + Else, it will call `createNewUser()`, which creates a new password file and use `getNewUserPassword()` to scan for
@@ -397,7 +397,7 @@ To save edited lists:
 + The lists are saved to a user-editable format in their respective files.
 
 #### save method in `IncomeListStorage` `SpendingListStorage`
-<img src="./Diagrams/Storage/saveStorageSD.png" alt="saveStorageSequenceDiagram" width="600" height="400"/><br>
+<img src="./Diagrams/Storage/saveStorageSD.png" alt="saveStorageSequenceDiagram" width="550"/><br>
 Both classes have similar implementation for `save()`, except that `SpendingListStorage` saves budget details in the 
 first line of its text file.
 + Format: `daily budget | monthly budget | yearly budget`

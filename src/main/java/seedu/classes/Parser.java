@@ -32,6 +32,12 @@ public class Parser {
     private static final int LIST_ALL_COMMAND_LENGTH = 1;
     private static final int COMMAND_WORD_ARGUMENT = 0;
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param fullCommand the full user input
+     * @return the corresponding Command object
+     */
     public static Command parseUserInput(String fullCommand) {
         String command = fullCommand.split(WHITESPACE)[COMMAND_WORD_ARGUMENT].toLowerCase();
 
@@ -77,6 +83,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the entry string and returns the corresponding recurrence object.
+     * @param entry
+     * @return
+     */
     public static Recurrence parseRecurrence(EntryType entry) {
         RecurrenceFrequency frequency = entry.getRecurrenceFrequency();
 

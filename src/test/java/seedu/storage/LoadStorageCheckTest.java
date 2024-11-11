@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static seedu.classes.Constants.TODAY;
 
+//@@author wongwh2002
 public class LoadStorageCheckTest {
 
     @Test
@@ -141,14 +142,11 @@ public class LoadStorageCheckTest {
     }
 
     @Test
-    public void parseEntry_nullTag_tagStorageErrorMessage() {
+    public void parseEntry_nullTag_sucess() { //tag will never be null, at max it'll be "null"
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
-        String newEntry = "10.0|savings|2024-11-09|null|NONE|null|1";
-        try {
-            storageUtils.parseEntry(newEntry);
-        } catch (WiagiStorageCorruptedException e) {
-            assertEquals(storageUtils.storageErrorMessage + "tag!", e.getMessage());
-        }
+        String newEntry = "10.0|savings|2024-11-09|NULL|NONE|null|1";
+        Income income = (Income) storageUtils.parseEntry(newEntry);
+        assertEquals(income.getTag(), "NULL");
     }
 
     @Test
