@@ -38,7 +38,7 @@ and investment analysis.
 2. Download the latest version of `Wiagi` from [here](https://github.com/AY2425S1-CS2113-W14-1/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder.
 4. Open a command terminal, navigate to the folder you have placed the jar file in, 
-and use the `java -jar [CS2113-W14-1][WIAGI].jar` command to run the application.
+and use the `java -jar WIAGI.jar` command to run the application.
 5. You will be prompted to set a password and budget. Enter the password you set to log in. 
 
 ## Features
