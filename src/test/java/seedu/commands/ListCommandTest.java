@@ -106,7 +106,7 @@ class ListCommandTest {
     @Test
     public void execute_listIncome_success() {
         Ui.userInputForTest("1");
-        commandInputForTest("list incomes", incomes, spendings);
+        commandInputForTest("list income", incomes, spendings);
 
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +
                 TAB + SEPARATOR + NEXT_LINE +
@@ -126,14 +126,14 @@ class ListCommandTest {
 
     @Test
     public void execute_extraListSpendingsArguments_incorrectParamsNumberMessage() {
-        commandInputForTest("list spendings incomes", incomes, spendings);
+        commandInputForTest("list spending income", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
                 + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_extraListIncomesArguments_incorrectParamsNumberMessage() {
-        commandInputForTest("list incomes spendings", incomes, spendings);
+        commandInputForTest("list income spending", incomes, spendings);
         assertEquals(TAB + INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT
                 + NEXT_LINE, outContent.toString());
     }
@@ -168,7 +168,7 @@ class ListCommandTest {
     @Test
     public void execute_listSpendingAllStatistics_success() {
         Ui.userInputForTest(String.format("1%sY", NEXT_LINE));
-        commandInputForTest("list spendings", incomes, spendings);
+        commandInputForTest("list spending", incomes, spendings);
 
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + NEXT_LINE +
                 TAB + SEPARATOR + NEXT_LINE +
@@ -193,7 +193,7 @@ class ListCommandTest {
     @Test
     public void execute_listSpendingNotAllStatistics_success() {
         Ui.userInputForTest(String.format("1%sN", NEXT_LINE));
-        commandInputForTest("list spendings", incomes, spendings);
+        commandInputForTest("list spending", incomes, spendings);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + NEXT_LINE +
                 TAB + SEPARATOR + NEXT_LINE +
                 TAB + "List all statistics? [Y/N]:" + NEXT_LINE +
@@ -223,7 +223,7 @@ class ListCommandTest {
     public void execute_listWeeklySpendings_success() {
         spendings.add(new Spending(10, "lunch", TODAY.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
-        commandInputForTest("list spendings", incomes, spendings);
+        commandInputForTest("list spending", incomes, spendings);
         LocalDate monday = getMondayDate(TODAY);
         LocalDate sunday = getSundayDate(TODAY);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + NEXT_LINE +
@@ -241,7 +241,7 @@ class ListCommandTest {
     public void execute_listBiweeklySpendings_success() {
         spendings.add(new Spending(10, "lunch", TODAY.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
-        commandInputForTest("list spendings", incomes, spendings);
+        commandInputForTest("list spending", incomes, spendings);
         LocalDate lastMonday = getMondayDate(TODAY.minusDays(7));
         LocalDate sunday = getSundayDate(TODAY);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + NEXT_LINE +
@@ -259,7 +259,7 @@ class ListCommandTest {
     public void execute_listMonthlySpendings_success() {
         spendings.add(new Spending(10, "lunch", TODAY.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
-        commandInputForTest("list spendings", incomes, spendings);
+        commandInputForTest("list spending", incomes, spendings);
         LocalDate monthStart = LocalDate.of(TODAY.getYear(), TODAY.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(TODAY.getMonth().length(TODAY.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_SPENDINGS + NEXT_LINE +
@@ -277,7 +277,7 @@ class ListCommandTest {
     public void execute_listWeeklyIncomes_success() {
         incomes.add(new Income(1000, "salary", TODAY.minusDays(7), "", null, null, 0));
         Ui.userInputForTest("2");
-        commandInputForTest("list incomes", incomes, spendings);
+        commandInputForTest("list income", incomes, spendings);
         LocalDate monday = getMondayDate(TODAY);
         LocalDate sunday = getSundayDate(TODAY);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +
@@ -295,7 +295,7 @@ class ListCommandTest {
     public void execute_listBiweeklyIncomes_success() {
         incomes.add(new Income(1000, "salary", TODAY.minusDays(14), "", null, null, 0));
         Ui.userInputForTest("3");
-        commandInputForTest("list incomes", incomes, spendings);
+        commandInputForTest("list income", incomes, spendings);
         LocalDate lastMonday = getMondayDate(TODAY.minusDays(7));
         LocalDate sunday = getSundayDate(TODAY);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +
@@ -313,7 +313,7 @@ class ListCommandTest {
     public void execute_listMonthlyIncomes_success() {
         incomes.add(new Income(1000, "salary", TODAY.minusDays(31), "", null, null, 0));
         Ui.userInputForTest("4");
-        commandInputForTest("list incomes", incomes, spendings);
+        commandInputForTest("list income", incomes, spendings);
         LocalDate monthStart = LocalDate.of(TODAY.getYear(), TODAY.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(TODAY.getMonth().length(TODAY.isLeapYear()) - 1);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +
@@ -331,7 +331,7 @@ class ListCommandTest {
     public void execute_listInvalidTimeRangeWeekly_invalidListOptionPrintTimeRangeMessageAgain() {
         incomes.add(new Income(1000, "salary", TODAY.minusDays(7), "", null, null, 0));
         Ui.userInputForTest(String.format("5%s2", NEXT_LINE));
-        commandInputForTest("list incomes", incomes, spendings);
+        commandInputForTest("list income", incomes, spendings);
         LocalDate monday = getMondayDate(TODAY);
         LocalDate sunday = getSundayDate(TODAY);
         assertEquals(TAB + SELECT_TIME_RANGE_MESSAGE_INCOMES + NEXT_LINE +

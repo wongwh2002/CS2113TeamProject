@@ -140,10 +140,9 @@ Expected output for wrong password:
 ### Adding an entry
 #### Adding a spending:
 
-Adds an entry into user spending list. Entry will be displayed in chronological order. <br>
-Run the [`list spendings`](#listing-spendings) command to display the list with the new entry. <br>
-Amount entered must be greater than 0 and less than or equals to 10 million when rounded to 2 decimal places. <br>
-
+Adds an entry into user spending list. Entry will be displayed at the latest index. <br>
+Run the [`list spending`](#listing-spendings) command to display the list with the new entry. <br>
+Amount entered must be greater than 0 when rounded to 2 decimal places. <br>
 
 **Format:** `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the spending, up to 2 decimal places will be taken.
@@ -206,7 +205,7 @@ recurring entries will be added <br>
 #### Adding an income:
 
 Adds an entry into user income list. Entry will be displayed at the latest index. <br>
-Run the [`list incomes`](#listing-incomes) command to display the list with the new entry. <br>
+Run the [`list income`](#listing-incomes) command to display the list with the new entry. <br>
 
 **Format:** `add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]`
 - `{$AMOUNT}`: Numerical value of the income, up to 2 decimal places will be taken.
@@ -300,7 +299,7 @@ Lists all the entries in the user's spending or income list. <br>
 
 Lists entries in the user's spending list.
 
-**Format:** `list spendings`
+**Format:** `list spending`
 
 The user will then be prompted to select a time range from the following options:
 1. All
@@ -324,7 +323,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 **Example Input and Output**
 
-**Input:** `list spendings`
+**Input:** `list spending`
 ```
 	____________________________________________________________
 	List spending entries for:
@@ -395,7 +394,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 Lists entries in the user's income list.
 
-**Format:** `list incomes`
+**Format:** `list income`
 
 The user will then be prompted to select a time range from the following options:
 1. All
@@ -408,7 +407,7 @@ Only entries that are within the time range will be displayed. The time range sy
 
 **Example Input and Output**
 
-**Input:** `list incomes`
+**Input:** `list income`
 ```
 	____________________________________________________________
 	List income entries for:
@@ -489,7 +488,7 @@ Lists all the entries in the user's list with the specified tag.
 #### Deleting an income:
 Deletes the specified income from the list. 
 The income to delete is specified by its index.<br>
-Run the [`list incomes`](#listing-incomes) command to check the index of the income.
+Run the [`list income`](#listing-incomes) command to check the index of the income.
 
 **Format:** `delete income {$INDEX}`
 
@@ -506,7 +505,7 @@ Run the [`list incomes`](#listing-incomes) command to check the index of the inc
 #### Deleting a spending:
 Deletes the specified spending from the list.
 The spending to delete is specified by its index.<br>
-Run the [`list spendings`](#listing-spendings) command to check the index of the spending.
+Run the [`list spending`](#listing-spendings) command to check the index of the spending.
 
 **Format:** `delete spending {$INDEX}`
 
@@ -547,8 +546,8 @@ Adding Entries:
 
 Listing Entries:
 	list - shows all entries
-	list incomes - shows all income entries
-	list spendings - shows all spending entries
+	list income - shows all income entries
+	list spending - shows all spending entries
 	list tags {$TAG} - shows entries with specific tag
 
 Editing Entries:
@@ -768,13 +767,13 @@ If you have a backup of the `spending.txt` and `incomes.txt` files, you can repl
         <tr>
             <td rowspan="4">Listing entries</td>
             <td>All spendings</td>
-            <td>list spendings</td>
-            <td>list spendings</td>
+            <td>list spending</td>
+            <td>list spending</td>
         </tr>
         <tr>
             <td>All incomes</td>
-            <td>list incomes</td>
-            <td>list spendings</td>
+            <td>list income</td>
+            <td>list spending</td>
         </tr>
         <tr>
             <td>All tags</td>

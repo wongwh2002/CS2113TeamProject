@@ -13,7 +13,7 @@ import static seedu.classes.Constants.LIST_COMPULSORY_ARGUMENTS_LENGTH;
 
 public class ListIncomesCommand extends Command {
 
-    public static final String COMMAND_WORD = "incomes";
+    public static final String COMMAND_WORD = "income";
     private final String[] arguments;
 
     public ListIncomesCommand(String[] fullCommands) {

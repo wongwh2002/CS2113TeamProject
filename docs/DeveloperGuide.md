@@ -514,7 +514,7 @@ statistics, which consist of:
 - Yearly budget
 - Yearly budget left
 
-The sequence diagram below shows what happens when the user executes a `list spendings` command.
+The sequence diagram below shows what happens when the user executes a `list spending` command.
 
 <img src="./Diagrams/Commands/executeListSpendingsCommand.png" alt="executeListSpendingsCommand.png" width="750">
 
