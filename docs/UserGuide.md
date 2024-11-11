@@ -359,6 +359,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
     ____________________________________________________________
 ```
 - - **Input:** `N`
+
 ```
     ____________________________________________________________
     Spendings
@@ -371,6 +372,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 ```
 
 - **Input:** `4` (Date of command is 2024-11-18)
+
 ```
 	____________________________________________________________
 	Showing spending entries from 2024-11-01 to 2024-11-30
@@ -381,6 +383,7 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 ```
 
 - **Input:** `2` (Date of command is 2024-11-18)
+
 ```
 	____________________________________________________________
 	Showing spending entries from 2024-11-18 to 2024-11-24
@@ -646,12 +649,17 @@ It also allows you to find entries with specific keyword(s) in the description.
 - `find spending description macdonalds` <br>
 - `find spending date 2024-10-10 to 2024-12-12` <br>
 
-**Example output**:
+**Example output**: <br>
+If there is no matches:
+
 ```
     ____________________________________________________________
     No entries found match the criteria.
     ____________________________________________________________
 ```
+
+If there are matches:
+
 ```
     ____________________________________________________________
     Here are the matching results:
@@ -720,7 +728,7 @@ before current date. If the entry is not recurring, `[$LAST_RECURRENCE]` should 
 
 **Q**: How do I transfer my data to another computer? 
 
-- **A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
+&nbsp;&nbsp;&nbsp;&nbsp; **A**: Simply transfer `incomes.txt`, `spendings.txt` and `password.txt` files to the folder that the program 
 is at.
 
 **Q**: Why are the indices of the entries not in consecutive order when I list or find entries?
