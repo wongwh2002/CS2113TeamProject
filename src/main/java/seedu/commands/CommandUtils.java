@@ -4,6 +4,7 @@ import seedu.exception.WiagiInvalidInputException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
@@ -55,11 +56,20 @@ public class CommandUtils {
      * @return amount formatted as a double, rounded to 2 decimal places
      */
     public static double roundAmount(String stringAmount, String commandFormat) {
+        if (!isDecimal(stringAmount)) {
+            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
         try {
             double doubleAmount = Double.parseDouble(stringAmount);
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
         }
+    }
+
+    private static boolean isDecimal(String str) {
+        String doublePattern = "([0-9]*)\\.([0-9]*)";
+        String integerPattern = "([0-9]*)";
+        return  (Pattern.matches(integerPattern, str) || Pattern.matches(doublePattern, str));
     }
 }
