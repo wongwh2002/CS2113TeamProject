@@ -149,12 +149,11 @@ public class BudgetCommand extends Command {
     }
 
     private static void initialiseDailyBudget(SpendingList spendings) {
-        double amount = UNINITIALISED_BUDGET;
         Ui.initialiseDailyBudgetMessage();
-        while (amount == UNINITIALISED_BUDGET) {
+        while (spendings.getDailyBudget() == UNINITIALISED_BUDGET) {
             try {
                 String userDailyBudget = Ui.readCommand();
-                amount = CommandUtils.roundAmount(userDailyBudget, BUDGET_COMMAND_FORMAT);
+                double amount = CommandUtils.roundAmount(userDailyBudget, BUDGET_COMMAND_FORMAT);
                 checkUserBudgetEntered(DUMMY_AMOUNT, amount, DUMMY_STRING, DAILY_BUDGET);
                 spendings.setDailyBudget(amount);
             } catch (WiagiInvalidInputException e) {
@@ -164,12 +163,11 @@ public class BudgetCommand extends Command {
     }
 
     private static void initialiseMonthlyBudget(SpendingList spendings) {
-        double amount = UNINITIALISED_BUDGET;
         Ui.initialiseMonthlyBudgetMessage();
-        while (amount == UNINITIALISED_BUDGET) {
+        while (spendings.getMonthlyBudget() == UNINITIALISED_BUDGET) {
             try {
                 String userMonthlyBudget = Ui.readCommand();
-                amount = CommandUtils.roundAmount(userMonthlyBudget, BUDGET_COMMAND_FORMAT);
+                double amount = CommandUtils.roundAmount(userMonthlyBudget, BUDGET_COMMAND_FORMAT);
                 checkUserBudgetEntered(spendings.getDailyBudget(), amount, DAILY_BUDGET, MONTHLY_BUDGET);
                 spendings.setMonthlyBudget(amount);
             } catch (WiagiInvalidInputException e){
@@ -179,12 +177,11 @@ public class BudgetCommand extends Command {
     }
 
     private static void initialiseYearlyBudget(SpendingList spendings) {
-        double amount = UNINITIALISED_BUDGET;
         Ui.initialiseYearlyBudgetMessage();
-        while (amount == UNINITIALISED_BUDGET) {
+        while (spendings.getYearlyBudget() == UNINITIALISED_BUDGET) {
             try {
                 String userYearlyBudget = Ui.readCommand();
-                amount = CommandUtils.roundAmount(userYearlyBudget, BUDGET_COMMAND_FORMAT);
+                double amount = CommandUtils.roundAmount(userYearlyBudget, BUDGET_COMMAND_FORMAT);
                 checkUserBudgetEntered(spendings.getMonthlyBudget(), amount, MONTHLY_BUDGET, YEARLY_BUDGET);
                 spendings.setYearlyBudget(amount);
             } catch (WiagiInvalidInputException e) {
