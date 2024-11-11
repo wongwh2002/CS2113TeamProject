@@ -114,6 +114,7 @@ public class BudgetCommand extends Command {
         String formatedBudget = Ui.formatPrintDouble(budget);
         switch (timeRange) {
         case DAILY:
+            checkUserBudgetEntered(DUMMY_AMOUNT, budget, DAILY_BUDGET, MONTHLY_BUDGET);
             checkUserBudgetEntered(budget, spendings.getMonthlyBudget(), DAILY_BUDGET, MONTHLY_BUDGET);
             spendings.setDailyBudget(budget);
             Ui.printWithTab(DAILY_BUDGET_SUCCESS_MESSAGE + formatedBudget);
@@ -136,7 +137,7 @@ public class BudgetCommand extends Command {
 
     private static void checkUserBudgetEntered(double smallerBudget, double biggerBudget, String smallerBudgetType,
             String biggerBudgetType) {
-        if (smallerBudget <= MINIMUM_AMOUNT_ENTERED || biggerBudget <= MINIMUM_AMOUNT_ENTERED) {
+        if (biggerBudget <= MINIMUM_AMOUNT_ENTERED) {
             throw new WiagiInvalidInputException(INVALID_AMOUNT + ENTER_BUDGET_MESSAGE);
         }
         if (biggerBudget > MAX_LIST_TOTAL_AMOUNT) {
