@@ -341,8 +341,8 @@ public class Ui {
     /**
      * Prints a message asking the user to select a time range
      * @param list   List of spendings/incomes in the application
-     * @return       Boolean value that is true if the user chooses to list all spendings, false otherwise
      * @param <T>    The type of elements in the list, which must extend the EntryType class
+     * @return       Boolean value that is true if the user chooses to list all spendings, false otherwise
      */
     public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> list) {
         while (true) {
@@ -396,8 +396,8 @@ public class Ui {
     /**
      * Prints a message asking the user if they would like to backlog recurring entries
      * @param toAdd Entry to be added
-     * @return      Boolean value indicating if the user wants to backlog recurring entries
      * @param <T>   The type of entry to be added, which must extend the EntryType class
+     * @return      Boolean value indicating if the user wants to backlog recurring entries
      */
     public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
         printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
