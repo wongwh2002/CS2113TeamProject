@@ -60,7 +60,7 @@ public class SpendingListStorageTest {
             spendingsFileWriter.close();
             SpendingListStorage.load();
             assertEquals(TAB + "Corrupted spending entry detected, error with date!" + NEXT_LINE
-                    + TAB + "Detected at line 1 in the spendings file." + NEXT_LINE
+                    + TAB + "Detected at line 2 in the spendings file." + NEXT_LINE
                     + TAB + "Deleting corrupted entry..." + NEXT_LINE, outContent.toString());
         } catch (IOException e) {
             Ui.printWithTab("error occured with load_corruptedEntriesList_entryDiscardedMessage() test");
