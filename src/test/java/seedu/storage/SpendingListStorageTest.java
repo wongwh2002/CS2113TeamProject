@@ -17,8 +17,10 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.SAVE_SPENDING_FILE_ERROR;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TODAY;
+
 
 public class SpendingListStorageTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -204,5 +206,19 @@ public class SpendingListStorageTest {
         } catch (IOException e) {
             Ui.printWithTab("error occured with load_spendingFileEmpty_newBudgetInitialised() test");
         }
+    }
+
+    @Test
+    public void save_ioExceptionDuringSave_saveSpendingFileErrorMessage() {
+        SpendingList spendings = new SpendingList();
+        spendings.add(new Spending(10, "kfc", TODAY, "", RecurrenceFrequency.NONE, null, 1));
+
+        File spendingFile = new File("./spendings.txt");
+        spendingFile.setReadOnly(); // read-only to trigger IOException
+        SpendingListStorage.save(spendings);
+        assertEquals(SAVE_SPENDING_FILE_ERROR, outContent.toString().trim()); //remove TAB and newline
+
+        spendingFile.setWritable(true); //reset file permission
+        spendings.clear();
     }
 }

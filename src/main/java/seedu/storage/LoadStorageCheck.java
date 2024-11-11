@@ -87,11 +87,11 @@ public class LoadStorageCheck {
 
     //@@author wongwh2002
     private String getDescription(String description) {
-        if (description == null || description.isEmpty()) {
+        if (description.isEmpty()) {
             logger.log(Level.WARNING, storageErrorMessage + "description!");
             throw new WiagiStorageCorruptedException(storageErrorMessage + "description!");
         }
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert !description.isEmpty() : "Description should not be null or empty";
         return description;
     }
 
@@ -109,11 +109,7 @@ public class LoadStorageCheck {
 
     //@@author wongwh2002
     private String getTag(String tag) {
-        if (tag == null) {
-            logger.log(Level.WARNING, storageErrorMessage + "tag!");
-            throw new WiagiStorageCorruptedException(storageErrorMessage + "tag!");
-        }
-        assert tag != null : "Tag should not be null";
+        assert tag != null : "Tag should not be null"; //tag will never be null from file
         return tag;
     }
 
