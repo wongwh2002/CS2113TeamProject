@@ -8,18 +8,18 @@ import seedu.type.Spending;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 
 public class LoadStorageCheckTest {
 
     @Test
     public void parseEntry_validIncomeInput_success() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("income");
-        String newEntry = "10.0|savings|" + VALID_TEST_DATE + "||NONE|null|1";
+        String newEntry = "10.0|savings|" + TODAY + "||NONE|null|1";
         Income income = (Income) storageUtils.parseEntry(newEntry);
         assertEquals(10.0, income.getAmount());
         assertEquals("savings", income.getDescription());
-        assertEquals(VALID_TEST_DATE, income.getDate());
+        assertEquals(TODAY, income.getDate());
         assertEquals("", income.getTag());
         assertEquals(RecurrenceFrequency.NONE, income.getRecurrenceFrequency());
         assertNull(income.getLastRecurrence());
@@ -29,11 +29,11 @@ public class LoadStorageCheckTest {
     @Test
     public void parseEntry_validSpendingInput_success() {
         LoadStorageCheck storageUtils = new LoadStorageCheck("spending");
-        String newEntry = "10.0|kfc|" + VALID_TEST_DATE + "||NONE|null|1";
+        String newEntry = "10.0|kfc|" + TODAY + "||NONE|null|1";
         Spending spending = (Spending) storageUtils.parseEntry(newEntry);
         assertEquals(10.0, spending.getAmount());
         assertEquals("kfc", spending.getDescription());
-        assertEquals(VALID_TEST_DATE, spending.getDate());
+        assertEquals(TODAY, spending.getDate());
         assertEquals("", spending.getTag());
         assertEquals(RecurrenceFrequency.NONE, spending.getRecurrenceFrequency());
         assertNull(spending.getLastRecurrence());

@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import static seedu.classes.Constants.TODAY;
+
 /**
  * Represents a list of spendings with budget settings.
  */
@@ -28,10 +30,10 @@ public class SpendingList extends ArrayList<Spending> {
      */
     public SpendingList() {
         super();
-        dailyBudget = 0;
-        monthlyBudget = 0;
-        yearlyBudget = 0;
-        total = 0;
+        dailyBudget = 0.0;
+        monthlyBudget = 0.0;
+        yearlyBudget = 0.0;
+        total = 0.0;
     }
 
     public double getTotal() {
@@ -72,7 +74,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the current month.
      */
     public double getMonthlySpending() {
-        return getMonthlySpending(LocalDate.now());
+        return getMonthlySpending(TODAY);
     }
 
     /**
@@ -98,7 +100,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the current day.
      */
     public double getDailySpending() {
-        return getDailySpending(LocalDate.now());
+        return getDailySpending(TODAY);
     }
 
     /**
@@ -128,7 +130,7 @@ public class SpendingList extends ArrayList<Spending> {
      * @return The total spending for the current year.
      */
     public double getYearlySpending() {
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = TODAY;
         LOGGER.log(Level.INFO, "Calculating yearly spending for current year: {0}", 
             currentDate.getYear());
         return getYearlySpending(currentDate);

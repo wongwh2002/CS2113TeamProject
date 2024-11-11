@@ -10,7 +10,7 @@ import seedu.type.SpendingList;
 public class ListTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "tags";
-    private static final int LIST_CATEGORY_INDEX = 1;
+    private static final int LIST_FIELD_INDEX = 1;
     private static final int LIST_TAG_NAME_INDEX = 2;
     private static final int LIST_SPECIFIC_TAG_LENGTH = 3;
     private final String[] arguments;
@@ -27,7 +27,7 @@ public class ListTagsCommand extends Command {
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert arguments[LIST_CATEGORY_INDEX].equals(COMMAND_WORD) : "command should be to list tags";
+        assert arguments[LIST_FIELD_INDEX].equals(COMMAND_WORD) : "command should be to list tags";
         try {
             handleCommand(incomes, spendings);
         } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {

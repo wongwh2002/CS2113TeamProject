@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CommandTest {
+
     @Test
     public void isExit_correctCommand_success() {
         Command c = Parser.parseUserInput("bye");

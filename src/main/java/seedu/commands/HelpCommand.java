@@ -4,6 +4,7 @@ import seedu.classes.Ui;
 import seedu.type.IncomeList;
 import seedu.type.SpendingList;
 
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 
 /**
@@ -36,76 +37,77 @@ public class HelpCommand extends Command {
     }
 
     private void appendCommandDescription(StringBuilder helpText) {
-        helpText.append(System.lineSeparator()).append("Notes about the command format:").append(System.lineSeparator())
+        helpText.append(NEXT_LINE).append("Notes about the command format:").append(NEXT_LINE)
                 .append("Words in {$UPPER_CASE} are the parameters to be supplied by the user.")
-                .append(System.lineSeparator())
+                .append(NEXT_LINE)
                 .append("e.g., in add spending {$AMOUNT} {$DESCRIPTION}, {$AMOUNT} and {$DESCRIPTION}")
-                .append(System.lineSeparator()).append("are parameters which can be used as add spending 4 dinner.")
-                .append(System.lineSeparator())
-                .append("Items in square brackets are optional.").append(System.lineSeparator())
+                .append(NEXT_LINE).append("are parameters which can be used as add spending 4 dinner.")
+                .append(NEXT_LINE)
+                .append("Items in square brackets are optional.").append(NEXT_LINE)
                 .append("e.g. add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] can be used as")
-                .append(System.lineSeparator()).append("add spending 4 lunch or add spending 4 lunch /2024-10-20/.")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(NEXT_LINE).append("add spending 4 lunch or add spending 4 lunch /2024-10-20/.")
+                .append(NEXT_LINE).append(NEXT_LINE);
     }
 
     private void appendAddCommandHelp(StringBuilder helpText) {
-        helpText.append("Adding Entries:").append(System.lineSeparator())
+        helpText.append("Adding Entries:").append(NEXT_LINE)
                 .append(TAB + "add income {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
-                .append(System.lineSeparator())
+                .append(NEXT_LINE)
                 .append(TAB + "add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/] [*$TAG*] [~$FREQUENCY~]")
-                .append(System.lineSeparator())
+                .append(NEXT_LINE)
                 .append(TAB + "e.g., add income 5000 Salary /2024-03-15/ *work* ~monthly~")
-                .append(System.lineSeparator())
-                .append(TAB + "e.g., add spending 50 Lunch /2024-03-15/ *food*").append(System.lineSeparator())
-                .append(System.lineSeparator());
+                .append(NEXT_LINE)
+                .append(TAB + "e.g., add spending 50 Lunch /2024-03-15/ *food*").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendListCommandHelp(StringBuilder helpText) {
-        helpText.append("Listing Entries:").append(System.lineSeparator())
-                .append(TAB + "list - shows all entries").append(System.lineSeparator())
-                .append(TAB + "list incomes - shows all income entries").append(System.lineSeparator())
-                .append(TAB + "list spendings - shows all spending entries").append(System.lineSeparator())
-                .append(TAB + "list tags {$TAG} - shows entries with specific tag").append(System.lineSeparator())
-                .append(System.lineSeparator());
+        helpText.append("Listing Entries:").append(NEXT_LINE)
+                .append(TAB + "list - shows all entries").append(NEXT_LINE)
+                .append(TAB + "list incomes - shows all income entries").append(NEXT_LINE)
+                .append(TAB + "list spendings - shows all spending entries").append(NEXT_LINE)
+                .append(TAB + "list tags {$TAG} - shows entries with specific tag").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendEditCommandHelp(StringBuilder helpText) {
-        helpText.append("Editing Entries:").append(System.lineSeparator())
-                .append(TAB + "edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}").append(System.lineSeparator())
-                .append(TAB + "e.g., edit spending 1 amount 100").append(System.lineSeparator())
-                .append(TAB + "e.g., edit income 2 description Bonus").append(System.lineSeparator())
-                .append(System.lineSeparator());
+        helpText.append("Editing Entries:").append(NEXT_LINE)
+                .append(TAB + "edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}").append(NEXT_LINE)
+                .append(TAB + "-note that {$FIELD} only works for amount, description, date and tags").append(NEXT_LINE)
+                .append(TAB + "e.g., edit spending 1 amount 100").append(NEXT_LINE)
+                .append(TAB + "e.g., edit income 2 description Bonus").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendDeleteCommandHelp(StringBuilder helpText) {
-        helpText.append("Deleting Entries:").append(System.lineSeparator())
-                .append(TAB + "delete {$CATEGORY} {$INDEX}").append(System.lineSeparator())
-                .append(TAB + "e.g., delete spending 1").append(System.lineSeparator())
-                .append(System.lineSeparator());
+        helpText.append("Deleting Entries:").append(NEXT_LINE)
+                .append(TAB + "delete {$CATEGORY} {$INDEX}").append(NEXT_LINE)
+                .append(TAB + "e.g., delete spending 1").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendBudgetCommandHelp(StringBuilder helpText) {
-        helpText.append("Setting Budget:").append(System.lineSeparator())
-                .append(TAB + "budget {$PERIOD} {$AMOUNT}").append(System.lineSeparator())
-                .append(TAB + "e.g., budget daily 50").append(System.lineSeparator())
-                .append(TAB + "e.g., budget monthly 1500").append(System.lineSeparator())
-                .append(System.lineSeparator());
+        helpText.append("Setting Budget:").append(NEXT_LINE)
+                .append(TAB + "budget {$PERIOD} {$AMOUNT}").append(NEXT_LINE)
+                .append(TAB + "e.g., budget daily 50").append(NEXT_LINE)
+                .append(TAB + "e.g., budget monthly 1500").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendFindCommandHelp(StringBuilder helpText) {
-        helpText.append("Finding entries:").append(System.lineSeparator())
+        helpText.append("Finding entries:").append(NEXT_LINE)
                 .append(TAB + "find {$CATEGORY} {$FIELD} {$FIND_VALUE} [to $ANOTHER_FIND_VALUE]")
-                .append(System.lineSeparator())
+                .append(NEXT_LINE)
                 .append(TAB + "-note that [to $ANOTHER_FIND_VALUE] only works for amount and date field")
-                .append(System.lineSeparator())
-                .append(TAB + "e.g., find income amount 10").append(System.lineSeparator())
-                .append(TAB + "e.g., find spending date 2024-01-01 to 2024-12-31").append(System.lineSeparator())
-                .append(System.lineSeparator());
+                .append(NEXT_LINE)
+                .append(TAB + "e.g., find income amount 10").append(NEXT_LINE)
+                .append(TAB + "e.g., find spending date 2024-01-01 to 2024-12-31").append(NEXT_LINE)
+                .append(NEXT_LINE);
     }
 
     private void appendOtherCommandsHelp(StringBuilder helpText) {
-        helpText.append("Other Commands:").append(System.lineSeparator())
-                .append(TAB + "help - shows this help message").append(System.lineSeparator())
-                .append(TAB + "bye - exits the application").append(System.lineSeparator());
+        helpText.append("Other Commands:").append(NEXT_LINE)
+                .append(TAB + "help - shows this help message").append(NEXT_LINE)
+                .append(TAB + "bye - exits the application").append(NEXT_LINE);
     }
 }

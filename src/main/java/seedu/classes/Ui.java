@@ -19,16 +19,22 @@ import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.DAILY_BUDGET_QUESTION;
 import static seedu.classes.Constants.EMPTY_STRING;
+import static seedu.classes.Constants.MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
+import static seedu.classes.Constants.INVALID_LIST_OPTION;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.NO_ENTRIES_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.INCOMES_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.NO_MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.SPENDINGS_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.NO_TAGS_FOUND;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.SPACE_REGEX;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Constants.WEEKLY_OPTION;
 import static seedu.classes.Constants.YEARLY_BUDGET_MESSAGE;
 
@@ -185,7 +191,7 @@ public class Ui {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
         if (tags.isEmpty()) {
-            throw new WiagiInvalidInputException("No tags found. Please input more tags!");
+            throw new WiagiInvalidInputException(NO_TAGS_FOUND);
         }
         assert tags != null : "Tags list is null";
         printWithTab("Tags");
@@ -255,15 +261,15 @@ public class Ui {
     //@@author wongwh2002
     private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
             StringBuilder sb, String listName) {
-        sb.append(listName).append(System.lineSeparator());
+        sb.append(listName).append(NEXT_LINE);
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
             EntryType listIndex = arrList.get(i);
-            if (listIndex.getTag().equals(tag)) {
+            if (listIndex.getTag().equalsIgnoreCase(tag)) {
                 tagsCount++;
                 int oneIndexedI = i + 1;
                 sb.append(TAB).append(oneIndexedI).append(". ")
-                        .append(listIndex).append(System.lineSeparator());
+                        .append(listIndex).append(NEXT_LINE);
             }
         }
         return tagsCount;
@@ -292,7 +298,7 @@ public class Ui {
      */
     public static <T extends EntryType> void printWeekly(ArrayList<T> list) {
         StringBuilder filteredListString = new StringBuilder();
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
         printTimeRangeDates(list, monday, sunday);
@@ -302,7 +308,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monday, sunday)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -318,7 +324,7 @@ public class Ui {
      * @param <T>    The type of elements in the list, which must extend the EntryType class
      */
     public static <T extends EntryType> void printMonthly(ArrayList<T> list) {
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
         printTimeRangeDates(list, monthStart, monthEnd);
@@ -329,7 +335,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -345,7 +351,7 @@ public class Ui {
      * @param <T>    The type of elements in the list, which must extend the EntryType class
      */
     public static <T extends EntryType> void printBiweekly(ArrayList<T> list) {
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = TODAY;
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
         printTimeRangeDates(list, start, end);
@@ -356,7 +362,7 @@ public class Ui {
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), start, end)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
-                        .append(entry).append(System.lineSeparator());
+                        .append(entry).append(NEXT_LINE);
                 sum += entry.getAmount();
             }
         }
@@ -394,7 +400,7 @@ public class Ui {
                 printMonthly(list);
                 return false;
             default:
-                printWithTab("Invalid input");
+                printWithTab(INVALID_LIST_OPTION);
             }
         }
     }
@@ -430,7 +436,7 @@ public class Ui {
      */
     public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
         printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
-                + LocalDate.now() + " if any? [Y/N]");
+                + TODAY + " if any? [Y/N]");
         while (true) {
             String userInput = readCommand().toLowerCase();
             switch (userInput) {
@@ -472,9 +478,9 @@ public class Ui {
      */
     public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
-            printWithTab("No entries found match the criteria.");
+            printWithTab(NO_MATCH_FOUND_MESSAGE);
         } else {
-            printWithTab("Here are the matching results:");
+            printWithTab(MATCH_FOUND_MESSAGE);
             findResults.forEach(entry -> printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
         }
     }
