@@ -44,11 +44,11 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 ## Features
 > **Notes about the command format:**  
 > 
-> - Words in `{$UPPER_CASE}` are the parameters to be supplied by the user. <br>
+> - Words in `{$UPPER_CASE}` are the **<ins>compulsory</ins>** parameters. <br>
 > e.g., in `add spending {$AMOUNT} {$DESCRIPTION}`, `{$AMOUNT}` and `{$DESCRIPTION}` are parameters which 
 > can be used as `add spending 4 dinner`.
 >  
-> - Items in square brackets are optional. <br>
+> - Words in `[$UPPER_CASE]` are the optional parameters. <br>
 > e.g. `add spending {$AMOUNT} {$DESCRIPTION} [/$DATE/]` can be used as 
 > `add spending 4 lunch` or `add spending 4 lunch /2024-10-20/`.
 
@@ -56,10 +56,11 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 #### Creation of new user:
 First time users will be prompted to create a new password. Users are to type in their preferred password.
 Subsequent logins will not require this step. <br>
+The password will be whitespace- and case-sensitive.<br>
 
 > <span style="color:#f5220d">TO NOTE</span> <br>
 > The program does not provide a forget password feature to recover password as of the current iteration. Please take note of the
-> password you entered. Failure to recall password requires a hard reset of the program via deleting the password data file
+> password you entered. Failure to recall password requires a hard reset of the program by exiting the program and deleting the password data file.
 
 Expected display for first time users:
 ```
@@ -67,9 +68,11 @@ Expected display for first time users:
 	Hi! You seem to be new, are you ready?!
 	Please enter your new account password:
 ```
-To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
-users should enter valid amounts (e.g. An integer or number with decimals) for each budget type <br>
-Amount entered must be greater than 0 when rounded to 2dp. (eg. 0.005 rounded to 0.01 is valid but 0.004 is not)<br>
+To help users manage their finances well, users are also prompted to enter their daily, monthly and yearly budgets.
+Users should enter valid amounts for each budget type <br>
+- An integer or number with decimals 
+- Greater than 0 but smaller than 100 million when rounded to 2dp. 
+  - E.g. 0.005 is rounded to 0.01 is valid but 0.004 is not.<br>
 
 Example valid inputs: <br>
 - `50` <br>
@@ -81,6 +84,9 @@ Example invalid inputs: <br>
 - `$50` <br>
 - `1,500` <br>
 - `18 000` <br>
+- `one thousand` <br>
+- `-10` <br>
+- `100000000.05` <br>
 <br>
 
 Expected display:
@@ -111,7 +117,25 @@ Expected output after successfully creating new user: <br>
     ____________________________________________________________
     Please Enter Login Credentials:
 ```
-*Note that this is also the startup page for returning existing users
+*Note that this is also the startup page for returning existing users.<br> 
+
+#### Existing user:
+Upon entering the correct password, user will be able to access their financials. <br>
+Expected output for correct password:
+```
+    ____________________________________________________________
+    Login Success!
+    ____________________________________________________________
+```
+
+Users will be repeatedly prompted for their password if they enter the wrong password <br>
+Expected output for wrong password:
+```
+    ____________________________________________________________
+    Incorrect password! Login Failed :<
+    ____________________________________________________________
+    Please Enter Login Credentials:
+```
 
 ### Adding an entry
 #### Adding a spending:

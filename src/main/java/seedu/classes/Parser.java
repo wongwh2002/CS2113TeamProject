@@ -23,11 +23,12 @@ import seedu.type.EntryType;
 import seedu.recurrence.YearlyRecurrence;
 
 import static seedu.classes.Constants.INVALID_CATEGORY;
+import static seedu.classes.Constants.LIST_MAX_ARGUMENTS_LENGTH;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 
 public class Parser {
-    private static final int LIST_CATEGORY_INDEX = 1;
+    private static final int LIST_FIELD_INDEX = 1;
     private static final int LIST_ALL_COMMAND_LENGTH = 1;
     private static final int COMMAND_WORD_ARGUMENT = 0;
 
@@ -57,14 +58,14 @@ public class Parser {
     }
 
     private static Command parseListCommand(String fullCommand) {
-        String[] arguments = fullCommand.split(WHITESPACE);
+        String[] arguments = fullCommand.split(WHITESPACE, LIST_MAX_ARGUMENTS_LENGTH);
         int commandSize = arguments.length;
         assert commandSize != 0 : "command should have at least 1 word";
         if (commandSize == LIST_ALL_COMMAND_LENGTH) {
             return new ListAllCommand(arguments);
         }
-        String category = arguments[LIST_CATEGORY_INDEX];
-        switch (category) {
+        String field = arguments[LIST_FIELD_INDEX];
+        switch (field) {
         case ListTagsCommand.COMMAND_WORD:
             return new ListTagsCommand(arguments);
         case ListSpendingsCommand.COMMAND_WORD:

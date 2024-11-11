@@ -14,8 +14,9 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE;
+import static seedu.classes.Constants.OVER_MAX_LIST_AMOUNT_FOR_RECURRENCE;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
+import static seedu.classes.Constants.TODAY;
 
 /**
  * Abstract class for {@code DailyRecurrence}, {@code MonthlyRecurrence} and {@code YearlyRecurrence}. Used to manage
@@ -57,17 +58,17 @@ public abstract class Recurrence {
     private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
         double totalAmountAfterRecur = (numOfRecur * addAmount) + currListTotal;
         if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE);
+            throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_RECURRENCE);
         }
     }
 
     private static <T extends EntryType> long getNumberOfRecurringEntries(Recurrence recurrence, T toAdd) {
         if (recurrence instanceof DailyRecurrence) {
-            return ChronoUnit.DAYS.between(toAdd.getDate(), LocalDate.now());
+            return ChronoUnit.DAYS.between(toAdd.getDate(), TODAY);
         } else if (recurrence instanceof MonthlyRecurrence) {
-            return ChronoUnit.MONTHS.between(toAdd.getDate(), LocalDate.now());
+            return ChronoUnit.MONTHS.between(toAdd.getDate(), TODAY);
         } else {
-            return ChronoUnit.YEARS.between(toAdd.getDate(), LocalDate.now());
+            return ChronoUnit.YEARS.between(toAdd.getDate(), TODAY);
         }
     }
 
@@ -98,7 +99,7 @@ public abstract class Recurrence {
         int lastDayOfNewEntryMonth = getLastDayOfMonth(checkDate);
         int actualDayToRecur = Math.min(dayOfSupposedRecurrence, lastDayOfNewEntryMonth);
         newEntry.editDateWithLocalDate(checkDate.withDayOfMonth(actualDayToRecur));
-        if (!newEntry.getDate().isAfter(LocalDate.now()) && isAdding) {
+        if (!newEntry.getDate().isAfter(TODAY) && isAdding) {
             list.add(newEntry);
         }
     }
@@ -126,6 +127,6 @@ public abstract class Recurrence {
     public abstract void checkSpendingRecurrence(Spending recurringSpending, SpendingList spendings, boolean isAdding);
 
     private static <T extends EntryType> boolean isAbleToBacklog(T toAdd) {
-        return toAdd.getRecurrenceFrequency() != RecurrenceFrequency.NONE && toAdd.getDate().isBefore(LocalDate.now());
+        return toAdd.getRecurrenceFrequency() != RecurrenceFrequency.NONE && toAdd.getDate().isBefore(TODAY);
     }
 }

@@ -35,6 +35,6 @@ public class HelpCommandTest {
     @Test
     public void execute_helpCommandExecuted_messagePrinted() {
         commandInputForTest("help", incomes, spendings);
-        assertEquals(45 ,outContent.toString().lines().count());
+        assertEquals(46 ,outContent.toString().lines().count());
     }
 }

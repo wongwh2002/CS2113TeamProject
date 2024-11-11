@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.SAVE_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.LOAD_INCOME_FILE_ERROR;
 import static seedu.classes.Constants.STORAGE_SEPARATOR;
@@ -49,7 +50,7 @@ public class IncomeListStorage {
                     STORAGE_SEPARATOR + income.getDate() + STORAGE_SEPARATOR + income.getTag() + STORAGE_SEPARATOR +
                     income.getRecurrenceFrequency() + STORAGE_SEPARATOR + income.getLastRecurrence() +
                     STORAGE_SEPARATOR + income.getDayOfRecurrence();
-            fw.write(incomeEntry + System.lineSeparator());
+            fw.write(incomeEntry + NEXT_LINE);
         }
         fw.close();
     }

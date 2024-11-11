@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 import static seedu.classes.Constants.RESTRICT_CHARACTER;
 import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
-import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS;
+import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS_IN_EDIT;
 import static seedu.classes.Constants.INVALID_FREQUENCY;
 import static seedu.classes.Constants.INVALID_TAG_CHARACTERS;
 import static seedu.classes.Constants.LIST_SEPARATOR;
@@ -22,8 +22,9 @@ import static seedu.classes.Constants.DAILY_RECURRENCE;
 import static seedu.classes.Constants.MONTHLY_RECURRENCE;
 import static seedu.classes.Constants.RECURRENCE_NOT_ENCLOSED;
 import static seedu.classes.Constants.TAG_NOT_ENCLOSED;
+import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Constants.YEARLY_RECURRENCE;
-import static seedu.classes.Constants.INCORRECT_DATE_FORMAT;
+import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 
 
@@ -98,14 +99,14 @@ public class EntryType {
         String[] commandAndDate = optionalArguments.split(DATE_IDENTIFIER);
         switch (commandAndDate.length) {
         case 1:
-            return LocalDate.now();
+            return TODAY;
         case 2:
             throw new WiagiInvalidInputException(DATE_NOT_ENCLOSED + ADD_COMMAND_FORMAT);
         default:
             try {
                 return LocalDate.parse(commandAndDate[1].trim());
             } catch (DateTimeParseException e) {
-                throw new WiagiInvalidInputException(INCORRECT_DATE_FORMAT + ADD_COMMAND_FORMAT);
+                throw new WiagiInvalidInputException(INVALID_DATE_FORMAT + ADD_COMMAND_FORMAT);
             }
         }
     }
@@ -135,13 +136,6 @@ public class EntryType {
         }
     }
 
-    private LocalDate checkRecurrence(RecurrenceFrequency frequency) {
-        if (frequency == RecurrenceFrequency.NONE) {
-            return null;
-        }
-        return this.date;
-    }
-
     @Override
     public String toString() {
         String amountString = (amount % 1 == 0) ? String.valueOf((int) amount) : String.format("%.02f", amount);
@@ -161,7 +155,7 @@ public class EntryType {
 
     public void editDescription(String newDescription){
         if (newDescription.matches(RESTRICT_CHARACTER)) {
-            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS);
+            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS_IN_EDIT);
         }
         this.description = newDescription;
     }

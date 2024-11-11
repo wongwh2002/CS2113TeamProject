@@ -22,6 +22,10 @@ import static seedu.classes.Constants.INVALID_AMOUNT_RANGE;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_DATE_RANGE;
 import static seedu.classes.Constants.INVALID_FIELD;
+import static seedu.classes.Constants.INVALID_FIND_RANGE_DIVIDER_FORMAT;
+import static seedu.classes.Constants.FIND_EXTRA_FROM_VALUE;
+import static seedu.classes.Constants.FIND_EXTRA_SPECIFIC_VALUE;
+import static seedu.classes.Constants.FIND_EXTRA_TO_VALUE;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.SPENDING;
 
@@ -32,6 +36,9 @@ public class FindCommand extends Command {
     private static final int FIELD_INDEX = 2;
     private static final int VALUE_TO_FIND_INDEX = 3;
     private static final int FIND_ARGUMENTS_LENGTH = 4;
+    private static final int LENGTH_OF_FIND_RANGE_DIVIDER = 2;
+    private static final int FROM_VALUE = 0;
+    private static final int TO_VALUE = 1;
     private static final String AMOUNT_FIELD = "amount";
     private static final String DESCRIPTION_FIELD = "description";
     private static final String DATE_FIELD = "date";
@@ -111,19 +118,23 @@ public class FindCommand extends Command {
         double lower;
         double upper;
         if (findValue.contains(FIND_RANGE_DIVIDER)) { // range
-            String[] range = findValue.split(FIND_RANGE_DIVIDER);
-            lower = CommandUtils.formatAmount(range[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatAmount(range[1], FIND_COMMAND_FORMAT);
+            String[] rangeValues = extractRangeValues(findValue);
+            lower = CommandUtils.formatAmount(rangeValues[FROM_VALUE], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatAmount(rangeValues[TO_VALUE], FIND_COMMAND_FORMAT);
             if (upper < lower) {
                 throw new WiagiInvalidInputException(INVALID_AMOUNT_RANGE);
             }
         } else { // exact
+            if (findValue.contains(WHITESPACE)) {
+                throw new WiagiInvalidInputException(FIND_EXTRA_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+            }
             lower = upper = CommandUtils.formatAmount(findValue, FIND_COMMAND_FORMAT);
         }
         return list.stream()
                 .filter(entry -> entry.getAmount() >= lower && entry.getAmount() <= upper)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     private <T extends EntryType> ArrayList<T> getMatchingDescription(String findValue, ArrayList<T> list) {
         return list.stream()
@@ -135,18 +146,37 @@ public class FindCommand extends Command {
         LocalDate lower;
         LocalDate upper;
         if (findValue.contains(FIND_RANGE_DIVIDER)) {
-            String[] range = findValue.split(FIND_RANGE_DIVIDER);
-            lower = CommandUtils.formatDate(range[0], FIND_COMMAND_FORMAT);
-            upper = CommandUtils.formatDate(range[1], FIND_COMMAND_FORMAT);
+            String[] rangeValues = extractRangeValues(findValue);
+            lower = CommandUtils.formatDate(rangeValues[FROM_VALUE], FIND_COMMAND_FORMAT);
+            upper = CommandUtils.formatDate(rangeValues[TO_VALUE], FIND_COMMAND_FORMAT);
             if (lower.isAfter(upper)) {
                 throw new WiagiInvalidInputException(INVALID_DATE_RANGE);
             }
         } else {
+            if (findValue.contains(WHITESPACE)) {
+                throw new WiagiInvalidInputException(FIND_EXTRA_SPECIFIC_VALUE + FIND_COMMAND_FORMAT);
+            }
             lower = upper = CommandUtils.formatDate(findValue, FIND_COMMAND_FORMAT);
         }
         return list.stream()
                 .filter(entry -> entry.getDate().isAfter(lower.minusDays(1))
                         && entry.getDate().isBefore(upper.plusDays(1)))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private static String[] extractRangeValues(String findValue) {
+        if (!findValue.contains(WHITESPACE + FIND_RANGE_DIVIDER + WHITESPACE)) {
+            throw new WiagiInvalidInputException(INVALID_FIND_RANGE_DIVIDER_FORMAT + FIND_COMMAND_FORMAT);
+        }
+        int indexOfFindRangeDivider = findValue.indexOf(FIND_RANGE_DIVIDER);
+        String lowerString = findValue.substring(0, indexOfFindRangeDivider).trim();
+        String upperString = findValue.substring(indexOfFindRangeDivider + LENGTH_OF_FIND_RANGE_DIVIDER).trim();
+        if (lowerString.contains(WHITESPACE)) {
+            throw new WiagiInvalidInputException(FIND_EXTRA_FROM_VALUE + FIND_COMMAND_FORMAT);
+        }
+        if (upperString.contains(WHITESPACE)) {
+            throw new WiagiInvalidInputException(FIND_EXTRA_TO_VALUE + FIND_COMMAND_FORMAT);
+        }
+        return new String[]{lowerString, upperString};
     }
 }

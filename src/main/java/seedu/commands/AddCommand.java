@@ -1,6 +1,7 @@
 package seedu.commands;
 import seedu.classes.Ui;
 import seedu.exception.WiagiInvalidInputException;
+import seedu.exception.WiagiMissingParamsException;
 import seedu.recurrence.Recurrence;
 import seedu.type.Income;
 import seedu.type.IncomeList;
@@ -13,12 +14,14 @@ import java.util.regex.Pattern;
 import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.EMPTY_STRING;
 import static seedu.classes.Constants.INVALID_CATEGORY;
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD;
+import static seedu.classes.Constants.INVALID_DESCRIPTION_CHARACTERS_IN_ADD;
+import static seedu.classes.Constants.OVER_MAX_LIST_AMOUNT_FOR_ADD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT;
 import static seedu.classes.Constants.MISSING_AMOUNT_AND_DESCRIPTION;
 import static seedu.classes.Constants.MISSING_AMOUNT_DESCRIPTION_CATEGORY;
 import static seedu.classes.Constants.MISSING_DESCRIPTION;
+import static seedu.classes.Constants.RESTRICT_CHARACTER;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
 import static seedu.classes.Constants.SPENDING;
@@ -49,13 +52,13 @@ public class AddCommand extends Command {
         assert fullCommand.startsWith("add");
         try {
             handleCommand(incomes, spendings);
-        } catch (WiagiInvalidInputException e) {
+        } catch (WiagiInvalidInputException | WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
     private void handleCommand(IncomeList incomes, SpendingList spendings)
-            throws WiagiInvalidInputException {
+            throws WiagiInvalidInputException, WiagiMissingParamsException {
 
         // Split full command into compulsory and optional strings
         String compulsoryString = splitCommand(fullCommand)[0];
@@ -67,7 +70,7 @@ public class AddCommand extends Command {
 
         // Check that command length greater than 1
         if (compulsoryArguments.length <= 1) {
-            throw new WiagiInvalidInputException(MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT_DESCRIPTION_CATEGORY + ADD_COMMAND_FORMAT);
         }
         // Check that category is correct
         String typeOfList = compulsoryArguments[LIST_TYPE_INDEX];
@@ -78,13 +81,13 @@ public class AddCommand extends Command {
         // Check that amount, description are present
         if (compulsoryArguments.length == AMOUNT_INDEX) {
             // Command is "add {$CATEGORY}"
-            throw new WiagiInvalidInputException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT_AND_DESCRIPTION + ADD_COMMAND_FORMAT);
         } else if (compulsoryArguments.length == DESCRIPTION_INDEX) {
             // Either amount or description is missing
             if (isDouble(compulsoryArguments[AMOUNT_INDEX])) {
-                throw new WiagiInvalidInputException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(MISSING_DESCRIPTION + ADD_COMMAND_FORMAT);
             } else {
-                throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
+                throw new WiagiMissingParamsException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
             }
         }
 
@@ -95,10 +98,13 @@ public class AddCommand extends Command {
             // Wrong format
             throw new WiagiInvalidInputException(ADD_COMMAND_FORMAT);
         } else {
-            throw new WiagiInvalidInputException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
+            throw new WiagiMissingParamsException(MISSING_AMOUNT + ADD_COMMAND_FORMAT);
         }
 
         String description = compulsoryArguments[DESCRIPTION_INDEX];
+        if (description.matches(RESTRICT_CHARACTER)) {
+            throw new WiagiInvalidInputException(INVALID_DESCRIPTION_CHARACTERS_IN_ADD);
+        }
 
         if (typeOfList.equals(SPENDING)) {
             addSpending(spendings, amount, description, optionalString);
@@ -139,7 +145,7 @@ public class AddCommand extends Command {
     private void addSpending(SpendingList spendings, double amount, String description, String optionalArguments) {
         try {
             if (amount + spendings.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
-                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
+                throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_ADD);
             }
             Spending toAdd = new Spending(optionalArguments, amount, description);
             spendings.add(toAdd);
@@ -154,7 +160,7 @@ public class AddCommand extends Command {
     private void addIncome(IncomeList incomes, double amount, String description, String optionalArguments) {
         try {
             if (amount + incomes.getTotal() > MAX_LIST_TOTAL_AMOUNT) {
-                throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_ADD);
+                throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_ADD);
             }
             Income toAdd = new Income(optionalArguments, amount, description);
             incomes.add(toAdd);

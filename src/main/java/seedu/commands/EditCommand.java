@@ -19,7 +19,7 @@ import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT;
+import static seedu.classes.Constants.OVER_MAX_LIST_AMOUNT_FOR_EDIT;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
@@ -31,13 +31,13 @@ public class EditCommand extends Command {
     private static final Logger LOGGER = WiagiLogger.logger;
     private static final int TYPE_INDEX = 1;
     private static final int INDEX_OF_ENTRY_INDEX = 2;
-    private static final int CATEGORY_INDEX = 3;
+    private static final int FIELD_INDEX = 3;
     private static final int NEW_VALUE_INDEX = 4;
     private static final int EDIT_COMPULSORY_ARGUMENTS_LENGTH = 5;
-    private static final String AMOUNT_CATEGORY = "amount";
-    private static final String DESCRIPTION_CATEGORY = "description";
-    private static final String DATE_CATEGORY = "date";
-    private static final String TAG_CATEGORY = "tag";
+    private static final String AMOUNT_FIELD = "amount";
+    private static final String DESCRIPTION_FIELD = "description";
+    private static final String DATE_FIELD = "date";
+    private static final String TAG_FIELD = "tag";
 
     private final String fullCommand;
 
@@ -107,19 +107,19 @@ public class EditCommand extends Command {
         String index = arguments[INDEX_OF_ENTRY_INDEX];
         EntryType entryToEdit = extractEntry(list, index);
         String newValue = arguments[NEW_VALUE_INDEX];
-        String category = arguments[CATEGORY_INDEX];
-        switch (category) {
-        case AMOUNT_CATEGORY:
+        String field = arguments[FIELD_INDEX];
+        switch (field) {
+        case AMOUNT_FIELD:
             throwExceptionIfTotalExceeded(newValue, entryToEdit.getAmount(), list);
             entryToEdit.editAmount(newValue);
             break;
-        case DESCRIPTION_CATEGORY:
+        case DESCRIPTION_FIELD:
             entryToEdit.editDescription(newValue);
             break;
-        case DATE_CATEGORY:
+        case DATE_FIELD:
             entryToEdit.editDate(newValue);
             break;
-        case TAG_CATEGORY:
+        case TAG_FIELD:
             entryToEdit.editTag(newValue);
             break;
         default:
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
 
         double totalAmountAfterRecur = currTotal + newAmount - oldAmount;
         if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT);
+            throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_EDIT);
         }
 
         if (list instanceof IncomeList) {

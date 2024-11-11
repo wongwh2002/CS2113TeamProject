@@ -16,8 +16,9 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
-import static seedu.classes.Constants.VALID_TEST_DATE;
+import static seedu.classes.Constants.TODAY;
 
 public class SpendingListStorageTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -30,7 +31,7 @@ public class SpendingListStorageTest {
     private void initialisePasswordFile() throws IOException {
         FileWriter passwordFileWriter = new FileWriter("./password.txt");
         passwordFile.createNewFile();
-        passwordFileWriter.write("1");
+        passwordFileWriter.write("0");
         passwordFileWriter.close();
     }
 
@@ -53,12 +54,12 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("1.0|1.0|1.0" + System.lineSeparator() + "1.0|macs|wrong||NONE|null|1");
+            spendingsFileWriter.write("1.0|1.0|1.0" + NEXT_LINE + "1.0|macs|wrong||NONE|null|1");
             spendingsFileWriter.close();
             SpendingListStorage.load();
-            assertEquals(TAB + "Corrupted spending entry detected, error with date!" + System.lineSeparator()
-                    + TAB + "Detected at line 1 in the spendings file." + System.lineSeparator()
-                    + TAB + "Deleting corrupted entry..." + System.lineSeparator(), outContent.toString());
+            assertEquals(TAB + "Corrupted spending entry detected, error with date!" + NEXT_LINE
+                    + TAB + "Detected at line 1 in the spendings file." + NEXT_LINE
+                    + TAB + "Deleting corrupted entry..." + NEXT_LINE, outContent.toString());
         } catch (IOException e) {
             Ui.printWithTab("error occured with load_corruptedEntriesList_entryDiscardedMessage() test");
         }
@@ -68,7 +69,7 @@ public class SpendingListStorageTest {
     public void save_existingList_success() {
         spendingsFile.delete();
         SpendingList spendings = new SpendingList();
-        spendings.add(new Spending(10, "macs", VALID_TEST_DATE, "", RecurrenceFrequency.NONE, null, 1));
+        spendings.add(new Spending(10, "macs", TODAY, "", RecurrenceFrequency.NONE, null, 1));
         SpendingListStorage.save(spendings);
         assertTrue(new File("./spendings.txt").exists());
     }
@@ -78,7 +79,7 @@ public class SpendingListStorageTest {
         try {
             spendingsFile.delete();
             initialisePasswordFile();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
@@ -111,7 +112,7 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("1.0|1.0|1.0" + System.lineSeparator() + "10.0|macs|2024-11-09||NONE|null|1");
+            spendingsFileWriter.write("1.0|1.0|1.0" + NEXT_LINE + "10.0|macs|2024-11-09||NONE|null|1");
             spendingsFileWriter.close();
             SpendingListStorage.load();
             assertEquals(Storage.spendings.size(), 1);
@@ -125,9 +126,9 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("10.0|1.0|1.0" + System.lineSeparator());
+            spendingsFileWriter.write("10.0|1.0|1.0" + NEXT_LINE);
             spendingsFileWriter.close();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
@@ -142,9 +143,9 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("1.0|10.0|1.0" + System.lineSeparator());
+            spendingsFileWriter.write("1.0|10.0|1.0" + NEXT_LINE);
             spendingsFileWriter.close();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
@@ -159,9 +160,9 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("15.0|10.0|100.0" + System.lineSeparator());
+            spendingsFileWriter.write("15.0|10.0|100.0" + NEXT_LINE);
             spendingsFileWriter.close();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
@@ -176,9 +177,9 @@ public class SpendingListStorageTest {
         try {
             FileWriter spendingsFileWriter = new FileWriter("./spendings.txt");
             initialisePasswordFile();
-            spendingsFileWriter.write("15.0|10.0" + System.lineSeparator());
+            spendingsFileWriter.write("15.0|10.0" + NEXT_LINE);
             spendingsFileWriter.close();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
@@ -195,7 +196,7 @@ public class SpendingListStorageTest {
             initialisePasswordFile();
             spendingsFileWriter.write("");
             spendingsFileWriter.close();
-            Ui.userInputForTest(1 + System.lineSeparator() + 2 + System.lineSeparator() + 3);
+            Ui.userInputForTest(1 + NEXT_LINE + 2 + NEXT_LINE + 3);
             SpendingListStorage.load();
             assertEquals(1, Storage.spendings.getDailyBudget());
             assertEquals(2, Storage.spendings.getMonthlyBudget());
