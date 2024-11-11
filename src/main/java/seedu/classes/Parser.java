@@ -11,8 +11,8 @@ import seedu.commands.UnknownCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.listcommands.InvalidListCommand;
 import seedu.commands.listcommands.ListAllCommand;
-import seedu.commands.listcommands.ListIncomesCommand;
-import seedu.commands.listcommands.ListSpendingsCommand;
+import seedu.commands.listcommands.ListIncomeCommand;
+import seedu.commands.listcommands.ListSpendingCommand;
 import seedu.commands.listcommands.ListTagsCommand;
 import seedu.exception.WiagiInvalidInputException;
 import seedu.recurrence.DailyRecurrence;
@@ -68,10 +68,10 @@ public class Parser {
         switch (field) {
         case ListTagsCommand.COMMAND_WORD:
             return new ListTagsCommand(arguments);
-        case ListSpendingsCommand.COMMAND_WORD:
-            return new ListSpendingsCommand(arguments);
-        case ListIncomesCommand.COMMAND_WORD:
-            return new ListIncomesCommand(arguments);
+        case ListSpendingCommand.COMMAND_WORD:
+            return new ListSpendingCommand(arguments);
+        case ListIncomeCommand.COMMAND_WORD:
+            return new ListIncomeCommand(arguments);
         default:
             return new InvalidListCommand(new WiagiInvalidInputException(INVALID_CATEGORY + LIST_COMMAND_FORMAT));
         }

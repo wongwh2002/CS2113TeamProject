@@ -11,37 +11,37 @@ import static seedu.classes.Constants.LIST_COMMAND_FORMAT;
 import static seedu.classes.Constants.LIST_TYPE_INDEX;
 import static seedu.classes.Constants.LIST_COMPULSORY_ARGUMENTS_LENGTH;
 
-public class ListSpendingsCommand extends Command {
+public class ListIncomeCommand extends Command {
 
-    public static final String COMMAND_WORD = "spending";
+    public static final String COMMAND_WORD = "income";
     private final String[] arguments;
 
-    public ListSpendingsCommand(String[] fullCommands) {
+    public ListIncomeCommand(String[] fullCommands) {
         this.arguments = fullCommands;
     }
 
     /**
-     * Executes the list spendings command with the given arguments
+     * Executes list income command with the given arguments
      * @param incomes   list of incomes in the application
      * @param spendings list of spendings in the application
      */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
-        assert arguments[LIST_TYPE_INDEX].equals(COMMAND_WORD) : "command should be to list spendings";
+        assert arguments[LIST_TYPE_INDEX].equals(COMMAND_WORD) : "command should be to list incomes";
         try {
-            handleCommand(spendings);
+            handleCommand(incomes);
         } catch (WiagiMissingParamsException e) {
             Ui.printWithTab(e.getMessage());
         }
     }
 
-    private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
+    private void handleCommand(IncomeList incomes) throws WiagiMissingParamsException {
         if (arguments.length != LIST_COMPULSORY_ARGUMENTS_LENGTH) {
             throw new WiagiMissingParamsException(INCORRECT_PARAMS_NUMBER + LIST_COMMAND_FORMAT);
         }
-        boolean isListAllSpendings = Ui.printListOfTimeRange(spendings);
-        if (isListAllSpendings) {
-            Ui.printStatisticsIfRequired(spendings);
+        boolean isListAllIncomes =  Ui.printListOfTimeRange(incomes);
+        if (isListAllIncomes) {
+            Ui.printListWithTotal(incomes);
         }
     }
 }
