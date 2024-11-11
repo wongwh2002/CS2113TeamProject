@@ -58,8 +58,8 @@ public class HelpCommand extends Command {
     private void appendListCommandHelp(StringBuilder helpText) {
         helpText.append("Listing Entries:").append(NEXT_LINE)
                 .append(TAB + "list - shows all entries").append(NEXT_LINE)
-                .append(TAB + "list incomes - shows all income entries").append(NEXT_LINE)
-                .append(TAB + "list spendings - shows all spending entries").append(NEXT_LINE)
+                .append(TAB + "list income - shows all income entries").append(NEXT_LINE)
+                .append(TAB + "list spending - shows all spending entries").append(NEXT_LINE)
                 .append(TAB + "list tags {$TAG} - shows entries with specific tag").append(NEXT_LINE)
                 .append(NEXT_LINE);
     }
