@@ -47,16 +47,12 @@ public class Wiagi {
 
         boolean isExit = false;
         while (!isExit) {
-            try {
-                String fullCommand = Ui.readCommand();
-                Command c = Parser.parseUserInput(fullCommand);
-                c.execute(incomes, spendings);
-                isExit = c.isExit();
-                Ui.printSeparator();
-                storage.save(incomes, spendings);
-            } catch (NoSuchElementException e) {
-                WiagiLogger.logger.log(Level.WARNING, "Nothing to read", e);
-            }
+            String fullCommand = Ui.readCommand();
+            Command c = Parser.parseUserInput(fullCommand);
+            c.execute(incomes, spendings);
+            isExit = c.isExit();
+            Ui.printSeparator();
+            storage.save(incomes, spendings);
         }
     }
 
@@ -66,7 +62,11 @@ public class Wiagi {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Wiagi().run();
+        try {
+            new Wiagi().run();
+        } catch (Exception e) {
+            WiagiLogger.logger.log(Level.WARNING, "Error occurred", e);
+        }
     }
 }
 
