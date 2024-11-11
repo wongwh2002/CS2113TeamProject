@@ -29,6 +29,7 @@ import static seedu.storage.LoginStorage.PASSWORD_FILE_PATH;
 public class SpendingListStorage {
     static final String SPENDINGS_FILE_PATH = "./spendings.txt";
     static LoadStorageCheck storageUtils = new LoadStorageCheck("spending");
+
     /**
      * Saves the spending list, including each spending entry and budget details, to a file.
      *

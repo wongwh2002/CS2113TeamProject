@@ -39,6 +39,11 @@ public class LoadStorageCheck {
         this.storageErrorMessage = corruptedErrorMessage + "error with ";
     }
 
+    /**
+     * Parses the entry string and returns the corresponding EntryType object.
+     * @param newEntry
+     * @return
+     */
     public EntryType parseEntry(String newEntry) {
         String[] entryData = newEntry.split(STORAGE_LOAD_SEPARATOR);
         validateEntryDataLength(entryData);
