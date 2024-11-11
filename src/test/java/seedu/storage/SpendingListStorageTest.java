@@ -31,7 +31,7 @@ public class SpendingListStorageTest {
     private void initialisePasswordFile() throws IOException {
         FileWriter passwordFileWriter = new FileWriter("./password.txt");
         passwordFile.createNewFile();
-        passwordFileWriter.write("1");
+        passwordFileWriter.write("0");
         passwordFileWriter.close();
     }
 

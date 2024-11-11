@@ -141,10 +141,10 @@ class BudgetCommandTest {
     public void initialiseBudget_dailyBudgetLessThanZero_invalidBudgetMessage() {
         Ui.userInputForTest("-1" + NEXT_LINE + "100" + NEXT_LINE + "1000" +
                 NEXT_LINE + "10000");
-        BudgetCommand.initialiseBudget(spendings);
+        BudgetCommand.initialiseBudget(new SpendingList());
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
-                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB +
-                MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
+                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
                 YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE,
                 outContent.toString());
     }
@@ -154,10 +154,10 @@ class BudgetCommandTest {
     public void initialiseBudget_budgetLessThanZero_invalidBudgetMessage() {
         Ui.userInputForTest("-1" + NEXT_LINE + "100" + NEXT_LINE + "1000" +
                 NEXT_LINE + "10000");
-        BudgetCommand.initialiseBudget(spendings);
+        BudgetCommand.initialiseBudget(new SpendingList());
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
-                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB +
-                MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
+                NEXT_LINE + TAB + INVALID_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
+                NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE + TAB +
                 YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR + NEXT_LINE,
                 outContent.toString());
     }
@@ -166,10 +166,10 @@ class BudgetCommandTest {
     public void initialiseBudget_budgetMoreThanLimit_invalidBudgetMessage() {
         Ui.userInputForTest("100" + NEXT_LINE + "10000000000" + NEXT_LINE + "1000" +
                 NEXT_LINE + "10000");
-        BudgetCommand.initialiseBudget(spendings);
+        BudgetCommand.initialiseBudget(new SpendingList());
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
-                NEXT_LINE + TAB + OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE +
+                NEXT_LINE + TAB + OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
                 SEPARATOR + NEXT_LINE, outContent.toString());
     }
@@ -178,11 +178,11 @@ class BudgetCommandTest {
     public void initialiseBudget_yearlyBudgetInvalid_invalidBudgetMessage() {
         Ui.userInputForTest("100" + NEXT_LINE + "1000" + NEXT_LINE + "1000000000" +
                 NEXT_LINE + "10000");
-        BudgetCommand.initialiseBudget(spendings);
+        BudgetCommand.initialiseBudget(new SpendingList());
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
                 SEPARATOR + NEXT_LINE + TAB + OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE +
-                NEXT_LINE, outContent.toString());
+                NEXT_LINE + TAB + SEPARATOR + NEXT_LINE, outContent.toString());
     }
 }

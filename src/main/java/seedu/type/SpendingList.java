@@ -30,10 +30,10 @@ public class SpendingList extends ArrayList<Spending> {
      */
     public SpendingList() {
         super();
-        dailyBudget = 0;
-        monthlyBudget = 0;
-        yearlyBudget = 0;
-        total = 0;
+        dailyBudget = 0.0;
+        monthlyBudget = 0.0;
+        yearlyBudget = 0.0;
+        total = 0.0;
     }
 
     public double getTotal() {

@@ -107,10 +107,10 @@ public class SpendingListStorage {
             double dailyBudget = Double.parseDouble(budgetDetails[LOAD_DAILY_BUDGET_INDEX]);
             double monthlyBudget = Double.parseDouble(budgetDetails[LOAD_MONTHLY_BUDGET_INDEX]);
             double yearlyBudget = Double.parseDouble(budgetDetails[LOAD_YEARLY_BUDGET_INDEX]);
+            checkBudgetLogicError(dailyBudget, monthlyBudget, yearlyBudget);
             Storage.spendings.setDailyBudget(dailyBudget);
             Storage.spendings.setMonthlyBudget(monthlyBudget);
             Storage.spendings.setYearlyBudget(yearlyBudget);
-            checkBudgetLogicError(dailyBudget, monthlyBudget, yearlyBudget);
         } catch (NumberFormatException | WiagiStorageCorruptedException e) {
             loadingFileErrorHandling();
         }
