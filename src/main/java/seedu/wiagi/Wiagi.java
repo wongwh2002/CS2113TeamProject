@@ -64,7 +64,10 @@ public class Wiagi {
     public static void main(String[] args) {
         try {
             new Wiagi().run();
+        } catch (NoSuchElementException e) {
+            Ui.printWithTab("Shutting down... ");
         } catch (Exception e) {
+            Ui.printWithTab("U caught a bug!! :(");
             WiagiLogger.logger.log(Level.WARNING, "Error occurred", e);
         }
     }
