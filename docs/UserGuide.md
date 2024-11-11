@@ -710,7 +710,7 @@ Format:
 `[$AMOUNT]|[$DESCRIPTION]|[$DATE_OF_ENTRY]|[TAG_NAME]|[RECURRENCE_FREQUENCY]|[LAST_RECURRENCE]|[DAY_OF_RECURRENCE]`
 <br>
 <br>
-For spending.txt, the first line of entry stores the budgets of the user.<br>
+For spendings.txt, the first line of entry stores the budgets of the user.<br>
 Format: `[$DAILY_BUDGET]|[$MONTLY_BUDGET]|[$YEARLY_BUDGET]` <br>
 <br>
 Important data representation to note:
@@ -749,8 +749,8 @@ current date.
 
 &nbsp;&nbsp;&nbsp;&nbsp; **A**: Delete the `password.txt` file in the folder where the program is located. Upon starting the program, you will be prompted to create a new password.
 Users have to press Ctrl+C (or Command+C for Mac users) to exit the program before they are able to delete the file.
-Do note that the `spending.txt` and `incomes.txt` files will be reset and all data will be lost.
-If you have a backup of the `spending.txt` and `incomes.txt` files, you can replace the new files with the backup files to restore your data.
+Do note that the `spendings.txt` and `incomes.txt` files will be reset and all data will be lost.
+If you have a backup of the `spendings.txt` and `incomes.txt` files, you can replace the new files with the backup files to restore your data.
 
 ## Command Summary
 <table>

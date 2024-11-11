@@ -26,9 +26,6 @@ public class CommandUtils {
      * @return amount formatted as a double, rounded to 2 decimal places
      */
     public static double formatAmount(String stringAmount, String commandFormat) {
-        if (containsLetters(stringAmount)) {
-            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
-        }
         double newAmount = roundAmount(stringAmount, commandFormat);
         if (newAmount <= 0) {
             throw new WiagiInvalidInputException(INVALID_AMOUNT + commandFormat);
@@ -62,6 +59,9 @@ public class CommandUtils {
      * @return amount formatted as a double, rounded to 2 decimal places
      */
     public static double roundAmount(String stringAmount, String commandFormat) {
+        if (containsLetters(stringAmount)) {
+            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
         try {
             double doubleAmount = Double.parseDouble(stringAmount);
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
