@@ -29,15 +29,16 @@ import static seedu.classes.Constants.SPENDING;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    private static final int COMPULSORY_STRING_INDEX = 0;
+    private static final int OPTIONAL_STRING_INDEX = 1;
+    private static final int COMPULSORY_GROUP_INDEX = 1;
+    private static final int OPTIONAL_GROUP_INDEX = 2;
     private static final int DESCRIPTION_INDEX = 3;
     private static final int LIST_TYPE_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
     private static final int ADD_COMPULSORY_ARGUMENTS_LENGTH = 4;
     private static final String OPTIONAL_ARGUMENTS_REGEX = "^(.*?)([/~*].*)?$";
-    public static final int COMPULSORY_STRING_INDEX = 0;
-    public static final int OPTIONAL_STRING_INDEX = 1;
-    public static final int COMPULSORY_GROUP_INDEX = 1;
-    public static final int OPTIONAL_GROUP_INDEX = 2;
+
 
     private final String fullCommand;
     public AddCommand(String fullCommand) {
