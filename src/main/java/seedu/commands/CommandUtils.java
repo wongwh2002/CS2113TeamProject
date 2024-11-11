@@ -4,12 +4,16 @@ import seedu.exception.WiagiInvalidInputException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
+import static seedu.classes.Constants.INVALID_DATE;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.OVER_MAX_ENTRY_AMOUNT;
 import static seedu.classes.Constants.MAX_ENTRY_AMOUNT;
+import static seedu.classes.Constants.TODAY;
+import static seedu.type.EntryType.MAX_ENTRY_DATE_DECREMENT;
 
 public class CommandUtils {
 
@@ -22,6 +26,9 @@ public class CommandUtils {
      * @return amount formatted as a double, rounded to 2 decimal places
      */
     public static double formatAmount(String stringAmount, String commandFormat) {
+        if (containsLetters(stringAmount)) {
+            throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
         double newAmount = roundAmount(stringAmount, commandFormat);
         if (newAmount <= 0) {
             throw new WiagiInvalidInputException(INVALID_AMOUNT + commandFormat);
@@ -60,6 +67,18 @@ public class CommandUtils {
             return Math.round(doubleAmount * 100.0) / 100.0; //round to 2dp
         } catch (NumberFormatException e) {
             throw new WiagiInvalidInputException(AMOUNT_NOT_NUMBER + commandFormat);
+        }
+    }
+
+    private static boolean containsLetters(String str) {
+        String letterPattern = ".*[a-zA-Z].*";
+        return  (Pattern.matches(letterPattern, str));
+    }
+
+    public static void checkDateLimit(LocalDate date) {
+        int yearOfEntry = date.getYear();
+        if (yearOfEntry < TODAY.getYear() - MAX_ENTRY_DATE_DECREMENT) {
+            throw new WiagiInvalidInputException(INVALID_DATE);
         }
     }
 }

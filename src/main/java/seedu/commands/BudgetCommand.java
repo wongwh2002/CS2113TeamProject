@@ -97,9 +97,12 @@ public class BudgetCommand extends Command {
 
     private void handleCommand(SpendingList spendings) throws WiagiMissingParamsException {
         String[] arguments = extractArguments();
+        String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
+        if (!timeRange.equals(DAILY) && !timeRange.equals(MONTHLY) && !timeRange.equals(YEARLY)) {
+            throw new WiagiInvalidInputException(INVALID_FIELD + BUDGET_COMMAND_FORMAT);
+        }
         String stringBudget = arguments[BUDGET_AMOUNT_INDEX];
         double budget = CommandUtils.roundAmount(stringBudget, BUDGET_COMMAND_FORMAT);
-        String timeRange = arguments[TIME_RANGE_INDEX].toLowerCase();
 
         LOGGER.log(Level.INFO, "Setting {0} budget to {1}", new Object[]{timeRange, budget});
         setBudget(spendings, budget, timeRange);

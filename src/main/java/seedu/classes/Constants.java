@@ -26,7 +26,7 @@ public class Constants {
     public static final String YEARLY_RECURRENCE = "yearly";
     public static final double MAX_ENTRY_AMOUNT = 10000000;
     public static final double MAX_LIST_TOTAL_AMOUNT = 100000000;
-    public static final String OVER_MAX_BUDGET_AMOUNT = "Amount must be lesser than 100 million! ";
+    public static final String OVER_MAX_BUDGET_AMOUNT = "Amount must be less than 100 million! ";
     public static final String OVER_MAX_ENTRY_AMOUNT = "Invalid amount! Amount should not be greater than 10 million!";
     public static final String OVER_MAX_LIST_AMOUNT_FOR_ADD = "The total amount will exceed the list limit " +
             "of 100 million after adding! Entry rejected!";
@@ -63,6 +63,7 @@ public class Constants {
     public static final String INVALID_TAG_CHARACTERS = "Invalid characters in description. Edit unsuccessful.";
     public static final String MISSING_DESCRIPTION = "No description input! ";
     public static final String INVALID_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD ";
+    public static final String INVALID_DATE = "You sure you live that long? The date should not be 100 years ago!";
     public static final String INVALID_FREQUENCY = "Invalid frequency type! Please input daily/monthly/yearly ";
     public static final String MISSING_AMOUNT = "No amount found! ";
     public static final String MISSING_AMOUNT_AND_DESCRIPTION = "No amount and description found! ";
