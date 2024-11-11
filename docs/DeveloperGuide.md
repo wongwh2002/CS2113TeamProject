@@ -6,7 +6,84 @@ Wiagi is a simple command line application that helps students who are beginning
 independence journey by offering a wide range of essential tools and features such as budgeting, saving,
 and investment analysis.
 
-<!-- TABLE OF CONTENTS -->
+<!-- TOC -->
+* [Introduction](#introduction)
+* [Acknowledgements](#acknowledgements)
+* [Design & implementation](#design--implementation)
+  * [Architecture Diagram](#architecture-diagram)
+    * [Main components of the architecture](#main-components-of-the-architecture)
+      * [Wiagi class](#wiagi-class)
+  * [Data Types and Structures](#data-types-and-structures)
+    * [EntryType Class](#entrytype-class)
+    * [Income class](#income-class)
+    * [Spending class](#spending-class)
+    * [IncomeList class](#incomelist-class)
+    * [SpendingList class](#spendinglist-class)
+    * [Recurrence Class](#recurrence-class)
+    * [RecurrenceFrequency enumeration](#recurrencefrequency-enumeration)
+    * [Storage Class](#storage-class)
+      * [Motivation behind the class:](#motivation-behind-the-class)
+      * [How the Storage works:](#how-the-storage-works)
+  * [Program start up](#program-start-up)
+    * [Loading storage](#loading-storage)
+      * [load method in `IncomeListStorage` `SpendingListStorage`](#load-method-in-incomeliststorage-spendingliststorage)
+      * [load method in `LoginStorage`](#load-method-in-loginstorage)
+    * [Recurrence Updating](#recurrence-updating)
+      * [How recurrence updating works:](#how-recurrence-updating-works-)
+      * [Implementation:](#implementation)
+        * [checkIncomeRecurrence / checkSpendingRecurrence method](#checkincomerecurrence--checkspendingrecurrence-method)
+        * [parseRecurrence method](#parserecurrence-method)
+        * [updateRecurrence method](#updaterecurrence-method)
+        * [checkIfDateAltered method](#checkifdatealtered-method)
+      * [Here are some things to take note:](#here-are-some-things-to-take-note)
+  * [Program run sequence](#program-run-sequence)
+    * [Command handling](#command-handling-)
+    * [Storage saving](#storage-saving)
+      * [save method in `IncomeListStorage` `SpendingListStorage`](#save-method-in-incomeliststorage-spendingliststorage)
+    * [Adding a new entry](#adding-a-new-entry)
+      * [Recurrence backlogging](#recurrence-backlogging)
+        * [How the recurrence backlogging works](#how-the-recurrence-backlogging-works)
+        * [Implementation](#implementation-1)
+          * [checkRecurrenceBacklog method](#checkrecurrencebacklog-method)
+        * [hasRecurrenceBackLog method](#hasrecurrencebacklog-method)
+    * [Editing entries](#editing-entries)
+    * [Finding entries](#finding-entries)
+    * [Deleting entries](#deleting-entries)
+    * [Creating a budget](#creating-a-budget)
+    * [Listing entries](#listing-entries)
+      * [Listing all entries](#listing-all-entries)
+      * [Listing spendings](#listing-spendings)
+      * [Listing incomes](#listing-incomes)
+      * [Listing tags](#listing-tags)
+        * [Listing all tags](#listing-all-tags)
+        * [Listing all entries with a specific tag](#listing-all-entries-with-a-specific-tag)
+    * [Help command](#help-command)
+    * [Bye command](#bye-command)
+* [Appendix: Requirements](#appendix-requirements)
+  * [Product scope](#product-scope)
+    * [Target user profile](#target-user-profile)
+    * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Use cases](#use-cases)
+    * [Use case: Add an Entry](#use-case-add-an-entry)
+    * [Use case: Delete an Entry](#use-case-delete-an-entry)
+    * [Use case: Listing all Entries](#use-case-listing-all-entries)
+    * [Use Case: Edit an Entry](#use-case-edit-an-entry)
+    * [Use Case: Adding a Budget](#use-case-adding-a-budget)
+    * [Use Case: Find an Entry](#use-case-find-an-entry)
+    * [Use Case: Getting information of commands](#use-case-getting-information-of-commands)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Future plans](#future-plans)
+  * [Glossary](#glossary)
+* [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  * [Creating a new user](#creating-a-new-user)
+  * [Finding an entry](#finding-an-entry)
+  * [Editing an Entry](#editing-an-entry)
+  * [Showing help](#showing-help)
+  * [Setting a Budget](#setting-a-budget)
+  * [Adding an income or spending](#adding-an-income-or-spending)
+  * [Exiting the program](#exiting-the-program)
+<!-- TOC -->
 
 
 # Acknowledgements
@@ -417,12 +494,12 @@ When the user requests to list all entries, the program prints all entries in bo
 #### Listing spendings
 
 When users request to list all spendings, they are given the option to choose a time range from the following options:
-- All
-- Weekly
-- Biweekly
-- Monthly
+1. All
+2. This week
+3. Last week and this week
+4. This month
 
-By selecting the weekly, biweekly, or monthly options, only the spending entries 
+By selecting options 2, 3, or 4, only the spending entries 
 that are dated within the current week, current 2 weeks, or current month will be displayed.
 
 If the user chooses to list all spendings, they are then given the option to display all
@@ -461,10 +538,13 @@ index. Finally, the string is printed.
 #### Listing incomes
 
 When users request to list incomes, they are also given the option to choose from the same 4 time ranges:
-- All
-- Weekly
-- Biweekly
-- Monthly
+1. All
+2. This week
+3. Last week and this week
+4. This month
+ 
+By selecting options 2, 3, or 4, only the spending entries
+that are dated within the current week, current 2 weeks, or current month will be displayed.
 
 Hence, the implementation of listing incomes is very similar to that of listing spendings, except that users will not be
 given the option to list statistics if they choose to list all incomes. Hence, the sequence diagram is omitted for this
@@ -497,7 +577,7 @@ When the user types `help`, the program will print out a list of commands that t
 
 When the user types `bye`, the program will exit the program.
 
-***
+# Appendix: Requirements
 ## Product scope
 ### Target user profile
 1. prefer desktop apps over other types(i.e. online apps)
@@ -693,15 +773,17 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 * Validation - The process of checking if user input meets the required format and constraints
 * Mainstream OS - Windows, Linux, Unix, macOS
 
-## Instructions for manual testing
+# Appendix: Instructions for manual testing
 
-### Creating a new user
+{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+## Creating a new user
 Prerequisites: There should not be a password.txt, spendings.txt, incomes.txt file in the directory where the jar file
 is located
 1. Test case: Start up the program
     - Expected: Program prompts user to create new password and initialise budgets
 
-### Finding an entry
+## Finding an entry
 Prerequisites: Add multiple entries to either incomes or spendings.
 1. Test case: `find income description a`
    - Expected: Lists all income entries with `a` in the description.
@@ -711,8 +793,8 @@ Prerequisites: Add multiple entries to either incomes or spendings.
     - Expected: Lists all spending entries that has a date between 2024-11-11 and 2024-12-12.
 4. Test case: `find income amount -1`, `find income amount s`, `find income date 11-11-2024`
     - Expected: Nothing is listed. Error details printed to the user.
-
-### Editing an Entry
+ 
+## Editing an Entry
 Prerequisites: Add multiple entries to either incomes or spendings.
 1. Test case: `edit spending 1 amount 100`
    - Expected: The amount of the first spending entry is updated to 100. Confirmation message is shown.
@@ -725,12 +807,12 @@ Prerequisites: Add multiple entries to either incomes or spendings.
 5. Test case: `edit spending 1 amount not-an-amount`, `edit income 2 date invalid-date`
    - Expected: Error message is shown indicating invalid input.
 
-### Showing help
+## Showing help
 Prerequisites: None.
 1. Test case: `help`
    - Expected: Displays a list of all available commands along with their usage instructions.
 
-### Setting a Budget
+## Setting a Budget
 Prerequisites: Budget currently initialised for monthly should be more than 50, budget for yearly should be more than 1500.
 1. Test case: `budget daily 50`
    - Expected: Sets the daily budget to 50. Confirmation message is shown.
@@ -741,7 +823,7 @@ Prerequisites: Budget currently initialised for monthly should be more than 50, 
 4. Test case: `budget weekly 500`
    - Expected: Error message is shown indicating invalid time range.
 
-### Adding an income or spending
+## Adding an income or spending
 Prerequisites: None.
 1. Test case: `add spendings 10 macs`
    - Expected: Adds a spending entry of 10 dollars with description macs and entry date is current date
@@ -760,6 +842,6 @@ Prerequisites: None.
 7. Test case: `add spend 10 food`, `add spending food 10`, `add income 100 job /2024-100-100/`, `add income 100 job ~day~`
    - Expected: Error message is shown indicating the general error made
 
-### Exiting the program
+## Exiting the program
 1. Test case: `bye`
     - Expected: Program exits

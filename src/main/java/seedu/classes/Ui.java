@@ -102,33 +102,37 @@ public class Ui {
                 spendings.getYearlySpending()));
     }
 
-    public static <T extends EntryType> void printArrList(ArrayList<T> arrList) {
+    /**
+     * Prints the elements of the given ArrayList, along with the list name and its total amount
+     * @param list   The ArrayList containing elements to be printed
+     * @param <T>    The type of elements in the ArrayList, which must extend the EntryType class.
+     */
+    public static <T extends EntryType> void printListWithTotal(ArrayList<T> list) {
         String typeOfList;
         double total;
-        if (arrList instanceof SpendingList) {
+        if (list instanceof SpendingList) {
             typeOfList = SPENDING;
-            total = ((SpendingList) arrList).getTotal();
+            total = ((SpendingList) list).getTotal();
         } else {
             typeOfList = INCOME;
-            total = ((IncomeList) arrList).getTotal();
+            total = ((IncomeList) list).getTotal();
         }
         printWithTab(typeOfList);
-        printList(arrList);
+        printList(list);
         printWithTab("Total " + typeOfList.toLowerCase() + ": " + formatPrintDouble(total));
-
     }
 
     /**
      * Prints the elements of the given ArrayList
      *
-     * @param <T>     The type of elements in the ArrayList, which must extend the EntryType class.
-     * @param arrList The ArrayList containing elements to be printed and the total.
+     * @param <T>  The type of elements in the ArrayList, which must extend the EntryType class.
+     * @param list The ArrayList containing elements to be printed and the total.
      */
-    public static <T extends EntryType> void printList(ArrayList<T> arrList) {
-        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
-            assert arrList != null : "ArrayList is null";
+    public static <T extends EntryType> void printList(ArrayList<T> list) {
+        for (int indexInList = 0; indexInList < list.size(); indexInList++) {
+            assert list != null : "ArrayList is null";
             int indexToUser = indexInList + 1;
-            printWithTab(indexToUser + ". " + arrList.get(indexInList));
+            printWithTab(indexToUser + ". " + list.get(indexInList));
         }
     }
 
@@ -143,6 +147,11 @@ public class Ui {
     }
 
     //@@author wongwh2002
+    /**
+     * Prints all unique tags
+     * @param incomes   List of incomes in the application
+     * @param spendings List of spendings in the application
+     */
     public static void printAllTags(IncomeList incomes, SpendingList spendings) {
         ArrayList<String> tags = getStrings(incomes, spendings);
         tags.sort(String::compareTo);
@@ -179,6 +188,12 @@ public class Ui {
     }
 
     //@@author wongwh2002
+    /**
+     * Prints all entries in spendings and incomes that contain the specified tag
+     * @param incomes   List of incomes in the application
+     * @param spendings List of spendings in the application
+     * @param tag       Tag to search for
+     */
     public static void printSpecificTag(IncomeList incomes, SpendingList spendings, String tag) {
         StringBuilder sbIncome = new StringBuilder();
         StringBuilder sbSpending = new StringBuilder();
@@ -210,7 +225,7 @@ public class Ui {
 
     //@@author wongwh2002
     private static <T extends EntryType> int getTagsCount(ArrayList<T> arrList, String tag,
-                                        StringBuilder sb, String listName) {
+            StringBuilder sb, String listName) {
         sb.append(listName).append(System.lineSeparator());
         int tagsCount = 0;
         for (int i = 0; i < arrList.size(); i++) {
@@ -232,24 +247,29 @@ public class Ui {
     }
 
     //@@author wx-03
-    private static <T extends EntryType> void printTimeRangeDates(ArrayList<T> arrList,
+    private static <T extends EntryType> void printTimeRangeDates(ArrayList<T> list,
             LocalDate start, LocalDate end) {
-        if (arrList instanceof SpendingList) {
+        if (list instanceof SpendingList) {
             printWithTab(SPENDINGS_TIME_RANGE_MESSAGE + start + " to " + end);
         } else {
             printWithTab(INCOMES_TIME_RANGE_MESSAGE + start + " to " + end);
         }
     }
 
-    public static <T extends EntryType> void printWeekly(ArrayList<T> arrList) {
+    /**
+     * Prints all entries within the current month
+     * @param list   List of spendings/incomes in the application
+     * @param <T>    The type of elements in the list, which must extend the EntryType class
+     */
+    public static <T extends EntryType> void printWeekly(ArrayList<T> list) {
         StringBuilder filteredListString = new StringBuilder();
         LocalDate currDate = LocalDate.now();
         LocalDate monday = getMondayDate(currDate);
         LocalDate sunday = getSundayDate(currDate);
-        printTimeRangeDates(arrList, monday, sunday);
+        printTimeRangeDates(list, monday, sunday);
         double sum = 0.0;
-        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
-            EntryType entry = arrList.get(indexInList);
+        for (int indexInList = 0; indexInList < list.size(); indexInList++) {
+            EntryType entry = list.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monday, sunday)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
@@ -263,15 +283,20 @@ public class Ui {
         printWithTab("Total: " + formatPrintDouble(sum));
     }
 
-    public static <T extends EntryType> void printMonthly(ArrayList<T> arrList) {
+    /**
+     * Prints all entries within the current month
+     * @param list   List of spendings/incomes in the application
+     * @param <T>    The type of elements in the list, which must extend the EntryType class
+     */
+    public static <T extends EntryType> void printMonthly(ArrayList<T> list) {
         LocalDate currDate = LocalDate.now();
         LocalDate monthStart = LocalDate.of(currDate.getYear(), currDate.getMonth(), 1);
         LocalDate monthEnd = monthStart.plusDays(currDate.getMonth().length(currDate.isLeapYear()) - 1);
-        printTimeRangeDates(arrList, monthStart, monthEnd);
+        printTimeRangeDates(list, monthStart, monthEnd);
         StringBuilder filteredListString = new StringBuilder();
         double sum = 0.0;
-        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
-            EntryType entry = arrList.get(indexInList);
+        for (int indexInList = 0; indexInList < list.size(); indexInList++) {
+            EntryType entry = list.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), monthStart, monthEnd)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
@@ -285,15 +310,20 @@ public class Ui {
         printWithTab("Total: " + formatPrintDouble(sum));
     }
 
-    public static <T extends EntryType> void printBiweekly(ArrayList<T> arrList) {
+    /**
+     * Prints all entries within the current 2 weeks
+     * @param list   list of spendings/incomes in the application
+     * @param <T>    The type of elements in the list, which must extend the EntryType class
+     */
+    public static <T extends EntryType> void printBiweekly(ArrayList<T> list) {
         LocalDate currDate = LocalDate.now();
         LocalDate start = getMondayDate(currDate.minusDays(7));
         LocalDate end = getSundayDate(currDate);
-        printTimeRangeDates(arrList, start, end);
+        printTimeRangeDates(list, start, end);
         StringBuilder filteredListString = new StringBuilder();
         double sum = 0.0;
-        for (int indexInList = 0; indexInList < arrList.size(); indexInList++) {
-            EntryType entry = arrList.get(indexInList);
+        for (int indexInList = 0; indexInList < list.size(); indexInList++) {
+            EntryType entry = list.get(indexInList);
             int indexToUser = indexInList + 1;
             if (isInRange(entry.getDate(), start, end)) {
                 filteredListString.append(TAB).append(indexToUser).append(". ")
@@ -308,9 +338,15 @@ public class Ui {
     }
 
     //@@author wx-03
-    public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> arrList) {
+    /**
+     * Prints a message asking the user to select a time range
+     * @param list   List of spendings/incomes in the application
+     * @param <T>    The type of elements in the list, which must extend the EntryType class
+     * @return       Boolean value that is true if the user chooses to list all spendings, false otherwise
+     */
+    public static <T extends EntryType> boolean printListOfTimeRange(ArrayList<T> list) {
         while (true) {
-            if (arrList instanceof SpendingList) {
+            if (list instanceof SpendingList) {
                 printWithTab(SELECT_TIME_RANGE_MESSAGE_SPENDINGS);
             } else {
                 printWithTab(SELECT_TIME_RANGE_MESSAGE_INCOMES);
@@ -320,13 +356,13 @@ public class Ui {
             case ALL_TIME_OPTION:
                 return true;
             case WEEKLY_OPTION:
-                printWeekly(arrList);
+                printWeekly(list);
                 return false;
             case BIWEEKLY_OPTION:
-                printBiweekly(arrList);
+                printBiweekly(list);
                 return false;
             case MONTHLY_OPTION:
-                printMonthly(arrList);
+                printMonthly(list);
                 return false;
             default:
                 printWithTab("Invalid input");
@@ -334,17 +370,22 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a message asking the user if they would like to print spending statistics and carries out the
+     * required printing.
+     * @param spendings list of spendings in the application
+     */
     public static void printStatisticsIfRequired(SpendingList spendings) {
         printWithTab("List all statistics? [Y/N]:");
         while (true) {
             String userInput = readCommand().toLowerCase();
             switch (userInput) {
             case "y":
-                printArrList(spendings);
+                printListWithTotal(spendings);
                 printSpendingStatistics(spendings);
                 return;
             case "n":
-                printArrList(spendings);
+                printListWithTotal(spendings);
                 return;
             default:
                 printWithTab("Invalid input. [Y/N].");
@@ -352,6 +393,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a message asking the user if they would like to backlog recurring entries
+     * @param toAdd Entry to be added
+     * @param <T>   The type of entry to be added, which must extend the EntryType class
+     * @return      Boolean value indicating if the user wants to backlog recurring entries
+     */
     public static <T extends EntryType> boolean hasRecurrenceBacklog(T toAdd) {
         printWithTab("Do you want to backlog recurrence entries from " + toAdd.getDate() + " to "
                 + LocalDate.now() + " if any? [Y/N]");
@@ -387,6 +434,13 @@ public class Ui {
                 && (date.isBefore(end) || date.isEqual(end));
     }
 
+    /**
+     * Prints results from find command if they exist, else prints a message saying that no entries match
+     * the criteria.
+     * @param findResults   ArrayList of results of the find command
+     * @param list          Original list of incomes / spendings
+     * @param <T>           The type of entries in findResults, which must extend the EntryType class
+     */
     public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
             printWithTab("No entries found match the criteria.");
@@ -421,6 +475,12 @@ public class Ui {
         printWithTab("Hmmmm, seems to have some issues loading your password, hard resetting... deleting files...");
     }
 
+    /**
+     * Prints message displaying line number and file name when a corrupted entry is detected
+     * @param e             WiagiStorageCorruptedException
+     * @param counter       Line number of corrupted entry
+     * @param typeOfFile    Type of corrupted file, can be "spendings" or "incomes"
+     */
     public static void handleCorruptedEntry(WiagiStorageCorruptedException e, long counter, String typeOfFile) {
         Ui.printWithTab(e.getMessage());
         Ui.printWithTab("Detected at line " + counter + " in the " + typeOfFile + " file.");

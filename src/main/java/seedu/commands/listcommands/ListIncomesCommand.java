@@ -20,6 +20,11 @@ public class ListIncomesCommand extends Command {
         this.arguments = fullCommands;
     }
 
+    /**
+     * Executes list incomes command with the given arguments
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     @Override
     public void execute(IncomeList incomes, SpendingList spendings) {
         assert arguments[LIST_TYPE_INDEX].equals(COMMAND_WORD) : "command should be to list incomes";
@@ -36,7 +41,7 @@ public class ListIncomesCommand extends Command {
         }
         boolean isListAllIncomes =  Ui.printListOfTimeRange(incomes);
         if (isListAllIncomes) {
-            Ui.printArrList(incomes);
+            Ui.printListWithTotal(incomes);
         }
     }
 }

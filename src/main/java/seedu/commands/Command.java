@@ -8,6 +8,11 @@ public abstract class Command {
         return this instanceof ByeCommand;
     }
 
+    /**
+     * Executes a command with the given arguments
+     * @param incomes   list of incomes in the application
+     * @param spendings list of spendings in the application
+     */
     public abstract void execute(IncomeList incomes, SpendingList spendings);
 }
 
