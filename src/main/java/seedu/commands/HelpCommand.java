@@ -67,6 +67,7 @@ public class HelpCommand extends Command {
     private void appendEditCommandHelp(StringBuilder helpText) {
         helpText.append("Editing Entries:").append(NEXT_LINE)
                 .append(TAB + "edit {$CATEGORY} {$INDEX} {$FIELD} {$NEW_VALUE}").append(NEXT_LINE)
+                .append(TAB + "-note that {$FIELD} only works for amount, description, date and tags").append(NEXT_LINE)
                 .append(TAB + "e.g., edit spending 1 amount 100").append(NEXT_LINE)
                 .append(TAB + "e.g., edit income 2 description Bonus").append(NEXT_LINE)
                 .append(NEXT_LINE);
