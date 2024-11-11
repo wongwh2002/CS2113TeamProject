@@ -19,11 +19,13 @@ import static seedu.classes.Constants.ALL_TIME_OPTION;
 import static seedu.classes.Constants.BIWEEKLY_OPTION;
 import static seedu.classes.Constants.DAILY_BUDGET_QUESTION;
 import static seedu.classes.Constants.EMPTY_STRING;
+import static seedu.classes.Constants.MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
 import static seedu.classes.Constants.INVALID_LIST_OPTION;
 import static seedu.classes.Constants.MONTHLY_OPTION;
 import static seedu.classes.Constants.NO_ENTRIES_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.INCOMES_TIME_RANGE_MESSAGE;
+import static seedu.classes.Constants.NO_MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.SPENDINGS_TIME_RANGE_MESSAGE;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.NO_TAGS_FOUND;
@@ -393,9 +395,9 @@ public class Ui {
 
     public static <T extends EntryType> void printFindResults(ArrayList<T> findResults, ArrayList<T> list) {
         if (findResults.isEmpty()) {
-            printWithTab("No entries found match the criteria.");
+            printWithTab(NO_MATCH_FOUND_MESSAGE);
         } else {
-            printWithTab("Here are the matching results:");
+            printWithTab(MATCH_FOUND_MESSAGE);
             findResults.forEach(entry -> printWithTab((list.indexOf(entry)+1) + ": " + entry.toString()));
         }
     }

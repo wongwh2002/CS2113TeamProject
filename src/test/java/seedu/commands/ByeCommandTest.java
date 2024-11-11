@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.classes.Constants.BYE_MESSAGE;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 
@@ -42,7 +43,6 @@ public class ByeCommandTest {
     void execute_exitProgram_success() {
         ByeCommand c = new ByeCommand();
         c.execute(incomes, spendings);
-        assertEquals(TAB + "Bye. Hope to see you again soon!"
-                + NEXT_LINE, outContent.toString());
+        assertEquals(TAB + BYE_MESSAGE + NEXT_LINE, outContent.toString());
     }
 }

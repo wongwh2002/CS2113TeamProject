@@ -27,7 +27,9 @@ import static seedu.classes.Constants.FIND_EXTRA_FROM_VALUE;
 import static seedu.classes.Constants.FIND_EXTRA_SPECIFIC_VALUE;
 import static seedu.classes.Constants.FIND_EXTRA_TO_VALUE;
 import static seedu.classes.Constants.INVALID_FIND_RANGE_DIVIDER_FORMAT;
+import static seedu.classes.Constants.MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.NEXT_LINE;
+import static seedu.classes.Constants.NO_MATCH_FOUND_MESSAGE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.TODAY;
 import static seedu.classes.Ui.commandInputForTest;
@@ -208,7 +210,7 @@ class FindCommandTest {
     @Test
     public void execute_findSpendingAmount_success() {
         commandInputForTest("find spending amount 1", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "2: " + spendings.get(1).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -216,7 +218,7 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeAmount_success() {
         commandInputForTest("find income amount 1", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "2: " + incomes.get(1).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -224,7 +226,7 @@ class FindCommandTest {
     @Test
     public void execute_findSpendingAmountRange_success() {
         commandInputForTest("find spending amount 1 to 2", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + spendings.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + spendings.get(1).toString() + NEXT_LINE,
                 outContent.toString());
@@ -233,7 +235,7 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeAmountRange_success() {
         commandInputForTest("find income amount 1 to 2", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + incomes.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + incomes.get(1).toString() + NEXT_LINE,
                 outContent.toString());
@@ -242,7 +244,7 @@ class FindCommandTest {
     @Test
     public void execute_findSpendingDescription_success() {
         commandInputForTest("find spending description macdonalds", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + spendings.get(0).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -250,7 +252,7 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeDescription_success() {
         commandInputForTest("find income description dividends", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + incomes.get(0).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -258,7 +260,7 @@ class FindCommandTest {
     @Test
     public void execute_findSpendingDate_success() {
         commandInputForTest("find spending date 2024-10-10", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + spendings.get(0).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -266,7 +268,7 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeDate_success() {
         commandInputForTest("find income date 2024-10-10", incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + incomes.get(0).toString() + NEXT_LINE,
                 outContent.toString());
     }
@@ -274,7 +276,7 @@ class FindCommandTest {
     @Test
     public void execute_findSpendingDateRange_success() {
         commandInputForTest("find spending date 2024-10-10 to " + TODAY, incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + spendings.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + spendings.get(1).toString() + NEXT_LINE,
                 outContent.toString());
@@ -283,7 +285,7 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeDateRange_success() {
         commandInputForTest("find income date 2024-10-10 to " + TODAY, incomes, spendings);
-        assertEquals(TAB + "Here are the matching results:" + NEXT_LINE
+        assertEquals(TAB + MATCH_FOUND_MESSAGE + NEXT_LINE
                 + TAB + "1: " + incomes.get(0).toString() + NEXT_LINE
                 + TAB + "2: " + incomes.get(1).toString() + NEXT_LINE,
                 outContent.toString());
@@ -292,14 +294,12 @@ class FindCommandTest {
     @Test
     public void execute_findIncomeWithNoMatch_success() {
         commandInputForTest("find income date 0000-01-01", incomes, spendings);
-        assertEquals(TAB + "No entries found match the criteria." + NEXT_LINE,
-                outContent.toString());
+        assertEquals(TAB + NO_MATCH_FOUND_MESSAGE + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_findSpendingNoMatch_success() {
         commandInputForTest("find spending date 0000-01-01", incomes, spendings);
-        assertEquals(TAB + "No entries found match the criteria." + NEXT_LINE,
-                outContent.toString());
+        assertEquals(TAB + NO_MATCH_FOUND_MESSAGE + NEXT_LINE, outContent.toString());
     }
 }

@@ -11,13 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
+import static seedu.classes.Constants.DAILY_BUDGET_SUCCESS_MESSAGE;
 import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.MONTHLY_BUDGET_SUCCESS_MESSAGE;
 import static seedu.classes.Constants.OVER_MAX_BUDGET_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
+import static seedu.classes.Constants.YEARLY_BUDGET_SUCCESS_MESSAGE;
 
 /**
  * Represents a command to set a budget.
@@ -35,9 +38,6 @@ public class BudgetCommand extends Command {
     private static final String DAILY_BUDGET = "daily budget";
     private static final String MONTHLY_BUDGET = "monthly budget";
     private static final String YEARLY_BUDGET = "yearly budget";
-    private static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
-    private static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
-    private static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
     private static final String DUMMY_STRING = "";
     private static final double DUMMY_AMOUNT = 0.0;
     private static final double UNINITIALISED_BUDGET = 0.0;

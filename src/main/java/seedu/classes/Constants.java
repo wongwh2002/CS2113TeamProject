@@ -87,6 +87,8 @@ public class Constants {
     public static final String FIND_EXTRA_SPECIFIC_VALUE = "There should only be one value, " +
             "no whitespace separating it! ";
     public static final String INVALID_FIND_RANGE_DIVIDER_FORMAT = "\"to\" should be separated from find values! ";
+    public static final String NO_MATCH_FOUND_MESSAGE = "No entries found match the criteria.";
+    public static final String MATCH_FOUND_MESSAGE = "Here are the matching results:";
     public static final String ALL_TIME_OPTION = "1";
     public static final String WEEKLY_OPTION = "2";
     public static final String BIWEEKLY_OPTION = "3";
@@ -99,6 +101,11 @@ public class Constants {
     public static final String DAILY_BUDGET_QUESTION = "Please enter a daily budget you have in mind:";
     public static final String MONTHLY_BUDGET_MESSAGE = "Next, please enter a monthly budget you have in mind:";
     public static final String YEARLY_BUDGET_MESSAGE = "Last one! Please enter a yearly budget you have in mind:";
+    public static final String DAILY_BUDGET_SUCCESS_MESSAGE = "Successfully set daily budget of: ";
+    public static final String MONTHLY_BUDGET_SUCCESS_MESSAGE = "Successfully set monthly budget of: ";
+    public static final String YEARLY_BUDGET_SUCCESS_MESSAGE = "Successfully set yearly budget of: ";
+    public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String UNKNOWN_COMMAND_MESSAGE = "Unknown command! Type \"help\" for user instructions.";
 
     // Storage load
     public static final String LOAD_INCOME_FILE_ERROR = "An error has occurred when loading income file!";

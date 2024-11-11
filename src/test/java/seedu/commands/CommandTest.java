@@ -6,6 +6,7 @@ import seedu.classes.Parser;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.classes.Constants.UNKNOWN_COMMAND_MESSAGE;
 
 public class CommandTest {
     @Test
@@ -23,6 +24,6 @@ public class CommandTest {
     @Test
     void execute_unknownCommand_unknownCommandMessage() {
         Command c = Parser.parseUserInput("blah");
-        assertInstanceOf(UnknownCommand.class, c, "Unknown Command");
+        assertInstanceOf(UnknownCommand.class, c, UNKNOWN_COMMAND_MESSAGE);
     }
 }

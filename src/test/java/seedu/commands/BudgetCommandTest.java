@@ -14,16 +14,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.DAILY_BUDGET_QUESTION;
+import static seedu.classes.Constants.DAILY_BUDGET_SUCCESS_MESSAGE;
 import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
+import static seedu.classes.Constants.MONTHLY_BUDGET_SUCCESS_MESSAGE;
 import static seedu.classes.Constants.OVER_MAX_BUDGET_AMOUNT;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.YEARLY_BUDGET_MESSAGE;
+import static seedu.classes.Constants.YEARLY_BUDGET_SUCCESS_MESSAGE;
 import static seedu.classes.Ui.commandInputForTest;
 
 class BudgetCommandTest {
@@ -58,7 +61,7 @@ class BudgetCommandTest {
         String userInput = "budget daily " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set daily budget of: " + budget + NEXT_LINE
+        assertEquals(TAB + DAILY_BUDGET_SUCCESS_MESSAGE + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getDailyBudget());
     }
@@ -69,7 +72,7 @@ class BudgetCommandTest {
         String userInput = "budget monthly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set monthly budget of: " + budget + NEXT_LINE
+        assertEquals(TAB + MONTHLY_BUDGET_SUCCESS_MESSAGE + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getMonthlyBudget());
     }
@@ -80,7 +83,7 @@ class BudgetCommandTest {
         String userInput = "budget yearly " + budget;
         commandInputForTest(userInput, incomes, spendings);
 
-        assertEquals(TAB + "Successfully set yearly budget of: " + budget + NEXT_LINE
+        assertEquals(TAB + YEARLY_BUDGET_SUCCESS_MESSAGE + budget + NEXT_LINE
                 , outContent.toString());
         assertEquals(budget, spendings.getYearlyBudget());
     }
