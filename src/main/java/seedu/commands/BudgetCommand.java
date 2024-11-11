@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 
 import static seedu.classes.Constants.BUDGET_COMMAND_FORMAT;
 import static seedu.classes.Constants.ENTER_BUDGET_MESSAGE;
-import static seedu.classes.Constants.FORMATTED_MAXIMUM_LIST_AMOUNT;
 import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
+import static seedu.classes.Constants.OVER_MAX_BUDGET_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
@@ -140,8 +140,7 @@ public class BudgetCommand extends Command {
             throw new WiagiInvalidInputException(INVALID_AMOUNT + ENTER_BUDGET_MESSAGE);
         }
         if (biggerBudget > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException("Amount must be lesser than " + FORMATTED_MAXIMUM_LIST_AMOUNT + ". "
-                    + ENTER_BUDGET_MESSAGE);
+            throw new WiagiInvalidInputException(OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE);
         }
         if (biggerBudget < smallerBudget) {
             throw new WiagiInvalidInputException("Your " + smallerBudgetType + " should not be larger than " +

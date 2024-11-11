@@ -19,7 +19,7 @@ import static seedu.classes.Constants.EDIT_COMMAND_FORMAT;
 import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_AMOUNT;
-import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
+import static seedu.classes.Constants.OVER_MAX_ENTRY_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.LIST_SEPARATOR;
@@ -143,14 +143,14 @@ class EditCommandTest {
     @Test
     public void execute_overflowEditAmountSpendingInput_invalidAmountMaxMessage() {
         commandInputForTest("edit spending 1 amount 100000000", incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT_MAX
+        assertEquals(TAB + OVER_MAX_ENTRY_AMOUNT
                 + NEXT_LINE, outContent.toString());
     }
 
     @Test
     public void execute_overflowEditAmountIncomeInput_invalidAmountMaxMessage() {
         commandInputForTest("edit income 1 amount 100000000", incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT_MAX
+        assertEquals(TAB + OVER_MAX_ENTRY_AMOUNT
                 + NEXT_LINE, outContent.toString());
     }
 

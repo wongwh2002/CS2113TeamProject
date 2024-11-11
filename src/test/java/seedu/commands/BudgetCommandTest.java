@@ -19,6 +19,7 @@ import static seedu.classes.Constants.INCORRECT_PARAMS_NUMBER;
 import static seedu.classes.Constants.INVALID_AMOUNT;
 import static seedu.classes.Constants.INVALID_FIELD;
 import static seedu.classes.Constants.MONTHLY_BUDGET_MESSAGE;
+import static seedu.classes.Constants.OVER_MAX_BUDGET_AMOUNT;
 import static seedu.classes.Constants.SEPARATOR;
 import static seedu.classes.Constants.NEXT_LINE;
 import static seedu.classes.Constants.TAB;
@@ -165,7 +166,7 @@ class BudgetCommandTest {
         BudgetCommand.initialiseBudget(spendings);
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
-                NEXT_LINE + TAB + "Amount must be lesser than 100000000. Please enter a valid budget:" +
+                NEXT_LINE + TAB + OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE +
                 NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
                 SEPARATOR + NEXT_LINE, outContent.toString());
     }
@@ -178,8 +179,7 @@ class BudgetCommandTest {
         assertEquals(TAB + DAILY_BUDGET_QUESTION + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + MONTHLY_BUDGET_MESSAGE + NEXT_LINE + TAB + SEPARATOR +
                 NEXT_LINE + TAB + YEARLY_BUDGET_MESSAGE + NEXT_LINE + TAB +
-                SEPARATOR + NEXT_LINE + TAB + "Amount must be lesser than 100000000. Please enter a " +
-                "valid " +
-                "budget:" + NEXT_LINE, outContent.toString());
+                SEPARATOR + NEXT_LINE + TAB + OVER_MAX_BUDGET_AMOUNT + ENTER_BUDGET_MESSAGE +
+                NEXT_LINE, outContent.toString());
     }
 }

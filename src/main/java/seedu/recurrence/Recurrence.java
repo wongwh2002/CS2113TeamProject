@@ -14,7 +14,7 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE;
+import static seedu.classes.Constants.OVER_MAX_LIST_AMOUNT_FOR_RECURRENCE;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.TODAY;
 
@@ -58,7 +58,7 @@ public abstract class Recurrence {
     private static void throwExceptionIfTotalExceeded(long numOfRecur, double currListTotal, double addAmount) {
         double totalAmountAfterRecur = (numOfRecur * addAmount) + currListTotal;
         if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_RECURRENCE);
+            throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_RECURRENCE);
         }
     }
 

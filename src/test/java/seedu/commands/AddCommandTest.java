@@ -8,7 +8,7 @@ import static seedu.classes.Constants.ADD_COMMAND_FORMAT;
 import static seedu.classes.Constants.DATE_NOT_ENCLOSED;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
-import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
+import static seedu.classes.Constants.OVER_MAX_ENTRY_AMOUNT;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.LIST_SEPARATOR;
 import static seedu.classes.Constants.MISSING_AMOUNT;
@@ -168,14 +168,14 @@ public class AddCommandTest {
     @Test
     void execute_overflowAmountSpendingInput_invalidAmountMaxMessage(){
         commandInputForTest("add spending 10000000.05 house", incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT_MAX
+        assertEquals(TAB + OVER_MAX_ENTRY_AMOUNT
                 + NEXT_LINE, outContent.toString());
     }
 
     @Test
     void execute_overflowAmountIncomeInput_invalidAmountMaxMessage(){
         commandInputForTest("add income 10000000.05 lottery", incomes, spendings);
-        assertEquals(TAB + INVALID_AMOUNT_MAX
+        assertEquals(TAB + OVER_MAX_ENTRY_AMOUNT
                 + NEXT_LINE, outContent.toString());
     }
 

@@ -19,7 +19,7 @@ import static seedu.classes.Constants.INDEX_NOT_INTEGER;
 import static seedu.classes.Constants.INDEX_OUT_OF_BOUNDS;
 import static seedu.classes.Constants.INVALID_CATEGORY;
 import static seedu.classes.Constants.INVALID_FIELD;
-import static seedu.classes.Constants.MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT;
+import static seedu.classes.Constants.OVER_MAX_LIST_AMOUNT_FOR_EDIT;
 import static seedu.classes.Constants.MAX_LIST_TOTAL_AMOUNT;
 import static seedu.classes.Constants.WHITESPACE;
 import static seedu.classes.Constants.INCOME;
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
 
         double totalAmountAfterRecur = currTotal + newAmount - oldAmount;
         if (totalAmountAfterRecur > MAX_LIST_TOTAL_AMOUNT) {
-            throw new WiagiInvalidInputException(MAX_LIST_AMOUNT_EXCEEDED_FOR_EDIT);
+            throw new WiagiInvalidInputException(OVER_MAX_LIST_AMOUNT_FOR_EDIT);
         }
 
         if (list instanceof IncomeList) {

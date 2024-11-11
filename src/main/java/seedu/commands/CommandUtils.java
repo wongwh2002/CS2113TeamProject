@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import static seedu.classes.Constants.AMOUNT_NOT_NUMBER;
 import static seedu.classes.Constants.INVALID_DATE_FORMAT;
 import static seedu.classes.Constants.INVALID_AMOUNT;
-import static seedu.classes.Constants.INVALID_AMOUNT_MAX;
+import static seedu.classes.Constants.OVER_MAX_ENTRY_AMOUNT;
 import static seedu.classes.Constants.MAX_ENTRY_AMOUNT;
 
 public class CommandUtils {
@@ -19,7 +19,7 @@ public class CommandUtils {
             throw new WiagiInvalidInputException(INVALID_AMOUNT + commandFormat);
         }
         if (newAmount > MAX_ENTRY_AMOUNT) {
-            throw new WiagiInvalidInputException(INVALID_AMOUNT_MAX);
+            throw new WiagiInvalidInputException(OVER_MAX_ENTRY_AMOUNT);
         }
         return newAmount;
     }
