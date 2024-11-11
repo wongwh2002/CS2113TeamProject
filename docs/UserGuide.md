@@ -649,12 +649,17 @@ It also allows you to find entries with specific keyword(s) in the description.
 - `find spending description macdonalds` <br>
 - `find spending date 2024-10-10 to 2024-12-12` <br>
 
-**Example output**:
+**Example output**: <br>
+If there is no matches:
+
 ```
     ____________________________________________________________
     No entries found match the criteria.
     ____________________________________________________________
 ```
+
+If there are matches:
+
 ```
     ____________________________________________________________
     Here are the matching results:
