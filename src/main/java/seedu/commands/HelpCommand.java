@@ -14,6 +14,7 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
+    //@@author rharwo
     /**
      * Executes a help command with the given arguments, printing the usage instructions for each command.
      *
