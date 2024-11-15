@@ -48,7 +48,7 @@ public class DailyRecurrence extends Recurrence{
             checkDate = checkDate.plusDays(DAILY_FREQUENCY);
         }
         checkDate = checkDate.minusDays(DAILY_FREQUENCY);
-//        assert checkDate.equals(LocalDate.now()) : "last recurred should be today";
+        assert checkDate.equals(LocalDate.now()) : "last recurred should be today";
         recurringSpending.editLastRecurrence(checkDate);
     }
 }
