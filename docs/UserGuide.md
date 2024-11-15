@@ -56,6 +56,11 @@ and use the `java -jar Wiagi.java.jar` command to run the application.
 #### Creation of new user:
 First time users will be prompted to create a new password. Users are to type in their preferred password.
 Subsequent logins will not require this step. <br>
+
+> <span style="color:#f5220d">TO NOTE</span> <br>
+> The program does not provide a forget password feature to recover password as of the current iteration. Please take note of the
+> password you entered. Failure to recall password requires a hard reset of the program via deleting the password data file
+
 Expected display for first time users:
 ```
 	____________________________________________________________
@@ -64,11 +69,11 @@ Expected display for first time users:
 ```
 To help users manage their finances well, users are also prompted to enter budgets with the following 3 questions,
 users should enter valid amounts (e.g. An integer or number with decimals) for each budget type <br>
-Amount entered must be greater than 0 when rounded to 2dp. <br>
+Amount entered must be greater than 0 when rounded to 2dp. (eg. 0.005 rounded to 0.01 is valid but 0.004 is not)<br>
 
 Example valid inputs: <br>
 - `50` <br>
-- `1500` <br>
+- `1500.99` <br>
 - `18000` <br>
 <br>
 
@@ -170,6 +175,8 @@ If no recurrence is set or there is no possible backlog, the output will be as f
 	____________________________________________________________
 ```
 
+Note: Recurring entries will only recur till current date, today, thus if an entry dated to the future is added, no 
+recurring entries will be added <br>
 
 #### Adding an income:
 
@@ -227,6 +234,9 @@ If no recurrence is set or there is no possible backlog, the output will be as f
 	Ok! The entry will not be backlogged
 	____________________________________________________________
 ```
+
+Note: Recurring entries will only recur till current date, today, thus if an entry dated to the future is added, no
+recurring entries will be added <br>
 
 ### Listing all entries:
 
@@ -305,17 +315,17 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
     4. girlfriends - 10 - 2024-11-17 - personal
     Total spendings: 40
         Daily spendings: 0
-        Daily Budget: 0
+        Daily Budget: 1
         Daily budget left: 0
         Monthly spendings: 40
-        Monthly Budget: 0
-        Monthly budget left: -40
+        Monthly Budget: 1
+        Monthly budget left: -39
         Yearly spendings: 40
-        Yearly Budget: 0
-        Yearly budget left: -40
+        Yearly Budget: 1
+        Yearly budget left: -39
     ____________________________________________________________
 ```
-- - **Input:** `n`
+- **Input:** `n`
 ```
     ____________________________________________________________
     Spendings
@@ -535,7 +545,7 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 - `{$PERIOD}`: Specifies the period for the budget. It can be `daily`, `monthly`, or `yearly`.
 - `{$AMOUNT}`: The budget amount to be set.
 
-The input criteria for the amount is the same as the amount entered for [Creation of new user](#creation-of-new-user).
+The input criteria for the amount is the same as the amount entered for [creation of new user](#creation-of-new-user).
 
 **Example input:**<br>
 `budget daily 50`
@@ -575,6 +585,8 @@ Amount entered, if applicable, must be greater than 0 when rounded to 2dp.
     Edit Successful!
     ____________________________________________________________
 ```
+
+Note: Editing an entry with recurrence set does not trigger backlogging
 
 ### Finding an Entry
 
@@ -634,7 +646,9 @@ There is no need to save manually.
 ### Editing the data file
 > <span style="color:#f5220d">WARNING</span> <br>
 > This section is dedicated to advanced users who are confident in updating the data file manually. Failure 
-> to do so correctly can lead to data corruption and having possibly all previous information wiped out. <br>
+> to do so correctly can lead to data corruption and having possibly all previous information wiped out.
+> Entry numbers detected as corrupted will be displayed to user upon start up. The user may choose to copy out the lines, 
+> rectify, and manually input them back after closing the program properly.<br>
 
 User data is stored into 3 text files, namely
 - password.txt: `[JARFILE LOCATION]/password.txt`, stores the user password
