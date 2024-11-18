@@ -312,12 +312,21 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 - **Input:** `4` (Date of command is 2024-11-18)
 ```
-    ____________________________________________________________
-    Spendings
-    3. flights - 10 - 2024-11-01 - travel
-    4. girlfriends - 10 - 2024-11-17 - personal
-    Total: 20
-    ____________________________________________________________
+	____________________________________________________________
+	Showing spending entries from 2024-11-01 to 2024-11-30
+	3. flights - 10 - 2024-11-01 - Tag: travel
+	4. girlfriends - 10 - 2024-11-17 - Tag: personal
+	Total: 20
+	____________________________________________________________
+```
+
+- **Input:** `2` (Date of command is 2024-11-18)
+```
+	____________________________________________________________
+	Showing spending entries from 2024-11-18 to 2024-11-24
+	No entries within selected time range
+	Total: 0
+	____________________________________________________________
 ```
 
 #### Listing all incomes:
@@ -334,19 +343,18 @@ Only entries that are within the time range will be displayed.
 **Input:** `list incomes`
 ```
 	____________________________________________________________
-	Select time range:
+	List income entries within:
 	[1] All
-	[2] Weekly
-	[3] Biweekly
-	[4] Monthly 
-
+	[2] This week
+	[3] Past 2 weeks
+	[4] This month 
 ```
 - **Input:** `1`
   ```
       ____________________________________________________________
       Incomes
-      1. mcd - 100 - 2024-11-15 - FastFood
-      2. dividends - 10 - 2024-10-17 - investment
+      1. dividends - 10 - 2024-10-17 - Tag: investment
+      2. mcd - 100 - 2024-11-11 - Tag: personal
       Total incomes: 110
       ____________________________________________________________
   ```
@@ -354,8 +362,17 @@ Only entries that are within the time range will be displayed.
 - **Input:** `2` (Date of command is 2024-11-18)
   ```
       ____________________________________________________________
-      Incomes
-      1. mcd - 100 - 2024-11-15 - FastFood
+      Showing income entries from 2024-11-18 to 2024-11-24
+      No entries within selected time range
+      Total: 0
+      ____________________________________________________________
+  ```
+  
+- **Input:** `4` (Date of command is 2024-11-18)
+  ```
+      ____________________________________________________________
+      Showing income entries from 2024-11-01 to 2024-11-30
+      2. mcd - 100 - 2024-11-11 - Tag: personal
       Total: 100
       ____________________________________________________________
   ```
