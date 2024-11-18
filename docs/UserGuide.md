@@ -239,14 +239,14 @@ Lists all the entries in the user's spending or income list. <br>
 ```
 	____________________________________________________________
 	Spendings
-	1. techno - 10 - 2024-10-17 - Tag: food
-	2. flights - 10 - 2024-10-17 - Tag: travel
-	3. girlfriends - 10 - 2024-10-17 - Tag: personal
-	4. macdonalds - 10 - 2024-10-10 - Tag: food
+	1. macdonalds - 10 - 2024-10-10 - Tag: food
+	2. techno - 10 - 2024-10-17 - Tag: food
+	3. flights - 10 - 2024-11-01 - Tag: travel
+	4. girlfriends - 10 - 2024-11-17 - Tag: personal
 	Total spendings: 40
 	Incomes
-	1. mcd - 100 - 2024-11-11 - Tag: personal
-	2. dividends - 10 - 2024-10-17 - Tag: investment
+	1. dividends - 10 - 2024-10-17 - Tag: investment
+	2. mcd - 100 - 2024-11-11 - Tag: personal
 	Total incomes: 110
 	____________________________________________________________
 ```
@@ -264,12 +264,12 @@ If option 1 (all) is chosen, the user will then be asked if all spending statist
 
 **Input:** `list spendings`
 ```
-    ____________________________________________________________
-    Select time range:
-    [1] All
-    [2] Weekly
-    [3] Biweekly
-    [4] Monthly
+	____________________________________________________________
+	List spending entries within:
+	[1] All
+	[2] This week
+	[3] Past 2 weeks
+	[4] This month
 ```
 
 - **Input:** `1`
