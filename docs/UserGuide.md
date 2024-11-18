@@ -129,6 +129,7 @@ Amount entered must be greater than 0 when rounded to 2dp. <br>
 - `[*$TAG*]`: Label for the entry.
   + Must be free of /, *, ~ and \| characters.
   - Enclosed in asterisks. 
+  - Case-insensitive (e.g. `Food` is treated the same as `food`)
 - `[~$FREQUENCY~]`: Frequency of recurrence to automate repeated transactions.
   - Enclosed in tilde.
   - Possible options: `daily`, `monthly` and `yearly`
@@ -256,9 +257,18 @@ Lists all the entries in the user's spending list.
 
 **Format:** `list spendings`
 
-The user will then be prompted to select a time range.
-Only entries that are within the time range will be displayed.
-If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed (case insensitive).
+The user will then be prompted to select a time range from the following options:
+1. All
+2. This week
+3. Past 2 weeks
+4. This month
+
+Only entries that are dated within the selected time range will be displayed. 
+<br> E.g. If today is 20 November 2024 (Wednesday) and the user chooses option 2 (this week),  only spending entries 
+from the current week's Monday (18 November 2024) to Sunday (24 November 2024) will be shown.
+
+If option 1 (all) is chosen, the user will then be asked if all spending statistics should be displayed 
+(Y/N is case insensitive).
 
 **Example Input and Output**
 
@@ -335,7 +345,11 @@ Lists all the entries in the user's income list.
 
 **Format:** `list incomes`
 
-The user will then be prompted to select a time range. 
+The user will then be prompted to select a time range.
+Only entries that are dated within the selected time range will be displayed.
+<br> E.g. If today is 20 November 2024 (Wednesday) and the user chooses option 2 (this week),  only income entries
+from the current week's Monday (18 November 2024) to Sunday (24 November 2024) will be shown.
+
 Only entries that are within the time range will be displayed.
 
 **Example Input and Output**
