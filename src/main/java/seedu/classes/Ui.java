@@ -28,7 +28,6 @@ import static seedu.classes.Constants.TAB;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_INCOMES;
 import static seedu.classes.Constants.SELECT_TIME_RANGE_MESSAGE_SPENDINGS;
 import static seedu.classes.Constants.WEEKLY_OPTION;
-import static seedu.classes.Constants.WHITESPACE;
 
 public class Ui {
     private static final String INCOME = "Incomes";
@@ -249,7 +248,8 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
-        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE)
+                : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
@@ -270,7 +270,8 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
-        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE)
+                : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
@@ -291,7 +292,8 @@ public class Ui {
                 sum += entry.getAmount();
             }
         }
-        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE) : filteredListString;
+        filteredListString = (filteredListString.isEmpty()) ? new StringBuilder(NO_ENTRIES_TIME_RANGE_MESSAGE)
+                : filteredListString;
         printWithTab(filteredListString.toString().strip());
         printWithTab("Total: " + formatPrintDouble(sum));
     }
